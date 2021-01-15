@@ -9,10 +9,10 @@ inspecode:
     - config-file: 'inspecode-stylelintrc.json'
       options:
         --config-basedir: '.rocro'
-      # auto-fix: true
-      thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
+      auto-fix: true
+      thresholds: {num-issues: 28}
     - config-file: 'inspecode-stylelintrc.yaml'
       options:
         --config-basedir: '.rocro'
       # auto-fix: true
-      thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
+      thresholds: {num-issues: 28}
