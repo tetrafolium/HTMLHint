@@ -2,5 +2,7 @@
   "esversion" : 6,
   "asi"       : true,
   "expr"      : true,
-  "moz"       : true
+  "funcscope" : true,
+  "moz"       : true,
+  "shadow"    : true
 }
