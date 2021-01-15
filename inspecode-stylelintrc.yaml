@@ -1,0 +1,3 @@
+---
+rules:
+  no-descending-specificity: nil

@@ -5,85 +5,10 @@ inspecode:
 
   tools:
 
-    clang-format:
-      auto-fix: true
-      thresholds: {num-issues: 223}
-
-    cpd:
-      options: [--skip-lexical-errors]
-      thresholds: {num-issues: 135}
-
-    eslint:
-      auto-fix: true
-      thresholds: {num-issues: 0}
-
-    flow:
-      thresholds: {num-issues: 0}   # found no input files
-
-    # fortify:
-    #   thresholds: {num-issues: 999}
-
-    fossology:
-      thresholds: {num-issues: 14}
-
-    grep:
-      ignore:
-        - website/playground/js/jshint.js   # minimized (3 issues)
-      thresholds: {num-issues: 10}
-
-    htmlhint:
-      thresholds: {num-issues: 126}
-
-    jscpd:
-      thresholds: {num-issues: 70}
-
-    jshint:
-      config-file: "inspecode-jshintrc.json"
-      thresholds: {num-issues: 773}
-
-    misspell:
-      auto-fix: true
-      thresholds: {num-issues: 21}
-
-    npm-audit:
-      auto-fix: true
-      thresholds: {num-issues: 12}
-
-    npm-test:
-      thresholds: {num-issues: 2}
-
-    phpcs:
-      auto-fix: true
-      thresholds: {num-issues: 999}   # too many issues detected: 11281 > 1000
-
-    pmd:
-    - thresholds: {num-issues: 999}   # Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-    - machine: {cpu: 1.0}
-      thresholds: {num-issues: 999}
-    - machine: {cpu: 1.1}   # `-threads 2`
-      thresholds: {num-issues: 999}
-    - machine: {cpu: 1.5}
-      thresholds: {num-issues: 999}
-
-    prettier:
-      auto-fix: true
-      thresholds: {num-issues: 1}
-
     stylelint:
+    - config-file: "inspecode-stylelintrc.json"
       auto-fix: true
       thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
-
-    tidy:
+    - config-file: "inspecode-stylelintrc.yaml"
       auto-fix: true
-      thresholds: {num-issues: 96}
-
-    tslint:
-      auto-fix: true
-      thresholds: {num-issues: 0}
-
-    # understand:
-    #   thresholds: {num-issues: 999}
-
-    unused:
-      options: [--single-occurrence, --all-likelihoods]
-      thresholds: {num-issues: 4}
+      thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
