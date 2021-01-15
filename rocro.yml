@@ -6,5 +6,5 @@ inspecode:
   tools:
 
     jshint:
-      config-file: "inspecode-jshint.json"
+      config-file: "inspecode-jshintrc.json"
       thresholds: {num-issues: 999}   # too many issues detected: 5375 > 1000
