@@ -1,0 +1,8 @@
+{
+  "esversion" : 6,
+  "asi"       : true,
+  "expr"      : true,
+  "funcscope" : true,
+  "moz"       : true,
+  "shadow"    : true
+}

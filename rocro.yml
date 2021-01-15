@@ -38,7 +38,8 @@ inspecode:
       thresholds: {num-issues: 70}
 
     jshint:
-      thresholds: {num-issues: 999}   # too many issues detected: 5375 > 1000
+      config-file: "inspecode-jshintrc.json"
+      thresholds: {num-issues: 773}
 
     misspell:
       auto-fix: true
