@@ -8,11 +8,11 @@ inspecode:
     stylelint:
     - config-file: 'inspecode-stylelintrc.json'
       options:
-        --config-basedir: '.rocro/node_modules_'
+        --config-basedir: '.rocro'
       # auto-fix: true
       thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
     - config-file: 'inspecode-stylelintrc.yaml'
       options:
-        --config-basedir: '.rocro/node_modules_'
+        --config-basedir: '.rocro'
       # auto-fix: true
       thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
