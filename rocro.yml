@@ -53,17 +53,25 @@ inspecode:
       thresholds: {num-issues: 2}
 
     phpcs:
+      options:
+        --standard: PEAR
+        --exclude:
+          - Generic.Commenting.DocComment         #  651 issues
+          - PEAR.Functions.FunctionCallSignature  # 3019 issues
+          - PEAR.Functions.FunctionDeclaration    #  680 issues
+          - PEAR.WhiteSpace.ScopeIndent           # 6238 issues
       auto-fix: true
-      thresholds: {num-issues: 999}   # too many issues detected: 11281 > 1000
+      thresholds: {num-issues: 693}
 
-    pmd:
-    - thresholds: {num-issues: 999}   # Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-    - machine: {cpu: 1.0}
-      thresholds: {num-issues: 999}
-    - machine: {cpu: 1.1}   # `-threads 2`
-      thresholds: {num-issues: 999}
-    - machine: {cpu: 1.5}
-      thresholds: {num-issues: 999}
+    #### codelift#1754
+    # pmd:
+    # - thresholds: {num-issues: 999}   # Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+    # - machine: {cpu: 1.0}
+    #   thresholds: {num-issues: 999}   # Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+    # - machine: {cpu: 1.1}   # `-threads 2`
+    #   thresholds: {num-issues: 999}   # /opt/pmd/pmd-bin-6.25.0/bin/run.sh: line 221:   197 Killed                  java ${HEAPSIZE} ${PMD_JAVA_OPTS} $(jre_specific_vm_options) -cp "${classpath}" "${CLASSNAME}" "$@"
+    # - machine: {cpu: 1.5}
+    #   thresholds: {num-issues: 999}   # /opt/pmd/pmd-bin-6.25.0/bin/run.sh: line 221:   197 Killed                  java ${HEAPSIZE} ${PMD_JAVA_OPTS} $(jre_specific_vm_options) -cp "${classpath}" "${CLASSNAME}" "$@"
 
     prettier:
       auto-fix: true
