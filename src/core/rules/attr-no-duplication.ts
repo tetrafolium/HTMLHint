@@ -1,4 +1,4 @@
-import {Rule} from '../types'
+import { Rule } from '../types'
 
 export default {
   id: 'attr-no-duplication',
@@ -10,7 +10,7 @@ export default {
       let attrName: string
       const col = event.col + event.tagName.length + 1
 
-      const mapAttrName: {[name: string]: boolean} = {}
+      const mapAttrName: { [name: string]: boolean } = {}
 
       for (let i = 0, l = attrs.length; i < l; i++) {
         attr = attrs[i]
@@ -18,8 +18,12 @@ export default {
 
         if (mapAttrName[attrName] === true) {
           reporter.error(
-              `Duplicate of attribute name [ ${attr.name} ] was found.`,
-              event.line, col + attr.index, this, attr.raw)
+            `Duplicate of attribute name [ ${attr.name} ] was found.`,
+            event.line,
+            col + attr.index,
+            this,
+            attr.raw
+          )
         }
         mapAttrName[attrName] = true
       }

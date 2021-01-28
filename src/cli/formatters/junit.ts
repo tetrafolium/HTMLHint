@@ -1,16 +1,15 @@
 import * as xml from 'xml'
-import type {XmlObject} from 'xml'
-import {FormatterCallback} from '../formatter'
+import type { XmlObject } from 'xml'
+import { FormatterCallback } from '../formatter'
 
-const junitFormatter: FormatterCallback =
-    function(formatter, HTMLHint) {
+const junitFormatter: FormatterCallback = function (formatter, HTMLHint) {
   formatter.on('end', (event) => {
     const arrTestcase: XmlObject[] = []
     const arrAllMessages = event.arrAllMessages
 
     arrAllMessages.forEach((fileInfo) => {
       const arrMessages = fileInfo.messages
-    const arrLogs = HTMLHint.format(arrMessages)
+      const arrLogs = HTMLHint.format(arrMessages)
 
       arrTestcase.push({
         testcase: [
@@ -59,4 +58,4 @@ const junitFormatter: FormatterCallback =
   })
 }
 
-    module.exports = junitFormatter
+module.exports = junitFormatter

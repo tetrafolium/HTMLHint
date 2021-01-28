@@ -1,15 +1,15 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import {terser} from 'rollup-plugin-terser'
+import { terser } from 'rollup-plugin-terser'
 
 const config = {
-  input : './dist/core/core.js',
-  output : {
-    file : 'dist/htmlhint.js',
-    format : 'umd',
-    name : 'HTMLHint',
+  input: './dist/core/core.js',
+  output: {
+    file: 'dist/htmlhint.js',
+    format: 'umd',
+    name: 'HTMLHint',
   },
-  plugins : [ commonjs(), resolve() ],
+  plugins: [commonjs(), resolve()],
 }
 
 if (process.env.NODE_ENV === 'production') {
