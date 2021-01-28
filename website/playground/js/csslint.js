@@ -3147,7 +3147,7 @@ var CSSLint = (function() {
                * S* '{' S* [ declaration | margin ]? [ ';' S* [ declaration |
                * margin ]? ]* '}' S* Note that this is how it is described in
                * CSS3 Paged Media, but is actually incorrect. A semicolon is
-               * only necessary following a delcaration is there's another
+               * only necessary following a declaration is there's another
                * declaration or margin afterwards.
                */
               var tokenStream = this._tokenStream, tt;
@@ -6544,7 +6544,7 @@ var CSSLint = (function() {
     /*
      * Adds all properties from supplier onto receiver,
      * overwriting if the same name already exists on
-     * reciever.
+     * receiver.
      * @param {Object} The object to receive the properties.
      * @param {Object} The object to provide the properties.
      * @return {Object} The receiver
@@ -8787,7 +8787,7 @@ var CSSLint = (function() {
           // ignore rollups for now
           if (!message.rollup) {
 
-            // build the test case seperately, once joined
+            // build the test case separately, once joined
             // we'll add it to a custom array filtered by type
             output.push("<testcase time=\"0\" name=\"" +
                         generateSource(message.rule) + "\">");

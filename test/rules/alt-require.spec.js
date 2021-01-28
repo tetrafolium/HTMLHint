@@ -63,7 +63,7 @@ describe(`Rules: ${ruldId}`, () => {
     expect(messages[0].type).to.be('warning')
   })
 
-  it('Area[href] tag have non emtpy alt attribute should not result in an error', () => {
+  it('Area[href] tag have non empty alt attribute should not result in an error', () => {
     const code = '<area href="#test" alt="test">'
     const messages = HTMLHint.verify(code, ruleOptions)
     expect(messages.length).to.be(0)
@@ -101,7 +101,7 @@ describe(`Rules: ${ruldId}`, () => {
     expect(messages[0].type).to.be('warning')
   })
 
-  it('Input[type="image"] tag have non emtpy alt attribute should not result in an error', () => {
+  it('Input[type="image"] tag have non empty alt attribute should not result in an error', () => {
     const code = '<input type="image" alt="test">'
     const messages = HTMLHint.verify(code, ruleOptions)
     expect(messages.length).to.be(0)
