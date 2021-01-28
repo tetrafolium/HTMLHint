@@ -7,15 +7,20 @@ inspecode:
 
     stylelint:
     - ignore:
-        - 'website/playground/css/bootstrap*.css' # too many "no-descending-specificity" issues
+        - '**/*.min.css'
+        - 'website/playground/css/bootstrap*.css' # external origin ... too many "no-descending-specificity" issues
       auto-fix: true
       thresholds: {num-issues: 12}
     - config-file: 'inspecode-stylelintrc.yaml'   # disable "no-descending-specificity" rule
       options: &config-basedir-option
-        --config-basedir: '.rocro'  # node_module "stylelint-config-recommended" installed here
+        --config-basedir: '.rocro'  # node_module "stylelint-config-standard" installed here
+      ignore:
+        - '**/*.min.css'
       # auto-fix: true
-      thresholds: {num-issues: 28}
-    - config-file: 'inspecode-stylelintrc.json'   # same settings in another format
+      thresholds: {num-issues: 18}
+    - config-file: 'inspecode-stylelintrc.json'   # same settings above in another format
       options: *config-basedir-option
+      ignore:
+        - '**/*.min.css'
       #auto-fix: true
-      thresholds: {num-issues: 28}
+      thresholds: {num-issues: 18}
