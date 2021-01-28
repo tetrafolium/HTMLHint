@@ -6,16 +6,16 @@ inspecode:
   tools:
 
     stylelint:
-    - ignore: 'website/playground/css/bootstrap*.css'
+    - ignore:
+        - 'website/playground/css/bootstrap*.css' # too many "no-descending-specificity" issues
       auto-fix: true
-      thresholds: {num-issues: 999}
-    - config-file: 'inspecode-stylelintrc.json'
-      options:
-        --config-basedir: '.rocro'
-      #auto-fix: true
-      thresholds: {num-issues: 28}
-    - config-file: 'inspecode-stylelintrc.yaml'
-      options:
-        --config-basedir: '.rocro'
+      thresholds: {num-issues: 12}
+    - config-file: 'inspecode-stylelintrc.yaml'   # disable "no-descending-specificity" rule
+      options: &config-basedir-option
+        --config-basedir: '.rocro'  # node_module "stylelint-config-recommended" installed here
       # auto-fix: true
+      thresholds: {num-issues: 28}
+    - config-file: 'inspecode-stylelintrc.json'   # same settings in another format
+      options: *config-basedir-option
+      #auto-fix: true
       thresholds: {num-issues: 28}

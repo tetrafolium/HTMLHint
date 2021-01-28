@@ -1,4 +1,4 @@
 ---
 extends: 'stylelint-config-recommended'
 rules:
-  no-descending-specificity: null
+  no-descending-specificity: null   # too many issues in "website/playground/css/bootstrap*.css"
