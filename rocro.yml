@@ -6,10 +6,13 @@ inspecode:
   tools:
 
     stylelint:
+    - ignore: 'website/playground/css/bootstrap*.css'
+      auto-fix: true
+      thresholds: {num-issues: 999}
     - config-file: 'inspecode-stylelintrc.json'
       options:
         --config-basedir: '.rocro'
-      auto-fix: true
+      #auto-fix: true
       thresholds: {num-issues: 28}
     - config-file: 'inspecode-stylelintrc.yaml'
       options:
