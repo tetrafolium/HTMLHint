@@ -11,7 +11,7 @@ describe('CLI', () => {
         .readFileSync(path.resolve(__dirname, 'html.html'), 'utf8')
         .replace(/\{\{path\}\}/g, path.resolve(__dirname, 'example.html'))
 
-      const expectedParts = expected.split('\n')
+const expectedParts = expected.split('\n')
 
       ChildProcess.exec(
         [
@@ -22,24 +22,23 @@ describe('CLI', () => {
           'html',
         ].join(' '),
         (error, stdout, stderr) => {
-          expect(error).to.be.an('object')
-          expect(error.code).to.be.equal(1)
+  expect(error).to.be.an('object')
+  expect(error.code).to.be.equal(1)
 
-          expect(stdout).not.to.equal('')
+  expect(stdout).not.to.equal('')
 
-          const stdoutParts = stdout.split('\n')
+  const stdoutParts = stdout.split('\n')
 
-          expect(stdoutParts.length).to.be.equal(expectedParts.length)
+  expect(stdoutParts.length).to.be.equal(expectedParts.length)
 
-          for (let i = 0; i < stdoutParts.length; i++) {
-            const lineIndicator = `[L${i + 1}]: `
-            expect(`${lineIndicator}${stdoutParts[i]}`).to.be.equal(
-              `${lineIndicator}${expectedParts[i]}`
-            )
-          }
+  for (let i = 0; i < stdoutParts.length; i++) {
+    const lineIndicator = `[L${i + 1}]: `
+    expect(`${lineIndicator}${stdoutParts[i]}`)
+        .to.be.equal(`${lineIndicator}${expectedParts[i]}`)
+  }
 
-          expect(stderr).to.be.equal('')
-          done()
+  expect(stderr).to.be.equal('')
+  done()
         }
       )
     })

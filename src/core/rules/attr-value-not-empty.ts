@@ -1,4 +1,4 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'attr-value-not-empty',
@@ -12,14 +12,9 @@ export default {
       for (let i = 0, l = attrs.length; i < l; i++) {
         attr = attrs[i]
 
-        if (attr.quote === '' && attr.value === '') {
-          reporter.warn(
-            `The attribute [ ${attr.name} ] must have a value.`,
-            event.line,
-            col + attr.index,
-            this,
-            attr.raw
-          )
+            if (attr.quote === '' && attr.value === '') {
+          reporter.warn(`The attribute [ ${attr.name} ] must have a value.`,
+                        event.line, col + attr.index, this, attr.raw)
         }
       }
     })

@@ -1,7 +1,7 @@
 import HTMLParser from './htmlparser'
 import Reporter from './reporter'
 import * as HTMLRules from './rules'
-import { Hint, Rule, Ruleset } from './types'
+import {Hint, Rule, Ruleset} from './types'
 
 export interface FormatOptions {
   colors?: boolean
@@ -9,19 +9,19 @@ export interface FormatOptions {
 }
 
 class HTMLHintCore {
-  public rules: { [id: string]: Rule } = {}
-  public readonly defaultRuleset: Ruleset = {
-    'tagname-lowercase': true,
-    'attr-lowercase': true,
-    'attr-value-double-quotes': true,
-    'doctype-first': true,
-    'tag-pair': true,
-    'spec-char-escape': true,
-    'id-unique': true,
-    'src-not-empty': true,
-    'attr-no-duplication': true,
-    'title-require': true,
-  }
+  public rules: {[id: string]: Rule} = {} public readonly defaultRuleset:
+      Ruleset = {
+        'tagname-lowercase' : true,
+        'attr-lowercase': true,
+        'attr-value-double-quotes': true,
+        'doctype-first': true,
+        'tag-pair': true,
+        'spec-char-escape': true,
+        'id-unique': true,
+        'src-not-empty': true,
+        'attr-no-duplication': true,
+        'title-require': true,
+      }
 
   public addRule(rule: Rule) {
     this.rules[rule.id] = rule
@@ -58,31 +58,29 @@ class HTMLHintCore {
       }
     )
 
-    const parser = new HTMLParser()
-    const reporter = new Reporter(html, ruleset)
+        const parser = new HTMLParser()
+        const reporter = new Reporter(html, ruleset)
 
-    const rules = this.rules
-    let rule: Rule
+        const rules = this.rules
+        let rule: Rule
 
-    for (const id in ruleset) {
-      rule = rules[id]
-      if (rule !== undefined && ruleset[id] !== false) {
-        rule.init(parser, reporter, ruleset[id])
-      }
-    }
+        for (const id in ruleset) {
+          rule = rules[id] if (rule !== undefined && ruleset[id] !== false) {
+            rule.init(parser, reporter, ruleset[id])
+          }
+        }
 
-    parser.parse(html)
+        parser.parse(html)
 
-    return reporter.messages
+        return reporter.messages
   }
 
   public format(arrMessages: Hint[], options: FormatOptions = {}) {
-    const arrLogs: string[] = []
-    const colors = {
-      white: '',
-      grey: '',
-      red: '',
-      reset: '',
+    const arrLogs: string[] = [] const colors = {
+      white : '',
+      grey : '',
+      red : '',
+      reset : '',
     }
 
     if (options.colors) {
@@ -102,8 +100,8 @@ class HTMLHintCore {
       const col = hint.col
       const evidenceCount = evidence.length
       let leftCol = col > leftWindow + 1 ? col - leftWindow : 1
-      let rightCol =
-        evidence.length > col + rightWindow ? col + rightWindow : evidenceCount
+      let rightCol = evidence.length > col + rightWindow ? col + rightWindow
+                                                         : evidenceCount
 
       if (col < leftWindow + 1) {
         rightCol += leftWindow - col + 1
@@ -121,11 +119,8 @@ class HTMLHintCore {
       }
 
       // show evidence
-      arrLogs.push(
-        `${colors.white + repeatStr(indent)}L${line} |${
-          colors.grey
-        }${evidence}${colors.reset}`
-      )
+      arrLogs.push(`${colors.white + repeatStr(indent)}L${line} |${
+          colors.grey}${evidence}${colors.reset}`)
 
       // show pointer & message
       let pointCol = col - leftCol
@@ -136,13 +131,10 @@ class HTMLHintCore {
         pointCol += match.length
       }
 
-      arrLogs.push(
-        `${
-          colors.white +
-          repeatStr(indent) +
-          repeatStr(String(line).length + 3 + pointCol)
-        }^ ${colors.red}${hint.message} (${hint.rule.id})${colors.reset}`
-      )
+      arrLogs.push(`${
+          colors.white + repeatStr(indent) +
+          repeatStr(String(line).length + 3 + pointCol)}^ ${colors.red}${
+          hint.message} (${hint.rule.id})${colors.reset}`)
     })
 
     return arrLogs
@@ -156,10 +148,8 @@ function repeatStr(n: number, str?: string) {
 
 export const HTMLHint = new HTMLHintCore()
 
-Object.keys(HTMLRules).forEach((key) => {
-  // TODO: need a fix
-  // @ts-expect-error
-  HTMLHint.addRule(HTMLRules[key])
-})
+Object.keys(HTMLRules).forEach((key) => {// TODO: need a fix
+                                         // @ts-expect-error
+                                         HTMLHint.addRule(HTMLRules[key])})
 
 export { HTMLRules, Reporter, HTMLParser }

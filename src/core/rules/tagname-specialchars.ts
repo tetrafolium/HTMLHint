@@ -1,4 +1,4 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'tagname-specialchars',
@@ -9,13 +9,9 @@ export default {
     parser.addListener('tagstart,tagend', (event) => {
       const tagName = event.tagName
       if (specialchars.test(tagName)) {
-        reporter.error(
-          `The html element name of [ ${tagName} ] contains special character.`,
-          event.line,
-          event.col,
-          this,
-          event.raw
-        )
+        reporter.error(`The html element name of [ ${
+                           tagName} ] contains special character.`,
+                       event.line, event.col, this, event.raw)
       }
     })
   },

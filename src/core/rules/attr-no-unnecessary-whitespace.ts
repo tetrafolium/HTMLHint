@@ -1,4 +1,4 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'attr-no-unnecessary-whitespace',
@@ -15,12 +15,10 @@ export default {
           const match = /(\s*)=(\s*)/.exec(attrs[i].raw.trim())
           if (match && (match[1].length !== 0 || match[2].length !== 0)) {
             reporter.error(
-              `The attribute '${attrs[i].name}' must not have spaces between the name and value.`,
-              event.line,
-              col + attrs[i].index,
-              this,
-              attrs[i].raw
-            )
+                `The attribute '${
+                    attrs[i]
+                        .name}' must not have spaces between the name and value.`,
+                event.line, col + attrs[i].index, this, attrs[i].raw)
           }
         }
       }

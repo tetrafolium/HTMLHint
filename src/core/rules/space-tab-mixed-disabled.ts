@@ -1,11 +1,11 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'space-tab-mixed-disabled',
   description: 'Do not mix tabs and spaces for indentation.',
   init(parser, reporter, options) {
     let indentMode = 'nomix'
-    let spaceLengthRequire: number | '' | null = null
+    let spaceLengthRequire: number|''|null = null
 
     if (typeof options === 'string') {
       const match = /^([a-z]+)(\d+)?/.exec(options)
@@ -26,48 +26,28 @@ export default {
           continue
         }
 
-        const whiteSpace = match[2]
-        if (indentMode === 'space') {
+        const whiteSpace = match[2] if (indentMode === 'space') {
           if (spaceLengthRequire) {
-            if (
-              /^ +$/.test(whiteSpace) === false ||
-              whiteSpace.length % spaceLengthRequire !== 0
-            ) {
-              reporter.warn(
-                `Please use space for indentation and keep ${spaceLengthRequire} length.`,
-                fixedPos.line,
-                1,
-                this,
-                event.raw
-              )
+            if (/^ +$/.test(whiteSpace) === false ||
+                whiteSpace.length % spaceLengthRequire !== 0) {
+              reporter.warn(`Please use space for indentation and keep ${
+                                spaceLengthRequire} length.`,
+                            fixedPos.line, 1, this, event.raw)
             }
           } else {
             if (/^ +$/.test(whiteSpace) === false) {
-              reporter.warn(
-                'Please use space for indentation.',
-                fixedPos.line,
-                1,
-                this,
-                event.raw
-              )
+              reporter.warn('Please use space for indentation.', fixedPos.line,
+                            1, this, event.raw)
             }
           }
-        } else if (indentMode === 'tab' && /^\t+$/.test(whiteSpace) === false) {
-          reporter.warn(
-            'Please use tab for indentation.',
-            fixedPos.line,
-            1,
-            this,
-            event.raw
-          )
-        } else if (/ +\t|\t+ /.test(whiteSpace) === true) {
-          reporter.warn(
-            'Do not mix tabs and spaces for indentation.',
-            fixedPos.line,
-            1,
-            this,
-            event.raw
-          )
+        }
+        else if (indentMode === 'tab' && /^\t+$/.test(whiteSpace) === false) {
+          reporter.warn('Please use tab for indentation.', fixedPos.line, 1,
+                        this, event.raw)
+        }
+        else if (/ +\t|\t+ /.test(whiteSpace) === true) {
+          reporter.warn('Do not mix tabs and spaces for indentation.',
+                        fixedPos.line, 1, this, event.raw)
         }
       }
     })

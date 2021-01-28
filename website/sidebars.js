@@ -1,13 +1,13 @@
 module.exports = {
-  docs: {
-    'User guide': [
+  docs : {
+    'User guide' : [
       'user-guide/getting-started',
       'user-guide/configuration',
       {
-        Rules: [
+        Rules : [
           'user-guide/list-rules',
           {
-            'Individual rules': [
+            'Individual rules' : [
               'user-guide/rules/alt-require',
               'user-guide/rules/attr-no-duplication',
               'user-guide/rules/attr-lowercase',
@@ -33,8 +33,8 @@ module.exports = {
             ],
           },
         ],
-        Usage: ['user-guide/usage/cli', 'user-guide/usage/options'],
-        Integrations: [
+        Usage : [ 'user-guide/usage/cli', 'user-guide/usage/options' ],
+        Integrations : [
           'user-guide/integrations/editor',
           'user-guide/integrations/task-runner',
         ],

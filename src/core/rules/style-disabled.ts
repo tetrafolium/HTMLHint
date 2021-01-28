@@ -1,4 +1,4 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'style-disabled',
@@ -6,13 +6,8 @@ export default {
   init(parser, reporter) {
     parser.addListener('tagstart', (event) => {
       if (event.tagName.toLowerCase() === 'style') {
-        reporter.warn(
-          'The <style> tag cannot be used.',
-          event.line,
-          event.col,
-          this,
-          event.raw
-        )
+        reporter.warn('The <style> tag cannot be used.', event.line, event.col,
+                      this, event.raw)
       }
     })
   },

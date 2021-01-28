@@ -11,15 +11,12 @@ describe('Executable', () => {
       'json',
       path.resolve(__dirname, './html/executable.html'),
     ])
-    let stdoutEnd = false
-    let processEnd = false
-    let isDone = 0
+  let stdoutEnd = false
+  let processEnd = false
+  let isDone = 0
 
     function checkDone() {
-      isDone++
-      if (isDone == 2) {
-        done()
-      }
+    isDone++ if (isDone == 2) { done() }
     }
 
     c.stdout.on('close', () => {
@@ -37,16 +34,15 @@ describe('Executable', () => {
     })
   })
 
-  for (const format of [
-    'checkstyle',
-    'compact',
-    'default',
-    'html',
-    'json',
-    'junit',
-    'markdown',
-    'unix',
-  ]) {
+    for (const format of ['checkstyle',
+                          'compact',
+                          'default',
+                          'html',
+                          'json',
+                          'junit',
+                          'markdown',
+                          'unix',
+    ]) {
     it(`should have stdout output with formatter ${format}`, (done) => {
       ChildProcess.exec(
         [
@@ -58,12 +54,12 @@ describe('Executable', () => {
         ].join(' '),
         (error, stdout, stderr) => {
           expect(error).to.be.an('object')
-          expect(error.code).to.be.equal(1)
-          expect(stdout).not.to.be.equal('')
-          expect(stderr).to.be.equal('')
+    expect(error.code).to.be.equal(1)
+    expect(stdout).not.to.be.equal('')
+    expect(stderr).to.be.equal('')
           done()
         }
       )
     })
-  }
+    }
 })

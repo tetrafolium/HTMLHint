@@ -1,4 +1,4 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 /**
  * testAgainstStringOrRegExp
@@ -6,31 +6,31 @@ import { Rule } from '../types'
  * @param value string to test
  * @param comparison raw string or regex string
  */
-function testAgainstStringOrRegExp(value: string, comparison: string | RegExp) {
+function testAgainstStringOrRegExp(value: string, comparison: string|RegExp) {
   // If it's a RegExp, test directly
   if (comparison instanceof RegExp) {
-    return comparison.test(value)
-      ? { match: value, pattern: comparison }
-      : false
+    return comparison.test(value) ? {match : value, pattern : comparison}
+                                  : false
   }
 
   // Check if it's RegExp in a string
-  const firstComparisonChar = comparison[0]
-  const lastComparisonChar = comparison[comparison.length - 1]
-  const secondToLastComparisonChar = comparison[comparison.length - 2]
+  const firstComparisonChar = comparison[0] const lastComparisonChar =
+      comparison[comparison.length - 1] const secondToLastComparisonChar =
+          comparison[comparison.length - 2]
 
-  const comparisonIsRegex =
-    firstComparisonChar === '/' &&
-    (lastComparisonChar === '/' ||
-      (secondToLastComparisonChar === '/' && lastComparisonChar === 'i'))
+      const comparisonIsRegex =
+          firstComparisonChar === '/' &&
+          (lastComparisonChar === '/' ||
+           (secondToLastComparisonChar === '/' && lastComparisonChar === 'i'))
 
   const hasCaseInsensitiveFlag = comparisonIsRegex && lastComparisonChar === 'i'
 
   // If so, create a new RegExp from it
   if (comparisonIsRegex) {
-    const valueMatches = hasCaseInsensitiveFlag
-      ? new RegExp(comparison.slice(1, -2), 'i').test(value)
-      : new RegExp(comparison.slice(1, -1)).test(value)
+    const valueMatches =
+        hasCaseInsensitiveFlag
+            ? new RegExp(comparison.slice(1, -2), 'i').test(value)
+            : new RegExp(comparison.slice(1, -1)).test(value)
 
     return valueMatches
   }
@@ -51,20 +51,14 @@ export default {
       const col = event.col + event.tagName.length + 1
 
       for (let i = 0, l = attrs.length; i < l; i++) {
-        attr = attrs[i]
-        const attrName = attr.name
+        attr = attrs[i] const attrName = attr.name
 
-        if (
-          !exceptions.find((exp) => testAgainstStringOrRegExp(attrName, exp)) &&
-          attrName !== attrName.toLowerCase()
-        ) {
+        if (!exceptions.find((exp) =>
+                                 testAgainstStringOrRegExp(attrName, exp)) &&
+            attrName !== attrName.toLowerCase()) {
           reporter.error(
-            `The attribute name of [ ${attrName} ] must be in lowercase.`,
-            event.line,
-            col + attr.index,
-            this,
-            attr.raw
-          )
+              `The attribute name of [ ${attrName} ] must be in lowercase.`,
+              event.line, col + attr.index, this, attr.raw)
         }
       }
     })

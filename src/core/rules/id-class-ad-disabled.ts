@@ -1,9 +1,9 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'id-class-ad-disabled',
   description:
-    'The id and class attributes cannot use the ad keyword, it will be blocked by adblock software.',
+      'The id and class attributes cannot use the ad keyword, it will be blocked by adblock software.',
   init(parser, reporter) {
     parser.addListener('tagstart', (event) => {
       const attrs = event.attrs
@@ -18,12 +18,8 @@ export default {
         if (/^(id|class)$/i.test(attrName)) {
           if (/(^|[-_])ad([-_]|$)/i.test(attr.value)) {
             reporter.warn(
-              `The value of attribute ${attrName} cannot use the ad keyword.`,
-              event.line,
-              col + attr.index,
-              this,
-              attr.raw
-            )
+                `The value of attribute ${attrName} cannot use the ad keyword.`,
+                event.line, col + attr.index, this, attr.raw)
           }
         }
       }

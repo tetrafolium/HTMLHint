@@ -1,33 +1,36 @@
-import { Rule } from '../types'
+import {Rule} from '../types'
 
 export default {
   id: 'id-class-value',
   description:
-    'The id and class attribute values must meet the specified rules.',
+      'The id and class attribute values must meet the specified rules.',
   init(parser, reporter, options) {
-    const arrRules: { [option: string]: { regId: RegExp; message: string } } = {
-      underline: {
-        regId: /^[a-z\d]+(_[a-z\d]+)*$/,
-        message:
-          'The id and class attribute values must be in lowercase and split by an underscore.',
+    const arrRules: {[option: string]: {regId: RegExp; message : string}} = {
+      underline : {
+        regId : /^[a-z\d]+(_[a-z\d]+)*$/,
+        message :
+            'The id and class attribute values must be in lowercase and split by an underscore.',
       },
-      dash: {
-        regId: /^[a-z\d]+(-[a-z\d]+)*$/,
-        message:
-          'The id and class attribute values must be in lowercase and split by a dash.',
+      dash : {
+        regId : /^[a-z\d]+(-[a-z\d]+)*$/,
+        message :
+            'The id and class attribute values must be in lowercase and split by a dash.',
       },
-      hump: {
-        regId: /^[a-z][a-zA-Z\d]*([A-Z][a-zA-Z\d]*)*$/,
-        message:
-          'The id and class attribute values must meet the camelCase style.',
+      hump : {
+        regId : /^[a-z][a-zA-Z\d]*([A-Z][a-zA-Z\d]*)*$/,
+        message :
+            'The id and class attribute values must meet the camelCase style.',
       },
-    }
-    let rule: { regId: RegExp; message: string } | boolean
+    } let rule: {regId: RegExp; message : string}|boolean
 
     if (typeof options === 'string') {
       rule = arrRules[options]
-    } else {
-      rule = options as { regId: RegExp; message: string }
+    }
+    else {
+      rule = options as {
+        regId: RegExp;
+        message: string
+      }
     }
 
     if (typeof rule === 'object' && rule.regId) {
@@ -46,15 +49,10 @@ export default {
         for (let i = 0, l1 = attrs.length; i < l1; i++) {
           attr = attrs[i]
 
-          if (attr.name.toLowerCase() === 'id') {
+              if (attr.name.toLowerCase() === 'id') {
             if (regId.test(attr.value) === false) {
-              reporter.warn(
-                message,
-                event.line,
-                col + attr.index,
-                this,
-                attr.raw
-              )
+              reporter.warn(message, event.line, col + attr.index, this,
+                            attr.raw)
             }
           }
 
@@ -63,15 +61,10 @@ export default {
             let classValue
 
             for (let j = 0, l2 = arrClass.length; j < l2; j++) {
-              classValue = arrClass[j]
-              if (classValue && regId.test(classValue) === false) {
-                reporter.warn(
-                  message,
-                  event.line,
-                  col + attr.index,
-                  this,
-                  classValue
-                )
+              classValue = arrClass[j] if (classValue &&
+                                           regId.test(classValue) === false) {
+                reporter.warn(message, event.line, col + attr.index, this,
+                              classValue)
               }
             }
           }
