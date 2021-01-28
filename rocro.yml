@@ -78,8 +78,11 @@ inspecode:
       thresholds: {num-issues: 1}
 
     stylelint:
+      ignore:
+        - '**/*.min.css'
+        - 'website/playground/css/bootstrap*.css' # external origin ... too many issues (rule="no-descending-specificity")
       auto-fix: true
-      thresholds: {num-issues: 999}   # too many issues detected: 7688 > 1000
+      thresholds: {num-issues: 12}
 
     tidy:
       auto-fix: true
