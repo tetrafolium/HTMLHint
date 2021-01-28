@@ -36,14 +36,16 @@ define(
         this.getIndentForOpenBrace = function(
             e) { return this.codeModel.getIndentForOpenBrace(e) },
         this.autoOutdent = function(e, t, n) {
-          if (n == 0)
+          if (n == 0) {
             return 0;
+          }
           var i = t.getLine(n), s = i.match(/^(\s*[\}\)])/);
           if (s) {
             var o = s[1].length,
                 u = t.findMatchingBracket({row : n, column : o});
-            if (!u || u.row == n)
+            if (!u || u.row == n) {
               return 0;
+            }
             var a = this.codeModel.getIndentForOpenBrace(u);
             t.replace(new r(n, 0, n, o - 1), a)
           }
@@ -145,8 +147,9 @@ define(
                   ]
                 };
                 var n = (new o("comment")).getRules();
-                for (var r = 0; r < n.start.length; r++)
+                for (var r = 0; r < n.start.length; r++) {
                   n.start[r].token += ".virtual-comment";
+                }
                 this.addRules(n, "rd-"),
                     this.$rules["rd-start"].unshift(
                         {token : "text", regex : "^", next : "start"}),
@@ -219,12 +222,14 @@ define(
                    e, t) { return /^\s+$/.test(e) ? /^\s*\}/.test(t) : !1 },
                this.autoOutdent = function(e, t) {
                  var n = e.getLine(t), i = n.match(/^(\s*\})/);
-                 if (!i)
+                 if (!i) {
                    return 0;
+                 }
                  var s = i[1].length,
                      o = e.findMatchingBracket({row : t, column : s});
-                 if (!o || o.row == t)
+                 if (!o || o.row == t) {
                    return 0;
+                 }
                  var u = this.$getIndent(e.getLine(o.row));
                  e.replace(new r(t, 0, t, s - 1), u)
                }, this.$getIndent = function(e) { return e.match(/^\s*/)[0] }

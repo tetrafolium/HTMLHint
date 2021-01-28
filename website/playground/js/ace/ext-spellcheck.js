@@ -8,14 +8,16 @@ define(
       var r = e("../lib/event");
       t.contextMenuHandler = function(e) {
         var t = e.target, n = t.textInput.getElement();
-        if (!t.selection.isEmpty())
+        if (!t.selection.isEmpty()) {
           return;
+        }
         var i = t.getCursorPosition(),
             s = t.session.getWordRange(i.row, i.column),
             o = t.session.getTextRange(s);
         t.session.tokenRe.lastIndex = 0;
-        if (!t.session.tokenRe.test(o))
+        if (!t.session.tokenRe.test(o)) {
           return;
+        }
         var u = "", a = o + " " + u;
         n.value = a, n.setSelectionRange(o.length + 1, o.length + 1),
         n.setSelectionRange(0, 0);
@@ -25,18 +27,22 @@ define(
             function l() { r.removeListener(n, "keydown", l), f = !0 }),
             t.textInput.setInputHandler(function(e) {
               console.log(e, a, n.selectionStart, n.selectionEnd);
-              if (e == a)
+              if (e == a) {
                 return "";
-              if (e.lastIndexOf(a, 0) === 0)
+              }
+              if (e.lastIndexOf(a, 0) === 0) {
                 return e.slice(a.length);
-              if (e.substr(n.selectionEnd) == a)
+              }
+              if (e.substr(n.selectionEnd) == a) {
                 return e.slice(0, -a.length);
+              }
               if (e.slice(-2) == u) {
                 var r = e.slice(0, -2);
-                if (r.slice(-1) == " ")
+                if (r.slice(-1) == " ") {
                   return f ? r.substring(0, n.selectionEnd)
                            : (r = r.slice(0, -1), t.session.replace(s, r), "")
               }
+                }
               return e
             })
       };

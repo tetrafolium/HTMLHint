@@ -23,8 +23,9 @@ export default (function hotjar() {
     }
   }
 
-  if (process.env.NODE_ENV !== 'production' || !hjid ||
-      typeof window === 'undefined') {
+  if (process.env.NODE_ENV !== 'production' || !hjid 
+      || typeof window === 'undefined'
+  ) {
     return null;
   }
 

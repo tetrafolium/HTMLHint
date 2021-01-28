@@ -13,8 +13,9 @@ define(
       }
       function a(e, t) {
         var n = {}.hasOwnProperty;
-        for (var r in t)
+        for (var r in t) {
           n.call(t, r) && (e[r] = t[r]);
+        }
         return e
       }
       var r, i, s, o;
@@ -24,9 +25,10 @@ define(
         function o() {
           var t;
           this.$tokenizer = new (e("ace/tokenizer").Tokenizer)(o.Rules);
-          if (t = e("ace/mode/matching_brace_outdent"))
+          if (t = e("ace/mode/matching_brace_outdent")) {
             this.$outdent = new t.MatchingBraceOutdent
         }
+          }
         var n, i = u((a(o, t).displayName = "LiveScriptMode", o), t).prototype,
                s = o;
         return n = RegExp(
@@ -42,13 +44,14 @@ define(
                }, i.toggleCommentLines = function(t, n, r, i) {
                  var s, o, u, a, f, l;
                  s = /^(\s*)#/, o = new (e("ace/range").Range)(0, 0, 0, 0);
-                 for (u = r; u <= i; ++u)
+                 for (u = r; u <= i; ++u) {
                    a = u,
                    (f = s.test(l = n.getLine(a)))
                        ? l = l.replace(s, "$1")
                        : l = l.replace(/^\s*/, "$&#"),
                    o.end.row = o.start.row = a, o.end.column = l.length + 1,
                    n.replace(o, l);
+                 }
                  return 1 - f * 2
                }, i.checkOutdent = function(e, t, n) {
                  var r;
@@ -186,12 +189,14 @@ define(
                    e, t) { return /^\s+$/.test(e) ? /^\s*\}/.test(t) : !1 },
                this.autoOutdent = function(e, t) {
                  var n = e.getLine(t), i = n.match(/^(\s*\})/);
-                 if (!i)
+                 if (!i) {
                    return 0;
+                 }
                  var s = i[1].length,
                      o = e.findMatchingBracket({row : t, column : s});
-                 if (!o || o.row == t)
+                 if (!o || o.row == t) {
                    return 0;
+                 }
                  var u = this.$getIndent(e.getLine(o.row));
                  e.replace(new r(t, 0, t, s - 1), u)
                }, this.$getIndent = function(e) { return e.match(/^\s*/)[0] }

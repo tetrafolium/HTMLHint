@@ -317,9 +317,10 @@ define("ace/mode/asciidoc",
                       o.noEscape &&
                           (u = u.filter(function(e) { return !e.next })),
                           i.splice.apply(i, u)
-                    } else
+                    } else {
                       o.token in n && (o.token = n[o.token])
                   }
+                    }
                 }
               };
           r.inherits(s, i), t.AsciidocHighlightRules = s
@@ -355,8 +356,9 @@ define("ace/mode/asciidoc",
               function l(t) { return f = e.getTokens(t)[0], f && f.type }
               function d() {
                 var t = f.value.match(p);
-                if (t)
+                if (t) {
                   return t[0].length;
+                }
                 var r = c.indexOf(f.value[0]) + 1;
                 return r == 1 && e.getLine(n - 1).length != e.getLine(n).length
                            ? Infinity
@@ -364,24 +366,29 @@ define("ace/mode/asciidoc",
               }
               var r = e.getLine(n), i = r.length, o = e.getLength(), u = n,
                   a = n;
-              if (!r.match(this.foldingStartMarker))
+              if (!r.match(this.foldingStartMarker)) {
                 return;
+              }
               var f, c = [ "=", "-", "~", "^", "+" ], h = "markup.heading",
                      p = this.singleLineHeadingRe;
               if (l(n) == h) {
                 var v = d();
                 while (++n < o) {
-                  if (l(n) != h)
+                  if (l(n) != h) {
                     continue;
+                  }
                   var m = d();
-                  if (m <= v)
+                  if (m <= v) {
                     break
                 }
+                  }
                 var g = f && f.value.match(this.singleLineHeadingRe);
                 a = g ? n - 1 : n - 2;
-                if (a > u)
-                  while (a > u && (!l(a) || f.value[0] == "["))
+                if (a > u) {
+                  while (a > u && (!l(a) || f.value[0] == "[")) {
                     a--;
+                  }
+                }
                 if (a > u) {
                   var y = e.getLine(a).length;
                   return new s(u, i, a, y)
@@ -389,18 +396,22 @@ define("ace/mode/asciidoc",
               } else {
                 var b = e.bgTokenizer.getState(n);
                 if (b == "dissallowDelimitedBlock") {
-                  while (n-- > 0)
-                    if (e.bgTokenizer.getState(n).lastIndexOf("Block") == -1)
+                  while (n-- > 0) {
+                    if (e.bgTokenizer.getState(n).lastIndexOf("Block") == -1) {
                       break;
+                    }
+                  }
                   a = n + 1;
                   if (a < u) {
                     var y = e.getLine(n).length;
                     return new s(a, 5, u, i - 5)
                   }
                 } else {
-                  while (++n < o)
-                    if (e.bgTokenizer.getState(n) == "dissallowDelimitedBlock")
+                  while (++n < o) {
+                    if (e.bgTokenizer.getState(n) == "dissallowDelimitedBlock") {
                       break;
+                    }
+                  }
                   a = n;
                   if (a > u) {
                     var y = e.getLine(n).length;

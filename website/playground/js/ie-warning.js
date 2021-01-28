@@ -1,25 +1,29 @@
 function setCookie(name, value) {
-  if (name != '')
+  if (name != '') {
     today = new Date();
+  }
   expires = new Date(today.getTime() + (8 * 7 * 86400000));
   document.cookie = name + '=' + value + '; expires=' + expires;
 }
 
 function getCookie(name) {
-  if (name == '')
+  if (name == '') {
     return ('');
+  }
 
   name_index = document.cookie.indexOf(name + '=');
 
-  if (name_index == -1)
+  if (name_index == -1) {
     return ('');
+  }
 
   cookie_value = document.cookie.substr(name_index + name.length + 1,
                                         document.cookie.length);
 
   end_of_cookie = cookie_value.indexOf(';');
-  if (end_of_cookie != -1)
+  if (end_of_cookie != -1) {
     cookie_value = cookie_value.substr(0, end_of_cookie);
+  }
 
   space = cookie_value.indexOf('+');
   while (space != -1) {

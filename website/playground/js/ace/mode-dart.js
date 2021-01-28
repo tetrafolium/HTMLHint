@@ -163,8 +163,9 @@ define("ace/mode/dart",
                    return i[1] ? this.openingBracketBlock(e, i[1], n, s)
                                : e.getCommentFoldRange(n, s + i[0].length, 1)
                  }
-                 if (t !== "markbeginend")
+                 if (t !== "markbeginend") {
                    return;
+                 }
                  var i = r.match(this.foldingStopMarker);
                  if (i) {
                    var s = i.index + i[0].length;

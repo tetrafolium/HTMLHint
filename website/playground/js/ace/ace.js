@@ -2,14 +2,17 @@
 function o(e) {
   var i = function(e, t) { return r("", e, t) }, s = t;
   e && (t[e] || (t[e] = {}), s = t[e]);
-  if (!s.define || !s.define.packaged)
+  if (!s.define || !s.define.packaged) {
     n.original = s.define, s.define = n, s.define.packaged = !0;
-  if (!s.require || !s.require.packaged)
+  }
+  if (!s.require || !s.require.packaged) {
     r.original = s.require, s.require = i, s.require.packaged = !0
 }
+  }
 var e = "", t = function() { return this }();
-if (!e && typeof requirejs != "undefined")
+if (!e && typeof requirejs != "undefined") {
   return;
+}
 var n = function(e, t, r) {
   if (typeof e != "string") {
     n.original
@@ -25,8 +28,9 @@ var n = function(e, t, r) {
     var i = [];
     for (var o = 0, u = t.length; o < u; ++o) {
       var a = s(e, t[o]);
-      if (!a && r.original)
+      if (!a && r.original) {
         return r.original.apply(window, arguments);
+      }
       i.push(a)
     }
     n && n.apply(null, i)
@@ -36,9 +40,10 @@ var n = function(e, t, r) {
       return !f && r.original ? r.original.apply(window, arguments)
                               : (n && n(), f)
     }
-    if (r.original)
+    if (r.original) {
       return r.original.apply(window, arguments)
   }
+    }
 }, i = function(e, t) {
   if (t.indexOf("!") !== -1) {
     var n = t.split("!");
@@ -56,8 +61,9 @@ var n = function(e, t, r) {
 }, s = function(e, t) {
   t = i(e, t);
   var s = n.modules[t];
-  if (!s)
+  if (!s) {
     return null;
+  }
   if (typeof s == "function") {
     var o = {}, u = {id : t, uri : "", exports : o, packaged : !0},
         a = function(e, n) { return r(t, e, n) }, f = s(a, o, u);
@@ -87,11 +93,13 @@ e("./worker/worker_client"), e("./keyboard/hash_handler"), e("./placeholder"),
     t.config = e("./config"), t.require = e, t.edit = function(e) {
       if (typeof e == "string") {
         var n = e, e = document.getElementById(n);
-        if (!e)
+        if (!e) {
           throw "ace.edit can't find div #" + n
       }
-      if (e.env && e.env.editor instanceof s)
+        }
+      if (e.env && e.env.editor instanceof s) {
         return e.env.editor;
+      }
       var o = t.createEditSession(r.getInnerText(e));
       e.innerHTML = "";
       var u = new s(new a(e));
@@ -121,11 +129,14 @@ function o(e) {
          (e.sticky ? "y" : "")
 }
 function u(e, t, n) {
-  if (Array.prototype.indexOf)
+  if (Array.prototype.indexOf) {
     return e.indexOf(t, n);
-  for (var r = n || 0; r < e.length; r++)
-    if (e[r] === t)
+  }
+  for (var r = n || 0; r < e.length; r++) {
+    if (e[r] === t) {
       return r;
+    }
+  }
   return -1
 }
 var r = {
@@ -139,20 +150,24 @@ var r = {
       var e = /^/g;
       return r.test.call(e, ""), !e.lastIndex
     }();
-if (s && i)
+if (s && i) {
   return;
+}
 RegExp.prototype.exec = function(e) {
   var t = r.exec.apply(this, arguments), n, a;
   if (typeof e == "string" && t) {
     !i && t.length > 1 && u(t, "") > -1 &&
         (a = RegExp(this.source, r.replace.call(o(this), "g", "")),
          r.replace.call(e.slice(t.index), a, function() {
-           for (var e = 1; e < arguments.length - 2; e++)
+           for (var e = 1; e < arguments.length - 2; e++) {
              arguments[e] === undefined && (t[e] = undefined)
-         }));
-    if (this._xregexp && this._xregexp.captureNames)
-      for (var f = 1; f < t.length; f++)
+         }
+           }));
+    if (this._xregexp && this._xregexp.captureNames) {
+      for (var f = 1; f < t.length; f++) {
         n = this._xregexp.captureNames[f - 1], n && (t[n] = t[f]);
+      }
+    }
     !s && this.global && !t[0].length && this.lastIndex > t.index &&
         this.lastIndex--
   }
@@ -187,26 +202,30 @@ function B(e) {
 }
 function j(e) {
   var t, n, r;
-  if (B(e))
+  if (B(e)) {
     return e;
+  }
   n = e.valueOf;
   if (typeof n == "function") {
     t = n.call(e);
-    if (B(t))
+    if (B(t)) {
       return t
   }
+    }
   r = e.toString;
   if (typeof r == "function") {
     t = r.call(e);
-    if (B(t))
+    if (B(t)) {
       return t
   }
+    }
   throw new TypeError
 }
 Function.prototype.bind || (Function.prototype.bind = function(t) {
   var n = this;
-  if (typeof n != "function")
+  if (typeof n != "function") {
     throw new TypeError("Function.prototype.bind called on incompatible " + n);
+  }
   var i = u.call(arguments, 1), s = function() {
     if (this instanceof s) {
       var e = n.apply(this, i.concat(u.call(arguments)));
@@ -221,49 +240,44 @@ Function.prototype.bind || (Function.prototype.bind = function(t) {
 var i = Function.prototype.call, s = Array.prototype, o = Object.prototype,
     u = s.slice, a = i.bind(o.toString), f = i.bind(o.hasOwnProperty), l, c, h,
     p, d;
-if (d = f(o, "__defineGetter__"))
+if (d = f(o, "__defineGetter__")) {
   l = i.bind(o.__defineGetter__), c = i.bind(o.__defineSetter__),
   h = i.bind(o.__lookupGetter__), p = i.bind(o.__lookupSetter__);
-if ([ 1, 2 ].splice(0).length != 2)
-  if (!function() {
-        function e(e) {
-          var t = new Array(e + 2);
-          return t[0] = t[1] = 0, t
-        }
-        var t = [], n;
-        t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),
-            n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;
-        if (n + 1 == t.length)
-          return !0
-      }())
+}
+if ([ 1, 2 ].splice(0).length != 2) {
+  if (!function() {      function e(e) {      var t = new Array(e + 2);      return t[0] = t[1] = 0, t      }      var t = [], n;      t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),      n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;      if (n + 1 == t.length) {      return !0}      }()
+  ) {
     Array.prototype.splice = function(e, t) {
       var n = this.length;
       e > 0 ? e > n && (e = n)
             : e == void 0 ? e = 0 : e < 0 && (e = Math.max(n + e, 0)),
                             e + t < n || (t = n - e);
       var r = this.slice(e, e + t), i = u.call(arguments, 2), s = i.length;
-      if (e === n)
+      if (e === n) {
         s && this.push.apply(this, i);
-      else {
+      } else {
         var o = Math.min(t, n - e), a = e + o, f = a + s - o, l = n - a,
             c = n - o;
-        if (f < a)
-          for (var h = 0; h < l; ++h)
+        if (f < a) {
+          for (var h = 0; h < l; ++h) {
             this[f + h] = this[a + h];
-        else if (f > a)
-          for (h = l; h--;)
+        } } else if (f > a) {
+          for (h = l; h--;) {
             this[f + h] = this[a + h];
-        if (s && e === c)
+          }
+        }
+        if (s && e === c) {
           this.length = c, this.push.apply(this, i);
-        else {
+        } else {
           this.length = c + s;
-          for (h = 0; h < s; ++h)
+          for (h = 0; h < s; ++h) {
             this[e + h] = i[h]
         }
+          }
       }
       return r
     };
-  else {
+  } else {
     var v = Array.prototype.splice;
     Array.prototype.splice = function(e, t) {
       return arguments.length ? v.apply(this,
@@ -274,6 +288,7 @@ if ([ 1, 2 ].splice(0).length != 2)
                               : []
     }
   }
+}
 Array.isArray ||
     (Array.isArray = function(t) { return a(t) == "[object Array]" });
 var m = Object("a"), g = m[0] != "a" || !(0 in m);
@@ -283,21 +298,25 @@ Array.prototype.forEach ||
            var n = F(this),
                r = g && a(this) == "[object String]" ? this.split("") : n,
                i = arguments[1], s = -1, o = r.length >>> 0;
-           if (a(t) != "[object Function]")
+           if (a(t) != "[object Function]") {
              throw new TypeError;
-           while (++s < o)
+           }
+           while (++s < o) {
              s in r && t.call(i, r[s], s, n)
-         }),
+         }
+           }),
     Array.prototype.map ||
         (Array.prototype.map =
              function(t) {
                var n = F(this),
                    r = g && a(this) == "[object String]" ? this.split("") : n,
                    i = r.length >>> 0, s = Array(i), o = arguments[1];
-               if (a(t) != "[object Function]")
+               if (a(t) != "[object Function]") {
                  throw new TypeError(t + " is not a function");
-               for (var u = 0; u < i; u++)
+               }
+               for (var u = 0; u < i; u++) {
                  u in r && (s[u] = t.call(o, r[u], u, n));
+               }
                return s
              }),
     Array.prototype.filter ||
@@ -306,10 +325,12 @@ Array.prototype.forEach ||
                var n = F(this),
                    r = g && a(this) == "[object String]" ? this.split("") : n,
                    i = r.length >>> 0, s = [], o, u = arguments[1];
-               if (a(t) != "[object Function]")
+               if (a(t) != "[object Function]") {
                  throw new TypeError(t + " is not a function");
-               for (var f = 0; f < i; f++)
+               }
+               for (var f = 0; f < i; f++) {
                  f in r && (o = r[f], t.call(u, o, f, n) && s.push(o));
+               }
                return s
              }),
     Array.prototype.every ||
@@ -318,11 +339,14 @@ Array.prototype.forEach ||
                var n = F(this),
                    r = g && a(this) == "[object String]" ? this.split("") : n,
                    i = r.length >>> 0, s = arguments[1];
-               if (a(t) != "[object Function]")
+               if (a(t) != "[object Function]") {
                  throw new TypeError(t + " is not a function");
-               for (var o = 0; o < i; o++)
-                 if (o in r && !t.call(s, r[o], o, n))
+               }
+               for (var o = 0; o < i; o++) {
+                 if (o in r && !t.call(s, r[o], o, n)) {
                    return !1;
+                 }
+               }
                return !0
              }),
     Array.prototype.some ||
@@ -331,11 +355,14 @@ Array.prototype.forEach ||
                var n = F(this),
                    r = g && a(this) == "[object String]" ? this.split("") : n,
                    i = r.length >>> 0, s = arguments[1];
-               if (a(t) != "[object Function]")
+               if (a(t) != "[object Function]") {
                  throw new TypeError(t + " is not a function");
-               for (var o = 0; o < i; o++)
-                 if (o in r && t.call(s, r[o], o, n))
+               }
+               for (var o = 0; o < i; o++) {
+                 if (o in r && t.call(s, r[o], o, n)) {
                    return !0;
+                 }
+               }
                return !1
              }),
     Array.prototype.reduce ||
@@ -344,92 +371,112 @@ Array.prototype.forEach ||
                var n = F(this),
                    r = g && a(this) == "[object String]" ? this.split("") : n,
                    i = r.length >>> 0;
-               if (a(t) != "[object Function]")
+               if (a(t) != "[object Function]") {
                  throw new TypeError(t + " is not a function");
-               if (!i && arguments.length == 1)
+               }
+               if (!i && arguments.length == 1) {
                  throw new TypeError(
                      "reduce of empty array with no initial value");
+               }
                var s = 0, o;
-               if (arguments.length >= 2)
+               if (arguments.length >= 2) {
                  o = arguments[1];
-               else
+               } else {
                  do {
                    if (s in r) {
                      o = r[s++];
                      break
                    }
-                   if (++s >= i)
+                   if (++s >= i) {
                      throw new TypeError(
                          "reduce of empty array with no initial value")
-                 } while (!0);
-               for (; s < i; s++)
+                 }
+                   } while (!0);
+               }
+               for (; s < i; s++) {
                  s in r && (o = t.call(void 0, o, r[s], s, n));
+               }
                return o
              }),
     Array.prototype.reduceRight || (Array.prototype.reduceRight = function(t) {
       var n = F(this),
           r = g && a(this) == "[object String]" ? this.split("") : n,
           i = r.length >>> 0;
-      if (a(t) != "[object Function]")
+      if (a(t) != "[object Function]") {
         throw new TypeError(t + " is not a function");
-      if (!i && arguments.length == 1)
+      }
+      if (!i && arguments.length == 1) {
         throw new TypeError("reduceRight of empty array with no initial value");
+      }
       var s, o = i - 1;
-      if (arguments.length >= 2)
+      if (arguments.length >= 2) {
         s = arguments[1];
-      else
+      } else {
         do {
           if (o in r) {
             s = r[o--];
             break
           }
-          if (--o < 0)
+          if (--o < 0) {
             throw new TypeError(
                 "reduceRight of empty array with no initial value")
-        } while (!0);
-      do
+        }
+          } while (!0);
+      }
+      do {
         o in this && (s = t.call(void 0, s, r[o], o, n));
+      }
       while (o--);
       return s
     });
-if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1)
+if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1) {
   Array.prototype.indexOf = function(t) {
     var n = g && a(this) == "[object String]" ? this.split("") : F(this),
         r = n.length >>> 0;
-    if (!r)
+    if (!r) {
       return -1;
+    }
     var i = 0;
     arguments.length > 1 && (i = H(arguments[1])),
         i = i >= 0 ? i : Math.max(0, r + i);
-    for (; i < r; i++)
-      if (i in n && n[i] === t)
+    for (; i < r; i++) {
+      if (i in n && n[i] === t) {
         return i;
+      }
+    }
     return -1
   };
-if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1)
+}
+if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1) {
   Array.prototype.lastIndexOf = function(t) {
     var n = g && a(this) == "[object String]" ? this.split("") : F(this),
         r = n.length >>> 0;
-    if (!r)
+    if (!r) {
       return -1;
+    }
     var i = r - 1;
     arguments.length > 1 && (i = Math.min(i, H(arguments[1]))),
         i = i >= 0 ? i : r - Math.abs(i);
-    for (; i >= 0; i--)
-      if (i in n && t === n[i])
+    for (; i >= 0; i--) {
+      if (i in n && t === n[i]) {
         return i;
+      }
+    }
     return -1
   };
+}
 Object.getPrototypeOf || (Object.getPrototypeOf = function(t) {
   return t.__proto__ || (t.constructor ? t.constructor.prototype : o)
 });
 if (!Object.getOwnPropertyDescriptor) {
   var y = "Object.getOwnPropertyDescriptor called on a non-object: ";
   Object.getOwnPropertyDescriptor = function(t, n) {
-    if (typeof t != "object" && typeof t != "function" || t === null)
+    if (typeof t != "object" && typeof t != "function" || t === null) {
       throw new TypeError(y + t);
-    if (!f(t, n))
+    }
+    if (!f(t, n)) {
       return;
+    }
     var r, i, s;
     r = {enumerable : !0, configurable : !0};
     if (d) {
@@ -437,9 +484,10 @@ if (!Object.getOwnPropertyDescriptor) {
       t.__proto__ = o;
       var i = h(t, n), s = p(t, n);
       t.__proto__ = u;
-      if (i || s)
+      if (i || s) {
         return i && (r.get = i), s && (r.set = s), r
     }
+      }
     return r.value = t[n], r
   }
 }
@@ -451,19 +499,21 @@ if (!Object.create) {
     return { __proto__: null }
   } : b = function() {
     var e = {};
-    for (var t in e)
+    for (var t in e) {
       e[t] = null;
+    }
     return e.constructor = e.hasOwnProperty = e.propertyIsEnumerable =
                e.isPrototypeOf = e.toLocaleString = e.toString = e.valueOf =
                    e.__proto__ = null,
            e
   }, Object.create = function(t, n) {
     var r;
-    if (t === null)
+    if (t === null) {
       r = b();
-    else {
-      if (typeof t != "object")
+    } else {
+      if (typeof t != "object") {
         throw new TypeError("typeof prototype[" + typeof t + "] != 'object'");
+      }
       var i = function() {};
       i.prototype = t, r = new i, r.__proto__ = t
     }
@@ -473,32 +523,37 @@ if (!Object.create) {
 if (Object.defineProperty) {
   var E = w({}),
       S = typeof document == "undefined" || w(document.createElement("div"));
-  if (!E || !S)
+  if (!E || !S) {
     var x = Object.defineProperty
 }
+  }
 if (!Object.defineProperty || x) {
   var T = "Property description must be an object: ",
       N = "Object.defineProperty called on non-object: ",
       C = "getters & setters can not be defined on this javascript engine";
   Object.defineProperty = function(t, n, r) {
-    if (typeof t != "object" && typeof t != "function" || t === null)
+    if (typeof t != "object" && typeof t != "function" || t === null) {
       throw new TypeError(N + t);
-    if (typeof r != "object" && typeof r != "function" || r === null)
+    }
+    if (typeof r != "object" && typeof r != "function" || r === null) {
       throw new TypeError(T + r);
-    if (x)
+    }
+    if (x) {
       try {
         return x.call(Object, t, n, r)
       } catch (i) {
       }
-    if (f(r, "value"))
+    }
+    if (f(r, "value")) {
       if (d && (h(t, n) || p(t, n))) {
         var s = t.__proto__;
         t.__proto__ = o, delete t[n], t[n] = r.value, t.__proto__ = s
-      } else
+      } else {
         t[n] = r.value;
-    else {
-      if (!d)
+    } } else {
+      if (!d) {
         throw new TypeError(C);
+      }
       f(r, "get") && l(t, n, r.get), f(r, "set") && c(t, n, r.set)
     }
     return t
@@ -507,8 +562,9 @@ if (!Object.defineProperty || x) {
 Object.defineProperties ||
     (Object.defineProperties =
          function(t, n) {
-           for (var r in n)
+           for (var r in n) {
              f(n, r) && Object.defineProperty(t, r, n[r]);
+           }
            return t
          }),
     Object.seal || (Object.seal = function(t) { return t }),
@@ -525,11 +581,13 @@ Object.preventExtensions ||
     Object.isSealed || (Object.isSealed = function(t) { return !1 }),
     Object.isFrozen || (Object.isFrozen = function(t) { return !1 }),
     Object.isExtensible || (Object.isExtensible = function(t) {
-      if (Object(t) === t)
+      if (Object(t) === t) {
         throw new TypeError;
+      }
       var n = "";
-      while (f(t, n))
+      while (f(t, n)) {
         n += "?";
+      }
       t[n] = !0;
       var r = f(t, n);
       return delete t[n], r
@@ -542,19 +600,23 @@ if (!Object.keys) {
             "isPrototypeOf", "propertyIsEnumerable", "constructor"
           ],
       O = A.length;
-  for (var M in {toString : null})
+  for (var M in {toString : null}) {
     L = !1;
+  }
   Object.keys = function I(e) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError("Object.keys called on a non-object");
+    }
     var I = [];
-    for (var t in e)
+    for (var t in e) {
       f(e, t) && I.push(t);
-    if (L)
+    }
+    if (L) {
       for (var n = 0, r = O; n < r; n++) {
         var i = A[n];
         f(e, i) && I.push(i)
       }
+    }
     return I
   }
 }
@@ -568,15 +630,17 @@ if (!String.prototype.trim || _.trim()) {
       function() { return String(this).replace(D, "").replace(P, "") }
 }
 var F = function(e) {
-  if (e == null)
+  if (e == null) {
     throw new TypeError("can't convert " + e + " to object");
+  }
   return Object(e)
 }
            }),
     define("ace/lib/dom", [ "require", "exports", "module" ],
            function(e, t, n) {
-if (typeof document == "undefined")
+if (typeof document == "undefined") {
   return;
+}
 var r = "http://www.w3.org/1999/xhtml";
 t.getDocumentHead =
     function(e) {
@@ -600,8 +664,9 @@ t.getDocumentHead =
       var n = e.className.split(/\s+/g);
       for (;;) {
         var r = n.indexOf(t);
-        if (r == -1)
+        if (r == -1) {
           break;
+        }
         n.splice(r, 1)
       }
       e.className = n.join(" ")
@@ -611,8 +676,9 @@ t.getDocumentHead =
       var n = e.className.split(/\s+/g), r = !0;
       for (;;) {
         var i = n.indexOf(t);
-        if (i == -1)
+        if (i == -1) {
           break;
+        }
         r = !1, n.splice(i, 1)
       }
       return r && n.push(t), e.className = n.join(" "), r
@@ -624,20 +690,25 @@ t.getDocumentHead =
       var n = 0, r;
       t = t || document;
       if (t.createStyleSheet && (r = t.styleSheets)) {
-        while (n < r.length)
-          if (r[n++].owningElement.id === e)
+        while (n < r.length) {
+          if (r[n++].owningElement.id === e) {
             return !0
-      } else if (r = t.getElementsByTagName("style"))
-        while (n < r.length)
-          if (r[n++].id === e)
+      }
+        } } else if (r = t.getElementsByTagName("style")) {
+        while (n < r.length) {
+          if (r[n++].id === e) {
             return !0;
+          }
+        }
+        }
       return !1
     },
     t.importCssString =
         function(n, i, s) {
       s = s || document;
-      if (i && t.hasCssString(i, s))
+      if (i && t.hasCssString(i, s)) {
         return null;
+      }
       var o;
       s.createStyleSheet
           ? (o = s.createStyleSheet(), o.cssText = n,
@@ -649,9 +720,9 @@ t.getDocumentHead =
     },
     t.importCssStylsheet =
         function(e, n) {
-      if (n.createStyleSheet)
+      if (n.createStyleSheet) {
         n.createStyleSheet(e);
-      else {
+      } else {
         var r = t.createElement("link");
         r.rel = "stylesheet", r.href = e, t.getDocumentHead(n).appendChild(r)
       }
@@ -742,15 +813,17 @@ function o(e, t, n) {
 }
 var r = e("./keys"), i = e("./useragent"), s = e("./dom");
 t.addListener = function(e, t, n) {
-  if (e.addEventListener)
+  if (e.addEventListener) {
     return e.addEventListener(t, n, !1);
+  }
   if (e.attachEvent) {
     var r = function() { n(window.event) };
     n._wrapper = r, e.attachEvent("on" + t, r)
   }
 }, t.removeListener = function(e, t, n) {
-  if (e.removeEventListener)
+  if (e.removeEventListener) {
     return e.removeEventListener(t, n, !1);
+  }
   e.detachEvent && e.detachEvent("on" + t, n._wrapper || n)
 }, t.stopEvent = function(e) {
   return t.stopPropagation(e), t.preventDefault(e), !1
@@ -796,21 +869,23 @@ t.addListener = function(e, t, n) {
 }, t.addMultiMouseDownListener = function(e, n, r, s) {
   var o = 0, u, a, f, l = {2 : "dblclick", 3 : "tripleclick", 4 : "quadclick"};
   t.addListener(e, "mousedown", function(e) {
-    if (t.getButton(e) != 0)
+    if (t.getButton(e) != 0) {
       o = 0;
-    else {
+    } else {
       var i = Math.abs(e.clientX - u) > 5 || Math.abs(e.clientY - a) > 5;
-      if (!f || i)
+      if (!f || i) {
         o = 0;
+      }
       o += 1, f && clearTimeout(f),
           f = setTimeout(function() { f = null }, n[o - 1] || 600)
     }
     o == 1 && (u = e.clientX, a = e.clientY), r[s]("mousedown", e);
-    if (o > 4)
+    if (o > 4) {
       o = 0;
-    else if (o > 1)
+    } else if (o > 1) {
       return r[s](l[o], e)
-  }), i.isOldIE && t.addListener(e, "dblclick", function(e) {
+  }
+    }), i.isOldIE && t.addListener(e, "dblclick", function(e) {
     o = 2, f && clearTimeout(f),
     f = setTimeout(function() { f = null }, n[o - 1] || 600),
     r[s]("mousedown", e), r[s](l[o], e)
@@ -968,9 +1043,10 @@ t.inherits = function() {
     t.prototype.constructor = t
   }
 }(), t.mixin = function(e, t) {
-  for (var n in t)
+  for (var n in t) {
     e[n] = t[n]
-}, t.implement = function(e, n) { t.mixin(e, n) }
+}
+  }, t.implement = function(e, n) { t.mixin(e, n) }
            }),
     define("ace/lib/useragent", [ "require", "exports", "module" ],
            function(e, t, n) {
@@ -982,8 +1058,9 @@ t.OS = {
     t.getOS = function() {
       return t.isMac ? t.OS.MAC : t.isLinux ? t.OS.LINUX : t.OS.WINDOWS
     };
-if (typeof navigator != "object")
+if (typeof navigator != "object") {
   return;
+}
 var r = (navigator.platform.match(/mac|win|linux/i) || [ "other" ])[0]
             .toLowerCase(),
     i = navigator.userAgent;
@@ -1048,15 +1125,17 @@ r.implement(this, p),
           t.$keybindingId == e &&
               t.keyBinding.setKeyboardHandler(n && n.handler)
         })
-      } else
+      } else {
         delete this.$keybindingId, this.keyBinding.setKeyboardHandler(e)
-    },
+    }
+      },
     this.getKeyboardHandler =
         function() { return this.keyBinding.getKeyboardHandler() },
     this.setSession =
         function(e) {
-      if (this.session == e)
+      if (this.session == e) {
         return;
+      }
       if (this.session) {
         var t = this.session;
         this.session.removeEventListener("change", this.$onDocumentChange),
@@ -1164,16 +1243,18 @@ r.implement(this, p),
       this.session.$bracketHighlight &&
           (this.session.removeMarker(this.session.$bracketHighlight),
            this.session.$bracketHighlight = null);
-      if (this.$highlightPending)
+      if (this.$highlightPending) {
         return;
+      }
       var e = this;
       this.$highlightPending = !0, setTimeout(function() {
         e.$highlightPending = !1;
         var t = e.session.findMatchingBracket(e.getCursorPosition());
-        if (t)
+        if (t) {
           var n = new h(t.row, t.column, t.row, t.column + 1);
-        else if (e.session.$mode.getMatching)
+        } else if (e.session.$mode.getMatching) {
           var n = e.session.$mode.getMatching(e.session);
+        }
         n && (e.session.$bracketHighlight =
                   e.session.addMarker(n, "ace_bracket", "text"))
       }, 50)
@@ -1187,15 +1268,17 @@ r.implement(this, p),
     this.blur = function() { this.textInput.blur() },
     this.onFocus =
         function() {
-      if (this.$isFocused)
+      if (this.$isFocused) {
         return;
+      }
       this.$isFocused = !0, this.renderer.showCursor(),
       this.renderer.visualizeFocus(), this._emit("focus")
     },
     this.onBlur =
         function() {
-      if (!this.$isFocused)
+      if (!this.$isFocused) {
         return;
+      }
       this.$isFocused = !1, this.renderer.hideCursor(),
       this.renderer.visualizeBlur(), this._emit("blur")
     },
@@ -1232,19 +1315,20 @@ r.implement(this, p),
       this.$highlightActiveLine &&
           (this.$selectionStyle != "line" || !this.selection.isMultiLine()) &&
           (t = this.getCursorPosition());
-      if (e.$highlightLineMarker && !t)
+      if (e.$highlightLineMarker && !t) {
         e.removeMarker(e.$highlightLineMarker.id),
             e.$highlightLineMarker = null;
-      else if (!e.$highlightLineMarker && t) {
+      } else if (!e.$highlightLineMarker && t) {
         var n = new h(t.row, t.column, t.row, Infinity);
         n.id = e.addMarker(n, "ace_active-line", "screenLine"),
         e.$highlightLineMarker = n
-      } else
+      } else {
         t && (e.$highlightLineMarker.start.row = t.row,
               e.$highlightLineMarker.end.row = t.row,
               e.$highlightLineMarker.start.column = t.column,
               e._emit("changeBackMarker"))
-    },
+    }
+      },
     this.onSelectionChange =
         function(e) {
       var t = this.session;
@@ -1253,8 +1337,9 @@ r.implement(this, p),
       if (!this.selection.isEmpty()) {
         var n = this.selection.getRange(), r = this.getSelectionStyle();
         t.$selectionMarker = t.addMarker(n, "ace_selection", r)
-      } else
+      } else {
         this.$updateHighlightActiveLine();
+      }
       var i =
           this.$highlightSelectedWord && this.$getSelectionHighLightRegexp();
       this.session.highlight(i), this._emit("changeSelection")
@@ -1262,16 +1347,19 @@ r.implement(this, p),
     this.$getSelectionHighLightRegexp =
         function() {
       var e = this.session, t = this.getSelectionRange();
-      if (t.isEmpty() || t.isMultiLine())
+      if (t.isEmpty() || t.isMultiLine()) {
         return;
+      }
       var n = t.start.column - 1, r = t.end.column + 1,
           i = e.getLine(t.start.row), s = i.length,
           o = i.substring(Math.max(n, 0), Math.min(r, s));
-      if (n >= 0 && /^[\w\d]/.test(o) || r <= s && /[\w\d]$/.test(o))
+      if (n >= 0 && /^[\w\d]/.test(o) || r <= s && /[\w\d]$/.test(o)) {
         return;
+      }
       o = i.substring(t.start.column, t.end.column);
-      if (!/^[\w\d]+$/.test(o))
+      if (!/^[\w\d]+$/.test(o)) {
         return;
+      }
       var u = this.$search.$assembleRegExp(
           {wholeWord : !0, caseSensitive : !0, needle : o});
       return u
@@ -1303,8 +1391,9 @@ r.implement(this, p),
     this.onCut = function() { this.commands.exec("cut", this) },
     this.onPaste =
         function(e) {
-      if (this.$readOnly)
+      if (this.$readOnly) {
         return;
+      }
       this._emit("paste", e), this.insert(e)
     },
     this.execCommand = function(e, t) { this.commands.exec(e, this, t) },
@@ -1316,10 +1405,10 @@ r.implement(this, p),
         i && (e = i.text)
       }
       e = e.replace("	", this.session.getTabString());
-      if (!this.selection.isEmpty())
+      if (!this.selection.isEmpty()) {
         r = this.session.remove(this.getSelectionRange()),
         this.clearSelection();
-      else if (this.session.getOverwrite()) {
+      } else if (this.session.getOverwrite()) {
         var s = new h.fromPoints(r, r);
         s.end.column += e.length, this.session.remove(s)
       }
@@ -1340,21 +1429,24 @@ r.implement(this, p),
         for (var v = r.row + 1; v <= l.row; ++v) {
           var m = 0;
           a = t.getLine(v);
-          for (var g = 0; g < a.length; ++g)
-            if (a.charAt(g) == "	")
+          for (var g = 0; g < a.length; ++g) {
+            if (a.charAt(g) == "	") {
               m += p;
-            else {
-              if (a.charAt(g) != " ")
+            } else {
+              if (a.charAt(g) != " ") {
                 break;
+              }
               m += 1
             }
+          }
           /[^\s]/.test(a) && (d = Math.min(m, d))
         }
         for (var v = r.row + 1; v <= l.row; ++v) {
           var y = d;
           a = t.getLine(v);
-          for (var g = 0; g < a.length && y > 0; ++g)
+          for (var g = 0; g < a.length && y > 0; ++g) {
             a.charAt(g) == "	" ? y -= p : a.charAt(g) == " " && (y -= 1);
+          }
           t.remove(new h(v, 0, v, g))
         }
         t.indentRows(r.row + 1, l.row, c)
@@ -1455,11 +1547,13 @@ r.implement(this, p),
       var e = this.getCursorPosition();
       this.insert("\n"), this.moveCursorToPosition(e)
     }, this.transposeLetters = function() {
-      if (!this.selection.isEmpty())
+      if (!this.selection.isEmpty()) {
         return;
+      }
       var e = this.getCursorPosition(), t = e.column;
-      if (t === 0)
+      if (t === 0) {
         return;
+      }
       var n = this.session.getLine(e.row), r, i;
       t < n.length ? (r = n.charAt(t) + n.charAt(t - 1),
                       i = new h(e.row, t - 1, e.row, t + 1))
@@ -1486,8 +1580,9 @@ r.implement(this, p),
           var s = e.getTabSize(), o = this.getCursorPosition(),
               u = e.documentToScreenColumn(o.row, o.column), a = s - u % s;
           r = i.stringRepeat(" ", a)
-        } else
+        } else {
           r = "	";
+        }
         return this.insert(r)
       }
       var n = this.$getSelectedRows();
@@ -1500,8 +1595,9 @@ r.implement(this, p),
       this.session.outdentRows(e.getRange())
     }, this.sortLines = function() {
       var e = this.$getSelectedRows(), t = this.session, n = [];
-      for (i = e.first; i <= e.last; i++)
+      for (i = e.first; i <= e.last; i++) {
         n.push(t.getLine(i));
+      }
       n.sort(function(e, t) {
         return e.toLowerCase() < t.toLowerCase()
                    ? -1
@@ -1593,15 +1689,17 @@ r.implement(this, p),
           var u = o, r = s[o].collapseRows(), a = r.end.row, f = r.start.row;
           while (o--) {
             var r = s[o].collapseRows();
-            if (!(f - r.end.row <= 1))
+            if (!(f - r.end.row <= 1)) {
               break;
+            }
             f = r.end.row
           }
           o++;
           var i = e.call(this, f, a);
-          while (u >= o)
+          while (u >= o) {
             s[u].moveBy(i, 0), u--
         }
+          }
         t.fromOrientedRange(t.ranges[0]), t.rangeList.attach(this.session)
       }
     }, this.$getSelectedRows = function() {
@@ -1683,8 +1781,9 @@ r.implement(this, p),
           preventScroll : !0,
           start : {row : t.row, column : t.column - 1}
         });
-        if (!n)
+        if (!n) {
           return;
+        }
         var r = n.start;
         r.row == t.row && Math.abs(r.column - t.column) < 2 &&
             (n = this.session.getBracketRange(r))
@@ -1722,9 +1821,10 @@ r.implement(this, p),
         this.moveCursorToPosition(t)
       } else {
         e = e || 1;
-        while (e--)
+        while (e--) {
           this.selection.moveCursorLeft()
       }
+        }
       this.clearSelection()
     }, this.navigateRight = function(e) {
       if (!this.selection.isEmpty()) {
@@ -1732,9 +1832,10 @@ r.implement(this, p),
         this.moveCursorToPosition(t)
       } else {
         e = e || 1;
-        while (e--)
+        while (e--) {
           this.selection.moveCursorRight()
       }
+        }
       this.clearSelection()
     }, this.navigateLineStart = function() {
       this.selection.moveCursorLineStart(), this.clearSelection()
@@ -1764,13 +1865,15 @@ r.implement(this, p),
     }, this.replaceAll = function(e, t) {
       t && this.$search.set(t);
       var n = this.$search.findAll(this.session), r = 0;
-      if (!n.length)
+      if (!n.length) {
         return r;
+      }
       this.$blockScrolling += 1;
       var i = this.getSelectionRange();
       this.clearSelection(), this.selection.moveCursorTo(0, 0);
-      for (var s = n.length - 1; s >= 0; --s)
+      for (var s = n.length - 1; s >= 0; --s) {
         this.$tryReplace(n[s], e) && r++;
+      }
       return this.selection.setSelectionRange(i), this.$blockScrolling -= 1, r
     }, this.$tryReplace = function(e, t) {
       var n = this.session.getTextRange(e);
@@ -1790,10 +1893,12 @@ r.implement(this, p),
            this.$search.set({needle : e})),
           this.$search.set(t), t.start || this.$search.set({start : i});
       var s = this.$search.find(this.session);
-      if (t.preventScroll)
+      if (t.preventScroll) {
         return s;
-      if (s)
+      }
+      if (s) {
         return this.revealRange(s, n), s;
+      }
       t.backwards ? i.start = i.end : i.end = i.start,
                     this.selection.setRange(i)
     }, this.findNext = function(e, t) {
@@ -1815,8 +1920,9 @@ r.implement(this, p),
     }, this.destroy = function() {
       this.renderer.destroy(), this._emit("destroy", this)
     }, this.setAutoScrollEditorIntoView = function(e) {
-      if (e === !0)
+      if (e === !0) {
         return;
+      }
       var t, n = this, r = !1;
       this.$scrollAnchor ||
           (this.$scrollAnchor = document.createElement("div"));
@@ -1844,8 +1950,9 @@ r.implement(this, p),
             }
           });
       this.setAutoScrollEditorIntoView = function(e) {
-        if (e === !1)
+        if (e === !1) {
           return;
+        }
         delete this.setAutoScrollEditorIntoView,
             this.removeEventListener("changeSelection", s),
             this.renderer.removeEventListener("afterRender", u),
@@ -1901,9 +2008,10 @@ t.stringReverse = function(e) { return e.split("").reverse().join("") },
       var n = "";
       while (t > 0) {
         t&1 && (n += e);
-        if (t >>= 1)
+        if (t >>= 1) {
           e += e
       }
+        }
       return n
     };
 var r = /^\s\s*/, i = /\s\s*$/;
@@ -1911,36 +2019,43 @@ t.stringTrimLeft = function(e) { return e.replace(r, "") },
     t.stringTrimRight = function(e) { return e.replace(i, "") },
     t.copyObject = function(e) {
       var t = {};
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.copyArray = function(e) {
       var t = [];
-      for (var n = 0, r = e.length; n < r; n++)
+      for (var n = 0, r = e.length; n < r; n++) {
         e[n] && typeof e[n] == "object" ? t[n] = this.copyObject(e[n])
                                         : t[n] = e[n];
+      }
       return t
     }, t.deepCopy = function(e) {
-      if (typeof e != "object")
+      if (typeof e != "object") {
         return e;
+      }
       var t = e.constructor();
-      for (var n in e)
+      for (var n in e) {
         typeof e[n] == "object" ? t[n] = this.deepCopy(e[n]) : t[n] = e[n];
+      }
       return t
     }, t.arrayToMap = function(e) {
       var t = {};
-      for (var n = 0; n < e.length; n++)
+      for (var n = 0; n < e.length; n++) {
         t[e[n]] = 1;
+      }
       return t
     }, t.createMap = function(e) {
       var t = Object.create(null);
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.arrayRemove = function(e, t) {
-      for (var n = 0; n <= e.length; n++)
+      for (var n = 0; n <= e.length; n++) {
         t === e[n] && e.splice(n, 1)
-    }, t.escapeRegExp = function(e) {
+    }
+      }, t.escapeRegExp = function(e) {
       return e.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1")
     }, t.escapeHTML = function(e) {
       return e.replace(/&/g, "&#38;")
@@ -1978,20 +2093,23 @@ t.stringTrimLeft = function(e) { return e.replace(r, "") },
 var r = e("../lib/event"), i = e("../lib/useragent"), s = e("../lib/dom"),
     o = e("../lib/lang"), u = i.isChrome < 18, a = function(e, t) {
       function b(e) {
-        if (h)
+        if (h) {
           return;
-        if (k)
+        }
+        if (k) {
           t = 0, r = e ? 0 : n.value.length - 1;
-        else
+        } else {
           var t = e ? 2 : 1, r = 2;
+        }
         try {
           n.setSelectionRange(t, r)
         } catch (i) {
         }
       }
       function w() {
-        if (h)
+        if (h) {
           return;
+        }
         n.value = a, i.isWebKit && y.schedule()
       }
       function F() {
@@ -2043,21 +2161,25 @@ var r = e("../lib/event"), i = e("../lib/useragent"), s = e("../lib/dom"),
                });
       if (i.isOldIE) {
         var S = !1, x = function(e) {
-          if (S)
+          if (S) {
             return;
+          }
           var t = n.value;
-          if (h || !t || t == a)
+          if (h || !t || t == a) {
             return;
-          if (e && t == a[0])
+          }
+          if (e && t == a[0]) {
             return T.schedule();
+          }
           L(t), S = !0, w(), S = !1
         }, T = o.delayedCall(x);
         r.addListener(n, "propertychange", x);
         var N = {13 : 1, 27 : 1};
         r.addListener(n, "keyup", function(e) {
           h && (!n.value || N[e.keyCode]) && setTimeout(B, 0);
-          if ((n.value.charCodeAt(0) || 0) < 129)
+          if ((n.value.charCodeAt(0) || 0) < 129) {
             return;
+          }
           h ? P() : D()
         })
       }
@@ -2081,8 +2203,9 @@ var r = e("../lib/event"), i = e("../lib/useragent"), s = e("../lib/dom"),
                              e[e.length - 1] == a[0] && (e = e.slice(0, -1)),
                              e && t.onTextInput(e))
       }, A = function(e) {
-        if (h)
+        if (h) {
           return;
+        }
         var t = n.value;
         L(t), w()
       }, O = function(e) {
@@ -2116,17 +2239,19 @@ var r = e("../lib/event"), i = e("../lib/useragent"), s = e("../lib/dom"),
         if (s) {
           var o = s.getData("Text");
           o && t.onPaste(o), i.isIE && setTimeout(b), r.preventDefault(e)
-        } else
+        } else {
           n.value = "", c = !0
-      };
+      }
+        };
       r.addCommandKeyListener(n, t.onCommandKey.bind(t)),
           r.addListener(n, "select", C), r.addListener(n, "input", A),
           r.addListener(n, "cut", O), r.addListener(n, "copy", M),
           r.addListener(n, "paste", _),
           (!("oncut" in n) || !("oncopy" in n) || !("onpaste" in n)) &&
               r.addListener(e, "keydown", function(e) {
-                if (i.isMac && !e.metaKey || !e.ctrlKey)
+                if (i.isMac && !e.metaKey || !e.ctrlKey) {
                   return;
+                }
                 switch (e.keyCode) {
                 case 67:
                   M(e);
@@ -2141,8 +2266,9 @@ var r = e("../lib/event"), i = e("../lib/useragent"), s = e("../lib/dom"),
       var D = function(e) { h = !0, t.onCompositionStart(), setTimeout(P, 0) },
           P =
               function() {
-            if (!h)
+            if (!h) {
               return;
+            }
             t.onCompositionUpdate(n.value)
           },
           H = -1,
@@ -2170,8 +2296,9 @@ var r = e("../lib/event"), i = e("../lib/useragent"), s = e("../lib/dom"),
                   n.style.top = Math.min(e.clientY - a - 2, l) + "px"
                 };
             c(e);
-            if (e.type != "mousedown")
+            if (e.type != "mousedown") {
               return;
+            }
             t.renderer.$keepTextAreaAtCursor &&
                 (t.renderer.$keepTextAreaAtCursor = null),
                 i.isWin && r.capture(t.container, c, F)
@@ -2223,8 +2350,9 @@ this.onMouseEvent = function(e,
     this.onMouseMove = function(e, t) {
       var n =
           this.editor._eventRegistry && this.editor._eventRegistry.mousemove;
-      if (!n || !n.length)
+      if (!n || !n.length) {
         return;
+      }
       this.editor._emit(e, new u(t, this.editor))
     }, this.onMouseWheel = function(e, t) {
       var n = new u(t, this.editor);
@@ -2245,8 +2373,9 @@ this.onMouseEvent = function(e,
                     (n.$keepTextAreaAtCursor = !0, n.$moveTextAreaToCursor()),
                 s.isMousePressed = !1
           }, a = function() { s[s.state] && s[s.state]() };
-      if (i.isOldIE && e.domEvent.type == "dblclick")
+      if (i.isOldIE && e.domEvent.type == "dblclick") {
         return setTimeout(function() { u(e.domEvent) });
+      }
       r.capture(this.editor.container, o, u);
       var f = setInterval(a, 20)
     }
@@ -2282,10 +2411,11 @@ function u(e, t, n, r) {
   return Math.sqrt(Math.pow(n - e, 2) + Math.pow(r - t, 2))
 }
 function a(e, t) {
-  if (e.start.row == e.end.row)
+  if (e.start.row == e.end.row) {
     var n = 2 * t.column - e.start.column - e.end.column;
-  else
+  } else {
     var n = 2 * t.row - e.start.row - e.end.row;
+  }
   return n < 0 ? {cursor : e.start, anchor : e.end}
                : {cursor : e.end, anchor : e.start}
 }
@@ -2303,10 +2433,11 @@ this.onMouseDown = function(e) {
   }
   if (t && !r.isFocused()) {
     r.focus();
-    if (this.$focusTimout && !this.$clickSelection && !r.inMultiSelectMode)
+    if (this.$focusTimout && !this.$clickSelection && !r.inMultiSelectMode) {
       return this.setState("focusWait"), this.captureMouse(e),
              e.preventDefault()
   }
+    }
   return !t || this.$clickSelection || e.getShiftKey() || r.inMultiSelectMode
              ? this.startSelect(n)
              : t && (this.mousedownEvent.time = (new Date).getTime(),
@@ -2324,11 +2455,11 @@ this.onMouseDown = function(e) {
          n = t.renderer.screenToTextCoordinates(this.x, this.y);
   if (this.$clickSelection) {
     var r = this.$clickSelection.comparePoint(n);
-    if (r == -1)
+    if (r == -1) {
       e = this.$clickSelection.end;
-    else if (r == 1)
+    } else if (r == 1) {
       e = this.$clickSelection.start;
-    else {
+    } else {
       var i = a(this.$clickSelection, n);
       n = i.cursor, e = i.anchor
     }
@@ -2344,15 +2475,15 @@ this.onMouseDown = function(e) {
         o = this.$clickSelection.comparePoint(i.end);
     if (s == -1 && o <= 0) {
       t = this.$clickSelection.end;
-      if (i.end.row != r.row || i.end.column != r.column)
+      if (i.end.row != r.row || i.end.column != r.column) {
         r = i.start
-    } else if (o == 1 && s >= 0) {
+    } } else if (o == 1 && s >= 0) {
       t = this.$clickSelection.start;
-      if (i.start.row != r.row || i.start.column != r.column)
+      if (i.start.row != r.row || i.start.column != r.column) {
         r = i.end
-    } else if (s == -1 && o == 1)
+    } } else if (s == -1 && o == 1) {
       r = i.end, t = i.start;
-    else {
+    } else {
       var u = a(this.$clickSelection, r);
       r = u.cursor, t = u.anchor
     }
@@ -2401,19 +2532,22 @@ this.onMouseDown = function(e) {
   r.removeCssClass(t.container, "ace_dragging"),
       t.session.removeMarker(this.dragSelectionMarker),
       t.keyBinding.removeKeyboardHandler(this.$dragKeybinding);
-  if (!n)
+  if (!n) {
     return;
+  }
   t.clearSelection();
   if (e && (e.ctrlKey || e.altKey)) {
     var s = t.session, o = i;
     o.end = s.insert(n, s.getTextRange(i)), o.start = n
   } else {
-    if (i.contains(n.row, n.column))
+    if (i.contains(n.row, n.column)) {
       return;
+    }
     var o = t.moveText(i, n)
   }
-  if (!o)
+  if (!o) {
     return;
+  }
   t.selection.setSelectionRange(o)
 }, this.onDoubleClick = function(e) {
   var t = e.getDocumentPosition(), n = this.editor, r = n.session,
@@ -2434,15 +2568,17 @@ this.onMouseDown = function(e) {
   t.selectAll(), this.$clickSelection = t.getSelectionRange(),
                  this.setState("null")
 }, this.onMouseWheel = function(e) {
-  if (e.getShiftKey() || e.getAccelKey())
+  if (e.getShiftKey() || e.getAccelKey()) {
     return;
+  }
   var t = e.domEvent.timeStamp, n = t - (this.$lastScrollTime || 0),
       r = this.editor,
       i = r.renderer.isScrollableBy(e.wheelX * e.speed, e.wheelY * e.speed);
-  if (i || n < 200)
+  if (i || n < 200) {
     return this.$lastScrollTime = t,
            r.renderer.scrollBy(e.wheelX * e.speed, e.wheelY * e.speed), e.stop()
 }
+  }
 }).call(o.prototype),
     t.DefaultHandlers = o
         }),
@@ -2457,16 +2593,19 @@ function s(e) {
   function l() {
     u || f();
     var e = o.getDocumentPosition().row, r = n.$annotations[e];
-    if (!r)
+    if (!r) {
       return c();
+    }
     var i = t.session.getLength();
     if (e == i) {
       var s = t.renderer.pixelToScreenCoordinates(0, o.y).row, l = o.$pos;
-      if (s > t.session.documentToScreenRow(l.row, l.column))
+      if (s > t.session.documentToScreenRow(l.row, l.column)) {
         return c()
     }
-    if (a == r)
+      }
+    if (a == r) {
       return;
+    }
     a = r.text.join("<br/>"), u.style.display = "block", u.innerHTML = a,
     t.on("mousewheel", c), h(o)
   }
@@ -2483,17 +2622,20 @@ function s(e) {
   }
   var t = e.editor, n = t.renderer.$gutterLayer;
   e.editor.setDefaultHandler("guttermousedown", function(r) {
-    if (!t.isFocused())
+    if (!t.isFocused()) {
       return;
+    }
     var i = n.getRegion(r);
-    if (i == "foldWidgets")
+    if (i == "foldWidgets") {
       return;
+    }
     var s = r.getDocumentPosition().row, o = t.session.selection;
-    if (r.getShiftKey())
+    if (r.getShiftKey()) {
       o.selectTo(s, 0);
-    else {
-      if (r.domEvent.detail == 2)
+    } else {
+      if (r.domEvent.detail == 2) {
         return t.selectAll(), r.preventDefault();
+      }
       e.$clickSelection = t.selection.getLineRange(s)
     }
     return e.captureMouse(r, "selectByLines"), r.preventDefault()
@@ -2501,17 +2643,20 @@ function s(e) {
   var s, o, u, a;
   e.editor.setDefaultHandler("guttermousemove", function(t) {
     var n = t.domEvent.target || t.domEvent.srcElement;
-    if (r.hasCssClass(n, "ace_fold-widget"))
+    if (r.hasCssClass(n, "ace_fold-widget")) {
       return c();
+    }
     a && h(t), o = t;
-    if (s)
+    if (s) {
       return;
+    }
     s = setTimeout(function() { s = null, o && !e.isMousePressed ? l() : c() },
                    50)
   }), i.addListener(t.renderer.$gutter, "mouseout", function(e) {
     o = null;
-    if (!a || s)
+    if (!a || s) {
       return;
+    }
     s = setTimeout(function() { s = null, c() }, 50)
   })
 }
@@ -2551,16 +2696,17 @@ this.stopPropagation =
     },
     this.inSelection =
         function() {
-      if (this.$inSelection !== null)
+      if (this.$inSelection !== null) {
         return this.$inSelection;
+      }
       var e = this.editor;
-      if (e.getReadOnly())
+      if (e.getReadOnly()) {
         this.$inSelection = !1;
-      else {
+      } else {
         var t = e.getSelectionRange();
-        if (t.isEmpty())
+        if (t.isEmpty()) {
           this.$inSelection = !1;
-        else {
+        } else {
           var n = this.getDocumentPosition();
           this.$inSelection = t.contains(n.row, n.column)
         }
@@ -2593,18 +2739,22 @@ var r = e("../lib/event"), i = function(e) {
   }
   var t = e.editor, n, i, s, o, u, a, f = 0, l = t.container;
   r.addListener(l, "dragenter", function(e) {
-    if (t.getReadOnly())
+    if (t.getReadOnly()) {
       return;
+    }
     var i = e.dataTransfer.types;
-    if (i && Array.prototype.indexOf.call(i, "text/plain") === -1)
+    if (i && Array.prototype.indexOf.call(i, "text/plain") === -1) {
       return;
+    }
     return n || h(), f++, r.preventDefault(e)
   }), r.addListener(l, "dragover", function(e) {
-    if (t.getReadOnly())
+    if (t.getReadOnly()) {
       return;
+    }
     var n = e.dataTransfer.types;
-    if (n && Array.prototype.indexOf.call(n, "text/plain") === -1)
+    if (n && Array.prototype.indexOf.call(n, "text/plain") === -1) {
       return;
+    }
     return d !== null && (d = null), i = e.clientX, s = e.clientY,
                                      r.preventDefault(e)
   });
@@ -2614,11 +2764,13 @@ var r = e("../lib/event"), i = function(e) {
   };
   r.addListener(l, "dragleave", function(e) {
     f--;
-    if (f <= 0 && n)
+    if (f <= 0 && n) {
       return p(), r.preventDefault(e)
-  }), r.addListener(l, "drop", function(e) {
-    if (!n)
+  }
+    }), r.addListener(l, "drop", function(e) {
+    if (!n) {
       return;
+    }
     return u.end = t.session.insert(a, e.dataTransfer.getData("Text")),
            u.start = a, p(), t.focus(), r.preventDefault(e)
   });
@@ -2648,18 +2800,21 @@ var r = e("./lib/lang"), i = e("./lib/oop"), s = e("./lib/net"),
       $moduleUrls : {}
     };
 t.get = function(e) {
-  if (!a.hasOwnProperty(e))
+  if (!a.hasOwnProperty(e)) {
     throw new Error("Unknown config key: " + e);
+  }
   return a[e]
 }, t.set = function(e, t) {
-  if (!a.hasOwnProperty(e))
+  if (!a.hasOwnProperty(e)) {
     throw new Error("Unknown config key: " + e);
+  }
   a[e] = t
 }, t.all = function() {
   return r.copyObject(a)
 }, i.implement(t, o), t.moduleUrl = function(e, t) {
-  if (a.$moduleUrls[e])
+  if (a.$moduleUrls[e]) {
     return a.$moduleUrls[e];
+  }
   var n = e.split("/");
   t = t || n[n.length - 2] || "";
   var r = n[n.length - 1].replace(t, "").replace(/(^[\-_])|([\-_]$)/, "");
@@ -2676,24 +2831,28 @@ t.get = function(e) {
     i = e(n)
   } catch (u) {
   }
-  if (i)
+  if (i) {
     return r && r(i);
+  }
   var a = function() {
     e([ n ],
       function(e) { t._emit("load.module", {name : n, module : e}), r && r(e) })
   };
-  if (!t.get("packaged"))
+  if (!t.get("packaged")) {
     return a();
+  }
   s.loadScript(t.moduleUrl(n, o), a)
 }, t.init = function() {
   a.packaged = e.packaged || n.packaged || u.define && define.packaged;
-  if (!u.document)
+  if (!u.document) {
     return "";
+  }
   var r = {}, i = "", s = document.getElementsByTagName("script");
   for (var o = 0; o < s.length; o++) {
     var l = s[o], c = l.src || l.getAttribute("src");
-    if (!c)
+    if (!c) {
       continue;
+    }
     var h = l.attributes;
     for (var p = 0, d = h.length; p < d; p++) {
       var v = h[p];
@@ -2707,9 +2866,10 @@ t.get = function(e) {
       r.basePath = r.base, r.workerPath = r.workerPath || r.base,
       r.modePath = r.modePath || r.base, r.themePath = r.themePath || r.base,
       delete r.base;
-  for (var g in r)
+  for (var g in r) {
     typeof r[g] != "undefined" && t.set(g, r[g])
-};
+}
+  };
 var l = {
   setOptions : function(e) {
     Object.keys(e).forEach(function(t) { this.setOption(t, e[t]) }, this)
@@ -2721,13 +2881,16 @@ var l = {
            t
   },
   setOption : function(e, t) {
-    if (this["$" + e] === t)
+    if (this["$" + e] === t) {
       return;
+    }
     var n = this.$options[e];
-    if (!n)
+    if (!n) {
       return undefined;
-    if (n.forwardTo)
+    }
+    if (n.forwardTo) {
       return this[n.forwardTo] && this[n.forwardTo].setOption(e, t);
+    }
     n.handlesSet || (this["$" + e] = t), n && n.set && n.set.call(this, t)
   },
   getOption : function(e) {
@@ -2773,10 +2936,12 @@ t.get = function(e, t) {
   var n = r.getDocumentHead(), i = document.createElement("script");
   i.src = e, n.appendChild(i),
   i.onload = i.onreadystatechange = function(e, n) {
-    if (n || !i.readyState || i.readyState == "loaded" ||
-        i.readyState == "complete")
+    if (n || !i.readyState || i.readyState == "loaded" 
+        || i.readyState == "complete"
+    ) {
       i = i.onload = i.onreadystatechange = null, n || t()
   }
+    }
 }
            }),
     define("ace/lib/event_emitter", [ "require", "exports", "module" ],
@@ -2787,34 +2952,41 @@ r._emit = r._dispatchEvent = function(e, t) {
   this._eventRegistry || (this._eventRegistry = {}),
       this._defaultHandlers || (this._defaultHandlers = {});
   var n = this._eventRegistry[e] || [], r = this._defaultHandlers[e];
-  if (!n.length && !r)
+  if (!n.length && !r) {
     return;
-  if (typeof t != "object" || !t)
+  }
+  if (typeof t != "object" || !t) {
     t = {};
+  }
   t.type || (t.type = e), t.stopPropagation || (t.stopPropagation = i),
       t.preventDefault || (t.preventDefault = s), t.target || (t.target = this);
   for (var o = 0; o < n.length; o++) {
     n[o](t);
-    if (t.propagationStopped)
+    if (t.propagationStopped) {
       break
   }
-  if (r && !t.defaultPrevented)
+    }
+  if (r && !t.defaultPrevented) {
     return r(t)
-}, r._signal = function(e, t) {
+}
+  }, r._signal = function(e, t) {
   var n = (this._eventRegistry || {})[e];
-  if (!n)
+  if (!n) {
     return;
-  for (var r = 0; r < n.length; r++)
+  }
+  for (var r = 0; r < n.length; r++) {
     n[r](t)
-}, r.once = function(e, t) {
+}
+  }, r.once = function(e, t) {
   var n = this, r = function() {
     fun && fun.apply(null, arguments), n.removeEventListener(event, r)
   };
   this.addEventListener(event, r)
 }, r.setDefaultHandler = function(e, t) {
   this._defaultHandlers = this._defaultHandlers || {};
-  if (this._defaultHandlers[e])
+  if (this._defaultHandlers[e]) {
     throw new Error("The default handler for '" + e + "' is already set");
+  }
   this._defaultHandlers[e] = t
 }, r.on = r.addEventListener = function(e, t, n) {
   this._eventRegistry = this._eventRegistry || {};
@@ -2824,8 +2996,9 @@ r._emit = r._dispatchEvent = function(e, t) {
 }, r.removeListener = r.removeEventListener = function(e, t) {
   this._eventRegistry = this._eventRegistry || {};
   var n = this._eventRegistry[e];
-  if (!n)
+  if (!n) {
     return;
+  }
   var r = n.indexOf(t);
   r !== -1 && n.splice(r, 1)
 }, r.removeAllListeners = function(e) {
@@ -2876,14 +3049,17 @@ this.setDefaultHandler = function(e) {
       this.$defaultHandler = e, this.addKeyboardHandler(e, 0),
       this.$data = {editor : this.$editor}
 }, this.setKeyboardHandler = function(e) {
-  if (this.$handlers[this.$handlers.length - 1] == e)
+  if (this.$handlers[this.$handlers.length - 1] == e) {
     return;
-  while (this.$handlers[1])
+  }
+  while (this.$handlers[1]) {
     this.removeKeyboardHandler(this.$handlers[1]);
+  }
   this.addKeyboardHandler(e, 1)
 }, this.addKeyboardHandler = function(e, t) {
-  if (!e)
+  if (!e) {
     return;
+  }
   var n = this.$handlers.indexOf(e);
   n != -1 && this.$handlers.splice(n, 1),
       t == undefined ? this.$handlers.push(e) : this.$handlers.splice(t, 0, e),
@@ -2899,14 +3075,16 @@ this.setDefaultHandler = function(e) {
   var s, o = !1, u = this.$editor.commands;
   for (var a = this.$handlers.length; a--;) {
     s = this.$handlers[a].handleKeyboard(this.$data, e, t, n, r);
-    if (!s || !s.command)
+    if (!s || !s.command) {
       continue;
+    }
     s.command == "null" ? o = s.passEvent != 1
                         : o = u.exec(s.command, this.$editor, s.args, r),
                           o && r && e != -1 && i.stopEvent(r);
-    if (o)
+    if (o) {
       break
   }
+    }
   return o
 }, this.onCommandKey = function(e, t, n) {
   var i = r.keyCodeToString(n);
@@ -2939,8 +3117,9 @@ var r = e("./lib/oop"), i = e("./lib/lang"), s = e("./config"),
       this.$foldData.toString = function() { return this.join("\n") },
       this.on("changeFold", this.onChangeFold.bind(this)),
       this.$onChange = this.onChange.bind(this);
-      if (typeof e != "object" || !e.getLine)
+      if (typeof e != "object" || !e.getLine) {
         e = new l(e);
+      }
       this.setDocument(e), this.selection = new u(this), this.setMode(t),
                            s.resetOptions(this), s._emit("session", this)
     };
@@ -2989,11 +3168,12 @@ r.implement(this, o),
       var n = 0, r = e.length - 1;
       while (n <= r) {
         var i = n + r >> 1, s = e[i];
-        if (t > s)
+        if (t > s) {
           n = i + 1;
-        else {
-          if (!(t < s))
+        } else {
+          if (!(t < s)) {
             return i;
+          }
           r = i - 1
         }
       }
@@ -3035,14 +3215,16 @@ r.implement(this, o),
     this.getTokenAt =
         function(e, t) {
       var n = this.bgTokenizer.getTokens(e), r, i = 0;
-      if (t == null)
+      if (t == null) {
         s = n.length - 1, i = this.getLine(e).length;
-      else
+      } else {
         for (var s = 0; s < n.length; s++) {
           i += n[s].value.length;
-          if (i >= t)
+          if (i >= t) {
             break
         }
+          }
+      }
       return r = n[s], r ? (r.index = s, r.start = i - r.value.length, r) : null
     },
     this.setUndoManager =
@@ -3087,8 +3269,9 @@ r.implement(this, o),
     this.$overwrite = !1,
     this.setOverwrite =
         function(e) {
-      if (this.$overwrite == e)
+      if (this.$overwrite == e) {
         return;
+      }
       this.$overwrite = e, this._emit("changeOverwrite")
     },
     this.getOverwrite = function() { return this.$overwrite },
@@ -3107,8 +3290,9 @@ r.implement(this, o),
     this.setBreakpoints =
         function(e) {
       this.$breakpoints = [];
-      for (var t = 0; t < e.length; t++)
+      for (var t = 0; t < e.length; t++) {
         this.$breakpoints[e[t]] = "ace_breakpoint";
+      }
       this._emit("changeBreakpoint", {})
     },
     this.clearBreakpoints =
@@ -3139,8 +3323,9 @@ r.implement(this, o),
     },
     this.addDynamicMarker =
         function(e, t) {
-      if (!e.update)
+      if (!e.update) {
         return;
+      }
       var n = this.$markerId++;
       return e.id = n, e.inFront = !!t,
              t ? (this.$frontMarkers[n] = e, this._emit("changeFrontMarker"))
@@ -3150,8 +3335,9 @@ r.implement(this, o),
     this.removeMarker =
         function(e) {
       var t = this.$frontMarkers[e] || this.$backMarkers[e];
-      if (!t)
+      if (!t) {
         return;
+      }
       var n = t.inFront ? this.$frontMarkers : this.$backMarkers;
       t && (delete n[e],
             this._emit(t.inFront ? "changeFrontMarker" : "changeBackMarker"))
@@ -3186,29 +3372,33 @@ r.implement(this, o),
       var n = this.getLine(e), r = !1;
       t > 0 && (r = !!n.charAt(t - 1).match(this.tokenRe)),
           r || (r = !!n.charAt(t).match(this.tokenRe));
-      if (r)
+      if (r) {
         var i = this.tokenRe;
-      else if (/^\s+$/.test(n.slice(t - 1, t + 1)))
+      } else if (/^\s+$/.test(n.slice(t - 1, t + 1))) {
         var i = /\s/;
-      else
+      } else {
         var i = this.nonTokenRe;
+      }
       var s = t;
       if (s > 0) {
-        do
+        do {
           s--;
+        }
         while (s >= 0 && n.charAt(s).match(i));
         s++
       }
       var o = t;
-      while (o < n.length && n.charAt(o).match(i))
+      while (o < n.length && n.charAt(o).match(i)) {
         o++;
+      }
       return new f(e, s, e, o)
     },
     this.getAWordRange =
         function(e, t) {
       var n = this.getWordRange(e, t), r = this.getLine(n.end.row);
-      while (r.charAt(n.end.column).match(/[ \t]/))
+      while (r.charAt(n.end.column).match(/[ \t]/)) {
         n.end.column += 1;
+      }
       return n
     },
     this.setNewLineMode = function(e) { this.doc.setNewLineMode(e) },
@@ -3224,21 +3414,26 @@ r.implement(this, o),
     this.setMode =
         function(e) {
       if (e && typeof e == "object") {
-        if (e.getTokenizer)
+        if (e.getTokenizer) {
           return this.$onChangeMode(e);
+        }
         var t = e, n = t.path
-      } else
+      } else {
         n = e || "ace/mode/text";
+      }
       this.$modes["ace/mode/text"] || (this.$modes["ace/mode/text"] = new a);
-      if (this.$modes[n] && !t)
+      if (this.$modes[n] && !t) {
         return this.$onChangeMode(this.$modes[n]);
+      }
       this.$modeId = n,
       s.loadModule([ "mode", n ],
                    function(e) {
-                     if (this.$modeId !== n)
+                     if (this.$modeId !== n) {
                        return;
-                     if (this.$modes[n] && !t)
+                     }
+                     if (this.$modes[n] && !t) {
                        return this.$onChangeMode(this.$modes[n]);
+                     }
                      e && e.Mode &&
                          (e = new e.Mode(t),
                           t || (this.$modes[n] = e, e.$id = n),
@@ -3248,8 +3443,9 @@ r.implement(this, o),
     },
     this.$onChangeMode =
         function(e, t) {
-      if (this.$mode === e)
+      if (this.$mode === e) {
         return;
+      }
       this.$mode = e, this.$stopWorker(),
       this.$useWorker && this.$startWorker();
       var n = e.getTokenizer();
@@ -3262,8 +3458,9 @@ r.implement(this, o),
         var i = this;
         this.bgTokenizer.addEventListener(
             "update", function(e) { i._emit("tokenizerUpdate", e) })
-      } else
+      } else {
         this.bgTokenizer.setTokenizer(n);
+      }
       this.bgTokenizer.setDocument(this.getDocument()),
           this.tokenRe = e.tokenRe, this.nonTokenRe = e.nonTokenRe,
           t || (this.$modeId = e.$id, this.$setFolding(e.foldingRules),
@@ -3275,22 +3472,24 @@ r.implement(this, o),
     },
     this.$startWorker =
         function() {
-      if (typeof Worker != "undefined" && !e.noWorker)
+      if (typeof Worker != "undefined" && !e.noWorker) {
         try {
           this.$worker = this.$mode.createWorker(this)
         } catch (t) {
           console.log("Could not load worker"), console.log(t),
               this.$worker = null
         }
-      else
+      } else {
         this.$worker = null
-    },
+    }
+      },
     this.getMode = function() { return this.$mode }, this.$scrollTop = 0,
     this.setScrollTop =
         function(e) {
       e = Math.round(Math.max(0, e));
-      if (this.$scrollTop === e || isNaN(e))
+      if (this.$scrollTop === e || isNaN(e)) {
         return;
+      }
       this.$scrollTop = e, this._signal("changeScrollTop", e)
     },
     this.getScrollTop = function() { return this.$scrollTop },
@@ -3298,8 +3497,9 @@ r.implement(this, o),
     this.setScrollLeft =
         function(e) {
       e = Math.round(Math.max(0, e));
-      if (this.$scrollLeft === e || isNaN(e))
+      if (this.$scrollLeft === e || isNaN(e)) {
         return;
+      }
       this.$scrollLeft = e, this._signal("changeScrollLeft", e)
     },
     this.getScrollLeft = function() { return this.$scrollLeft },
@@ -3309,15 +3509,17 @@ r.implement(this, o),
         function(e) {
       if (this.$modified || e) {
         this.$modified = !1;
-        if (this.$useWrapMode)
+        if (this.$useWrapMode) {
           return this.screenWidth = this.$wrapLimit;
+        }
         var t = this.doc.getAllLines(), n = this.$rowLengthCache, r = 0, i = 0,
             s = this.$foldData[i], o = s ? s.start.row : Infinity, u = t.length;
         for (var a = 0; a < u; a++) {
           if (a > o) {
             a = s.end.row + 1;
-            if (a >= u)
+            if (a >= u) {
               break;
+            }
             s = this.$foldData[i++], o = s ? s.start.row : Infinity
           }
           n[a] == null && (n[a] = this.$getStringScreenWidth(t[a])[0]),
@@ -3335,8 +3537,9 @@ r.implement(this, o),
     this.remove = function(e) { return this.doc.remove(e) },
     this.undoChanges =
         function(e, t) {
-      if (!e.length)
+      if (!e.length) {
         return;
+      }
       this.$fromUndo = !0;
       var n = null;
       for (var r = e.length - 1; r != -1; r--) {
@@ -3352,8 +3555,9 @@ r.implement(this, o),
     },
     this.redoChanges =
         function(e, t) {
-      if (!e.length)
+      if (!e.length) {
         return;
+      }
       this.$fromUndo = !0;
       var n = null;
       for (var r = 0; r < e.length; r++) {
@@ -3375,7 +3579,7 @@ r.implement(this, o),
       var i = e[0], s, o, u = !1;
       r(i) ? (s = i.range.clone(), u = !0)
            : (s = f.fromPoints(i.range.start, i.range.start), u = !1);
-      for (var a = 1; a < e.length; a++)
+      for (var a = 1; a < e.length; a++) {
         i = e[a],
         r(i)
             ? (o = i.range.start,
@@ -3386,6 +3590,7 @@ r.implement(this, o),
                s.compare(o.row, o.column) == -1 &&
                    (s = f.fromPoints(i.range.start, i.range.start)),
                u = !1);
+      }
       if (n != null) {
         var l = n.compareRange(s);
         l == 1 ? s.setStart(n.start) : l == -1 && s.setEnd(n.end)
@@ -3422,18 +3627,21 @@ r.implement(this, o),
     this.indentRows =
         function(e, t, n) {
       n = n.replace(/\t/g, this.getTabString());
-      for (var r = e; r <= t; r++)
+      for (var r = e; r <= t; r++) {
         this.insert({row : r, column : 0}, n)
-    },
+    }
+      },
     this.outdentRows =
         function(e) {
       var t = e.collapseRows(), n = new f(0, 0, 0, 0), r = this.getTabSize();
       for (var i = t.start.row; i <= t.end.row; ++i) {
         var s = this.getLine(i);
         n.start.row = i, n.end.row = i;
-        for (var o = 0; o < r; ++o)
-          if (s.charAt(o) != " ")
+        for (var o = 0; o < r; ++o) {
+          if (s.charAt(o) != " ") {
             break;
+          }
+        }
         o < r && s.charAt(o) == "	"
             ? (n.start.column = o, n.end.column = o + 1)
             : (n.start.column = 0, n.end.column = o),
@@ -3445,13 +3653,15 @@ r.implement(this, o),
       e = this.getRowFoldStart(e), t = this.getRowFoldEnd(t);
       if (n < 0) {
         var r = this.getRowFoldStart(e + n);
-        if (r < 0)
+        if (r < 0) {
           return 0;
+        }
         var i = r - e
       } else if (n > 0) {
         var r = this.getRowFoldEnd(t + n);
-        if (r > this.doc.getLength() - 1)
+        if (r > this.doc.getLength() - 1) {
           return 0;
+        }
         var i = r - t
       } else {
         e = this.$clipRowToDocument(e), t = this.$clipRowToDocument(t);
@@ -3473,9 +3683,9 @@ r.implement(this, o),
     this.$clipPositionToDocument =
         function(e, t) {
       t = Math.max(0, t);
-      if (e < 0)
+      if (e < 0) {
         e = 0, t = 0;
-      else {
+      } else {
         var n = this.doc.getLength();
         e >= n ? (e = n - 1, t = this.doc.getLine(n - 1).length)
                : t = Math.min(this.doc.getLine(e).length, t)
@@ -3505,8 +3715,9 @@ r.implement(this, o),
         if (e) {
           var t = this.getLength();
           this.$wrapData = [];
-          for (var n = 0; n < t; n++)
+          for (var n = 0; n < t; n++) {
             this.$wrapData.push([]);
+          }
           this.$updateWrapData(0, t - 1)
         }
         this._emit("changeWrapMode")
@@ -3514,10 +3725,11 @@ r.implement(this, o),
     },
     this.getUseWrapMode = function() { return this.$useWrapMode },
     this.setWrapLimitRange = function(e, t) {
-      if (this.$wrapLimitRange.min !== e || this.$wrapLimitRange.max !== t)
+      if (this.$wrapLimitRange.min !== e || this.$wrapLimitRange.max !== t) {
         this.$wrapLimitRange.min = e, this.$wrapLimitRange.max = t,
         this.$modified = !0, this._emit("changeWrapMode")
-    }, this.adjustWrapLimit = function(e) {
+    }
+      }, this.adjustWrapLimit = function(e) {
       var t = this.$constrainWrapLimit(e);
       return t != this.$wrapLimit && t > 0
                  ? (this.$wrapLimit = t, this.$modified = !0,
@@ -3543,7 +3755,7 @@ r.implement(this, o),
           ? (r == "insertLines" ? s = i + e.data.lines.length : s = i,
              n = e.data.lines ? e.data.lines.length : s - i)
           : n = s - i;
-      if (n != 0)
+      if (n != 0) {
         if (r.indexOf("remove") != -1) {
           this[t ? "$wrapData" : "$rowLengthCache"].splice(i, n);
           var f = this.$foldData;
@@ -3564,12 +3776,14 @@ r.implement(this, o),
           var p;
           if (t) {
             p = [ i, 0 ];
-            for (var d = 0; d < n; d++)
+            for (var d = 0; d < n; d++) {
               p.push([]);
+            }
             this.$wrapData.splice.apply(this.$wrapData, p)
-          } else
+          } else {
             p = Array(n), p.unshift(i, 0),
             this.$rowLengthCache.splice.apply(this.$rowLengthCache, p);
+          }
           var f = this.$foldData, l = this.getFoldLine(i), c = 0;
           if (l) {
             var v = l.range.compareInside(o.row, o.column);
@@ -3584,7 +3798,7 @@ r.implement(this, o),
             l.start.row >= i && l.shiftRow(n)
           }
         }
-      else {
+      } else {
         n = Math.abs(e.data.range.start.column - e.data.range.end.column),
         r.indexOf("remove") != -1 && (a = this.getFoldsInRange(e.data.range),
                                       this.removeFolds(a), n = -n);
@@ -3604,22 +3818,24 @@ r.implement(this, o),
       t = Math.min(t, n.length - 1);
       while (c <= t) {
         f = this.getFoldLine(c, f);
-        if (!f)
+        if (!f) {
           a = this.$getDisplayTokens(i.stringTrimRight(n[c])),
           s[c] = this.$computeWrapSplits(a, o, r), c++;
-        else {
+        } else {
           a = [], f.walk(function(e, t, r, i) {
             var s;
             if (e != null) {
               s = this.$getDisplayTokens(e, a.length), s[0] = u;
-              for (var o = 1; o < s.length; o++)
+              for (var o = 1; o < s.length; o++) {
                 s[o] = l
-            } else
+            } } else {
               s = this.$getDisplayTokens(n[t].substring(i, r), a.length);
+            }
             a = a.concat(s)
           }.bind(this), f.end.row, n[f.end.row].length + 1);
-          while (a.length != 0 && a[a.length - 1] >= d)
+          while (a.length != 0 && a[a.length - 1] >= d) {
             a.pop();
+          }
           s[f.start.row] = this.$computeWrapSplits(a, o, r), c = f.end.row + 1
         }
       }
@@ -3632,39 +3848,48 @@ this.$computeWrapSplits = function(e, t) {
       o -= 1
     }), s += o, n.push(s), i = t
   }
-  if (e.length == 0)
+  if (e.length == 0) {
     return [];
+  }
   var n = [], r = e.length, i = 0, s = 0;
   while (r - i > t) {
     var a = i + t;
     if (e[a] >= d) {
-      while (e[a] >= d)
+      while (e[a] >= d) {
         a++;
+      }
       o(a);
       continue
     }
     if (e[a] == u || e[a] == l) {
-      for (a; a != i - 1; a--)
-        if (e[a] == u)
+      for (a; a != i - 1; a--) {
+        if (e[a] == u) {
           break;
+        }
+      }
       if (a > i) {
         o(a);
         continue
       }
       a = i + t;
-      for (a; a < e.length; a++)
-        if (e[a] != l)
+      for (a; a < e.length; a++) {
+        if (e[a] != l) {
           break;
-      if (a == e.length)
+        }
+      }
+      if (a == e.length) {
         break;
+      }
       o(a);
       continue
     }
     var f = Math.max(a - 10, i - 1);
-    while (a > f && e[a] < u)
+    while (a > f && e[a] < u) {
       a--;
-    while (a > f && e[a] == p)
+    }
+    while (a > f && e[a] == p) {
       a--;
+    }
     if (a > f) {
       o(++a);
       continue
@@ -3679,26 +3904,29 @@ this.$computeWrapSplits = function(e, t) {
     var u = e.charCodeAt(o);
     if (u == 9) {
       s = this.getScreenTabSize(i.length + r), i.push(v);
-      for (var a = 1; a < s; a++)
+      for (var a = 1; a < s; a++) {
         i.push(m)
-    } else
+    } } else {
       u == 32 ? i.push(d)
               : u > 39 && u<48 || u>57 && u < 64
                     ? i.push(p)
                     : u >= 4352 && g(u) ? i.push(t, n) : i.push(t)
   }
+    }
   return i
 }, this.$getStringScreenWidth = function(e, t, n) {
-  if (t == 0)
+  if (t == 0) {
     return [ 0, 0 ];
+  }
   t == null && (t = Infinity), n = n || 0;
   var r, i;
   for (i = 0; i < e.length; i++) {
     r = e.charCodeAt(i), r == 9 ? n += this.getScreenTabSize(n)
                                 : r >= 4352 && g(r) ? n += 2 : n += 1;
-    if (n > t)
+    if (n > t) {
       break
   }
+    }
   return [ n, i ]
 }, this.getRowLength = function(e) {
   return !this.$useWrapMode || !this.$wrapData[e] ? 1
@@ -3725,24 +3953,26 @@ this.$computeWrapSplits = function(e, t) {
     return {row : 0, column : 0};
   var n, r = 0, i = 0, s, o = 0, u = 0, a = this.$screenRowCache,
          f = this.$getRowCacheIndex(a, e), l = a.length;
-  if (l && f >= 0)
+  if (l && f >= 0) {
     var o = a[f], r = this.$docRowCache[f], c = e > a[l - 1];
-  else
+  } else {
     var c = !l;
+  }
   var h = this.getLength() - 1, p = this.getNextFoldLine(r),
       d = p ? p.start.row : Infinity;
   while (o <= e) {
     u = this.getRowLength(r);
-    if (o + u - 1 >= e || r >= h)
+    if (o + u - 1 >= e || r >= h) {
       break;
+    }
     o += u, r++,
         r > d && (r = p.end.row + 1, p = this.getNextFoldLine(r, p),
                   d = p ? p.start.row : Infinity),
         c && (this.$docRowCache.push(r), this.$screenRowCache.push(o))
   }
-  if (p && p.start.row <= r)
+  if (p && p.start.row <= r) {
     n = this.getFoldDisplayLine(p), r = p.start.row;
-  else {
+  } else {
     if (o + u <= e || r > h)
       return {row : h, column : this.getLine(h).length};
     n = this.getLine(r), p = null
@@ -3757,28 +3987,32 @@ this.$computeWrapSplits = function(e, t) {
          this.$useWrapMode && i >= s && (i = s - 1),
          p ? p.idxToPosition(i) : {row : r, column : i}
 }, this.documentToScreenPosition = function(e, t) {
-  if (typeof t == "undefined")
+  if (typeof t == "undefined") {
     var n = this.$clipPositionToDocument(e.row, e.column);
-  else
+  } else {
     n = this.$clipPositionToDocument(e, t);
+  }
   e = n.row, t = n.column;
   var r = 0, i = null, s = null;
   s = this.getFoldAt(e, t, 1), s && (e = s.start.row, t = s.start.column);
   var o, u = 0, a = this.$docRowCache, f = this.$getRowCacheIndex(a, e),
          l = a.length;
-  if (l && f >= 0)
+  if (l && f >= 0) {
     var u = a[f], r = this.$screenRowCache[f], c = e > a[l - 1];
-  else
+  } else {
     var c = !l;
+  }
   var h = this.getNextFoldLine(u), p = h ? h.start.row : Infinity;
   while (u < e) {
     if (u >= p) {
       o = h.end.row + 1;
-      if (o > e)
+      if (o > e) {
         break;
+      }
       h = this.getNextFoldLine(o, h), p = h ? h.start.row : Infinity
-    } else
+    } else {
       o = u + 1;
+    }
     r += this.getRowLength(u),
         u = o, c && (this.$docRowCache.push(u), this.$screenRowCache.push(r))
   }
@@ -3787,8 +4021,9 @@ this.$computeWrapSplits = function(e, t) {
               : (d = this.getLine(e).substring(0, t), i = e);
   if (this.$useWrapMode) {
     var v = this.$wrapData[i], m = 0;
-    while (d.length >= v[m])
+    while (d.length >= v[m]) {
       r++, m++;
+    }
     d = d.substring(v[m - 1] || 0, d.length)
   }
   return { row: r, column: this.$getStringScreenWidth(d)[0] }
@@ -3801,16 +4036,17 @@ this.$computeWrapSplits = function(e, t) {
   if (!this.$useWrapMode) {
     e = this.getLength();
     var n = this.$foldData;
-    for (var r = 0; r < n.length; r++)
+    for (var r = 0; r < n.length; r++) {
       t = n[r], e -= t.end.row - t.start.row
-  } else {
+  } } else {
     var i = this.$wrapData.length, s = 0, r = 0, t = this.$foldData[r++],
         o = t ? t.start.row : Infinity;
-    while (s < i)
+    while (s < i) {
       e += this.$wrapData[s].length + 1, s++,
           s > o && (s = t.end.row + 1, t = this.$foldData[r++],
                     o = t ? t.start.row : Infinity)
   }
+    }
   return e
 }
 }).call(p.prototype),
@@ -3823,9 +4059,9 @@ this.$computeWrapSplits = function(e, t) {
     ? e = !1
     : e == "free" ? e = !0
                   : typeof e == "string" && (e = parseInt(e, 10) || !1);
-if (!e)
+if (!e) {
   this.setUseWrapMode(!1);
-else {
+} else {
   var t = typeof e == "number" ? e : null;
   this.setUseWrapMode(!0), this.setWrapLimitRange(t, t)
 }
@@ -3849,8 +4085,9 @@ this.$useWorker = e, this.$stopWorker(), e && this.$startWorker()
       useSoftTabs : {initialValue : !0},
       tabSize : {
         set : function(e) {
-if (isNaN(e) || this.$tabSize === e)
+if (isNaN(e) || this.$tabSize === e) {
   return;
+}
 this.$modified = !0, this.$rowLengthCache = [], this.$tabSize = e,
                      this._emit("changeTabSize")
         },
@@ -4004,12 +4241,12 @@ r.implement(this, s),
     this.moveCursorDown = function() { this.moveCursorBy(1, 0) },
     this.moveCursorLeft = function() {
       var e = this.lead.getPosition(), t;
-      if (t = this.session.getFoldAt(e.row, e.column, -1))
+      if (t = this.session.getFoldAt(e.row, e.column, -1)) {
         this.moveCursorTo(t.start.row, t.start.column);
-      else if (e.column == 0)
+      } else if (e.column == 0) {
         e.row > 0 &&
             this.moveCursorTo(e.row - 1, this.doc.getLine(e.row - 1).length);
-      else {
+      } else {
         var n = this.session.getTabSize();
         this.session.isTabStop(e) && this.doc.getLine(e.row)
                                                  .slice(e.column - n, e.column)
@@ -4022,12 +4259,12 @@ r.implement(this, s),
       }
     }, this.moveCursorRight = function() {
       var e = this.lead.getPosition(), t;
-      if (t = this.session.getFoldAt(e.row, e.column, 1))
+      if (t = this.session.getFoldAt(e.row, e.column, 1)) {
         this.moveCursorTo(t.end.row, t.end.column);
-      else if (this.lead.column == this.doc.getLine(this.lead.row).length)
+      } else if (this.lead.column == this.doc.getLine(this.lead.row).length) {
         this.lead.row < this.doc.getLength() - 1 &&
             this.moveCursorTo(this.lead.row + 1, 0);
-      else {
+      } else {
         var n = this.session.getTabSize(), e = this.lead;
         this.session.isTabStop(e) && this.doc.getLine(e.row)
                                                  .slice(e.column, e.column + n)
@@ -4072,16 +4309,18 @@ r.implement(this, s),
         this.moveCursorTo(s.end.row, s.end.column);
         return
       }
-      if (i = this.session.nonTokenRe.exec(r))
+      if (i = this.session.nonTokenRe.exec(r)) {
         t += this.session.nonTokenRe.lastIndex,
             this.session.nonTokenRe.lastIndex = 0, r = n.substring(t);
+      }
       if (t >= n.length) {
         this.moveCursorTo(e, n.length), this.moveCursorRight(),
             e < this.doc.getLength() - 1 && this.moveCursorWordRight();
         return
       }
-      if (i = this.session.tokenRe.exec(r))
+      if (i = this.session.tokenRe.exec(r)) {
         t += this.session.tokenRe.lastIndex, this.session.tokenRe.lastIndex = 0;
+      }
       this.moveCursorTo(e, t)
     }, this.moveCursorLongWordLeft = function() {
       var e = this.lead.row, t = this.lead.column, n;
@@ -4093,26 +4332,29 @@ r.implement(this, s),
       r == null && (r = this.doc.getLine(e).substring(0, t));
       var s = i.stringReverse(r), o;
       this.session.nonTokenRe.lastIndex = 0, this.session.tokenRe.lastIndex = 0;
-      if (o = this.session.nonTokenRe.exec(s))
+      if (o = this.session.nonTokenRe.exec(s)) {
         t -= this.session.nonTokenRe.lastIndex,
             s = s.slice(this.session.nonTokenRe.lastIndex),
             this.session.nonTokenRe.lastIndex = 0;
+      }
       if (t <= 0) {
         this.moveCursorTo(e, 0), this.moveCursorLeft(),
             e > 0 && this.moveCursorWordLeft();
         return
       }
-      if (o = this.session.tokenRe.exec(s))
+      if (o = this.session.tokenRe.exec(s)) {
         t -= this.session.tokenRe.lastIndex, this.session.tokenRe.lastIndex = 0;
+      }
       this.moveCursorTo(e, t)
     }, this.$shortWordEndIndex = function(e) {
       var t, n = 0, r, i = /\s/, s = this.session.tokenRe;
       s.lastIndex = 0;
-      if (t = this.session.tokenRe.exec(e))
+      if (t = this.session.tokenRe.exec(e)) {
         n = this.session.tokenRe.lastIndex;
-      else {
-        while ((r = e[n]) && i.test(r))
+      } else {
+        while ((r = e[n]) && i.test(r)) {
           n++;
+        }
         if (n <= 1) {
           s.lastIndex = 0;
           while ((r = e[n]) && !s.test(r)) {
@@ -4122,11 +4364,13 @@ r.implement(this, s),
                 n--;
                 break
               }
-              while ((r = e[n]) && i.test(r))
+              while ((r = e[n]) && i.test(r)) {
                 n++;
-              if (n > 2)
+              }
+              if (n > 2) {
                 break
             }
+              }
           }
         }
       }
@@ -4134,12 +4378,14 @@ r.implement(this, s),
     }, this.moveCursorShortWordRight = function() {
       var e = this.lead.row, t = this.lead.column, n = this.doc.getLine(e),
           r = n.substring(t), i = this.session.getFoldAt(e, t, 1);
-      if (i)
+      if (i) {
         return this.moveCursorTo(i.end.row, i.end.column);
+      }
       if (t == n.length) {
         var s = this.doc.getLength();
-        do
+        do {
           e++, r = this.doc.getLine(e);
+        }
         while (e < s && /^\s*$/.test(r));
         /^\s+/.test(r) || (r = ""), t = 0
       }
@@ -4147,12 +4393,14 @@ r.implement(this, s),
       this.moveCursorTo(e, t + o)
     }, this.moveCursorShortWordLeft = function() {
       var e = this.lead.row, t = this.lead.column, n;
-      if (n = this.session.getFoldAt(e, t, -1))
+      if (n = this.session.getFoldAt(e, t, -1)) {
         return this.moveCursorTo(n.start.row, n.start.column);
+      }
       var r = this.session.getLine(e).substring(0, t);
       if (t == 0) {
-        do
+        do {
           e--, r = this.doc.getLine(e);
+        }
         while (e > 0 && /^\s*$/.test(r));
         t = r.length, /\s+$/.test(r) || (r = "")
       }
@@ -4269,23 +4517,27 @@ this.isEqual = function(e) {
                    ? -1
                    : this.compare(e, t)
 }, this.clipRows = function(e, t) {
-  if (this.end.row > t)
+  if (this.end.row > t) {
     var n = {row : t + 1, column : 0};
-  else if (this.end.row < e)
+  } else if (this.end.row < e) {
     var n = {row : e, column : 0};
-  if (this.start.row > t)
+  }
+  if (this.start.row > t) {
     var r = {row : t + 1, column : 0};
-  else if (this.start.row < e)
+  } else if (this.start.row < e) {
     var r = {row : e, column : 0};
+  }
   return i.fromPoints(r || this.start, n || this.end)
 }, this.extend = function(e, t) {
   var n = this.compare(e, t);
-  if (n == 0)
+  if (n == 0) {
     return this;
-  if (n == -1)
+  }
+  if (n == -1) {
     var r = {row : e, column : t};
-  else
+  } else {
     var s = {row : e, column : t};
+  }
   return i.fromPoints(r || this.start, s || this.end)
 }, this.isEmpty = function() {
   return this.start.row === this.end.row &&
@@ -4337,8 +4589,9 @@ this.tokenRe = new RegExp("^[" + o.packages.L + o.packages.Mn + o.packages.Mc +
     this.toggleCommentLines =
         function(e, t, n, r) {
       var i = t.doc, s, o;
-      if (!this.lineCommentStart)
+      if (!this.lineCommentStart) {
         return !1;
+      }
       Array.isArray(this.lineCommentStart)
           ? (s = this.lineCommentStart.map(u.escapeRegExp).join("|"),
              o = this.lineCommentStart[0])
@@ -4350,16 +4603,17 @@ this.tokenRe = new RegExp("^[" + o.packages.L + o.packages.Mn + o.packages.Mc +
         var h = i.getLine(c), p = h.search(/\S|$/);
         l[c] = p, p < f && (f = p), a && !s.test(h) && (a = !1)
       }
-      if (a)
+      if (a) {
         for (var c = n; c <= r; c++) {
           var h = i.getLine(c), d = h.match(s);
           i.removeInLine(c, l[c], d[0].length)
         }
-      else {
+      } else {
         o += " ";
-        for (var c = n; c <= r; c++)
+        for (var c = n; c <= r; c++) {
           i.insertInLine({row : c, column : f}, o)
       }
+        }
     },
     this.getNextLineIndent = function(e, t, n) { return this.$getIndent(t) },
     this.checkOutdent = function(e, t, n) { return !1 },
@@ -4367,26 +4621,30 @@ this.tokenRe = new RegExp("^[" + o.packages.L + o.packages.Mn + o.packages.Mc +
     this.$getIndent = function(e) { return e.match(/^\s*/)[0] },
     this.createWorker = function(e) { return null },
     this.createModeDelegates = function(e) {
-      if (!this.$embeds)
+      if (!this.$embeds) {
         return;
+      }
       this.$modes = {};
-      for (var t = 0; t < this.$embeds.length; t++)
+      for (var t = 0; t < this.$embeds.length; t++) {
         e[this.$embeds[t]] &&
             (this.$modes[this.$embeds[t]] = new e[this.$embeds[t]]);
+      }
       var n = [
         "toggleCommentLines", "getNextLineIndent", "checkOutdent",
         "autoOutdent", "transformAction"
       ];
-      for (var t = 0; t < n.length; t++)
+      for (var t = 0; t < n.length; t++) {
         (function(e) {
           var r = n[t], i = e[r];
           e[n[t]] = function() { return this.$delegator(r, arguments, i) }
         })(this)
-    }, this.$delegator = function(e, t, n) {
+    }
+      }, this.$delegator = function(e, t, n) {
       var r = t[0];
       for (var i = 0; i < this.$embeds.length; i++) {
-        if (!this.$modes[this.$embeds[i]])
+        if (!this.$modes[this.$embeds[i]]) {
           continue;
+        }
         var s = r.split(this.$embeds[i]);
         if (!s[0] && s[1]) {
           t[0] = s[1];
@@ -4399,12 +4657,14 @@ this.tokenRe = new RegExp("^[" + o.packages.L + o.packages.Mn + o.packages.Mc +
     }, this.transformAction = function(e, t, n, r, i) {
       if (this.$behaviour) {
         var s = this.$behaviour.getBehaviours();
-        for (var o in s)
+        for (var o in s) {
           if (s[o][t]) {
             var u = s[o][t].apply(this, arguments);
-            if (u)
+            if (u) {
               return u
           }
+            }
+        }
       }
     }
 }).call(a.prototype),
@@ -4421,8 +4681,9 @@ var r = 1e3, i = function(e) {
       var a = n[u];
       a.defaultToken && (s.defaultToken = a.defaultToken),
           a.caseInsensitive && (o = "gi");
-      if (a.regex == null)
+      if (a.regex == null) {
         continue;
+      }
       a.regex instanceof RegExp && (a.regex = a.regex.toString().slice(1, -1));
       var f = a.regex,
           l = (new RegExp("(?:(" + f + ")|(.))")).exec("a").length - 2;
@@ -4455,18 +4716,21 @@ this.$applyToken = function(e) {
   if (typeof n == "string")
     return [ {type : n, value : e} ];
   var r = [];
-  for (var i = 0, s = n.length; i < s; i++)
+  for (var i = 0, s = n.length; i < s; i++) {
     t[i] && (r[r.length] = {type : n[i], value : t[i]});
+  }
   return r
 }, this.$arrayTokens = function(e) {
-  if (!e)
+  if (!e) {
     return [];
+  }
   var t = this.splitRegex.exec(e), n = [], r = this.tokenArray;
   if (r.length != t.length - 1)
     return window.console && console.error(r, t, e, this.splitRegex, this),
            [ {type : "error.invalid", value : e} ];
-  for (var i = 0, s = r.length; i < s; i++)
+  for (var i = 0, s = r.length; i < s; i++) {
     t[i + 1] && (n[n.length] = {type : r[i], value : t[i + 1]});
+  }
   return n
 }, this.removeCapturingGroups = function(e) {
   var t = e.replace(/\[(?:\\.|[^\]])*?\]|\\.|\(\?[:=!]|(\()/g,
@@ -4492,8 +4756,9 @@ this.$applyToken = function(e) {
   if (t && typeof t != "string") {
     var n = t.slice(0);
     t = n[0]
-  } else
+  } else {
     var n = [];
+  }
   var i = t || "start", s = this.states[i], o = this.matchMappings[i],
       u = this.regExps[i];
   u.lastIndex = 0;
@@ -4506,8 +4771,9 @@ this.$applyToken = function(e) {
                   : (c.type && f.push(c), c = {type : h, value : m})
     }
     for (var g = 0; g < a.length - 2; g++) {
-      if (a[g + 1] === undefined)
+      if (a[g + 1] === undefined) {
         continue;
+      }
       p = s[o[g]], p.onMatch ? h = p.onMatch(d, i, n) : h = p.token,
       p.next && (typeof p.next == "string" ? i = p.next : i = p.next(i, n),
                  s = this.states[i],
@@ -4518,18 +4784,21 @@ this.$applyToken = function(e) {
                  u.lastIndex = v);
       break
     }
-    if (d)
-      if (typeof h == "string")
+    if (d) {
+      if (typeof h == "string") {
         !!p && p.merge === !1 || c.type !== h
             ? (c.type && f.push(c), c = {type : h, value : d})
             : c.value += d;
-      else {
+      } else {
         c.type && f.push(c), c = {type : null, value : ""};
-        for (var g = 0; g < h.length; g++)
+        for (var g = 0; g < h.length; g++) {
           f.push(h[g])
       }
-    if (l == e.length)
+        }
+    }
+    if (l == e.length) {
       break;
+    }
     l = v;
     if (f.length > r) {
       c.value += e.substr(l), i = "start";
@@ -4564,20 +4833,22 @@ this.addRules =
     this.getRules = function() { return this.$rules },
     this.embedRules = function(e, t, n, i, s) {
       var o = (new e).getRules();
-      if (i)
-        for (var u = 0; u < i.length; u++)
+      if (i) {
+        for (var u = 0; u < i.length; u++) {
           i[u] = t + i[u];
-      else {
+      } } else {
         i = [];
-        for (var a in o)
+        for (var a in o) {
           i.push(t + a)
       }
+        }
       this.addRules(o, t);
       if (n) {
         var f = Array.prototype[s ? "push" : "unshift"];
-        for (var u = 0; u < i.length; u++)
+        for (var u = 0; u < i.length; u++) {
           f.apply(this.$rules[i[u]], r.deepCopy(n))
       }
+        }
       this.$embeds || (this.$embeds = []), this.$embeds.push(t)
     }, this.getEmbeds = function() { return this.$embeds };
 var e = function(e, t) {
@@ -4601,17 +4872,21 @@ this.normalizeRules = function() {
       if (f && Array.isArray(f)) {
         var l = a.stateName || a.token + n++;
         r[l] = f, a.next = l, i(l)
-      } else
+      } else {
         f == "pop" && (a.next = t);
+      }
       a.push && (a.nextState = a.next || a.push, a.next = e, delete a.push);
-      if (a.rules)
-        for (var c in a.rules)
+      if (a.rules) {
+        for (var c in a.rules) {
           r[c] ? r[c].push && r[c].push.apply(r[c], a.rules[c])
                : r[c] = a.rules[c];
-      if (a.include || typeof a == "string")
+        }
+      }
+      if (a.include || typeof a == "string") {
         var h = a.include || a, p = r[h];
-      else
+      } else {
         Array.isArray(a) && (p = a);
+      }
       if (p) {
         var d = [ u, 1 ].concat(p);
         a.noEscape && (d = d.filter(function(e) { return !e.next })),
@@ -4627,9 +4902,10 @@ this.normalizeRules = function() {
     var s = e[t];
     n && (s = s.toLowerCase());
     var o = s.split(r || "|");
-    for (var u = o.length; u--;)
+    for (var u = o.length; u--;) {
       i[o[u]] = t
-  }),
+  }
+    }),
          e = null,
          n ? function(e) { return i[e.toLowerCase()] || t }
            : function(e) { return i[e] || t }
@@ -4650,23 +4926,28 @@ this.add = function(e, t, n) {
   }
   this.$behaviours[e][t] = n
 }, this.addBehaviours = function(e) {
-  for (var t in e)
-    for (var n in e[t])
+  for (var t in e) {
+    for (var n in e[t]) {
       this.add(t, n, e[t][n])
-}, this.remove = function(e) {
+}
+  }
+    }, this.remove = function(e) {
   this.$behaviours && this.$behaviours[e] && delete this.$behaviours[e]
 }, this.inherit = function(e, t) {
-  if (typeof e == "function")
+  if (typeof e == "function") {
     var n = (new e).getBehaviours(t);
-  else
+  } else {
     var n = e.getBehaviours(t);
+  }
   this.addBehaviours(n)
 }, this.getBehaviours = function(e) {
-  if (!e)
+  if (!e) {
     return this.$behaviours;
+  }
   var t = {};
-  for (var n = 0; n < e.length; n++)
+  for (var n = 0; n < e.length; n++) {
     this.$behaviours[e[n]] && (t[e[n]] = this.$behaviours[e[n]]);
+  }
   return t
 }
 }).call(r.prototype),
@@ -4676,9 +4957,10 @@ this.add = function(e, t, n) {
            function(e, t, n) {
 function r(e) {
   var n = /\w{4}/g;
-  for (var r in e)
+  for (var r in e) {
     t.packages[r] = e[r].replace(n, "\\u$&")
 }
+  }
 t.packages = {}, r(
                      {
                        L : "0041-005A0061-007A00AA00B500BA00C0-00D600D8-00F600F8-02C102C6-02D102E0-02E402EC02EE0370-037403760377037A-037D03860388-038A038C038E-03A103A3-03F503F7-0481048A-05250531-055605590561-058705D0-05EA05F0-05F20621-064A066E066F0671-06D306D506E506E606EE06EF06FA-06FC06FF07100712-072F074D-07A507B107CA-07EA07F407F507FA0800-0815081A082408280904-0939093D09500958-0961097109720979-097F0985-098C098F09900993-09A809AA-09B009B209B6-09B909BD09CE09DC09DD09DF-09E109F009F10A05-0A0A0A0F0A100A13-0A280A2A-0A300A320A330A350A360A380A390A59-0A5C0A5E0A72-0A740A85-0A8D0A8F-0A910A93-0AA80AAA-0AB00AB20AB30AB5-0AB90ABD0AD00AE00AE10B05-0B0C0B0F0B100B13-0B280B2A-0B300B320B330B35-0B390B3D0B5C0B5D0B5F-0B610B710B830B85-0B8A0B8E-0B900B92-0B950B990B9A0B9C0B9E0B9F0BA30BA40BA8-0BAA0BAE-0BB90BD00C05-0C0C0C0E-0C100C12-0C280C2A-0C330C35-0C390C3D0C580C590C600C610C85-0C8C0C8E-0C900C92-0CA80CAA-0CB30CB5-0CB90CBD0CDE0CE00CE10D05-0D0C0D0E-0D100D12-0D280D2A-0D390D3D0D600D610D7A-0D7F0D85-0D960D9A-0DB10DB3-0DBB0DBD0DC0-0DC60E01-0E300E320E330E40-0E460E810E820E840E870E880E8A0E8D0E94-0E970E99-0E9F0EA1-0EA30EA50EA70EAA0EAB0EAD-0EB00EB20EB30EBD0EC0-0EC40EC60EDC0EDD0F000F40-0F470F49-0F6C0F88-0F8B1000-102A103F1050-1055105A-105D106110651066106E-10701075-1081108E10A0-10C510D0-10FA10FC1100-1248124A-124D1250-12561258125A-125D1260-1288128A-128D1290-12B012B2-12B512B8-12BE12C012C2-12C512C8-12D612D8-13101312-13151318-135A1380-138F13A0-13F41401-166C166F-167F1681-169A16A0-16EA1700-170C170E-17111720-17311740-17511760-176C176E-17701780-17B317D717DC1820-18771880-18A818AA18B0-18F51900-191C1950-196D1970-19741980-19AB19C1-19C71A00-1A161A20-1A541AA71B05-1B331B45-1B4B1B83-1BA01BAE1BAF1C00-1C231C4D-1C4F1C5A-1C7D1CE9-1CEC1CEE-1CF11D00-1DBF1E00-1F151F18-1F1D1F20-1F451F48-1F4D1F50-1F571F591F5B1F5D1F5F-1F7D1F80-1FB41FB6-1FBC1FBE1FC2-1FC41FC6-1FCC1FD0-1FD31FD6-1FDB1FE0-1FEC1FF2-1FF41FF6-1FFC2071207F2090-209421022107210A-211321152119-211D212421262128212A-212D212F-2139213C-213F2145-2149214E218321842C00-2C2E2C30-2C5E2C60-2CE42CEB-2CEE2D00-2D252D30-2D652D6F2D80-2D962DA0-2DA62DA8-2DAE2DB0-2DB62DB8-2DBE2DC0-2DC62DC8-2DCE2DD0-2DD62DD8-2DDE2E2F300530063031-3035303B303C3041-3096309D-309F30A1-30FA30FC-30FF3105-312D3131-318E31A0-31B731F0-31FF3400-4DB54E00-9FCBA000-A48CA4D0-A4FDA500-A60CA610-A61FA62AA62BA640-A65FA662-A66EA67F-A697A6A0-A6E5A717-A71FA722-A788A78BA78CA7FB-A801A803-A805A807-A80AA80C-A822A840-A873A882-A8B3A8F2-A8F7A8FBA90A-A925A930-A946A960-A97CA984-A9B2A9CFAA00-AA28AA40-AA42AA44-AA4BAA60-AA76AA7AAA80-AAAFAAB1AAB5AAB6AAB9-AABDAAC0AAC2AADB-AADDABC0-ABE2AC00-D7A3D7B0-D7C6D7CB-D7FBF900-FA2DFA30-FA6DFA70-FAD9FB00-FB06FB13-FB17FB1DFB1F-FB28FB2A-FB36FB38-FB3CFB3EFB40FB41FB43FB44FB46-FBB1FBD3-FD3DFD50-FD8FFD92-FDC7FDF0-FDFBFE70-FE74FE76-FEFCFF21-FF3AFF41-FF5AFF66-FFBEFFC2-FFC7FFCA-FFCFFFD2-FFD7FFDA-FFDC",
@@ -4789,8 +5071,9 @@ r.implement(this, i),
     this.$autoNewLine = "\n", this.$newLineMode = "auto",
     this.setNewLineMode =
         function(e) {
-      if (this.$newLineMode === e)
+      if (this.$newLineMode === e) {
         return;
+      }
       this.$newLineMode = e
     },
     this.getNewLineMode = function() { return this.$newLineMode },
@@ -4801,8 +5084,9 @@ r.implement(this, i),
     this.getAllLines = function() { return this.getLines(0, this.getLength()) },
     this.getLength = function() { return this.$lines.length },
     this.getTextRange = function(e) {
-      if (e.start.row == e.end.row)
+      if (e.start.row == e.end.row) {
         return this.$lines[e.start.row].substring(e.start.column, e.end.column);
+      }
       var t = this.getLines(e.start.row + 1, e.end.row - 1);
       return t.unshift(
                  (this.$lines[e.start.row] || "").substring(e.start.column)),
@@ -4814,8 +5098,9 @@ r.implement(this, i),
                             e.column = this.getLine(t - 1).length),
              e
     }, this.insert = function(e, t) {
-      if (!t || t.length === 0)
+      if (!t || t.length === 0) {
         return e;
+      }
       e = this.$clipPosition(e),
       this.getLength() <= 1 && this.$detectNewLine(t);
       var n = this.$split(t), r = n.splice(0, 1)[0],
@@ -4849,8 +5134,9 @@ r.implement(this, i),
       };
       return this._emit("change", {data : r}), n
     }, this.insertInLine = function(e, t) {
-      if (t.length == 0)
+      if (t.length == 0) {
         return e;
+      }
       var n = this.$lines[e.row] || "";
       this.$lines[e.row] = n.substring(0, e.column) + t + n.substring(e.column);
       var r = {row : e.row, column : e.column + t.length},
@@ -4858,8 +5144,9 @@ r.implement(this, i),
       return this._emit("change", {data : i}), r
     }, this.remove = function(e) {
       e.start = this.$clipPosition(e.start), e.end = this.$clipPosition(e.end);
-      if (e.isEmpty())
+      if (e.isEmpty()) {
         return e.start;
+      }
       var t = e.start.row, n = e.end.row;
       if (e.isMultiLine()) {
         var r = e.start.column == 0 ? t : t + 1, i = n - 1;
@@ -4868,12 +5155,14 @@ r.implement(this, i),
             r != t &&
                 (this.removeInLine(t, e.start.column, this.getLine(t).length),
                  this.removeNewLine(e.start.row))
-      } else
+      } else {
         this.removeInLine(t, e.start.column, e.end.column);
+      }
       return e.start
     }, this.removeInLine = function(e, t, n) {
-      if (t == n)
+      if (t == n) {
         return;
+      }
       var r = new s(e, t, e, n), i = this.getLine(e), o = i.substring(t, n),
           u = i.substring(0, t) + i.substring(n, i.length);
       this.$lines.splice(e, 1, u);
@@ -4898,15 +5187,18 @@ r.implement(this, i),
       };
       this._emit("change", {data : o})
     }, this.replace = function(e, t) {
-      if (t.length == 0 && e.isEmpty())
+      if (t.length == 0 && e.isEmpty()) {
         return e.start;
-      if (t == this.getTextRange(e))
+      }
+      if (t == this.getTextRange(e)) {
         return e.end;
+      }
       this.remove(e);
-      if (t)
+      if (t) {
         var n = this.insert(e.start, t);
-      else
+      } else {
         n = e.start;
+      }
       return n
     }, this.applyDeltas = function(e) {
       for (var t = 0; t < e.length; t++) {
@@ -4944,8 +5236,9 @@ r.implement(this, i),
       var n = this.$lines || this.getAllLines(),
           r = this.getNewLineCharacter().length, i = 0,
           s = Math.min(e.row, n.length);
-      for (var o = t || 0; o < s; ++o)
+      for (var o = t || 0; o < s; ++o) {
         i += n[o].length;
+      }
       return i + r * o + e.column
     }
 }).call(u.prototype),
@@ -4973,12 +5266,15 @@ r.implement(this, i),
     this.getDocument = function() { return this.document },
     this.onChange = function(e) {
       var t = e.data, n = t.range;
-      if (n.start.row == n.end.row && n.start.row != this.row)
+      if (n.start.row == n.end.row && n.start.row != this.row) {
         return;
-      if (n.start.row > this.row)
+      }
+      if (n.start.row > this.row) {
         return;
-      if (n.start.row == this.row && n.start.column > this.column)
+      }
+      if (n.start.row == this.row && n.start.column > this.column) {
         return;
+      }
       var r = this.row, i = this.column;
       t.action === "insertText"
           ? n.start.row === r &&n.start.column <= i
@@ -5011,8 +5307,9 @@ r.implement(this, i),
     }, this.setPosition = function(e, t, n) {
       var r;
       n ? r = {row : e, column : t} : r = this.$clipPositionToDocument(e, t);
-      if (this.row == r.row && this.column == r.column)
+      if (this.row == r.row && this.column == r.column) {
         return;
+      }
       var i = {row : this.row, column : this.column};
       this.row = r.row, this.column = r.column,
       this._emit("change", {old : i, value : r})
@@ -5043,14 +5340,16 @@ var r = e("./lib/oop"), i = e("./lib/event_emitter").EventEmitter,
       this.currentLine = 0, this.tokenizer = e;
       var n = this;
       this.$worker = function() {
-        if (!n.running)
+        if (!n.running) {
           return;
+        }
         var e = new Date, t = n.currentLine, r = n.doc, i = 0,
             s = r.getLength();
         while (n.currentLine < s) {
           n.$tokenizeRow(n.currentLine);
-          while (n.lines[n.currentLine])
+          while (n.lines[n.currentLine]) {
             n.currentLine++;
+          }
           i++;
           if (i % 5 == 0 && new Date - e > 20) {
             n.fireUpdateEvent(t, n.currentLine - 1),
@@ -5076,11 +5375,11 @@ r.implement(this, i), this.setTokenizer = function(e) {
   this.running = setTimeout(this.$worker, 700)
 }, this.$updateOnChange = function(e) {
   var t = e.range, n = t.start.row, r = t.end.row - n;
-  if (r === 0)
+  if (r === 0) {
     this.lines[n] = null;
-  else if (e.action == "removeText" || e.action == "removeLines")
+  } else if (e.action == "removeText" || e.action == "removeLines") {
     this.lines.splice(n, r + 1, null), this.states.splice(n, r + 1, null);
-  else {
+  } else {
     var i = Array(r + 1);
     i.unshift(n, 1), this.lines.splice.apply(this.lines, i),
         this.states.splice.apply(this.states, i)
@@ -5117,12 +5416,14 @@ var r = e("./lib/lang"), i = e("./lib/oop"), s = e("./range").Range,
         e, t, n) { this.setRegexp(e), this.clazz = t, this.type = n || "text" };
 (function() {
 this.MAX_RANGES = 500, this.setRegexp = function(e) {
-  if (this.regExp + "" == e + "")
+  if (this.regExp + "" == e + "") {
     return;
+  }
   this.regExp = e, this.cache = []
 }, this.update = function(e, t, n, i) {
-  if (!this.regExp)
+  if (!this.regExp) {
     return;
+  }
   var o = i.firstRow, u = i.lastRow;
   for (var a = o; a <= u; a++) {
     var f = this.cache[a];
@@ -5132,10 +5433,11 @@ this.MAX_RANGES = 500, this.setRegexp = function(e) {
          f = f.map(function(
              e) { return new s(a, e.offset, a, e.offset + e.length) }),
          this.cache[a] = f.length ? f : "");
-    for (var l = f.length; l--;)
+    for (var l = f.length; l--;) {
       t.drawSingleLineMarker(e, f[l].toScreenRange(n), this.clazz, i, null,
                              this.type)
   }
+    }
 }
 }).call(o.prototype),
     t.SearchHighlight = o
@@ -5151,16 +5453,19 @@ function u() {
   this.getFoldAt =
       function(e, t, n) {
     var r = this.getFoldLine(e);
-    if (!r)
+    if (!r) {
       return null;
+    }
     var i = r.folds;
     for (var s = 0; s < i.length; s++) {
       var o = i[s];
       if (o.range.contains(e, t)) {
-        if (n == 1 && o.range.isEnd(e, t))
+        if (n == 1 && o.range.isEnd(e, t)) {
           continue;
-        if (n == -1 && o.range.isStart(e, t))
+        }
+        if (n == -1 && o.range.isStart(e, t)) {
           continue;
+        }
         return o
       }
     }
@@ -5171,20 +5476,25 @@ function u() {
     t.column += 1, n.column -= 1;
     for (var s = 0; s < r.length; s++) {
       var o = r[s].range.compareRange(e);
-      if (o == 2)
+      if (o == 2) {
         continue;
-      if (o == -2)
+      }
+      if (o == -2) {
         break;
+      }
       var u = r[s].folds;
       for (var a = 0; a < u.length; a++) {
         var f = u[a];
         o = f.range.compareRange(e);
-        if (o == -2)
+        if (o == -2) {
           break;
-        if (o == 2)
+        }
+        if (o == 2) {
           continue;
-        if (o == 42)
+        }
+        if (o == 42) {
           break;
+        }
         i.push(f)
       }
     }
@@ -5194,16 +5504,19 @@ function u() {
       function() {
     function n(t) { e.push(t) }
     var e = [], t = this.$foldData;
-    for (var r = 0; r < t.length; r++)
-      for (var i = 0; i < t[r].folds.length; i++)
+    for (var r = 0; r < t.length; r++) {
+      for (var i = 0; i < t[r].folds.length; i++) {
         n(t[r].folds[i]);
+      }
+    }
     return e
   },
   this.getFoldStringAt =
       function(e, t, n, r) {
     r = r || this.getFoldLine(e);
-    if (!r)
+    if (!r) {
       return null;
+    }
     var i = {end : {column : 0}}, s, o;
     for (var u = 0; u < r.folds.length; u++) {
       o = r.folds[u];
@@ -5212,8 +5525,9 @@ function u() {
         s = this.getLine(o.start.row).substring(i.end.column, o.start.column);
         break
       }
-      if (a === 0)
+      if (a === 0) {
         return null;
+      }
       i = o
     }
     return s || (s = this.getLine(o.start.row).substring(i.end.column)),
@@ -5226,11 +5540,13 @@ function u() {
     t && (r = n.indexOf(t)), r == -1 && (r = 0);
     for (r; r < n.length; r++) {
       var i = n[r];
-      if (i.start.row <= e && i.end.row >= e)
+      if (i.start.row <= e && i.end.row >= e) {
         return i;
-      if (i.end.row > e)
+      }
+      if (i.end.row > e) {
         return null
     }
+      }
     return null
   },
   this.getNextFoldLine =
@@ -5239,9 +5555,10 @@ function u() {
     t && (r = n.indexOf(t)), r == -1 && (r = 0);
     for (r; r < n.length; r++) {
       var i = n[r];
-      if (i.end.row >= e)
+      if (i.end.row >= e) {
         return i
     }
+      }
     return null
   },
   this.getFoldedRowCount =
@@ -5271,13 +5588,16 @@ function u() {
                    : (o = new s(t, e), o.collapseChildren = t.collapseChildren),
                      this.$clipRangeToDocument(o.range);
     var u = o.start.row, a = o.start.column, f = o.end.row, l = o.end.column;
-    if (u == f && l - a < 2)
+    if (u == f && l - a < 2) {
       throw "The range has to be at least 2 characters width";
+    }
     var c = this.getFoldAt(u, a, 1), h = this.getFoldAt(f, l, -1);
-    if (c && h == c)
+    if (c && h == c) {
       return c.addSubFold(o);
-    if (c && !c.range.isStart(u, a) || h && !h.range.isEnd(f, l))
+    }
+    if (c && !c.range.isStart(u, a) || h && !h.range.isEnd(f, l)) {
       throw "A fold can't intersect already existing fold" + o.range + c.range;
+    }
     var p = this.getFoldsInRange(o.range);
     p.length > 0 &&
         (this.removeFolds(p), p.forEach(function(e) { o.addSubFold(e) }));
@@ -5298,9 +5618,10 @@ function u() {
         }
         break
       }
-      if (f <= v.start.row)
+      if (f <= v.start.row) {
         break
     }
+      }
     return r || (v = this.$addFoldLine(new i(this.$foldData, o))),
            this.$useWrapMode
                ? this.$updateWrapData(v.start.row, v.start.row)
@@ -5313,17 +5634,17 @@ function u() {
       function(e) {
     var t = e.foldLine, n = t.start.row, r = t.end.row, i = this.$foldData,
         s = t.folds;
-    if (s.length == 1)
+    if (s.length == 1) {
       i.splice(i.indexOf(t), 1);
-    else if (t.range.isEnd(e.end.row, e.end.column))
+    } else if (t.range.isEnd(e.end.row, e.end.column)) {
       s.pop(), t.end.row = s[s.length - 1].end.row,
                t.end.column = s[s.length - 1].end.column;
-    else if (t.range.isStart(e.start.row, e.start.column))
+    } else if (t.range.isStart(e.start.row, e.start.column)) {
       s.shift(), t.start.row = s[0].start.row,
                  t.start.column = s[0].start.column;
-    else if (e.sameRow)
+    } else if (e.sameRow) {
       s.splice(s.indexOf(e), 1);
-    else {
+    } else {
       var o = t.split(e.start.row, e.start.column);
       s = o.folds, s.shift(), o.start.row = s[0].start.row,
       o.start.column = s[0].start.column
@@ -5335,8 +5656,9 @@ function u() {
   this.removeFolds =
       function(e) {
     var t = [];
-    for (var n = 0; n < e.length; n++)
+    for (var n = 0; n < e.length; n++) {
       t.push(e[n]);
+    }
     t.forEach(function(e) { this.removeFold(e) }, this), this.$modified = !0
   },
   this.expandFold =
@@ -5358,12 +5680,14 @@ function u() {
         : typeof e == "number" ? n = new r(e, 0, e, this.getLine(e).length)
                                : "row" in e ? n = r.fromPoints(e, e) : n = e,
                                  i = this.getFoldsInRange(n);
-    if (t)
+    if (t) {
       this.removeFolds(i);
-    else
-      while (i.length)
+    } else {
+      while (i.length) {
         this.expandFolds(i), i = this.getFoldsInRange(n)
-  },
+  }
+    }
+      },
   this.isRowFolded = function(e, t) { return !!this.getFoldLine(e, t) },
   this.getRowFoldEnd =
       function(e, t) {
@@ -5381,11 +5705,13 @@ function u() {
         t == null && (t = e.end.row, n = this.getLine(t).length);
     var s = this.doc, o = "";
     return e.walk(function(e, t, n, u) {
-      if (t < r)
+      if (t < r) {
         return;
+      }
       if (t == r) {
-        if (n < i)
+        if (n < i) {
           return;
+        }
         u = Math.max(i, u)
       }
       e != null ? o += e : o += s.getLine(t).substring(u, n)
@@ -5443,8 +5769,9 @@ function u() {
     var u = "...";
     if (!n.isMultiLine()) {
       u = this.getTextRange(n);
-      if (u.length < 4)
+      if (u.length < 4) {
         return;
+      }
       u = u.trim().substring(0, 2) + ".."
     }
     this.addFold(u, n)
@@ -5455,20 +5782,23 @@ function u() {
     if (s && /^comment|string/.test(s.type)) {
       var u = new r, a = new RegExp(s.type.replace(/\..*/, "\\."));
       if (n != 1) {
-        do
+        do {
           s = i.stepBackward();
+        }
         while (s && a.test(s.type));
         i.stepForward()
       }
       u.start.row = i.getCurrentTokenRow(),
       u.start.column = i.getCurrentTokenColumn() + 2, i = new o(this, e, t);
       if (n != -1) {
-        do
+        do {
           s = i.stepForward();
+        }
         while (s && a.test(s.type));
         s = i.stepBackward()
-      } else
+      } else {
         s = i.getCurrentToken();
+      }
       return u.end.row = i.getCurrentTokenRow(),
              u.end.column = i.getCurrentTokenColumn() + s.value.length - 2, u
     }
@@ -5480,31 +5810,36 @@ function u() {
     t = t || this.getLength();
     for (var i = e || 0; i < t; i++) {
       r[i] == null && (r[i] = this.getFoldWidget(i));
-      if (r[i] != "start")
+      if (r[i] != "start") {
         continue;
+      }
       var s = this.getFoldWidgetRange(i);
-      if (s && s.end.row <= t)
+      if (s && s.end.row <= t) {
         try {
           var o = this.addFold("...", s);
           o.collapseChildren = n
         } catch (u) {
         }
+      }
       i = s.end.row
     }
   },
   this.$foldStyles = {manual : 1, markbegin : 1, markbeginend : 1},
   this.$foldStyle = "markbegin", this.setFoldStyle = function(e) {
-    if (!this.$foldStyles[e])
+    if (!this.$foldStyles[e]) {
       throw new Error("invalid fold style: " + e + "[" +
                       Object.keys(this.$foldStyles).join(", ") + "]");
-    if (this.$foldStyle == e)
+    }
+    if (this.$foldStyle == e) {
       return;
+    }
     this.$foldStyle = e, e == "manual" && this.unfold();
     var t = this.$foldMode;
     this.$setFolding(null), this.$setFolding(t)
   }, this.$setFolding = function(e) {
-    if (this.$foldMode == e)
+    if (this.$foldMode == e) {
       return;
+    }
     this.$foldMode = e, this.removeListener("change", this.$updateFoldWidgets),
     this._emit("changeAnnotation");
     if (!e || this.$foldStyle == "manual") {
@@ -5528,9 +5863,10 @@ function u() {
       if (s == "start") {
         var o = this.getFoldWidgetRange(r);
         i || (i = o);
-        if (o && o.end.row >= e)
+        if (o && o.end.row >= e) {
           break
       }
+        }
       r--
     }
     return { range: r !== -1 && o, firstRange: i }
@@ -5554,22 +5890,24 @@ function u() {
     }
     if (o) {
       var l = this.getParentFoldRangeData(e);
-      if (l.range)
+      if (l.range) {
         var c = l.range.start.row + 1, h = l.range.end.row;
+      }
       this.foldAll(c, h, s ? 1e4 : 0)
     } else if (i) {
       var h = f ? f.end.row : this.getLength();
       this.foldAll(e + 1, f.end.row, s ? 1e4 : 0)
-    } else
+    } else {
       f && (s && (f.collapseChildren = 1e4), this.addFold("...", f));
+    }
     f || ((t.target || t.srcElement).className += " ace_invalid")
   }, this.updateFoldWidgets = function(e) {
     var t = e.data, n = t.range, r = n.start.row, i = n.end.row - r;
-    if (i === 0)
+    if (i === 0) {
       this.foldWidgets[r] = null;
-    else if (t.action == "removeText" || t.action == "removeLines")
+    } else if (t.action == "removeText" || t.action == "removeLines") {
       this.foldWidgets.splice(r, i + 1, null);
-    else {
+    } else {
       var s = Array(i + 1);
       s.unshift(r, 1), this.foldWidgets.splice.apply(this.foldWidgets, s)
     }
@@ -5597,8 +5935,9 @@ this.shiftRow = function(e) {
       this.folds.forEach(function(t) { t.start.row += e, t.end.row += e })
 }, this.addFold = function(e) {
   if (e.sameRow) {
-    if (e.start.row < this.startRow || e.endRow > this.endRow)
+    if (e.start.row < this.startRow || e.endRow > this.endRow) {
       throw "Can't add a fold to this FoldLine as it has no connection";
+    }
     this.folds.push(e),
         this.folds.sort(function(
             e, t) { return -e.range.compareEnd(t.start.row, t.start.column) }),
@@ -5607,12 +5946,13 @@ this.shiftRow = function(e) {
             : this.range.compareStart(e.end.row, e.end.column) < 0 &&
                   (this.start.row = e.start.row,
                    this.start.column = e.start.column)
-  } else if (e.start.row == this.end.row)
+  } else if (e.start.row == this.end.row) {
     this.folds.push(e), this.end.row = e.end.row,
                         this.end.column = e.end.column;
-  else {
-    if (e.end.row != this.start.row)
+  } else {
+    if (e.end.row != this.start.row) {
       throw "Trying to add fold to FoldRow that doesn't have a matching row";
+    }
     this.folds.unshift(e), this.start.row = e.start.row,
                            this.start.column = e.start.column
   }
@@ -5630,8 +5970,9 @@ this.shiftRow = function(e) {
     }
     u = e(null, s.start.row, s.start.column, r, a),
     u = !u && e(s.placeholder, s.start.row, s.start.column, r);
-    if (u || o == 0)
+    if (u || o == 0) {
       return;
+    }
     a = !s.sameRow, r = s.end.column
   }
   e(null, t, n, r, a)
@@ -5649,16 +5990,17 @@ this.shiftRow = function(e) {
   var r = this.getNextFoldTo(e, t), i, s;
   if (r) {
     i = r.fold;
-    if (r.kind == "inside" && i.start.column != t && i.start.row != e)
+    if (r.kind == "inside" && i.start.column != t && i.start.row != e) {
       window.console && window.console.log(e, t, i);
-    else if (i.start.row == e) {
+    } else if (i.start.row == e) {
       s = this.folds;
       var o = s.indexOf(i);
       o == 0 && (this.start.column += n);
       for (o; o < s.length; o++) {
         i = s[o], i.start.column += n;
-        if (!i.sameRow)
+        if (!i.sameRow) {
           return;
+        }
         i.end.column += n
       }
       this.end.column += n
@@ -5666,8 +6008,9 @@ this.shiftRow = function(e) {
   }
 }, this.split = function(e, t) {
   var n = this.getNextFoldTo(e, t).fold, r = this.folds, s = this.foldData;
-  if (!n)
+  if (!n) {
     return null;
+  }
   var o = r.indexOf(n), u = r[o - 1];
   this.end.row = u.end.row, this.end.column = u.end.column,
   r = r.splice(o, r.length - o);
@@ -5675,8 +6018,9 @@ this.shiftRow = function(e) {
   return s.splice(s.indexOf(this) + 1, 0, a), a
 }, this.merge = function(e) {
   var t = e.folds;
-  for (var n = 0; n < t.length; n++)
+  for (var n = 0; n < t.length; n++) {
     this.addFold(t[n]);
+  }
   var r = this.foldData;
   r.splice(r.indexOf(e), 1)
 }, this.toString = function() {
@@ -5691,8 +6035,9 @@ this.shiftRow = function(e) {
     if (e < 0)
       return {row : n.start.row, column : n.start.column + e};
     e -= n.placeholder.length;
-    if (e < 0)
+    if (e < 0) {
       return n.start;
+    }
     t = n.end.column
   }
   return { row: this.end.row, column: this.end.column + e }
@@ -5726,31 +6071,37 @@ s.inherits(o, i), function() {
     return this.subFolds.forEach(function(e) { t.subFolds.push(e.clone()) }),
            t.collapseChildren = this.collapseChildren, t
   }, this.addSubFold = function(e) {
-    if (this.range.isEqual(e))
+    if (this.range.isEqual(e)) {
       return;
-    if (!this.range.containsRange(e))
+    }
+    if (!this.range.containsRange(e)) {
       throw "A fold can't intersect already existing fold" + e.range +
           this.range;
+    }
     a(e, this.start);
     var t = e.start.row, n = e.start.column;
     for (var r = 0, i = -1; r < this.subFolds.length; r++) {
       i = this.subFolds[r].range.compare(t, n);
-      if (i != 1)
+      if (i != 1) {
         break
     }
+      }
     var s = this.subFolds[r];
-    if (i == 0)
+    if (i == 0) {
       return s.addSubFold(e);
+    }
     var t = e.range.end.row, n = e.range.end.column;
     for (var o = r, i = -1; o < this.subFolds.length; o++) {
       i = this.subFolds[o].range.compare(t, n);
-      if (i != 1)
+      if (i != 1) {
         break
     }
+      }
     var u = this.subFolds[o];
-    if (i == 0)
+    if (i == 0) {
       throw "A fold can't intersect already existing fold" + e.range +
           this.range;
+    }
     var f = this.subFolds.splice(r, o - r, e);
     return e.setFoldLine(this.foldLine), e
   }, this.restoreRange = function(e) { return l(e, this.start) }
@@ -5765,8 +6116,9 @@ this.comparePoints = i, this.pointIndex = function(e, t, n) {
   var r = this.ranges;
   for (var s = n || 0; s < r.length; s++) {
     var o = r[s], u = i(e, o.end);
-    if (u > 0)
+    if (u > 0) {
       continue;
+    }
     var a = i(e, o.start);
     return u === 0 ? t && a !== 0 ? -s - 2 : s
                    : a > 0 || a === 0 && !t ? s : -s - 1
@@ -5779,24 +6131,28 @@ this.comparePoints = i, this.pointIndex = function(e, t, n) {
   return r < 0 ? r = -r - 1 : r++, this.ranges.splice(n, r - n, e)
 }, this.addList = function(e) {
   var t = [];
-  for (var n = e.length; n--;)
+  for (var n = e.length; n--;) {
     t.push.call(t, this.add(e[n]));
+  }
   return t
 }, this.substractPoint = function(e) {
   var t = this.pointIndex(e);
-  if (t >= 0)
+  if (t >= 0) {
     return this.ranges.splice(t, 1)
-}, this.merge = function() {
+}
+  }, this.merge = function() {
   var e = [], t = this.ranges;
   t = t.sort(function(e, t) { return i(e.start, t.start) });
   var n = t[0], r;
   for (var s = 1; s < t.length; s++) {
     r = n, n = t[s];
     var o = i(r.end, n.start);
-    if (o < 0)
+    if (o < 0) {
       continue;
-    if (o == 0 && !r.isEmpty() && !n.isEmpty())
+    }
+    if (o == 0 && !r.isEmpty() && !n.isEmpty()) {
       continue;
+    }
     i(r.end, n.end) < 0 && (r.end.row = n.end.row, r.end.column = n.end.column),
         t.splice(s, 1), e.push(n), n = r, s--
   }
@@ -5807,19 +6163,22 @@ this.comparePoints = i, this.pointIndex = function(e, t, n) {
   return this.pointIndex(e) >= 0
 }, this.rangeAtPoint = function(e) {
   var t = this.pointIndex(e);
-  if (t >= 0)
+  if (t >= 0) {
     return this.ranges[t]
-}, this.clipRows = function(e, t) {
+}
+  }, this.clipRows = function(e, t) {
   var n = this.ranges;
-  if (n[0].start.row > t || n[n.length - 1].start.row < e)
+  if (n[0].start.row > t || n[n.length - 1].start.row < e) {
     return [];
+  }
   var r = this.pointIndex({row : e, column : 0});
   r < 0 && (r = -r - 1);
   var i = this.pointIndex({row : t, column : 0}, r);
   i < 0 && (i = -i - 1);
   var s = [];
-  for (var o = r; o < i; o++)
+  for (var o = r; o < i; o++) {
     s.push(n[o]);
+  }
   return s
 }, this.removeAll = function() {
   return this.ranges.splice(0, this.ranges.length)
@@ -5828,23 +6187,27 @@ this.comparePoints = i, this.pointIndex = function(e, t, n) {
                                  this.onChange = this.$onChange.bind(this),
                                  this.session.on("change", this.onChange)
 }, this.detach = function() {
-  if (!this.session)
+  if (!this.session) {
     return;
+  }
   this.session.removeListener("change", this.onChange), this.session = null
 }, this.$onChange = function(e) {
   var t = e.data.range;
-  if (e.data.action[0] == "i")
+  if (e.data.action[0] == "i") {
     var n = t.start, r = t.end;
-  else
+  } else {
     var r = t.start, n = t.end;
+  }
   var i = n.row, s = r.row, o = s - i, u = -n.column + r.column,
       a = this.ranges;
   for (var f = 0, l = a.length; f < l; f++) {
     var c = a[f];
-    if (c.end.row < i)
+    if (c.end.row < i) {
       continue;
-    if (c.start.row > i)
+    }
+    if (c.start.row > i) {
       break;
+    }
     c.start.row == i && c.start.column >= n.column &&
         (c.start.column += u, c.start.row += o),
         c.end.row == i && c.end.column >= n.column &&
@@ -5853,11 +6216,12 @@ this.comparePoints = i, this.pointIndex = function(e, t, n) {
                  c.end.column == a[f + 1].start.column && (c.end.column -= u),
              c.end.column += u, c.end.row += o)
   }
-  if (o != 0 && f < l)
+  if (o != 0 && f < l) {
     for (; f < l; f++) {
       var c = a[f];
       c.start.row += o, c.end.row += o
     }
+  }
 }
 }).call(s.prototype),
     t.RangeList = s
@@ -5874,8 +6238,9 @@ this.stepBackward = function() {
   this.$tokenIndex -= 1;
   while (this.$tokenIndex < 0) {
     this.$row -= 1;
-    if (this.$row < 0)
+    if (this.$row < 0) {
       return this.$row = 0, null;
+    }
     this.$rowTokens = this.$session.getTokens(this.$row),
     this.$tokenIndex = this.$rowTokens.length - 1
   }
@@ -5885,8 +6250,9 @@ this.stepBackward = function() {
   var e;
   while (this.$tokenIndex >= this.$rowTokens.length) {
     this.$row += 1, e || (e = this.$session.getLength());
-    if (this.$row >= e)
+    if (this.$row >= e) {
       return this.$row = e - 1, null;
+    }
     this.$rowTokens = this.$session.getTokens(this.$row), this.$tokenIndex = 0
   }
   return this.$rowTokens[this.$tokenIndex]
@@ -5896,11 +6262,13 @@ this.stepBackward = function() {
   return this.$row
 }, this.getCurrentTokenColumn = function() {
   var e = this.$rowTokens, t = this.$tokenIndex, n = e[t].start;
-  if (n !== undefined)
+  if (n !== undefined) {
     return n;
+  }
   n = 0;
-  while (t > 0)
+  while (t > 0) {
     t -= 1, n += e[t].value.length;
+  }
   return n
 }
 }).call(r.prototype),
@@ -5913,11 +6281,13 @@ this.stepBackward = function() {
 function s() {
   this.findMatchingBracket =
       function(e, t) {
-    if (e.column == 0)
+    if (e.column == 0) {
       return null;
+    }
     var n = t || this.getLine(e.row).charAt(e.column - 1);
-    if (n == "")
+    if (n == "") {
       return null;
+    }
     var r = n.match(/([\(\[\{])|([\)\]\}])/);
     return r ? r[1] ? this.$findClosingBracket(r[1], e)
                     : this.$findOpeningBracket(r[2], e)
@@ -5929,18 +6299,21 @@ function s() {
         o = s && s.match(/([\(\[\{])|([\)\]\}])/);
     o || (s = t.charAt(e.column), e = {row : e.row, column : e.column + 1},
           o = s && s.match(/([\(\[\{])|([\)\]\}])/), n = !1);
-    if (!o)
+    if (!o) {
       return null;
+    }
     if (o[1]) {
       var u = this.$findClosingBracket(o[1], e);
-      if (!u)
+      if (!u) {
         return null;
+      }
       r = i.fromPoints(e, u), n || (r.end.column++, r.start.column--),
       r.cursor = r.end
     } else {
       var u = this.$findOpeningBracket(o[2], e);
-      if (!u)
+      if (!u) {
         return null;
+      }
       r = i.fromPoints(u, e), n || (r.start.column++, r.end.column--),
       r.cursor = r.start
     }
@@ -5952,8 +6325,9 @@ function s() {
     var i = this.$brackets[e], s = 1, o = new r(this, t.row, t.column),
         u = o.getCurrentToken();
     u || (u = o.stepForward());
-    if (!u)
+    if (!u) {
       return;
+    }
     n || (n = new RegExp(
               "(\\.?" + u.type.replace(".", "\\.").replace("rparen", ".paren") +
               ")+"));
@@ -5967,15 +6341,18 @@ function s() {
             return {
               row: o.getCurrentTokenRow(), column: a + o.getCurrentTokenColumn()
             }
-        } else
+        } else {
           l == e && (s += 1);
+        }
         a -= 1
       }
-      do
+      do {
         u = o.stepBackward();
+      }
       while (u && !n.test(u.type));
-      if (u == null)
+      if (u == null) {
         break;
+      }
       f = u.value, a = f.length - 1
     }
     return null
@@ -5983,8 +6360,9 @@ function s() {
     var i = this.$brackets[e], s = 1, o = new r(this, t.row, t.column),
         u = o.getCurrentToken();
     u || (u = o.stepForward());
-    if (!u)
+    if (!u) {
       return;
+    }
     n || (n = new RegExp(
               "(\\.?" + u.type.replace(".", "\\.").replace("lparen", ".paren") +
               ")+"));
@@ -5999,15 +6377,18 @@ function s() {
             return {
               row: o.getCurrentTokenRow(), column: a + o.getCurrentTokenColumn()
             }
-        } else
+        } else {
           c == e && (s += 1);
+        }
         a += 1
       }
-      do
+      do {
         u = o.stepForward();
+      }
       while (u && !n.test(u.type));
-      if (u == null)
+      if (u == null) {
         break;
+      }
       a = 0
     }
     return null
@@ -6030,22 +6411,25 @@ this.set = function(e) { return i.mixin(this.$options, e), this },
     this.setOptions = function(e) { this.$options = e },
     this.find = function(e) {
       var t = this.$matchIterator(e, this.$options);
-      if (!t)
+      if (!t) {
         return !1;
+      }
       var n = null;
       return t.forEach(function(e, t, r) {
         if (!e.start) {
           var i = e.offset + (r || 0);
           n = new s(t, i, t, i + e.length)
-        } else
+        } else {
           n = e;
+        }
         return !0
       }),
              n
     }, this.findAll = function(e) {
       var t = this.$options;
-      if (!t.needle)
+      if (!t.needle) {
         return [];
+      }
       this.$assembleRegExp(t);
       var n = t.range,
           i = n ? e.getLines(n.start.row, n.end.row) : e.doc.getAllLines(),
@@ -6053,14 +6437,16 @@ this.set = function(e) { return i.mixin(this.$options, e), this },
       if (t.$isMultiLine) {
         var a = u.length, f = i.length - a;
         for (var l = u.offset || 0; l <= f; l++) {
-          for (var c = 0; c < a; c++)
-            if (i[l + c].search(u[c]) == -1)
+          for (var c = 0; c < a; c++) {
+            if (i[l + c].search(u[c]) == -1) {
               break;
+            }
+          }
           var h = i[l], p = i[l + a - 1], d = h.match(u[0])[0].length,
               v = p.match(u[a - 1])[0].length;
           o.push(new s(l, h.length - d, l + a - 1, v))
         }
-      } else
+      } else {
         for (var m = 0; m < i.length; m++) {
           var g = r.getMatchOffsets(i[m], u);
           for (var c = 0; c < g.length; c++) {
@@ -6068,24 +6454,30 @@ this.set = function(e) { return i.mixin(this.$options, e), this },
             o.push(new s(m, y.offset, m, y.offset + y.length))
           }
         }
+      }
       if (n) {
         var b = n.start.column, w = n.start.column, m = 0, c = o.length - 1;
-        while (m < c && o[m].start.column < b && o[m].start.row == n.start.row)
+        while (m < c && o[m].start.column < b && o[m].start.row == n.start.row) {
           m++;
-        while (m < c && o[c].end.column > w && o[c].end.row == n.end.row)
+        }
+        while (m < c && o[c].end.column > w && o[c].end.row == n.end.row) {
           c--;
+        }
         return o.slice(m, c + 1)
       }
       return o
     }, this.replace = function(e, t) {
       var n = this.$options, r = this.$assembleRegExp(n);
-      if (n.$isMultiLine)
+      if (n.$isMultiLine) {
         return t;
-      if (!r)
+      }
+      if (!r) {
         return;
+      }
       var i = r.exec(e);
-      if (!i || i[0].length != e.length)
+      if (!i || i[0].length != e.length) {
         return null;
+      }
       t = e.replace(r, t);
       if (n.preserveCase) {
         t = t.split("");
@@ -6099,54 +6491,66 @@ this.set = function(e) { return i.mixin(this.$options, e), this },
       return t
     }, this.$matchIterator = function(e, t) {
       var n = this.$assembleRegExp(t);
-      if (!n)
+      if (!n) {
         return !1;
+      }
       var i = this, o, u = t.backwards;
-      if (t.$isMultiLine)
+      if (t.$isMultiLine) {
         var a = n.length, f = function(t, r, i) {
           var u = t.search(n[0]);
-          if (u == -1)
+          if (u == -1) {
             return;
+          }
           for (var f = 1; f < a; f++) {
             t = e.getLine(r + f);
-            if (t.search(n[f]) == -1)
+            if (t.search(n[f]) == -1) {
               return
           }
+            }
           var l = t.match(n[a - 1])[0].length, c = new s(r, u, r + a - 1, l);
           n.offset == 1 ? (c.start.row--, c.start.column = Number.MAX_VALUE)
                         : i && (c.start.column += i);
-          if (o(c))
+          if (o(c)) {
             return !0
-        };
-      else if (u)
+        }
+          };
+      } else if (u) {
         var f = function(e, t, i) {
           var s = r.getMatchOffsets(e, n);
-          for (var u = s.length - 1; u >= 0; u--)
-            if (o(s[u], t, i))
+          for (var u = s.length - 1; u >= 0; u--) {
+            if (o(s[u], t, i)) {
               return !0
-        };
-      else
+        }
+          }
+            };
+      } else {
         var f = function(e, t, i) {
           var s = r.getMatchOffsets(e, n);
-          for (var u = 0; u < s.length; u++)
-            if (o(s[u], t, i))
+          for (var u = 0; u < s.length; u++) {
+            if (o(s[u], t, i)) {
               return !0
-        };
+        }
+          }
+            };
+      }
       return {
         forEach: function(n) { o = n, i.$lineIterator(e, t).forEach(f) }
       }
     }, this.$assembleRegExp = function(e) {
-      if (e.needle instanceof RegExp)
+      if (e.needle instanceof RegExp) {
         return e.re = e.needle;
+      }
       var t = e.needle;
-      if (!e.needle)
+      if (!e.needle) {
         return e.re = !1;
+      }
       e.regExp || (t = r.escapeRegExp(t)),
           e.wholeWord && (t = "\\b" + t + "\\b");
       var n = e.caseSensitive ? "g" : "gi";
       e.$isMultiLine = /[\n\r]/.test(t);
-      if (e.$isMultiLine)
+      if (e.$isMultiLine) {
         return e.re = this.$assembleMultilineRegExp(t, n);
+      }
       try {
         var i = new RegExp(t, n)
       } catch (s) {
@@ -6155,12 +6559,13 @@ this.set = function(e) { return i.mixin(this.$options, e), this },
       return e.re = i
     }, this.$assembleMultilineRegExp = function(e, t) {
       var n = e.replace(/\r\n|\r|\n/g, "$\n^").split("\n"), r = [];
-      for (var i = 0; i < n.length; i++)
+      for (var i = 0; i < n.length; i++) {
         try {
           r.push(new RegExp(n[i], t))
         } catch (s) {
           return !1
         }
+      }
       return n[0] == "" ? (r.shift(), r.offset = 1) : r.offset = 0, r
     }, this.$lineIterator = function(e, t) {
       var n = t.backwards == 1, r = t.skipCurrent != 0, i = t.range,
@@ -6170,29 +6575,41 @@ this.set = function(e) { return i.mixin(this.$options, e), this },
       var o = i ? i.start.row : 0, u = i ? i.end.row : e.getLength() - 1,
           a = n ? function(n) {
             var r = s.row, i = e.getLine(r).substring(0, s.column);
-            if (n(i, r))
+            if (n(i, r)) {
               return;
-            for (r--; r >= o; r--)
-              if (n(e.getLine(r), r))
+            }
+            for (r--; r >= o; r--) {
+              if (n(e.getLine(r), r)) {
                 return;
-            if (t.wrap == 0)
+              }
+            }
+            if (t.wrap == 0) {
               return;
-            for (r = u, o = s.row; r >= o; r--)
-              if (n(e.getLine(r), r))
+            }
+            for (r = u, o = s.row; r >= o; r--) {
+              if (n(e.getLine(r), r)) {
                 return
-          } : function(n) {
+          }
+            }
+              } : function(n) {
             var r = s.row, i = e.getLine(r).substr(s.column);
-            if (n(i, r, s.column))
+            if (n(i, r, s.column)) {
               return;
-            for (r += 1; r <= u; r++)
-              if (n(e.getLine(r), r))
+            }
+            for (r += 1; r <= u; r++) {
+              if (n(e.getLine(r), r)) {
                 return;
-            if (t.wrap == 0)
+              }
+            }
+            if (t.wrap == 0) {
               return;
-            for (r = o, u = s.row; r <= u; r++)
-              if (n(e.getLine(r), r))
+            }
+            for (r = o, u = s.row; r <= u; r++) {
+              if (n(e.getLine(r), r)) {
                 return
-          };
+          }
+            }
+              };
       return { forEach: a }
     }
 }).call(o.prototype),
@@ -6214,15 +6631,18 @@ var r = e("../lib/oop"), i = e("../keyboard/hash_handler").HashHandler,
 r.inherits(o, i), function() {
   r.implement(this, s), this.exec = function(e, t, n) {
     typeof e == "string" && (e = this.commands[e]);
-    if (!e)
+    if (!e) {
       return !1;
-    if (t && t.$readOnly && !e.readOnly)
+    }
+    if (t && t.$readOnly && !e.readOnly) {
       return !1;
+    }
     var r = {editor : t, command : e, args : n}, i = this._emit("exec", r);
     return this._signal("afterExec", r), i === !1 ? !1 : !0
   }, this.toggleRecording = function(e) {
-    if (this.$inReplay)
+    if (this.$inReplay) {
       return;
+    }
     return e && e._emit("changeStatus"),
            this.recording
                ? (this.macro.pop(),
@@ -6237,10 +6657,12 @@ r.inherits(o, i), function() {
                   this.oldMacro = this.macro, this.macro = [],
                   this.on("exec", this.$addCommandToMacro), this.recording = !0)
   }, this.replay = function(e) {
-    if (this.$inReplay || !this.macro)
+    if (this.$inReplay || !this.macro) {
       return;
-    if (this.recording)
+    }
+    if (this.recording) {
       return this.toggleRecording(e);
+    }
     try {
       this.$inReplay = !0, this.macro.forEach(function(t) {
         typeof t == "string" ? this.exec(t, e) : this.exec(t[0], e, t[1])
@@ -6272,12 +6694,15 @@ this.addCommand = function(e) {
   var t = typeof e == "string" ? e : e.name;
   e = this.commands[t], delete this.commands[t];
   var n = this.commmandKeyBinding;
-  for (var r in n)
-    for (var i in n[r])
+  for (var r in n) {
+    for (var i in n[r]) {
       n[r][i] == e && delete n[r][i]
-}, this.bindKey = function(e, t) {
-  if (!e)
+}
+  }
+    }, this.bindKey = function(e, t) {
+  if (!e) {
     return;
+  }
   if (typeof t == "function") {
     this.addCommand({exec : t, bindKey : e, name : t.name || e});
     return
@@ -6290,8 +6715,9 @@ this.addCommand = function(e) {
 }, this.addCommands = function(e) {
   e && Object.keys(e).forEach(function(t) {
     var n = e[t];
-    if (typeof n == "string")
+    if (typeof n == "string") {
       return this.bindKey(n, t);
+    }
     typeof n == "function" && (n = {exec : n}), n.name || (n.name = t),
         this.addCommand(n)
   }, this)
@@ -6301,8 +6727,9 @@ this.addCommand = function(e) {
   Object.keys(e).forEach(function(t) { this.bindKey(t, e[t]) }, this)
 }, this._buildKeyHash = function(e) {
   var t = e.bindKey;
-  if (!t)
+  if (!t) {
     return;
+  }
   var n = typeof t == "string" ? t : t[this.platform];
   this.bindKey(n, e)
 }, this.parseKeys = function(e) {
@@ -6311,9 +6738,9 @@ this.addCommand = function(e) {
               .split(/[\-\+]([\-\+])?/)
               .filter(function(e) { return e }),
       n = t.pop(), i = r[n];
-  if (r.FUNCTION_KEYS[i])
+  if (r.FUNCTION_KEYS[i]) {
     n = r.FUNCTION_KEYS[i].toLowerCase();
-  else {
+  } else {
     if (!t.length)
       return {key : n, hashId : -1};
     if (t.length == 1 && t[0] == "shift")
@@ -6322,10 +6749,11 @@ this.addCommand = function(e) {
   var s = 0;
   for (var o = t.length; o--;) {
     var u = r.KEY_MODS[t[o]];
-    if (u == null)
+    if (u == null) {
       return typeof console != "undefined" &&
                  console.error("invalid modifier " + t[o] + " in " + e),
              !1;
+    }
     s |= u
   }
   return { key: n, hashId: s }
@@ -6946,9 +7374,11 @@ this.CHANGE_CURSOR = 1,
                                 this.$changedLines.lastRow < t &&
                                     (this.$changedLines.lastRow = t))
                              : this.$changedLines = {firstRow : e, lastRow : t};
-      if (this.$changedLines.firstRow > this.layerConfig.lastRow ||
-          this.$changedLines.lastRow < this.layerConfig.firstRow)
+      if (this.$changedLines.firstRow > this.layerConfig.lastRow 
+          || this.$changedLines.lastRow < this.layerConfig.firstRow
+      ) {
         return;
+      }
       this.$loop.schedule(this.CHANGE_LINES)
     },
     this.onChangeTabSize =
@@ -6966,8 +7396,9 @@ this.CHANGE_CURSOR = 1,
     this.onResize =
         function(e, t, n, r) {
       var s = 0, o = this.$size;
-      if (this.resizing > 2)
+      if (this.resizing > 2) {
         return;
+      }
       this.resizing > 1
           ? this.resizing++
           : this.resizing = e ? 1 : 0,
@@ -6990,9 +7421,10 @@ this.CHANGE_CURSOR = 1,
         this.scroller.style.left = t + "px",
         o.scrollerWidth = Math.max(0, n - t - this.scrollBar.getWidth()),
         this.scroller.style.right = this.scrollBar.getWidth() + "px";
-        if (this.session.getUseWrapMode() && this.adjustWrapLimit() || e)
+        if (this.session.getUseWrapMode() && this.adjustWrapLimit() || e) {
           s |= this.CHANGE_FULL
       }
+        }
       e ? this.$renderChanges(s, !0) : this.$loop.schedule(s),
           e && (this.$gutterLayer.$padding = null), e && delete this.resizing
     },
@@ -7053,8 +7485,9 @@ this.CHANGE_CURSOR = 1,
     },
     this.$updatePrintMargin =
         function() {
-      if (!this.$showPrintMargin && !this.$printMarginEl)
+      if (!this.$showPrintMargin && !this.$printMarginEl) {
         return;
+      }
       if (!this.$printMarginEl) {
         var e = i.createElement("div");
         e.className = "ace_layer ace_print-margin-layer",
@@ -7073,13 +7506,15 @@ this.CHANGE_CURSOR = 1,
     this.getTextAreaContainer = function() { return this.container },
     this.$moveTextAreaToCursor =
         function() {
-      if (!this.$keepTextAreaAtCursor)
+      if (!this.$keepTextAreaAtCursor) {
         return;
+      }
       var e = this.layerConfig, t = this.$cursorLayer.$pixelPos.top,
           n = this.$cursorLayer.$pixelPos.left;
       t -= e.offset;
-      if (t < 0 || t > e.height - this.lineHeight)
+      if (t < 0 || t > e.height - this.lineHeight) {
         return;
+      }
       var r = this.characterWidth;
       if (this.$composition) {
         var i = this.textarea.value.replace(/^\x01+/, "");
@@ -7132,8 +7567,9 @@ this.CHANGE_CURSOR = 1,
     },
     this.$renderChanges =
         function(e, t) {
-      if (!t && (!e || !this.session || !this.container.offsetWidth))
+      if (!t && (!e || !this.session || !this.container.offsetWidth)) {
         return;
+      }
       this._signal("beforeRender"),
           (e & this.CHANGE_FULL || e & this.CHANGE_SIZE ||
            e & this.CHANGE_TEXT || e & this.CHANGE_LINES ||
@@ -7195,8 +7631,9 @@ this.CHANGE_CURSOR = 1,
     },
     this.$computeLayerConfig =
         function() {
-      if (!this.$size.scrollerHeight)
+      if (!this.$size.scrollerHeight) {
         return this.onResize(!0);
+      }
       var e = this.session, t = this.scrollTop % this.lineHeight,
           n = this.$size.scrollerHeight + this.lineHeight,
           r = this.$getLongestLine(),
@@ -7241,10 +7678,12 @@ this.CHANGE_CURSOR = 1,
       var e = this.$changedLines.firstRow, t = this.$changedLines.lastRow;
       this.$changedLines = null;
       var n = this.layerConfig;
-      if (e > n.lastRow + 1)
+      if (e > n.lastRow + 1) {
         return;
-      if (t < n.firstRow)
+      }
+      if (t < n.firstRow) {
         return;
+      }
       if (t === Infinity) {
         this.$showGutter && this.$gutterLayer.update(n),
             this.$textLayer.update(n);
@@ -7288,8 +7727,9 @@ this.CHANGE_CURSOR = 1,
         n) { this.scrollCursorIntoView(e, n), this.scrollCursorIntoView(t, n) },
     this.scrollCursorIntoView =
         function(e, t) {
-      if (this.$size.scrollerHeight === 0)
+      if (this.$size.scrollerHeight === 0) {
         return;
+      }
       var n = this.$cursorLayer.getPixelPosition(e), r = n.left, i = n.top;
       this.scrollTop > i
           ? (t && (i -= t * this.$size.scrollerHeight),
@@ -7328,8 +7768,9 @@ this.CHANGE_CURSOR = 1,
     }, this.STEPS = 8, this.$calcSteps = function(e, t) {
       var n = 0, r = this.STEPS, i = [],
           s = function(e, t, n) { return n * (Math.pow(e - 1, 3) + 1) + t };
-      for (n = 0; n < r; ++n)
+      for (n = 0; n < r; ++n) {
         i.push(s(n / this.STEPS, e, t - e));
+      }
       return i
     }, this.scrollToLine = function(e, t, n, r) {
       var i = this.$cursorLayer.getPixelPosition({row : e, column : 0}),
@@ -7362,13 +7803,14 @@ this.CHANGE_CURSOR = 1,
       t && this.session.setScrollTop(this.session.getScrollTop() + t),
           e && this.session.setScrollLeft(this.session.getScrollLeft() + e)
     }, this.isScrollableBy = function(e, t) {
-      if (t < 0 && this.session.getScrollTop() >= 1)
+      if (t < 0 && this.session.getScrollTop() >= 1) {
         return !0;
-      if (t > 0 && this.session.getScrollTop() + this.$size.scrollerHeight -
-                           this.layerConfig.maxHeight <
-                       -1)
+      }
+      if (t > 0 && this.session.getScrollTop() + this.$size.scrollerHeight -          this.layerConfig.maxHeight <          -1
+      ) {
         return !0
-    }, this.pixelToScreenCoordinates = function(e, t) {
+    }
+      }, this.pixelToScreenCoordinates = function(e, t) {
       var n = this.scroller.getBoundingClientRect(),
           r = (e + this.scrollLeft - n.left - this.$padding) /
               this.characterWidth,
@@ -7404,8 +7846,9 @@ this.CHANGE_CURSOR = 1,
     }, this.setCompositionText = function(e) {
       this.$moveTextAreaToCursor()
     }, this.hideComposition = function() {
-      if (!this.$composition)
+      if (!this.$composition) {
         return;
+      }
       i.removeCssClass(this.textarea, "ace_composition"),
           this.$keepTextAreaAtCursor = this.$composition.keepTextAreaAtCursor,
           this.textarea.style.cssText = this.$composition.cssText,
@@ -7427,9 +7870,10 @@ this.CHANGE_CURSOR = 1,
       if (!e || typeof e == "string") {
         var n = e || "ace/theme/textmate";
         u.loadModule([ "theme", n ], r)
-      } else
+      } else {
         r(e)
-    }, this.getTheme = function() {
+    }
+      }, this.getTheme = function() {
       return this.$themeValue
     }, this.setStyle = function(t, n) {
       i.setCssClass(this.container, t, n != 0)
@@ -7535,16 +7979,18 @@ i.implement(this, o), this.setSession = function(e) {
               : u == "info" && !t.className && (t.className = " ace_info")
   }
 }, this.$updateAnnotations = function(e) {
-  if (!this.$annotations.length)
+  if (!this.$annotations.length) {
     return;
+  }
   var t = e.data, n = t.range, r = n.start.row, i = n.end.row - r;
-  if (i !== 0)
-    if (t.action == "removeText" || t.action == "removeLines")
+  if (i !== 0) {
+    if (t.action == "removeText" || t.action == "removeLines") {
       this.$annotations.splice(r, i + 1, null);
-    else {
+    } else {
       var s = Array(i + 1);
       s.unshift(r, 1), this.$annotations.splice.apply(this.$annotations, s)
     }
+  }
 }, this.update = function(e) {
   var t = {className : ""}, n = [], i = e.firstRow, s = e.lastRow,
       o = this.session.getNextFoldLine(i), u = o ? o.start.row : Infinity,
@@ -7554,8 +8000,9 @@ i.implement(this, o), this.setSession = function(e) {
   for (;;) {
     i > u && (i = o.end.row + 1, o = this.session.getNextFoldLine(i, o),
               u = o ? o.start.row : Infinity);
-    if (i > s)
+    if (i > s) {
       break;
+    }
     var p = this.$annotations[i] || t;
     n.push("<div class='ace_gutter-cell ", f[i] || "", l[i] || "", p.className,
            "' style='height:", this.session.getRowLength(i) * e.lineHeight,
@@ -7595,11 +8042,13 @@ i.implement(this, o), this.setSession = function(e) {
 }, this.getRegion = function(e) {
   var t = this.$padding || this.$computePadding(),
       n = this.element.getBoundingClientRect();
-  if (e.x < t.left + n.left)
+  if (e.x < t.left + n.left) {
     return "markers";
-  if (this.$showFoldWidgets && e.x > n.right - t.right)
+  }
+  if (this.$showFoldWidgets && e.x > n.right - t.right) {
     return "foldWidgets"
 }
+  }
 }).call(u.prototype),
     t.Gutter = u
            }),
@@ -7619,8 +8068,9 @@ this.$padding = 0,
     this.update =
         function(e) {
       var e = e || this.config;
-      if (!e)
+      if (!e) {
         return;
+      }
       this.config = e;
       var t = [];
       for (var n in this.markers) {
@@ -7630,14 +8080,15 @@ this.$padding = 0,
           continue
         }
         var s = r.range.clipRows(e.firstRow, e.lastRow);
-        if (s.isEmpty())
+        if (s.isEmpty()) {
           continue;
+        }
         s = s.toScreenRange(this.session);
         if (r.renderer) {
           var o = this.$getTop(s.start.row, e),
               u = this.$padding + s.start.column * e.characterWidth;
           r.renderer(t, s, u, o, e)
-        } else
+        } else {
           r.type == "fullLine"
               ? this.drawFullLineMarker(t, s, r.clazz, e)
               : r.type == "screenLine"
@@ -7649,6 +8100,7 @@ this.$padding = 0,
                           : this.drawSingleLineMarker(t, s,
                                                       r.clazz + " ace_start", e)
       }
+        }
       this.element = i.setInnerHtml(this.element, t.join(""))
     },
     this.$getTop = function(e,
@@ -7659,11 +8111,12 @@ this.$padding = 0,
       this.drawSingleLineMarker(e, o, n + " ace_start", i, 1, "text"),
           s = t.end.row, o = new r(s, 0, s, t.end.column),
           this.drawSingleLineMarker(e, o, n, i, 0, "text");
-      for (s = t.start.row + 1; s < t.end.row; s++)
+      for (s = t.start.row + 1; s < t.end.row; s++) {
         o.start.row = s, o.end.row = s,
         o.end.column = this.session.getScreenLastRowColumn(s),
         this.drawSingleLineMarker(e, o, n, i, 1, "text")
-    }, this.drawMultiLineMarker = function(e, t, n, r, i) {
+    }
+      }, this.drawMultiLineMarker = function(e, t, n, r, i) {
       var s = this.$padding, o = r.lineHeight, u = this.$getTop(t.start.row, r),
           a = s + t.start.column * r.characterWidth;
       e.push("<div class='", n, " ace_start' style='", "height:", o, "px;",
@@ -7673,8 +8126,9 @@ this.$padding = 0,
       e.push("<div class='", n, "' style='", "height:", o, "px;", "width:", f,
              "px;", "top:", u, "px;", "left:", s, "px;'></div>"),
           o = (t.end.row - t.start.row - 1) * r.lineHeight;
-      if (o < 0)
+      if (o < 0) {
         return;
+      }
       u = this.$getTop(t.start.row + 1, r),
       e.push("<div class='", n, "' style='", "height:", o, "px;", "right:0;",
              "top:", u, "px;", "left:", s, "px;'></div>")
@@ -7714,7 +8168,33 @@ var r = e("../lib/oop"), i = e("../lib/dom"), s = e("../lib/lang"),
       this.$pollSizeChanges()
     };
 (function() {
-r.implement(this,u),this.EOF_CHAR="¶",this.EOL_CHAR="¬",this.TAB_CHAR="→",this.SPACE_CHAR="·",this.$padding=0,this.setPadding=function(e){this.$padding=e,this.element.style.padding="0 "+e+"px"},this.getLineHeight=function(){return this.$characterSize.height||1},this.getCharacterWidth=function(){return this.$characterSize.width||1},this.checkForSizeChanges=function(){var e=this.$measureSizes();if(e&&(this.$characterSize.width!==e.width||this.$characterSize.height!==e.height)){this.$measureNode.style.fontWeight="bold";var t=this.$measureSizes();this.$measureNode.style.fontWeight="",this.$characterSize=e,this.allowBoldFonts=t&&t.width===e.width&&t.height===e.height,this._emit("changeCharacterSize",{data:e})}},this.$pollSizeChanges=function(){var e=this;this.$pollSizeChangesTimer=setInterval(function(){e.checkForSizeChanges()},500)},this.$fontStyles={fontFamily:1,fontSize:1,fontWeight:1,fontStyle:1,lineHeight:1},this.$measureSizes=o.isIE||o.isOldGecko?function(){var e=1e3;if(!this.$measureNode){var t=this.$measureNode=i.createElement("div"),n=t.style;n.width=n.height="auto",n.left=n.top=-e*40+"px",n.visibility="hidden",n.position="fixed",n.overflow="visible",n.whiteSpace="nowrap",t.innerHTML=s.stringRepeat("Xy",e);if(this.element.ownerDocument.body)this.element.ownerDocument.body.appendChild(t);else{var r=this.element.parentNode;while(!i.hasCssClass(r,"ace_editor"))r=r.parentNode;r.appendChild(t)}}if(!this.element.offsetWidth)return null;var n=this.$measureNode.style,o=i.computedStyle(this.element);for(var u in this.$fontStyles)n[u]=o[u];var a={height:this.$measureNode.offsetHeight,width:this.$measureNode.offsetWidth/(e*2)};return a.width==0||a.height==0?null:a}:function(){if(!this.$measureNode){var e=this.$measureNode=i.createElement("div"),t=e.style;t.width=t.height="auto",t.left=t.top="-100px",t.visibility="hidden",t.position="fixed",t.overflow="visible",t.whiteSpace="nowrap",e.innerHTML="X";var n=this.element.parentNode;while(n&&!i.hasCssClass(n,"ace_editor"))n=n.parentNode;if(!n)return this.$measureNode=null;n.appendChild(e)}var r=this.$measureNode.getBoundingClientRect(),s={height:r.height,width:r.width};return s.width==0||s.height==0?null:s},this.setSession=function(e){this.session=e,this.$computeTabString()},this.showInvisibles=!1,this.setShowInvisibles=function(e){return this.showInvisibles==e?!1:(this.showInvisibles=e,this.$computeTabString(),!0)},this.displayIndentGuides=!0,this.setDisplayIndentGuides=function(e){return this.displayIndentGuides==e?!1:(this.displayIndentGuides=e,this.$computeTabString(),!0)},this.$tabStrings=[],this.onChangeTabSize=this.$computeTabString=function(){var e=this.session.getTabSize();this.tabSize=e;var t=this.$tabStrings=[0];for(var n=1;n<e+1;n++)this.showInvisibles?t.push("<span class='ace_invisible'>"+this.TAB_CHAR+s.stringRepeat(" ",n-1)+"</span>"):t.push(s.stringRepeat(" ",n));if(this.displayIndentGuides){this.$indentGuideRe=/\s\S| \t|\t |\s$/;var r="ace_indent-guide";if(this.showInvisibles){r+=" ace_invisible";var i=s.stringRepeat(this.SPACE_CHAR,this.tabSize),o=this.TAB_CHAR+s.stringRepeat(" ",this.tabSize-1)}else var i=s.stringRepeat(" ",this.tabSize),o=i;this.$tabStrings[" "]="<span class='"+r+"'>"+i+"</span>",this.$tabStrings["	"]="<span class='"+r+"'>"+o+"</span>"}},this.updateLines=function(e,t,n){(this.config.lastRow!=e.lastRow||this.config.firstRow!=e.firstRow)&&this.scrollLines(e),this.config=e;var r=Math.max(t,e.firstRow),s=Math.min(n,e.lastRow),o=this.element.childNodes,u=0;for(var a=e.firstRow;a<r;a++){var f=this.session.getFoldLine(a);if(f){if(f.containsRow(r)){r=f.start.row;break}a=f.end.row}u++}var a=r,f=this.session.getNextFoldLine(a),l=f?f.start.row:Infinity;for(;;){a>l&&(a=f.end.row+1,f=this.session.getNextFoldLine(a,f),l=f?f.start.row:Infinity);if(a>s)break;var c=o[u++];if(c){var h=[];this.$renderLine(h,a,!this.$useLineGroups(),a==l?f:!1),i.setInnerHtml(c,h.join(""))}a++}},this.scrollLines=function(e){var t=this.config;this.config=e;if(!t||t.lastRow<e.firstRow)return this.update(e);if(e.lastRow<t.firstRow)return this.update(e);var n=this.element;if(t.firstRow<e.firstRow)for(var r=this.session.getFoldedRowCount(t.firstRow,e.firstRow-1);r>0;r--)n.removeChild(n.firstChild);if(t.lastRow>e.lastRow)for(var r=this.session.getFoldedRowCount(e.lastRow+1,t.lastRow);r>0;r--)n.removeChild(n.lastChild);if(e.firstRow<t.firstRow){var i=this.$renderLinesFragment(e,e.firstRow,t.firstRow-1);n.firstChild?n.insertBefore(i,n.firstChild):n.appendChild(i)}if(e.lastRow>t.lastRow){var i=this.$renderLinesFragment(e,t.lastRow+1,e.lastRow);n.appendChild(i)}},this.$renderLinesFragment=function(e,t,n){var r=this.element.ownerDocument.createDocumentFragment(),s=t,o=this.session.getNextFoldLine(s),u=o?o.start.row:Infinity;for(;;){s>u&&(s=o.end.row+1,o=this.session.getNextFoldLine(s,o),u=o?o.start.row:Infinity);if(s>n)break;var a=i.createElement("div"),f=[];this.$renderLine(f,s,!1,s==u?o:!1),a.innerHTML=f.join("");if(this.$useLineGroups())a.className="ace_line_group",r.appendChild(a);else{var l=a.childNodes;while(l.length)r.appendChild(l[0])}s++}return r},this.update=function(e){this.config=e;var t=[],n=e.firstRow,r=e.lastRow,s=n,o=this.session.getNextFoldLine(s),u=o?o.start.row:Infinity;for(;;){s>u&&(s=o.end.row+1,o=this.session.getNextFoldLine(s,o),u=o?o.start.row:Infinity);if(s>r)break;this.$useLineGroups()&&t.push("<div class='ace_line_group'>"),this.$renderLine(t,s,!1,s==u?o:!1),this.$useLineGroups()&&t.push("</div>"),s++}this.element=i.setInnerHtml(this.element,t.join(""))},this.$textToken={text:!0,rparen:!0,lparen:!0},this.$renderToken=function(e,t,n,r){var i=this,o=/\t|&|<|( +)|([\x00-\x1f\x80-\xa0\u1680\u180E\u2000-\u200f\u2028\u2029\u202F\u205F\u3000\uFEFF])|[\u1100-\u115F\u11A3-\u11A7\u11FA-\u11FF\u2329-\u232A\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFB\u3000-\u303E\u3041-\u3096\u3099-\u30FF\u3105-\u312D\u3131-\u318E\u3190-\u31BA\u31C0-\u31E3\u31F0-\u321E\u3220-\u3247\u3250-\u32FE\u3300-\u4DBF\u4E00-\uA48C\uA490-\uA4C6\uA960-\uA97C\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFAFF\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFF01-\uFF60\uFFE0-\uFFE6]/g,u=function(e,n,r,o,u){if(n)return i.showInvisibles?"<span class='ace_invisible'>"+s.stringRepeat(i.SPACE_CHAR,e.length)+"</span>":s.stringRepeat(" ",e.length);if(e=="&")return"&#38;";if(e=="<")return"&#60;";if(e=="	"){var a=i.session.getScreenTabSize(t+o);return t+=a-1,i.$tabStrings[a]}if(e=="　"){var f=i.showInvisibles?"ace_cjk ace_invisible":"ace_cjk",l=i.showInvisibles?i.SPACE_CHAR:"";return t+=1,"<span class='"+f+"' style='width:"+i.config.characterWidth*2+"px'>"+l+"</span>"}return r?"<span class='ace_invisible ace_invalid'>"+i.SPACE_CHAR+"</span>":(t+=1,"<span class='ace_cjk' style='width:"+i.config.characterWidth*2+"px'>"+e+"</span>")},a=r.replace(o,u);if(!this.$textToken[n.type]){var f="ace_"+n.type.replace(/\./g," ace_"),l="";n.type=="fold"&&(l=" style='width:"+n.value.length*this.config.characterWidth+"px;' "),e.push("<span class='",f,"'",l,">",a,"</span>")}else e.push(a);return t+r.length},this.renderIndentGuide=function(e,t){var n=t.search(this.$indentGuideRe);return n<=0?t:t[0]==" "?(n-=n%this.tabSize,e.push(s.stringRepeat(this.$tabStrings[" "],n/this.tabSize)),t.substr(n)):t[0]=="	"?(e.push(s.stringRepeat(this.$tabStrings["	"],n)),t.substr(n)):t},this.$renderWrappedLine=function(e,t,n,r){var i=0,s=0,o=n[0],u=0;for(var a=0;a<t.length;a++){var f=t[a],l=f.value;if(a==0&&this.displayIndentGuides){i=l.length,l=this.renderIndentGuide(e,l);if(!l)continue;i-=l.length}if(i+l.length<o)u=this.$renderToken(e,u,f,l),i+=l.length;else{while(i+l.length>=o)u=this.$renderToken(e,u,f,l.substring(0,o-i)),l=l.substring(o-i),i=o,r||e.push("</div>","<div class='ace_line' style='height:",this.config.lineHeight,"px'>"),s++,u=0,o=n[s]||Number.MAX_VALUE;l.length!=0&&(i+=l.length,u=this.$renderToken(e,u,f,l))}}},this.$renderSimpleLine=function(e,t){var n=0,r=t[0],i=r.value;this.displayIndentGuides&&(i=this.renderIndentGuide(e,i)),i&&(n=this.$renderToken(e,n,r,i));for(var s=1;s<t.length;s++)r=t[s],i=r.value,n=this.$renderToken(e,n,r,i)},this.$renderLine=function(e,t,n,r){!r&&r!=0&&(r=this.session.getFoldLine(t));if(r)var i=this.$getFoldLineTokens(t,r);else var i=this.session.getTokens(t);n||e.push("<div class='ace_line' style='height:",this.config.lineHeight,"px'>");if(i.length){var s=this.session.getRowSplitData(t);s&&s.length?this.$renderWrappedLine(e,i,s,n):this.$renderSimpleLine(e,i)}this.showInvisibles&&(r&&(t=r.end.row),e.push("<span class='ace_invisible'>",t==this.session.getLength()-1?this.EOF_CHAR:this.EOL_CHAR,"</span>")),n||e.push("</div>")},this.$getFoldLineTokens=function(e,t){function i(e,t,n){var i=0,s=0;while(s+e[i].value.length<t){s+=e[i].value.length,i++;if(i==e.length)return}if(s!=t){var o=e[i].value.substring(t-s);o.length>n-t&&(o=o.substring(0,n-t)),r.push({type:e[i].type,value:o}),s=t+o.length,i+=1}while(s<n&&i<e.length){var o=e[i].value;o.length+s>n?r.push({type:e[i].type,value:o.substring(0,n-s)}):r.push(e[i]),s+=o.length,i+=1}}var n=this.session,r=[],s=n.getTokens(e);return t.walk(function(e,t,o,u,a){e!=null?r.push({type:"fold",value:e}):(a&&(s=n.getTokens(t)),s.length&&i(s,u,o))},t.end.row,this.session.getLine(t.end.row).length),r},this.$useLineGroups=function(){return this.session.getUseWrapMode()},this.destroy=function(){clearInterval(this.$pollSizeChangesTimer),this.$measureNode&&this.$measureNode.parentNode.removeChild(this.$measureNode),delete this.$measureNode}
+r.implement(this,u),this.EOF_CHAR="¶",this.EOL_CHAR="¬",this.TAB_CHAR="→",this.SPACE_CHAR="·",this.$padding=0,this.setPadding=function(e){this.$padding=e,this.element.style.padding="0 "+e+"px"},this.getLineHeight=function(){return this.$characterSize.height||1},this.getCharacterWidth=function(){return this.$characterSize.width||1},this.checkForSizeChanges=function(){var e=this.$measureSizes();if(e&&(this.$characterSize.width!==e.width||this.$characterSize.height!==e.height)) {this.$measureNode.style.fontWeight="bold";var t=this.$measureSizes();this.$measureNode.style.fontWeight="",this.$characterSize=e,this.allowBoldFonts=t&&t.width===e.width&&t.height===e.height,this._emit("changeCharacterSize",{data:e})}},this.$pollSizeChanges=function(){var e=this;this.$pollSizeChangesTimer=setInterval(function(){e.checkForSizeChanges()},500)},this.$fontStyles={fontFamily:1,fontSize:1,fontWeight:1,fontStyle:1,lineHeight:1},this.$measureSizes=o.isIE||o.isOldGecko?function(){var e=1e3;if(!this.$measureNode) {var t=this.$measureNode=i.createElement("div"),n=t.style;n.width=n.height="auto",n.left=n.top=-e*40+"px",n.visibility="hidden",n.position="fixed",n.overflow="visible",n.whiteSpace="nowrap",t.innerHTML=s.stringRepeat("Xy",e);if(this.element.ownerDocument.body) { this.element.ownerDocument.body.appendChild(t);} else{var r=this.element.parentNode;while(!i.hasCssClass(r,"ace_editor")) { r=r.parentNode;
+}r.appendChild(t)}}if(!this.element.offsetWidth) { return null;
+}var n=this.$measureNode.style,o=i.computedStyle(this.element);for(var u in this.$fontStyles) { n[u]=o[u];
+}var a={height:this.$measureNode.offsetHeight,width:this.$measureNode.offsetWidth/(e*2)};return a.width==0||a.height==0?null:a}:function(){if(!this.$measureNode) {var e=this.$measureNode=i.createElement("div"),t=e.style;t.width=t.height="auto",t.left=t.top="-100px",t.visibility="hidden",t.position="fixed",t.overflow="visible",t.whiteSpace="nowrap",e.innerHTML="X";var n=this.element.parentNode;while(n&&!i.hasCssClass(n,"ace_editor")) { n=n.parentNode;
+}if(!n) { return this.$measureNode=null;
+}n.appendChild(e)}var r=this.$measureNode.getBoundingClientRect(),s={height:r.height,width:r.width};return s.width==0||s.height==0?null:s},this.setSession=function(e){this.session=e,this.$computeTabString()},this.showInvisibles=!1,this.setShowInvisibles=function(e){return this.showInvisibles==e?!1:(this.showInvisibles=e,this.$computeTabString(),!0)},this.displayIndentGuides=!0,this.setDisplayIndentGuides=function(e){return this.displayIndentGuides==e?!1:(this.displayIndentGuides=e,this.$computeTabString(),!0)},this.$tabStrings=[],this.onChangeTabSize=this.$computeTabString=function(){var e=this.session.getTabSize();this.tabSize=e;var t=this.$tabStrings=[0];for(var n=1;n<e+1;n++) { this.showInvisibles?t.push("<span class='ace_invisible'>"+this.TAB_CHAR+s.stringRepeat(" ",n-1)+"</span>"):t.push(s.stringRepeat(" ",n));
+}if(this.displayIndentGuides) {this.$indentGuideRe=/\s\S| \t|\t |\s$/;var r="ace_indent-guide";if(this.showInvisibles) {r+=" ace_invisible";var i=s.stringRepeat(this.SPACE_CHAR,this.tabSize),o=this.TAB_CHAR+s.stringRepeat(" ",this.tabSize-1)}else { var i=s.stringRepeat(" ",this.tabSize),o=i;
+}this.$tabStrings[" "]="<span class='"+r+"'>"+i+"</span>",this.$tabStrings["	"]="<span class='"+r+"'>"+o+"</span>"}},this.updateLines=function(e,t,n){(this.config.lastRow!=e.lastRow||this.config.firstRow!=e.firstRow)&&this.scrollLines(e),this.config=e;var r=Math.max(t,e.firstRow),s=Math.min(n,e.lastRow),o=this.element.childNodes,u=0;for(var a=e.firstRow;a<r;a++){var f=this.session.getFoldLine(a);if(f) {if(f.containsRow(r)) {r=f.start.row;break}a=f.end.row}u++}var a=r,f=this.session.getNextFoldLine(a),l=f?f.start.row:Infinity;for(;;){a>l&&(a=f.end.row+1,f=this.session.getNextFoldLine(a,f),l=f?f.start.row:Infinity);if(a>s) { break;
+}var c=o[u++];if(c) {var h=[];this.$renderLine(h,a,!this.$useLineGroups(),a==l?f:!1),i.setInnerHtml(c,h.join(""))}a++}},this.scrollLines=function(e){var t=this.config;this.config=e;if(!t||t.lastRow<e.firstRow) { return this.update(e);
+}if(e.lastRow<t.firstRow) { return this.update(e);
+}var n=this.element;if(t.firstRow<e.firstRow) { for(var r=this.session.getFoldedRowCount(t.firstRow,e.firstRow-1);r>0;r--) { n.removeChild(n.firstChild);
+}
+}if(t.lastRow>e.lastRow) { for(var r=this.session.getFoldedRowCount(e.lastRow+1,t.lastRow);r>0;r--) { n.removeChild(n.lastChild);
+}
+}if(e.firstRow<t.firstRow) {var i=this.$renderLinesFragment(e,e.firstRow,t.firstRow-1);n.firstChild?n.insertBefore(i,n.firstChild):n.appendChild(i)}if(e.lastRow>t.lastRow) {var i=this.$renderLinesFragment(e,t.lastRow+1,e.lastRow);n.appendChild(i)}},this.$renderLinesFragment=function(e,t,n){var r=this.element.ownerDocument.createDocumentFragment(),s=t,o=this.session.getNextFoldLine(s),u=o?o.start.row:Infinity;for(;;){s>u&&(s=o.end.row+1,o=this.session.getNextFoldLine(s,o),u=o?o.start.row:Infinity);if(s>n) { break;
+}var a=i.createElement("div"),f=[];this.$renderLine(f,s,!1,s==u?o:!1),a.innerHTML=f.join("");if(this.$useLineGroups()) { a.className="ace_line_group",r.appendChild(a);} else{var l=a.childNodes;while(l.length) { r.appendChild(l[0])}
+}s++}return r},this.update=function(e){this.config=e;var t=[],n=e.firstRow,r=e.lastRow,s=n,o=this.session.getNextFoldLine(s),u=o?o.start.row:Infinity;for(;;){s>u&&(s=o.end.row+1,o=this.session.getNextFoldLine(s,o),u=o?o.start.row:Infinity);if(s>r) { break;
+}this.$useLineGroups()&&t.push("<div class='ace_line_group'>"),this.$renderLine(t,s,!1,s==u?o:!1),this.$useLineGroups()&&t.push("</div>"),s++}this.element=i.setInnerHtml(this.element,t.join(""))},this.$textToken={text:!0,rparen:!0,lparen:!0},this.$renderToken=function(e,t,n,r){var i=this,o=/\t|&|<|( +)|([\x00-\x1f\x80-\xa0\u1680\u180E\u2000-\u200f\u2028\u2029\u202F\u205F\u3000\uFEFF])|[\u1100-\u115F\u11A3-\u11A7\u11FA-\u11FF\u2329-\u232A\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFB\u3000-\u303E\u3041-\u3096\u3099-\u30FF\u3105-\u312D\u3131-\u318E\u3190-\u31BA\u31C0-\u31E3\u31F0-\u321E\u3220-\u3247\u3250-\u32FE\u3300-\u4DBF\u4E00-\uA48C\uA490-\uA4C6\uA960-\uA97C\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFAFF\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFF01-\uFF60\uFFE0-\uFFE6]/g,u=function(e,n,r,o,u){if(n) { return i.showInvisibles?"<span class='ace_invisible'>"+s.stringRepeat(i.SPACE_CHAR,e.length)+"</span>":s.stringRepeat(" ",e.length);
+}if(e=="&") { return"&#38;";
+}if(e=="<") { return"&#60;";
+}if(e=="	") {var a=i.session.getScreenTabSize(t+o);return t+=a-1,i.$tabStrings[a]}if(e=="　") {var f=i.showInvisibles?"ace_cjk ace_invisible":"ace_cjk",l=i.showInvisibles?i.SPACE_CHAR:"";return t+=1,"<span class='"+f+"' style='width:"+i.config.characterWidth*2+"px'>"+l+"</span>"}return r?"<span class='ace_invisible ace_invalid'>"+i.SPACE_CHAR+"</span>":(t+=1,"<span class='ace_cjk' style='width:"+i.config.characterWidth*2+"px'>"+e+"</span>")},a=r.replace(o,u);if(!this.$textToken[n.type]) {var f="ace_"+n.type.replace(/\./g," ace_"),l="";n.type=="fold"&&(l=" style='width:"+n.value.length*this.config.characterWidth+"px;' "),e.push("<span class='",f,"'",l,">",a,"</span>")}else { e.push(a);
+}return t+r.length},this.renderIndentGuide=function(e,t){var n=t.search(this.$indentGuideRe);return n<=0?t:t[0]==" "?(n-=n%this.tabSize,e.push(s.stringRepeat(this.$tabStrings[" "],n/this.tabSize)),t.substr(n)):t[0]=="	"?(e.push(s.stringRepeat(this.$tabStrings["	"],n)),t.substr(n)):t},this.$renderWrappedLine=function(e,t,n,r){var i=0,s=0,o=n[0],u=0;for(var a=0;a<t.length;a++){var f=t[a],l=f.value;if(a==0&&this.displayIndentGuides) {i=l.length,l=this.renderIndentGuide(e,l);if(!l) { continue;
+}i-=l.length}if(i+l.length<o) { u=this.$renderToken(e,u,f,l),i+=l.length;} else{while(i+l.length>=o) { u=this.$renderToken(e,u,f,l.substring(0,o-i)),l=l.substring(o-i),i=o,r||e.push("</div>","<div class='ace_line' style='height:",this.config.lineHeight,"px'>"),s++,u=0,o=n[s]||Number.MAX_VALUE;
+}l.length!=0&&(i+=l.length,u=this.$renderToken(e,u,f,l))}}},this.$renderSimpleLine=function(e,t){var n=0,r=t[0],i=r.value;this.displayIndentGuides&&(i=this.renderIndentGuide(e,i)),i&&(n=this.$renderToken(e,n,r,i));for(var s=1;s<t.length;s++) { r=t[s],i=r.value,n=this.$renderToken(e,n,r,i)}
+},this.$renderLine=function(e,t,n,r){!r&&r!=0&&(r=this.session.getFoldLine(t));if(r) { var i=this.$getFoldLineTokens(t,r);} else { var i=this.session.getTokens(t);
+}n||e.push("<div class='ace_line' style='height:",this.config.lineHeight,"px'>");if(i.length) {var s=this.session.getRowSplitData(t);s&&s.length?this.$renderWrappedLine(e,i,s,n):this.$renderSimpleLine(e,i)}this.showInvisibles&&(r&&(t=r.end.row),e.push("<span class='ace_invisible'>",t==this.session.getLength()-1?this.EOF_CHAR:this.EOL_CHAR,"</span>")),n||e.push("</div>")},this.$getFoldLineTokens=function(e,t){function i(e,t,n){var i=0,s=0;while(s+e[i].value.length<t){s+=e[i].value.length,i++;if(i==e.length) { return}
+}if(s!=t) {var o=e[i].value.substring(t-s);o.length>n-t&&(o=o.substring(0,n-t)),r.push({type:e[i].type,value:o}),s=t+o.length,i+=1}while(s<n&&i<e.length){var o=e[i].value;o.length+s>n?r.push({type:e[i].type,value:o.substring(0,n-s)}):r.push(e[i]),s+=o.length,i+=1}}var n=this.session,r=[],s=n.getTokens(e);return t.walk(function(e,t,o,u,a){e!=null?r.push({type:"fold",value:e}):(a&&(s=n.getTokens(t)),s.length&&i(s,u,o))},t.end.row,this.session.getLine(t.end.row).length),r},this.$useLineGroups=function(){return this.session.getUseWrapMode()},this.destroy=function(){clearInterval(this.$pollSizeChangesTimer),this.$measureNode&&this.$measureNode.parentNode.removeChild(this.$measureNode),delete this.$measureNode}
 }).call(a.prototype),
     t.Text = a
            }),
@@ -7762,22 +8242,26 @@ this.$padding = 0,
       clearInterval(this.intervalId), clearTimeout(this.timeoutId),
           this.smoothBlinking &&
               r.removeCssClass(this.element, "ace_smooth-blinking");
-      for (var e = this.cursors.length; e--;)
+      for (var e = this.cursors.length; e--;) {
         this.cursors[e].style.opacity = "";
-      if (!this.isBlinking || !this.blinkInterval || !this.isVisible)
+      }
+      if (!this.isBlinking || !this.blinkInterval || !this.isVisible) {
         return;
+      }
       this.smoothBlinking && setTimeout(function() {
         r.addCssClass(this.element, "ace_smooth-blinking")
       }.bind(this));
       var t = function() {
         this.timeoutId = setTimeout(function() {
-          for (var e = this.cursors.length; e--;)
+          for (var e = this.cursors.length; e--;) {
             this.cursors[e].style.opacity = 0
-        }.bind(this), .6 * this.blinkInterval)
+        }
+          }.bind(this), .6 * this.blinkInterval)
       }.bind(this);
       this.intervalId = setInterval(function() {
-        for (var e = this.cursors.length; e--;)
+        for (var e = this.cursors.length; e--;) {
           this.cursors[e].style.opacity = "";
+        }
         t()
       }.bind(this), this.blinkInterval), t()
     }, this.getPixelPosition = function(e, t) {
@@ -7796,14 +8280,16 @@ this.$padding = 0,
         t = [ {cursor : null} ];
       for (var n = 0, i = t.length; n < i; n++) {
         var s = this.getPixelPosition(t[n].cursor, !0);
-        if ((s.top > e.height + e.offset || s.top < -e.offset) && n > 1)
+        if ((s.top > e.height + e.offset || s.top < -e.offset) && n > 1) {
           continue;
+        }
         var o = (this.cursors[r++] || this.addCursor()).style;
         o.left = s.left + "px", o.top = s.top + "px",
         o.width = e.characterWidth + "px", o.height = e.lineHeight + "px"
       }
-      while (this.cursors.length > r)
+      while (this.cursors.length > r) {
         this.removeCursor();
+      }
       var u = this.session.getOverwrite();
       this.$setOverwrite(u), this.$pixelPos = s, this.restartTimer()
     }, this.$setOverwrite = function(e) {
@@ -7868,9 +8354,10 @@ this.schedule = function(e) {
     r.nextFrame(function() {
       t.pending = !1;
       var e;
-      while (e = t.changes)
+      while (e = t.changes) {
         t.changes = 0, t.onRender(e)
-    }, this.window)
+    }
+      }, this.window)
   }
 }
 }).call(i.prototype),
@@ -7917,13 +8404,15 @@ this.getSelectionMarkers = function() { return this.$selectionMarkers }
 }).call(p.prototype),
     function() {
 this.ranges = null, this.rangeList = null, this.addRange = function(e, t) {
-  if (!e)
+  if (!e) {
     return;
+  }
   if (!this.inMultiSelectMode && this.rangeCount == 0) {
     var n = this.toOrientedRange();
     this.rangeList.add(n), this.rangeList.add(e);
-    if (this.rangeList.ranges.length != 2)
+    if (this.rangeList.ranges.length != 2) {
       return this.rangeList.removeAll(), t || this.fromOrientedRange(e);
+    }
     this.rangeList.removeAll(), this.rangeList.add(n), this.$onAddRange(n)
   }
   e.cursor || (e.cursor = e.end);
@@ -7940,9 +8429,10 @@ this.ranges = null, this.rangeList = null, this.addRange = function(e, t) {
   t.length && this.$onRemoveRange(t), e && this.fromOrientedRange(e)
 }, this.substractPoint = function(e) {
   var t = this.rangeList.substractPoint(e);
-  if (t)
+  if (t) {
     return this.$onRemoveRange(t), t[0]
-}, this.mergeOverlappingRanges = function() {
+}
+  }, this.mergeOverlappingRanges = function() {
   var e = this.rangeList.merge();
   e.length ? this.$onRemoveRange(e)
            : this.ranges[0] && this.fromOrientedRange(this.ranges[0])
@@ -7966,8 +8456,9 @@ this.ranges = null, this.rangeList = null, this.addRange = function(e, t) {
       t = t || this.ranges[0],
       t && !t.isEqual(this.getRange()) && this.fromOrientedRange(t)
 }, this.$initRangeList = function() {
-  if (this.rangeList)
+  if (this.rangeList) {
     return;
+  }
   this.rangeList = new r, this.ranges = [], this.rangeCount = 0
 }, this.getAllRanges = function() {
   return this.rangeList.ranges.concat()
@@ -7980,17 +8471,19 @@ this.ranges = null, this.rangeList = null, this.addRange = function(e, t) {
     var n = this.getRange(), r = this.isBackwards(), s = n.start.row,
         o = n.end.row;
     if (s == o) {
-      if (r)
+      if (r) {
         var u = n.end, a = n.start;
-      else
+      } else {
         var u = n.start, a = n.end;
+      }
       this.addRange(i.fromPoints(a, a)), this.addRange(i.fromPoints(u, u));
       return
     }
     var f = [], l = this.getLineRange(s, !0);
     l.start.column = n.start.column, f.push(l);
-    for (var c = s + 1; c < o; c++)
+    for (var c = s + 1; c < o; c++) {
       f.push(this.getLineRange(c, !0));
+    }
     l = this.getLineRange(o, !0), l.end.column = n.end.column, f.push(l),
     f.forEach(this.addRange, this)
   }
@@ -8007,22 +8500,25 @@ this.ranges = null, this.rangeList = null, this.addRange = function(e, t) {
   }
 }, this.rectangularRangeBlock = function(e, t, n) {
   var r = [], s = e.column < t.column;
-  if (s)
+  if (s) {
     var o = e.column, u = t.column;
-  else
+  } else {
     var o = t.column, u = e.column;
+  }
   var a = e.row < t.row;
-  if (a)
+  if (a) {
     var f = e.row, l = t.row;
-  else
+  } else {
     var f = t.row, l = e.row;
+  }
   o < 0 && (o = 0), f < 0 && (f = 0), f == l && (n = !0);
   for (var c = f; c <= l; c++) {
     var h = i.fromPoints(this.session.screenToDocumentPosition(c, o),
                          this.session.screenToDocumentPosition(c, u));
     if (h.isEmpty()) {
-      if (p && v(h.end, p))
+      if (p && v(h.end, p)) {
         break;
+      }
       var p = h.end
     }
     h.cursor = s ? h.start : h.end, r.push(h)
@@ -8030,16 +8526,19 @@ this.ranges = null, this.rangeList = null, this.addRange = function(e, t) {
   a && r.reverse();
   if (!n) {
     var d = r.length - 1;
-    while (r[d].isEmpty() && d > 0)
+    while (r[d].isEmpty() && d > 0) {
       d--;
+    }
     if (d > 0) {
       var m = 0;
-      while (r[m].isEmpty())
+      while (r[m].isEmpty()) {
         m++
     }
-    for (var g = d; g >= m; g--)
+      }
+    for (var g = d; g >= m; g--) {
       r[g].isEmpty() && r.splice(g, 1)
   }
+    }
   return r
 }
     }.call(s.prototype);
@@ -8056,8 +8555,9 @@ this.updateSelectionMarkers = function() {
              this.session.$selectionMarkers.length,
          e
 }, this.removeSelectionMarker = function(e) {
-  if (!e.marker)
+  if (!e.marker) {
     return;
+  }
   this.session.removeMarker(e.marker);
   var t = this.session.$selectionMarkers.indexOf(e);
   t != -1 && this.session.$selectionMarkers.splice(t, 1),
@@ -8066,8 +8566,9 @@ this.updateSelectionMarkers = function() {
   var t = this.session.$selectionMarkers;
   for (var n = e.length; n--;) {
     var r = e[n];
-    if (!r.marker)
+    if (!r.marker) {
       continue;
+    }
     this.session.removeMarker(r.marker);
     var i = t.indexOf(r);
     i != -1 && t.splice(i, 1)
@@ -8080,23 +8581,26 @@ this.updateSelectionMarkers = function() {
   this.removeSelectionMarkers(e.ranges), this.renderer.updateCursor(),
       this.renderer.updateBackMarkers()
 }, this.$onMultiSelect = function(e) {
-  if (this.inMultiSelectMode)
+  if (this.inMultiSelectMode) {
     return;
+  }
   this.inMultiSelectMode = !0, this.setStyle("ace_multiselect"),
   this.keyBinding.addKeyboardHandler(f.keyboardHandler),
   this.commands.on("exec", this.$onMultiSelectExec),
   this.renderer.updateCursor(), this.renderer.updateBackMarkers()
 }, this.$onSingleSelect = function(e) {
-  if (this.session.multiSelect.inVirtualMode)
+  if (this.session.multiSelect.inVirtualMode) {
     return;
+  }
   this.inMultiSelectMode = !1, this.unsetStyle("ace_multiselect"),
   this.keyBinding.removeKeyboardHandler(f.keyboardHandler),
   this.commands.removeEventListener("exec", this.$onMultiSelectExec),
   this.renderer.updateCursor(), this.renderer.updateBackMarkers()
 }, this.$onMultiSelectExec = function(e) {
   var t = e.command, n = e.editor;
-  if (!n.multiSelect)
+  if (!n.multiSelect) {
     return;
+  }
   t.multiSelectAction
       ? t.multiSelectAction == "forEach"
             ? n.forEachSelection(t, e.args)
@@ -8110,17 +8614,20 @@ this.updateSelectionMarkers = function() {
          n.multiSelect.mergeOverlappingRanges()),
       e.preventDefault()
 }, this.forEachSelection = function(e, t, n) {
-  if (this.inVirtualSelectionMode)
+  if (this.inVirtualSelectionMode) {
     return;
+  }
   var r = this.session, i = this.selection, o = i.rangeList,
       u = i._eventRegistry;
   i._eventRegistry = {};
   var a = new s(r);
   this.inVirtualSelectionMode = !0;
   for (var f = o.ranges.length; f--;) {
-    if (n)
-      while (f > 0 && o.ranges[f].start.row == o.ranges[f - 1].end.row)
+    if (n) {
+      while (f > 0 && o.ranges[f].start.row == o.ranges[f - 1].end.row) {
         f--;
+      }
+    }
     a.fromOrientedRange(o.ranges[f]), this.selection = r.selection = a,
                                       e.exec(this, t || {}),
                                       a.toOrientedRange(o.ranges[f])
@@ -8130,30 +8637,36 @@ this.updateSelectionMarkers = function() {
               i.mergeOverlappingRanges(), this.onCursorChange(),
               this.onSelectionChange()
 }, this.exitMultiSelectMode = function() {
-  if (this.inVirtualSelectionMode)
+  if (this.inVirtualSelectionMode) {
     return;
+  }
   this.multiSelect.toSingleRange()
 }, this.getCopyText = function() {
   var e = "";
   if (this.inMultiSelectMode) {
     var t = this.multiSelect.rangeList.ranges;
     e = [];
-    for (var n = 0; n < t.length; n++)
+    for (var n = 0; n < t.length; n++) {
       e.push(this.session.getTextRange(t[n]));
+    }
     e = e.join(this.session.getDocument().getNewLineCharacter())
-  } else
+  } else {
     this.selection.isEmpty() ||
         (e = this.session.getTextRange(this.getSelectionRange()));
+  }
   return e
 }, this.onPaste = function(e) {
-  if (this.$readOnly)
+  if (this.$readOnly) {
     return;
+  }
   this._signal("paste", e);
-  if (!this.inMultiSelectMode || this.inVirtualSelectionMode)
+  if (!this.inMultiSelectMode || this.inVirtualSelectionMode) {
     return this.insert(e);
+  }
   var t = e.split(/\r\n|\r|\n/), n = this.selection.rangeList.ranges;
-  if (t.length > n.length || t.length <= 2 || !t[1])
+  if (t.length > n.length || t.length <= 2 || !t[1]) {
     return this.commands.exec("insertstring", this, e);
+  }
   for (var r = n.length; r--;) {
     var i = n[r];
     i.isEmpty() || this.session.remove(i), this.session.insert(i.start, t[r])
@@ -8161,24 +8674,27 @@ this.updateSelectionMarkers = function() {
 }, this.findAll = function(e, t, n) {
   t = t || {}, t.needle = e || t.needle, this.$search.set(t);
   var r = this.$search.findAll(this.session);
-  if (!r.length)
+  if (!r.length) {
     return 0;
+  }
   this.$blockScrolling += 1;
   var i = this.multiSelect;
   n || i.toSingleRange(r[0]);
-  for (var s = r.length; s--;)
+  for (var s = r.length; s--;) {
     i.addRange(r[s], !0);
+  }
   return this.$blockScrolling -= 1, r.length
 }, this.selectMoreLines = function(e, t) {
   var n = this.selection.toOrientedRange(), r = n.cursor == n.end,
       s = this.session.documentToScreenPosition(n.cursor);
   this.selection.$desiredColumn && (s.column = this.selection.$desiredColumn);
   var o = this.session.screenToDocumentPosition(s.row + e, s.column);
-  if (!n.isEmpty())
+  if (!n.isEmpty()) {
     var u = this.session.documentToScreenPosition(r ? n.end : n.start),
         a = this.session.screenToDocumentPosition(u.row + e, u.column);
-  else
+  } else {
     var a = o;
+  }
   if (r) {
     var f = i.fromPoints(o, a);
     f.cursor = f.start
@@ -8187,10 +8703,11 @@ this.updateSelectionMarkers = function() {
     f.cursor = f.end
   }
   f.desiredColumn = s.column;
-  if (!this.selection.inMultiSelectMode)
+  if (!this.selection.inMultiSelectMode) {
     this.selection.addRange(n);
-  else if (t)
+  } else if (t) {
     var l = n.cursor;
+  }
   this.selection.addRange(f), l && this.selection.substractPoint(l)
 }, this.transposeSelections = function(e) {
   var t = this.session, n = t.multiSelect, r = n.ranges;
@@ -8233,8 +8750,9 @@ this.updateSelectionMarkers = function() {
     this.selection.setRange(r)
   } else {
     var f = -1, l = n.filter(function(e) {
-      if (e.cursor.row == f)
+      if (e.cursor.row == f) {
         return !0;
+      }
       f = e.cursor.row
     });
     t.$onRemoveRange(l);
@@ -8329,16 +8847,18 @@ function s(e) {
       m = function(e) { d = e.clientX, v = e.clientY }, g = function() {
         var e = a.renderer.pixelToScreenCoordinates(d, v),
             t = y.screenToDocumentPosition(e.row, e.column);
-        if (i(w, e) && i(t, f.selectionLead))
+        if (i(w, e) && i(t, f.selectionLead)) {
           return;
+        }
         w = e, a.selection.moveCursorToPosition(t),
         a.selection.clearSelection(), a.renderer.scrollCursorIntoView(),
         a.removeSelectionMarkers(x), x = f.rectangularRangeBlock(w, b),
         x.forEach(a.addSelectionMarker, a), a.updateSelectionMarkers()
       }, y = a.session, b = a.renderer.pixelToScreenCoordinates(d, v), w = b;
   if (o && !s && !n && u == 0) {
-    if (!l && p)
+    if (!l && p) {
       return;
+    }
     if (!l) {
       var E = f.toOrientedRange();
       a.addSelectionMarker(E)
@@ -8359,9 +8879,10 @@ function s(e) {
       : (f.moveCursorToPosition(c), f.clearSelection());
     var T = function(e) {
       clearInterval(C), a.removeSelectionMarkers(x);
-      for (var t = 0; t < x.length; t++)
+      for (var t = 0; t < x.length; t++) {
         f.addRange(x[t])
-    }, N = g;
+    }
+      }, N = g;
     r.capture(a.container, m, T);
     var C = setInterval(function() { N() }, 20);
     return e.preventDefault()
@@ -8457,9 +8978,9 @@ var r = e("../lib/oop"), i = e("../lib/event_emitter").EventEmitter,
       this.onMessage = this.onMessage.bind(this),
       this.onError = this.onError.bind(this);
       var i;
-      if (s.get("packaged"))
+      if (s.get("packaged")) {
         i = s.moduleUrl(n, "worker");
-      else {
+      } else {
         var o = this.$normalizePath;
         typeof e.supports != "undefined" &&
                 e.supports.indexOf("ucjs2-pinf-0") >= 0
@@ -8550,9 +9071,10 @@ var u = function(e, t, n) {
       e, t) { this.postMessage({type : "event", name : e, data : t}) },
   s.loadModule([ "worker", t ], function(e) {
     r = new e[n](o);
-    while (u.messageBuffer.length)
+    while (u.messageBuffer.length) {
       a()
-  })
+  }
+    })
 };
 u.prototype = o.prototype, t.UIWorkerClient = u, t.WorkerClient = o
            }),
@@ -8598,8 +9120,9 @@ s.implement(this, i), this.setup = function() {
   }),
   n.setUndoSelect(!1)
 }, this.showOtherMarkers = function() {
-  if (this.othersActive)
+  if (this.othersActive) {
     return;
+  }
   var e = this.session, t = this;
   this.othersActive = !0, this.others.forEach(function(n) {
     n.markerId = e.addMarker(new r(n.row, n.column, n.row, n.column + t.length),
@@ -8613,39 +9136,46 @@ s.implement(this, i), this.setup = function() {
     })
   })
 }, this.hideOtherMarkers = function() {
-  if (!this.othersActive)
+  if (!this.othersActive) {
     return;
+  }
   this.othersActive = !1;
-  for (var e = 0; e < this.others.length; e++)
+  for (var e = 0; e < this.others.length; e++) {
     this.session.removeMarker(this.others[e].markerId)
-}, this.onUpdate = function(e) {
+}
+  }, this.onUpdate = function(e) {
   var t = e.data, n = t.range;
-  if (n.start.row !== n.end.row)
+  if (n.start.row !== n.end.row) {
     return;
-  if (n.start.row !== this.pos.row)
+  }
+  if (n.start.row !== this.pos.row) {
     return;
-  if (this.$updating)
+  }
+  if (this.$updating) {
     return;
+  }
   this.$updating = !0;
   var i = t.action === "insertText" ? n.end.column - n.start.column
                                     : n.start.column - n.end.column;
-  if (n.start.column >= this.pos.column &&
-      n.start.column <= this.pos.column + this.length + 1) {
+  if (n.start.column >= this.pos.column 
+      && n.start.column <= this.pos.column + this.length + 1
+  ) {
     var s = n.start.column - this.pos.column;
     this.length += i;
     if (!this.session.$fromUndo) {
-      if (t.action === "insertText")
+      if (t.action === "insertText") {
         for (var o = this.others.length - 1; o >= 0; o--) {
           var u = this.others[o], a = {row : u.row, column : u.column + s};
           u.row === n.start.row && n.start.column < u.column && (a.column += i),
               this.doc.insert(a, t.text)
         }
-      else if (t.action === "removeText")
+      } else if (t.action === "removeText") {
         for (var o = this.others.length - 1; o >= 0; o--) {
           var u = this.others[o], a = {row : u.row, column : u.column + s};
           u.row === n.start.row && n.start.column < u.column && (a.column += i),
               this.doc.remove(new r(a.row, a.column, a.row, a.column - i))
         }
+      }
       n.start.column === this.pos.column && t.action === "insertText"
           ? setTimeout(
                 function() {
@@ -8669,13 +9199,15 @@ s.implement(this, i), this.setup = function() {
                 }.bind(this), 0)
     }
     this.pos._emit("change", {value : this.pos});
-    for (var o = 0; o < this.others.length; o++)
+    for (var o = 0; o < this.others.length; o++) {
       this.others[o]._emit("change", {value : this.others[o]})
   }
+    }
   this.$updating = !1
 }, this.onCursorChange = function(e) {
-  if (this.$updating)
+  if (this.$updating) {
     return;
+  }
   var t = this.session.selection.getCursor();
   t.row === this.pos.row && t.column >= this.pos.column &&
           t.column <= this.pos.column + this.length
@@ -8687,18 +9219,21 @@ s.implement(this, i), this.setup = function() {
       this.session.selection.removeEventListener("changeCursor",
                                                  this.$onCursorChange),
       this.pos.detach();
-  for (var e = 0; e < this.others.length; e++)
+  for (var e = 0; e < this.others.length; e++) {
     this.others[e].detach();
+  }
   this.session.setUndoSelect(!0)
 }, this.cancel = function() {
-  if (this.$undoStackDepth === -1)
+  if (this.$undoStackDepth === -1) {
     throw Error(
         "Canceling placeholders only supported with undo manager attached to session.");
+  }
   var e = this.session.getUndoManager(),
       t = (e.$undoStack || e.$undostack).length - this.$undoStackDepth;
-  for (var n = 0; n < t; n++)
+  for (var n = 0; n < t; n++) {
     e.undo(!0)
 }
+  }
 }).call(o.prototype),
     t.PlaceHolder = o
            }),
@@ -8722,15 +9257,18 @@ this.foldingStartMarker = null,
     this.getFoldWidgetRange = function(e, t, n) { return null },
     this.indentationBlock = function(e, t, n) {
       var i = /\S/, s = e.getLine(t), o = s.search(i);
-      if (o == -1)
+      if (o == -1) {
         return;
+      }
       var u = n || s.length, a = e.getLength(), f = t, l = t;
       while (++t < a) {
         var c = e.getLine(t).search(i);
-        if (c == -1)
+        if (c == -1) {
           continue;
-        if (c <= o)
+        }
+        if (c <= o) {
           break;
+        }
         l = t
       }
       if (l > f) {
@@ -8739,8 +9277,9 @@ this.foldingStartMarker = null,
       }
     }, this.openingBracketBlock = function(e, t, n, i, s) {
       var o = {row : n, column : i + 1}, u = e.$findClosingBracket(t, o, s);
-      if (!u)
+      if (!u) {
         return;
+      }
       var a = e.foldWidgets[u.row];
       return a == null && (a = this.getFoldWidget(e, u.row)),
              a == "start" && u.row > o.row &&
@@ -8748,8 +9287,9 @@ this.foldingStartMarker = null,
              r.fromPoints(o, u)
     }, this.closingBracketBlock = function(e, t, n, i, s) {
       var o = {row : n, column : i}, u = e.$findOpeningBracket(t, o);
-      if (!u)
+      if (!u) {
         return;
+      }
       return u.column++, o.column--, r.fromPoints(u, o)
     }
 }).call(i.prototype)
@@ -8768,10 +9308,13 @@ r.importCssString(t.cssText, t.cssClass)
 (function() {
 window.require([ "ace/ace" ], function(a) {
   a && a.config.init();
-  if (!window.ace)
+  if (!window.ace) {
     window.ace = {};
-  for (var key in a)
-    if (a.hasOwnProperty(key))
+  }
+  for (var key in a) {
+    if (a.hasOwnProperty(key)) {
       ace[key] = a[key];
+    }
+  }
 });
 })();

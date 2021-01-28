@@ -48,10 +48,12 @@ define("ace/mode/lua",
                                 ? i.substr(0, i.length - r.length)
                                 : i
            }, this.checkOutdent = function(e, n, r) {
-             if (r != "\n" && r != "\r" && r != "\r\n")
+             if (r != "\n" && r != "\r" && r != "\r\n") {
                return !1;
-             if (n.match(/^\s*[\)\}\]]$/))
+             }
+             if (n.match(/^\s*[\)\}\]]$/)) {
                return !0;
+             }
              var i = this.$tokenizer.getLineTokens(n.trim(), e).tokens;
              return !i || !i.length
                         ? !1
@@ -61,8 +63,9 @@ define("ace/mode/lua",
                  o = this.$tokenizer.getLineTokens(i, "start").tokens,
                  u = t.getTabString().length, f = s + u * n(o),
                  l = this.$getIndent(t.getLine(r)).length;
-             if (l < f)
+             if (l < f) {
                return;
+             }
              t.outdentRows(new a(r, 0, r + 2, 0))
            }
          }.call(f.prototype), t.Mode = f
@@ -177,42 +180,49 @@ define("ace/mode/lua",
                   s = this.foldingStopMarker.test(r);
               if (i && !s) {
                 var o = r.match(this.foldingStartMarker);
-                if (o[1] == "then" && /\belseif\b/.test(r))
+                if (o[1] == "then" && /\belseif\b/.test(r)) {
                   return;
+                }
                 if (o[1]) {
-                  if (e.getTokenAt(n, o.index + 1).type === "keyword")
+                  if (e.getTokenAt(n, o.index + 1).type === "keyword") {
                     return "start"
-                } else {
-                  if (!o[2])
+                } } else {
+                  if (!o[2]) {
                     return "start";
+                  }
                   var u = e.bgTokenizer.getState(n) || "";
-                  if (u[0] == "bracketedComment" || u[0] == "bracketedString")
+                  if (u[0] == "bracketedComment" || u[0] == "bracketedString") {
                     return "start"
                 }
+                  }
               }
-              if (t != "markbeginend" || !s || i && s)
+              if (t != "markbeginend" || !s || i && s) {
                 return "";
+              }
               var o = r.match(this.foldingStopMarker);
               if (o[0] === "end") {
-                if (e.getTokenAt(n, o.index + 1).type === "keyword")
+                if (e.getTokenAt(n, o.index + 1).type === "keyword") {
                   return "end"
-              } else {
-                if (o[0][0] !== "]")
+              } } else {
+                if (o[0][0] !== "]") {
                   return "end";
+                }
                 var u = e.bgTokenizer.getState(n - 1) || "";
-                if (u[0] == "bracketedComment" || u[0] == "bracketedString")
+                if (u[0] == "bracketedComment" || u[0] == "bracketedString") {
                   return "end"
               }
+                }
             }, this.getFoldWidgetRange = function(e, t, n) {
               var r = e.doc.getLine(n), i = this.foldingStartMarker.exec(r);
-              if (i)
+              if (i) {
                 return i[1]
                            ? this.luaBlock(e, n, i.index + 1)
                            : i[2]
                                  ? e.getCommentFoldRange(n, i.index + 1)
                                  : this.openingBracketBlock(e, "{", n, i.index);
+              }
               var i = this.foldingStopMarker.exec(r);
-              if (i)
+              if (i) {
                 return i[0] === "end" &&
                                e.getTokenAt(n, i.index + 1).type === "keyword"
                            ? this.luaBlock(e, n, i.index + 1)
@@ -220,7 +230,8 @@ define("ace/mode/lua",
                                  ? e.getCommentFoldRange(n, i.index + 1)
                                  : this.closingBracketBlock(
                                        e, "}", n, i.index + i[0].length)
-            }, this.luaBlock = function(e, t, n) {
+            }
+              }, this.luaBlock = function(e, t, n) {
               var r = new o(e, t, n), i = {
                 "function" : 1,
                 "do" : 1,
@@ -231,25 +242,29 @@ define("ace/mode/lua",
                 until : -1
               },
                   u = r.getCurrentToken();
-              if (!u || u.type != "keyword")
+              if (!u || u.type != "keyword") {
                 return;
+              }
               var a = u.value, f = [ a ], l = i[a];
-              if (!l)
+              if (!l) {
                 return;
+              }
               var c = l === -1 ? r.getCurrentTokenColumn()
                                : e.getLine(t).length,
                   h = t;
               r.step = l === -1 ? r.stepBackward : r.stepForward;
               while (u = r.step()) {
-                if (u.type !== "keyword")
+                if (u.type !== "keyword") {
                   continue;
+                }
                 var p = l * i[u.value];
-                if (p > 0)
+                if (p > 0) {
                   f.unshift(u.value);
-                else if (p <= 0) {
+                } else if (p <= 0) {
                   f.shift();
-                  if (!f.length && u.value != "elseif")
+                  if (!f.length && u.value != "elseif") {
                     break;
+                  }
                   p === 0 && f.unshift(u.value)
                 }
               }

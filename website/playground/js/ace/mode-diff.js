@@ -91,16 +91,19 @@ define("ace/mode/diff",
                  for (var u = 1; u <= o.length; u++) {
                    var a =
                        RegExp("^(" + o.slice(0, u).join("|") + ")", this.flag);
-                   if (a.test(r))
+                   if (a.test(r)) {
                      break
                  }
+                   }
                  for (var f = e.getLength(); ++n < f;) {
                    r = e.getLine(n);
-                   if (a.test(r))
+                   if (a.test(r)) {
                      break
                  }
-                 if (n == i.row + 1)
+                   }
+                 if (n == i.row + 1) {
                    return;
+                 }
                  return s.fromPoints(i, {row : n - 1, column : r.length})
                }
              }.call(o.prototype)

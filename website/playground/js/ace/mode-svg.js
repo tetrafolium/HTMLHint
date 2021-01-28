@@ -111,9 +111,10 @@ define(
           function u(e, t) {
             var n = !0, r = e.type.split("."), i = t.split(".");
             return i.forEach(function(e) {
-              if (r.indexOf(e) == -1)
+              if (r.indexOf(e) == -1) {
                 return n = !1, !1
-            }),
+            }
+              }),
                    n
           }
           var r = e("../../lib/oop"), i = e("../behaviour").Behaviour,
@@ -126,23 +127,29 @@ define(
                                  var s = n.getCursorPosition(),
                                      a = new o(r, s.row, s.column),
                                      f = a.getCurrentToken(), l = !1;
-                                 if (!f || !u(f, "meta.tag") &&
-                                               (!u(f, "text") ||
-                                                !f.value.match("/"))) {
-                                   do
+                                 if (!f || !u(f, "meta.tag") 
+                                     && (!u(f, "text") 
+                                     || !f.value.match("/"))
+                                 ) {
+                                   do {
                                      f = a.stepBackward();
+                                   }
                                    while (f && (u(f, "string") ||
                                                 u(f, "keyword.operator") ||
                                                 u(f, "entity.attribute-name") ||
                                                 u(f, "text")))
-                                 } else
+                                 } else {
                                    l = !0;
-                                 if (!f || !u(f, "meta.tag-name") ||
-                                     a.stepBackward().value.match("/"))
+                                 }
+                                 if (!f || !u(f, "meta.tag-name") 
+                                     || a.stepBackward().value.match("/")
+                                 ) {
                                    return;
+                                 }
                                  var c = f.value;
-                                 if (l)
+                                 if (l) {
                                    var c = c.substring(0, s.column - f.start);
+                                 }
                                  return {
                                    text: "></" + c + ">", selection: [ 1, 1 ]
                                  }
@@ -187,9 +194,10 @@ define(
                   var n = e.getCursorPosition(), r = new s(t, n.row, n.column);
                   if (!this.$matchTokenType(r.getCurrentToken() || "text", u)) {
                     var i = new s(t, n.row, n.column + 1);
-                    if (!this.$matchTokenType(i.getCurrentToken() || "text", u))
+                    if (!this.$matchTokenType(i.getCurrentToken() || "text", u)) {
                       return !1
                   }
+                    }
                   return r.stepForward(),
                          r.getCurrentTokenRow() !== n.row ||
                              this.$matchTokenType(r.getCurrentToken() || "text",
@@ -229,25 +237,27 @@ define(
                       if (i == "{") {
                         var a = n.getSelectionRange(),
                             f = r.doc.getTextRange(a);
-                        if (f !== "" && f !== "{" &&
-                            n.getWrapBehavioursEnabled())
+                        if (f !== "" && f !== "{" 
+                            && n.getWrapBehavioursEnabled()
+                        )
                           return {text : "{" + f + "}", selection : !1};
-                        if (m.isSaneInsertion(n, r))
+                        if (m.isSaneInsertion(n, r)) {
                           return /[\]\}\)]/.test(u[s.column])
                                      ? (m.recordAutoInsert(n, r, "}"),
                                         {text : "{}", selection : [ 1, 1 ]})
                                      : (m.recordMaybeInsert(n, r, "{"),
                                         {text : "{", selection : [ 1, 1 ]})
-                      } else if (i == "}") {
+                      } } else if (i == "}") {
                         var l = u.substring(s.column, s.column + 1);
                         if (l == "}") {
                           var c = r.$findOpeningBracket(
                               "}", {column : s.column + 1, row : s.row});
-                          if (c !== null && m.isAutoInsertedClosing(s, u, i))
+                          if (c !== null && m.isAutoInsertedClosing(s, u, i)) {
                             return m.popAutoInsertedClosing(), {
                               text: "", selection: [ 1, 1 ]
                             }
                         }
+                          }
                       } else if (i == "\n" || i == "\r\n") {
                         var p = "";
                         m.isMaybeInsertedClosing(s, u) &&
@@ -257,8 +267,9 @@ define(
                         if (l == "}" || p !== "") {
                           var d = r.findMatchingBracket(
                               {row : s.row, column : s.column}, "}");
-                          if (!d)
+                          if (!d) {
                             return null;
+                          }
                           var v = this.getNextLineIndent(
                                   e, u.substring(0, s.column),
                                   r.getTabString()),
@@ -277,8 +288,9 @@ define(
                              var o = r.doc.getLine(i.start.row),
                                  u = o.substring(i.end.column,
                                                  i.end.column + 1);
-                             if (u == "}")
+                             if (u == "}") {
                                return i.end.column++, i;
+                             }
                              h--
                            }
                          }),
@@ -290,21 +302,22 @@ define(
                             o = r.doc.getTextRange(s);
                         if (o !== "" && n.getWrapBehavioursEnabled())
                           return {text : "(" + o + ")", selection : !1};
-                        if (m.isSaneInsertion(n, r))
+                        if (m.isSaneInsertion(n, r)) {
                           return m.recordAutoInsert(n, r, ")"), {
                             text: "()", selection: [ 1, 1 ]
                           }
-                      } else if (i == ")") {
+                      } } else if (i == ")") {
                         var u = n.getCursorPosition(), a = r.doc.getLine(u.row),
                             f = a.substring(u.column, u.column + 1);
                         if (f == ")") {
                           var l = r.$findOpeningBracket(
                               ")", {column : u.column + 1, row : u.row});
-                          if (l !== null && m.isAutoInsertedClosing(u, a, i))
+                          if (l !== null && m.isAutoInsertedClosing(u, a, i)) {
                             return m.popAutoInsertedClosing(), {
                               text: "", selection: [ 1, 1 ]
                             }
                         }
+                          }
                       }
                     }),
                 this.add("parens", "deletion",
@@ -314,9 +327,10 @@ define(
                              var o = r.doc.getLine(i.start.row),
                                  u = o.substring(i.start.column + 1,
                                                  i.start.column + 2);
-                             if (u == ")")
+                             if (u == ")") {
                                return i.end.column++, i
                            }
+                             }
                          }),
                 this.add(
                     "brackets", "insertion",
@@ -326,21 +340,22 @@ define(
                             o = r.doc.getTextRange(s);
                         if (o !== "" && n.getWrapBehavioursEnabled())
                           return {text : "[" + o + "]", selection : !1};
-                        if (m.isSaneInsertion(n, r))
+                        if (m.isSaneInsertion(n, r)) {
                           return m.recordAutoInsert(n, r, "]"), {
                             text: "[]", selection: [ 1, 1 ]
                           }
-                      } else if (i == "]") {
+                      } } else if (i == "]") {
                         var u = n.getCursorPosition(), a = r.doc.getLine(u.row),
                             f = a.substring(u.column, u.column + 1);
                         if (f == "]") {
                           var l = r.$findOpeningBracket(
                               "]", {column : u.column + 1, row : u.row});
-                          if (l !== null && m.isAutoInsertedClosing(u, a, i))
+                          if (l !== null && m.isAutoInsertedClosing(u, a, i)) {
                             return m.popAutoInsertedClosing(), {
                               text: "", selection: [ 1, 1 ]
                             }
                         }
+                          }
                       }
                     }),
                 this.add("brackets", "deletion",
@@ -350,9 +365,10 @@ define(
                              var o = r.doc.getLine(i.start.row),
                                  u = o.substring(i.start.column + 1,
                                                  i.start.column + 2);
-                             if (u == "]")
+                             if (u == "]") {
                                return i.end.column++, i
                            }
+                             }
                          }),
                 this.add(
                     "string_dquotes", "insertion",
@@ -360,30 +376,34 @@ define(
                       if (i == '"' || i == "'") {
                         var s = i, o = n.getSelectionRange(),
                             u = r.doc.getTextRange(o);
-                        if (u !== "" && u !== "'" && u != '"' &&
-                            n.getWrapBehavioursEnabled())
+                        if (u !== "" && u !== "'" && u != '"' 
+                            && n.getWrapBehavioursEnabled()
+                        )
                           return {text : s + u + s, selection : !1};
                         var a = n.getCursorPosition(), f = r.doc.getLine(a.row),
                             l = f.substring(a.column - 1, a.column);
-                        if (l == "\\")
+                        if (l == "\\") {
                           return null;
+                        }
                         var c = r.getTokens(o.start.row), h = 0, p, d = -1;
                         for (var v = 0; v < c.length; v++) {
                           p = c[v], p.type == "string"
                                         ? d = -1
                                         : d < 0 && (d = p.value.indexOf(s));
-                          if (p.value.length + h > o.start.column)
+                          if (p.value.length + h > o.start.column) {
                             break;
+                          }
                           h += c[v].value.length
                         }
-                        if (!p ||
-                            d < 0 && p.type !== "comment" &&
-                                (p.type !== "string" ||
-                                 o.start.column !== p.value.length + h - 1 &&
-                                     p.value.lastIndexOf(s) ===
-                                         p.value.length - 1)) {
-                          if (!m.isSaneInsertion(n, r))
+                        if (!p 
+                            || d < 0 && p.type !== "comment" 
+                            && (p.type !== "string" 
+                            || o.start.column !== p.value.length + h - 1 
+                            && p.value.lastIndexOf(s) ===                            p.value.length - 1)
+                        ) {
+                          if (!m.isSaneInsertion(n, r)) {
                             return;
+                          }
                           return { text: s + s, selection: [ 1, 1 ] }
                         }
                         if (p && p.type === "string") {
@@ -398,9 +418,10 @@ define(
                   if (!i.isMultiLine() && (s == '"' || s == "'")) {
                     var o = r.doc.getLine(i.start.row),
                         u = o.substring(i.start.column + 1, i.start.column + 2);
-                    if (u == s)
+                    if (u == s) {
                       return i.end.column++, i
                   }
+                    }
                 })
               };
           r.inherits(m, i), t.CstyleBehaviour = m
@@ -455,16 +476,18 @@ define(
                  }
                }, this._readTagForward = function(e) {
                  var t = e.getCurrentToken();
-                 if (!t)
+                 if (!t) {
                    return null;
+                 }
                  var n = "", r;
-                 do
+                 do {
                    if (t.type.indexOf("meta.tag") === 0) {
-                     if (!r)
+                     if (!r) {
                        var r = {
                          row : e.getCurrentTokenRow(),
                          column : e.getCurrentTokenColumn()
                        };
+                     }
                      n += t.value;
                      if (n.indexOf(">") !== -1) {
                        var i = this._parseTag(n);
@@ -475,14 +498,16 @@ define(
                               e.stepForward(), i
                      }
                    }
+                 }
                  while (t = e.stepForward());
                  return null
                }, this._readTagBackward = function(e) {
                  var t = e.getCurrentToken();
-                 if (!t)
+                 if (!t) {
                    return null;
+                 }
                  var n = "", r;
-                 do
+                 do {
                    if (t.type.indexOf("meta.tag") === 0) {
                      r || (r = {
                        row : e.getCurrentTokenRow(),
@@ -498,15 +523,18 @@ define(
                               e.stepBackward(), i
                      }
                    }
+                 }
                  while (t = e.stepBackward());
                  return null
                }, this._pop = function(e, t) {
                  while (e.length) {
                    var n = e[e.length - 1];
-                   if (!t || n.tagName == t.tagName)
+                   if (!t || n.tagName == t.tagName) {
                      return e.pop();
-                   if (this.voidElements[t.tagName])
+                   }
+                   if (this.voidElements[t.tagName]) {
                      return;
+                   }
                    if (this.voidElements[n.tagName]) {
                      e.pop();
                      continue
@@ -515,44 +543,49 @@ define(
                  }
                }, this.getFoldWidgetRange = function(e, t, n) {
                  var r = this._getFirstTagInLine(e, n);
-                 if (!r.match)
+                 if (!r.match) {
                    return null;
+                 }
                  var i = r.closing || r.selfClosing, o = [], a;
                  if (!i) {
                    var f = new u(e, n, r.column),
                        l = {row : n, column : r.column + r.tagName.length + 2};
                    while (a = this._readTagForward(f)) {
                      if (a.selfClosing) {
-                       if (!o.length)
+                       if (!o.length) {
                          return a.start.column += a.tagName.length + 2,
                                 a.end.column -= 2, s.fromPoints(a.start, a.end);
+                       }
                        continue
                      }
                      if (a.closing) {
                        this._pop(o, a);
-                       if (o.length == 0)
+                       if (o.length == 0) {
                          return s.fromPoints(l, a.start)
-                     } else
+                     } } else {
                        o.push(a)
                    }
+                     }
                  } else {
                    var f = new u(e, n, r.column + r.match.length),
                        c = {row : n, column : r.column};
                    while (a = this._readTagBackward(f)) {
                      if (a.selfClosing) {
-                       if (!o.length)
+                       if (!o.length) {
                          return a.start.column += a.tagName.length + 2,
                                 a.end.column -= 2, s.fromPoints(a.start, a.end);
+                       }
                        continue
                      }
                      if (!a.closing) {
                        this._pop(o, a);
-                       if (o.length == 0)
+                       if (o.length == 0) {
                          return a.start.column += a.tagName.length + 2,
                                 s.fromPoints(a.start, c)
-                     } else
+                     } } else {
                        o.push(a)
                    }
+                     }
                  }
                }
              }.call(a.prototype)
@@ -587,14 +620,16 @@ define(
               var r = this.$getIndent(t),
                   i = this.$tokenizer.getLineTokens(t, e), s = i.tokens,
                   o = i.state;
-              if (s.length && s[s.length - 1].type == "comment")
+              if (s.length && s[s.length - 1].type == "comment") {
                 return r;
+              }
               if (e == "start" || e == "no_regex") {
                 var u = t.match(/^.*(?:\bcase\b.*\:|[\{\(\[])\s*$/);
                 u && (r += n)
               } else if (e == "doc-start") {
-                if (o == "start" || o == "no_regex")
+                if (o == "start" || o == "no_regex") {
                   return "";
+                }
                 var u = t.match(/^\s*(\/?)\*/);
                 u && (u[1] && (r += " "), r += "* ")
               }
@@ -878,12 +913,14 @@ define(
                    e, t) { return /^\s+$/.test(e) ? /^\s*\}/.test(t) : !1 },
                this.autoOutdent = function(e, t) {
                  var n = e.getLine(t), i = n.match(/^(\s*\})/);
-                 if (!i)
+                 if (!i) {
                    return 0;
+                 }
                  var s = i[1].length,
                      o = e.findMatchingBracket({row : t, column : s});
-                 if (!o || o.row == t)
+                 if (!o || o.row == t) {
                    return 0;
+                 }
                  var u = this.$getIndent(e.getLine(o.row));
                  e.replace(new r(t, 0, t, s - 1), u)
                }, this.$getIndent = function(e) { return e.match(/^\s*/)[0] }
@@ -915,8 +952,9 @@ define(
                    return i[1] ? this.openingBracketBlock(e, i[1], n, s)
                                : e.getCommentFoldRange(n, s + i[0].length, 1)
                  }
-                 if (t !== "markbeginend")
+                 if (t !== "markbeginend") {
                    return;
+                 }
                  var i = r.match(this.foldingStopMarker);
                  if (i) {
                    var s = i.index + i[0].length;
@@ -969,9 +1007,11 @@ define(
                      e, t) { this.defaultMode = e, this.subModes = t };
              r.inherits(s, i), function() {
                this.$getMode = function(e) {
-                 for (var t in this.subModes)
-                   if (e.indexOf(t) === 0)
+                 for (var t in this.subModes) {
+                   if (e.indexOf(t) === 0) {
                      return this.subModes[t];
+                   }
+                 }
                  return null
                }, this.$tryMode = function(e, t, n, r) {
                  var i = this.$getMode(e);
@@ -982,10 +1022,12 @@ define(
                         this.defaultMode.getFoldWidget(e, t, n)
                }, this.getFoldWidgetRange = function(e, t, n) {
                  var r = this.$getMode(e.getState(n - 1));
-                 if (!r || !r.getFoldWidget(e, t, n))
+                 if (!r || !r.getFoldWidget(e, t, n)) {
                    r = this.$getMode(e.getState(n));
-                 if (!r || !r.getFoldWidget(e, t, n))
+                 }
+                 if (!r || !r.getFoldWidget(e, t, n)) {
                    r = this.defaultMode;
+                 }
                  return r.getFoldWidgetRange(e, t, n)
                }
              }.call(s.prototype)

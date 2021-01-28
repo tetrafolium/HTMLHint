@@ -60,8 +60,9 @@ define(
           t.handler
               .bindKey =
               function(e, t) {
-            if (!e)
+            if (!e) {
               return;
+            }
             var n = this.commmandKeyBinding;
             e.split("|").forEach(function(e) {
               e = e.toLowerCase(), n[e] = t, e = e.split(" ")[0],
@@ -77,24 +78,28 @@ define(
            return e.count = null, { command: "insertstring", args: s }
          }
        }
-       if (r == "\0")
+       if (r == "\0") {
          return;
+       }
        var o = h[n];
        if (o == "c-" || e.universalArgument) {
          var u = parseInt(r[r.length - 1]);
-         if (u)
+         if (u) {
            return e.count = u, { command: "null" }
        }
+         }
        e.universalArgument = !1, o && (r = o + r),
        e.keyChain && (r = e.keyChain += " " + r);
        var a = this.commmandKeyBinding[r];
        e.keyChain = a == "null" ? r : "";
-       if (!a)
+       if (!a) {
          return;
+       }
        if (a === "null")
          return {command : "null"};
-       if (a === "universalArgument")
+       if (a === "universalArgument") {
          return e.universalArgument = !0, {command : "null"};
+       }
        var f;
        typeof a != "string" &&
            (f = a.args, a.command && (a = a.command),
@@ -111,9 +116,10 @@ define(
            args: f, command: {
              exec:
                  function(e, t) {
-                   for (var n = 0; n < u; n++)
+                   for (var n = 0; n < u; n++) {
                      a.exec(e, t)
                  }
+                   }
            }
          }
        }
@@ -221,8 +227,9 @@ define(
          var n = t.markMode();
          if (n) {
            var r = e.getCursorPosition();
-           if (e.selection.isEmpty() && n.row == r.row &&
-               n.column == r.column) {
+           if (e.selection.isEmpty() && n.row == r.row 
+               && n.column == r.column
+           ) {
              t.setMarkMode(null);
              return
            }
@@ -260,8 +267,9 @@ define(
          e.onPaste(t.killRing.get()), e.keyBinding.$data.lastCommand = "yank"
        },
        yankRotate : function(e) {
-         if (e.keyBinding.$data.lastCommand != "yank")
+         if (e.keyBinding.$data.lastCommand != "yank") {
            return;
+         }
          e.undo(), e.onPaste(t.killRing.rotate()),
              e.keyBinding.$data.lastCommand = "yank"
        },

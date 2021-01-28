@@ -26,8 +26,9 @@ define(
             function(e, t, n) {
           var r = this.$getIndent(t), i = this.$tokenizer.getLineTokens(t, e),
               s = i.tokens;
-          if (s.length && s[s.length - 1].type == "comment")
+          if (s.length && s[s.length - 1].type == "comment") {
             return r;
+          }
           if (e == "start") {
             var o = t.match(/^.*[\{\(\[\:]\s*$/);
             o && (r += n)
@@ -126,12 +127,14 @@ define(
                    e, t) { return /^\s+$/.test(e) ? /^\s*\}/.test(t) : !1 },
                this.autoOutdent = function(e, t) {
                  var n = e.getLine(t), i = n.match(/^(\s*\})/);
-                 if (!i)
+                 if (!i) {
                    return 0;
+                 }
                  var s = i[1].length,
                      o = e.findMatchingBracket({row : t, column : s});
-                 if (!o || o.row == t)
+                 if (!o || o.row == t) {
                    return 0;
+                 }
                  var u = this.$getIndent(e.getLine(o.row));
                  e.replace(new r(t, 0, t, s - 1), u)
                }, this.$getIndent = function(e) { return e.match(/^\s*/)[0] }
@@ -163,8 +166,9 @@ define(
                    return i[1] ? this.openingBracketBlock(e, i[1], n, s)
                                : e.getCommentFoldRange(n, s + i[0].length, 1)
                  }
-                 if (t !== "markbeginend")
+                 if (t !== "markbeginend") {
                    return;
+                 }
                  var i = r.match(this.foldingStopMarker);
                  if (i) {
                    var s = i.index + i[0].length;

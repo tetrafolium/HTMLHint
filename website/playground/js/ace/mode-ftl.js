@@ -78,7 +78,7 @@ define("ace/mode/ftl",
             var e =
                 "assign|attempt|break|case|compress|default|elseif|else|escape|fallback|function|flush|ftl|global|if|import|include|list|local|lt|macro|nested|noescape|noparse|nt|recover|recurse|return|rt|setting|stop|switch|t|visit";
             i.call(this);
-            for (var t in this.$rules)
+            for (var t in this.$rules) {
               this.$rules[t].unshift({
                 token : "string.interpolated",
                 regex : "\\${",
@@ -94,6 +94,7 @@ define("ace/mode/ftl",
                                        regex : "</?@[a-zA-Z\\.]+",
                                        push : "ftl-start"
                                      });
+            }
             this.embedRules(o, "ftl-"),
                 this.$rules["ftl-start"].unshift(
                     {token : "keyword", regex : "/?>", next : "pop"},

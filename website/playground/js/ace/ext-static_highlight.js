@@ -12,13 +12,14 @@ define(
         f.setSession(a), f.config = {characterWidth : 10, lineHeight : 20},
                          a.setValue(e);
         var l = [], c = a.getLength();
-        for (var h = 0; h < c; h++)
+        for (var h = 0; h < c; h++) {
           l.push("<div class='ace_line'>"),
               u ||
                   l.push(
                       "<span class='ace_gutter ace_gutter-cell' unselectable='on'>" +
                       (h + o) + "</span>"),
               f.$renderLine(l, h, !0, !1), l.push("</div>");
+        }
         var p =
             "<div class=':cssClass'>        <div class='ace_editor ace_scroller ace_text-layer'>            :code        </div>    </div>"
                 .replace(/:cssClass/, n.cssClass)

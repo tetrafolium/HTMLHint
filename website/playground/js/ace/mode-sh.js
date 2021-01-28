@@ -14,8 +14,9 @@ define("ace/mode/sh",
            this.getNextLineIndent = function(e, t, n) {
              var r = this.$getIndent(t),
                  i = this.$tokenizer.getLineTokens(t, e), s = i.tokens;
-             if (s.length && s[s.length - 1].type == "comment")
+             if (s.length && s[s.length - 1].type == "comment") {
                return r;
+             }
              if (e == "start") {
                var o = t.match(/^.*[\{\(\[\:]\s*$/);
                o && (r += n)
@@ -25,13 +26,16 @@ define("ace/mode/sh",
            var e =
                {pass : 1, "return" : 1, raise : 1, "break" : 1, "continue" : 1};
            this.checkOutdent = function(t, n, r) {
-             if (r !== "\r\n" && r !== "\r" && r !== "\n")
+             if (r !== "\r\n" && r !== "\r" && r !== "\n") {
                return !1;
+             }
              var i = this.$tokenizer.getLineTokens(n.trim(), t).tokens;
-             if (!i)
+             if (!i) {
                return !1;
-             do
+             }
+             do {
                var s = i.pop();
+             }
              while (s && (s.type == "comment" ||
                           s.type == "text" && s.value.match(/^\s+$/)));
              return s ? s.type == "keyword" && e[s.value] : !1

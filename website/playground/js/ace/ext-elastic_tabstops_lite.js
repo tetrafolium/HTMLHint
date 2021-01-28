@@ -18,8 +18,9 @@ define(
           var t = [];
           for (var n = 0, r = e.length; n < r; n++) {
             var i = e[n];
-            if (t.indexOf(i) > -1)
+            if (t.indexOf(i) > -1) {
               continue;
+            }
             var s = this.$findCellWidthsForBlock(i),
                 o = this.$setBlockCellWidthsToMax(s.cellWidths), u = s.firstRow;
             for (var a = 0, f = o.length; a < f; a++) {
@@ -32,8 +33,9 @@ define(
           var t = [], n, r = e;
           while (r >= 0) {
             n = this.$cellWidthsForRow(r);
-            if (n.length == 0)
+            if (n.length == 0) {
               break;
+            }
             t.unshift(n), r--
           }
           var i = r + 1;
@@ -41,8 +43,9 @@ define(
           var s = this.$editor.session.getLength();
           while (r < s - 1) {
             r++, n = this.$cellWidthsForRow(r);
-            if (n.length == 0)
+            if (n.length == 0) {
               break;
+            }
             t.push(n)
           }
           return { cellWidths: t, firstRow: i }
@@ -76,8 +79,9 @@ define(
               t && (n = f, i = 0, t = !1);
               if (isNaN(c)) {
                 r = f;
-                for (var h = n; h < r; h++)
+                for (var h = n; h < r; h++) {
                   e[h][o] = i;
+                }
                 t = !0
               }
               i = Math.max(i, c)
@@ -88,27 +92,31 @@ define(
           var n = 0;
           if (e.length) {
             var r = [];
-            for (var i = 0, s = e.length; i < s; i++)
+            for (var i = 0, s = e.length; i < s; i++) {
               e[i] <= t ? r.push(i) : r.push(0);
+            }
             n = Math.max.apply(Math, r)
           }
           return n
         }, this.$tabsForRow = function(e) {
           var t = [], n = this.$editor.session.getLine(e), r = /\t/g, i;
-          while ((i = r.exec(n)) != null)
+          while ((i = r.exec(n)) != null) {
             t.push(i.index);
+          }
           return t
         }, this.$adjustRow = function(e, t) {
           var n = this.$tabsForRow(e);
-          if (n.length == 0)
+          if (n.length == 0) {
             return;
+          }
           var r = 0, i = -1, s = this.$izip(t, n);
           for (var o = 0, u = s.length; o < u; o++) {
             var a = s[o][0], f = s[o][1];
             i += 1 + a, f += r;
             var l = i - f;
-            if (l == 0)
+            if (l == 0) {
               continue;
+            }
             var c = this.$editor.session.getLine(e).substr(0, f),
                 h = c.replace(/\s*$/g, ""), p = c.length - h.length;
             l > 0 &&
@@ -122,8 +130,9 @@ define(
                      r += l)
           }
         }, this.$izip_longest = function(e) {
-          if (!e[0])
+          if (!e[0]) {
             return [];
+          }
           var t = e[0].length, n = e.length;
           for (var r = 1; r < n; r++) {
             var i = e[r].length;
@@ -132,8 +141,9 @@ define(
           var s = [];
           for (var o = 0; o < t; o++) {
             var u = [];
-            for (var r = 0; r < n; r++)
+            for (var r = 0; r < n; r++) {
               e[r][o] === "" ? u.push(NaN) : u.push(e[r][o]);
+            }
             s.push(u)
           }
           return s

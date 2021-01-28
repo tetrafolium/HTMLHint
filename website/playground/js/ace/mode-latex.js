@@ -57,21 +57,24 @@ define("ace/mode/latex",
                this.foldingStopMarker = /^\s*\\(end)\b|^\s*}/,
                this.getFoldWidgetRange = function(e, t, n) {
                  var r = e.doc.getLine(n), i = this.foldingStartMarker.exec(r);
-                 if (i)
+                 if (i) {
                    return i[1] ? this.latexBlock(e, n, i[0].length - 1)
                                : i[2] ? this.latexSection(e, n, i[0].length - 1)
                                       : this.openingBracketBlock(e, "{", n,
                                                                  i.index);
+                 }
                  var i = this.foldingStopMarker.exec(r);
-                 if (i)
+                 if (i) {
                    return i[1] ? this.latexBlock(e, n, i[0].length - 1)
                                : this.closingBracketBlock(e, "}", n,
                                                           i.index + i[0].length)
-               }, this.latexBlock = function(e, t, n) {
+               }
+                 }, this.latexBlock = function(e, t, n) {
                  var r = {"\\begin" : 1, "\\end" : -1}, i = new o(e, t, n),
                      u = i.getCurrentToken();
-                 if (!u || u.type !== "keyword")
+                 if (!u || u.type !== "keyword") {
                    return;
+                 }
                  var a = u.value, f = r[a],
                      l =
                          function() {
@@ -87,19 +90,23 @@ define("ace/mode/latex",
                      p = t;
                  i.step = f === -1 ? i.stepBackward : i.stepForward;
                  while (u = i.step()) {
-                   if (u.type !== "keyword")
+                   if (u.type !== "keyword") {
                      continue;
+                   }
                    var d = r[u.value];
-                   if (!d)
+                   if (!d) {
                      continue;
+                   }
                    var v = l();
-                   if (d === f)
+                   if (d === f) {
                      c.unshift(v);
-                   else if (c.shift() !== v || !c.length)
+                   } else if (c.shift() !== v || !c.length) {
                      break
                  }
-                 if (c.length)
+                   }
+                 if (c.length) {
                    return;
+                 }
                  var t = i.getCurrentTokenRow();
                  return f === -1 ? new s(t, e.getLine(t).length, p, h)
                                  : (i.stepBackward(),
@@ -107,24 +114,28 @@ define("ace/mode/latex",
                }, this.latexSection = function(e, t, n) {
                  var r = [ "\\subsection", "\\section", "\\begin", "\\end" ],
                      i = new o(e, t, n), u = i.getCurrentToken();
-                 if (!u || u.type != "keyword")
+                 if (!u || u.type != "keyword") {
                    return;
+                 }
                  var a = r.indexOf(u.value), f = 0, l = t;
                  while (u = i.stepForward()) {
-                   if (u.type !== "keyword")
+                   if (u.type !== "keyword") {
                      continue;
+                   }
                    var c = r.indexOf(u.value);
                    if (c >= 2) {
                      f || (l = i.getCurrentTokenRow() - 1),
                          f += c == 2 ? 1 : -1;
-                     if (f < 0)
+                     if (f < 0) {
                        break
-                   } else if (c >= a)
+                   } } else if (c >= a) {
                      break
                  }
+                   }
                  f || (l = i.getCurrentTokenRow() - 1);
-                 while (l > t && !/\S/.test(e.getLine(l)))
+                 while (l > t && !/\S/.test(e.getLine(l))) {
                    l--;
+                 }
                  return new s(t, e.getLine(t).length, l, e.getLine(l).length)
                }
              }.call(u.prototype)

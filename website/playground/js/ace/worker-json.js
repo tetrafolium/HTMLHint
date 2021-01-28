@@ -1,7 +1,8 @@
 "no use strict";
 (function(e) {
-if (typeof e.window != "undefined" && e.document)
+if (typeof e.window != "undefined" && e.document) {
   return;
+}
 e.console = {
   log : function() {
     var e = Array.prototype.slice.call(arguments, 0);
@@ -27,15 +28,17 @@ e.console = {
       }
       return t
     }, e.require = function(e, t) {
-      if (!t.charAt)
+      if (!t.charAt) {
         throw new Error(
             "worker.js require() accepts only (parentId, id) as arguments");
+      }
       t = normalizeModule(e, t);
       var n = require.modules[t];
-      if (n)
+      if (n) {
         return n.initialized ||
                    (n.initialized = !0, n.exports = n.factory().exports),
                n.exports;
+      }
       var r = t.split("/");
       r[0] = require.tlns[r[0]] || r[0];
       var i = r.join("/") + ".js";
@@ -44,8 +47,9 @@ e.console = {
       arguments.length == 2
           ? (n = t, typeof e != "string" && (t = e, e = require.id))
           : arguments.length == 1 && (n = e, e = require.id);
-      if (e.indexOf("text!") === 0)
+      if (e.indexOf("text!") === 0) {
         return;
+      }
       var r = function(t, n) { return require(e, t, n) };
       require.modules[e] = {
         factory : function() {
@@ -69,17 +73,19 @@ e.console = {
     }, e.main = null, e.sender = null, e.onmessage = function(e) {
       var t = e.data;
       if (t.command) {
-        if (!main[t.command])
+        if (!main[t.command]) {
           throw new Error("Unknown command:" + t.command);
+        }
         main[t.command].apply(main, t.args)
       } else if (t.init) {
         initBaseUrls(t.tlns), require(null, "ace/lib/fixoldbrowsers"),
             sender = initSender();
         var n = require(null, t.module)[t.classname];
         main = new n(sender)
-      } else
+      } else {
         t.event && sender && sender._emit(t.event, t.data)
     }
+      }
 })(this),
     define(
         "ace/lib/fixoldbrowsers",
@@ -95,11 +101,14 @@ function r(e) {
          (e.sticky ? "y" : "")
 }
 function i(e, t, n) {
-  if (Array.prototype.indexOf)
+  if (Array.prototype.indexOf) {
     return e.indexOf(t, n);
-  for (var r = n || 0; r < e.length; r++)
-    if (e[r] === t)
+  }
+  for (var r = n || 0; r < e.length; r++) {
+    if (e[r] === t) {
       return r;
+    }
+  }
   return -1
 }
 var s = {
@@ -113,20 +122,24 @@ var s = {
       var e = /^/g;
       return s.test.call(e, ""), !e.lastIndex
     }();
-if (u && o)
+if (u && o) {
   return;
+}
 RegExp.prototype.exec = function(e) {
   var t = s.exec.apply(this, arguments), n, a;
   if (typeof e == "string" && t) {
     !o && t.length > 1 && i(t, "") > -1 &&
         (a = RegExp(this.source, s.replace.call(r(this), "g", "")),
          s.replace.call(e.slice(t.index), a, function() {
-           for (var e = 1; e < arguments.length - 2; e++)
+           for (var e = 1; e < arguments.length - 2; e++) {
              arguments[e] === undefined && (t[e] = undefined)
-         }));
-    if (this._xregexp && this._xregexp.captureNames)
-      for (var f = 1; f < t.length; f++)
+         }
+           }));
+    if (this._xregexp && this._xregexp.captureNames) {
+      for (var f = 1; f < t.length; f++) {
         n = this._xregexp.captureNames[f - 1], n && (t[n] = t[f]);
+      }
+    }
     !u && this.global && !t[0].length && this.lastIndex > t.index &&
         this.lastIndex--
   }
@@ -161,26 +174,30 @@ function o(e) {
 }
 function u(e) {
   var t, n, r;
-  if (o(e))
+  if (o(e)) {
     return e;
+  }
   n = e.valueOf;
   if (typeof n == "function") {
     t = n.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   r = e.toString;
   if (typeof r == "function") {
     t = r.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   throw new TypeError
 }
 Function.prototype.bind || (Function.prototype.bind = function(e) {
   var t = this;
-  if (typeof t != "function")
+  if (typeof t != "function") {
     throw new TypeError("Function.prototype.bind called on incompatible " + t);
+  }
   var n = c.call(arguments, 1), i = function() {
     if (this instanceof i) {
       var r = t.apply(this, n.concat(c.call(arguments)));
@@ -195,49 +212,44 @@ Function.prototype.bind || (Function.prototype.bind = function(e) {
 var a = Function.prototype.call, f = Array.prototype, l = Object.prototype,
     c = f.slice, h = a.bind(l.toString), p = a.bind(l.hasOwnProperty), d, v, m,
     g, y;
-if (y = p(l, "__defineGetter__"))
+if (y = p(l, "__defineGetter__")) {
   d = a.bind(l.__defineGetter__), v = a.bind(l.__defineSetter__),
   m = a.bind(l.__lookupGetter__), g = a.bind(l.__lookupSetter__);
-if ([ 1, 2 ].splice(0).length != 2)
-  if (!function() {
-        function e(e) {
-          var t = new Array(e + 2);
-          return t[0] = t[1] = 0, t
-        }
-        var t = [], n;
-        t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),
-            n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;
-        if (n + 1 == t.length)
-          return !0
-      }())
+}
+if ([ 1, 2 ].splice(0).length != 2) {
+  if (!function() {      function e(e) {      var t = new Array(e + 2);      return t[0] = t[1] = 0, t      }      var t = [], n;      t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),      n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;      if (n + 1 == t.length) {      return !0}      }()
+  ) {
     Array.prototype.splice = function(e, t) {
       var n = this.length;
       e > 0 ? e > n && (e = n)
             : e == void 0 ? e = 0 : e < 0 && (e = Math.max(n + e, 0)),
                             e + t < n || (t = n - e);
       var r = this.slice(e, e + t), i = c.call(arguments, 2), s = i.length;
-      if (e === n)
+      if (e === n) {
         s && this.push.apply(this, i);
-      else {
+      } else {
         var o = Math.min(t, n - e), u = e + o, a = u + s - o, f = n - u,
             l = n - o;
-        if (a < u)
-          for (var h = 0; h < f; ++h)
+        if (a < u) {
+          for (var h = 0; h < f; ++h) {
             this[a + h] = this[u + h];
-        else if (a > u)
-          for (h = f; h--;)
+        } } else if (a > u) {
+          for (h = f; h--;) {
             this[a + h] = this[u + h];
-        if (s && e === l)
+          }
+        }
+        if (s && e === l) {
           this.length = l, this.push.apply(this, i);
-        else {
+        } else {
           this.length = l + s;
-          for (h = 0; h < s; ++h)
+          for (h = 0; h < s; ++h) {
             this[e + h] = i[h]
         }
+          }
       }
       return r
     };
-  else {
+  } else {
     var b = Array.prototype.splice;
     Array.prototype.splice = function(e, t) {
       return arguments.length ? b.apply(this,
@@ -248,6 +260,7 @@ if ([ 1, 2 ].splice(0).length != 2)
                               : []
     }
   }
+}
 Array.isArray ||
     (Array.isArray = function(e) { return h(e) == "[object Array]" });
 var w = Object("a"), E = w[0] != "a" || !(0 in w);
@@ -257,21 +270,25 @@ Array.prototype.forEach ||
            var t = F(this),
                n = E && h(this) == "[object String]" ? this.split("") : t,
                r = arguments[1], i = -1, s = n.length >>> 0;
-           if (h(e) != "[object Function]")
+           if (h(e) != "[object Function]") {
              throw new TypeError;
-           while (++i < s)
+           }
+           while (++i < s) {
              i in n && e.call(r, n[i], i, t)
-         }),
+         }
+           }),
     Array.prototype.map ||
         (Array.prototype.map =
              function(e) {
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = Array(r), s = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var o = 0; o < r; o++)
+               }
+               for (var o = 0; o < r; o++) {
                  o in n && (i[o] = e.call(s, n[o], o, t));
+               }
                return i
              }),
     Array.prototype.filter ||
@@ -280,10 +297,12 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = [], s, o = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var u = 0; u < r; u++)
+               }
+               for (var u = 0; u < r; u++) {
                  u in n && (s = n[u], e.call(o, s, u, t) && i.push(s));
+               }
                return i
              }),
     Array.prototype.every ||
@@ -292,11 +311,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && !e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && !e.call(i, n[s], s, t)) {
                    return !1;
+                 }
+               }
                return !0
              }),
     Array.prototype.some ||
@@ -305,11 +327,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && e.call(i, n[s], s, t)) {
                    return !0;
+                 }
+               }
                return !1
              }),
     Array.prototype.reduce ||
@@ -318,92 +343,112 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0;
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               if (!r && arguments.length == 1)
+               }
+               if (!r && arguments.length == 1) {
                  throw new TypeError(
                      "reduce of empty array with no initial value");
+               }
                var i = 0, s;
-               if (arguments.length >= 2)
+               if (arguments.length >= 2) {
                  s = arguments[1];
-               else
+               } else {
                  do {
                    if (i in n) {
                      s = n[i++];
                      break
                    }
-                   if (++i >= r)
+                   if (++i >= r) {
                      throw new TypeError(
                          "reduce of empty array with no initial value")
-                 } while (!0);
-               for (; i < r; i++)
+                 }
+                   } while (!0);
+               }
+               for (; i < r; i++) {
                  i in n && (s = e.call(void 0, s, n[i], i, t));
+               }
                return s
              }),
     Array.prototype.reduceRight || (Array.prototype.reduceRight = function(e) {
       var t = F(this),
           n = E && h(this) == "[object String]" ? this.split("") : t,
           r = n.length >>> 0;
-      if (h(e) != "[object Function]")
+      if (h(e) != "[object Function]") {
         throw new TypeError(e + " is not a function");
-      if (!r && arguments.length == 1)
+      }
+      if (!r && arguments.length == 1) {
         throw new TypeError("reduceRight of empty array with no initial value");
+      }
       var i, s = r - 1;
-      if (arguments.length >= 2)
+      if (arguments.length >= 2) {
         i = arguments[1];
-      else
+      } else {
         do {
           if (s in n) {
             i = n[s--];
             break
           }
-          if (--s < 0)
+          if (--s < 0) {
             throw new TypeError(
                 "reduceRight of empty array with no initial value")
-        } while (!0);
-      do
+        }
+          } while (!0);
+      }
+      do {
         s in this && (i = e.call(void 0, i, n[s], s, t));
+      }
       while (s--);
       return i
     });
-if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1)
+if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1) {
   Array.prototype.indexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = 0;
     arguments.length > 1 && (r = s(arguments[1])),
         r = r >= 0 ? r : Math.max(0, n + r);
-    for (; r < n; r++)
-      if (r in t && t[r] === e)
+    for (; r < n; r++) {
+      if (r in t && t[r] === e) {
         return r;
+      }
+    }
     return -1
   };
-if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1)
+}
+if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1) {
   Array.prototype.lastIndexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = n - 1;
     arguments.length > 1 && (r = Math.min(r, s(arguments[1]))),
         r = r >= 0 ? r : n - Math.abs(r);
-    for (; r >= 0; r--)
-      if (r in t && e === t[r])
+    for (; r >= 0; r--) {
+      if (r in t && e === t[r]) {
         return r;
+      }
+    }
     return -1
   };
+}
 Object.getPrototypeOf || (Object.getPrototypeOf = function(e) {
   return e.__proto__ || (e.constructor ? e.constructor.prototype : l)
 });
 if (!Object.getOwnPropertyDescriptor) {
   var S = "Object.getOwnPropertyDescriptor called on a non-object: ";
   Object.getOwnPropertyDescriptor = function(e, t) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(S + e);
-    if (!p(e, t))
+    }
+    if (!p(e, t)) {
       return;
+    }
     var n, r, i;
     n = {enumerable : !0, configurable : !0};
     if (y) {
@@ -411,9 +456,10 @@ if (!Object.getOwnPropertyDescriptor) {
       e.__proto__ = l;
       var r = m(e, t), i = g(e, t);
       e.__proto__ = s;
-      if (r || i)
+      if (r || i) {
         return r && (n.get = r), i && (n.set = i), n
     }
+      }
     return n.value = e[t], n
   }
 }
@@ -425,19 +471,21 @@ if (!Object.create) {
     return { __proto__: null }
   } : x = function() {
     var e = {};
-    for (var t in e)
+    for (var t in e) {
       e[t] = null;
+    }
     return e.constructor = e.hasOwnProperty = e.propertyIsEnumerable =
                e.isPrototypeOf = e.toLocaleString = e.toString = e.valueOf =
                    e.__proto__ = null,
            e
   }, Object.create = function(e, t) {
     var n;
-    if (e === null)
+    if (e === null) {
       n = x();
-    else {
-      if (typeof e != "object")
+    } else {
+      if (typeof e != "object") {
         throw new TypeError("typeof prototype[" + typeof e + "] != 'object'");
+      }
       var r = function() {};
       r.prototype = e, n = new r, n.__proto__ = e
     }
@@ -447,32 +495,37 @@ if (!Object.create) {
 if (Object.defineProperty) {
   var T = i({}),
       N = typeof document == "undefined" || i(document.createElement("div"));
-  if (!T || !N)
+  if (!T || !N) {
     var C = Object.defineProperty
 }
+  }
 if (!Object.defineProperty || C) {
   var k = "Property description must be an object: ",
       L = "Object.defineProperty called on non-object: ",
       A = "getters & setters can not be defined on this javascript engine";
   Object.defineProperty = function(e, t, n) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(L + e);
-    if (typeof n != "object" && typeof n != "function" || n === null)
+    }
+    if (typeof n != "object" && typeof n != "function" || n === null) {
       throw new TypeError(k + n);
-    if (C)
+    }
+    if (C) {
       try {
         return C.call(Object, e, t, n)
       } catch (r) {
       }
-    if (p(n, "value"))
+    }
+    if (p(n, "value")) {
       if (y && (m(e, t) || g(e, t))) {
         var i = e.__proto__;
         e.__proto__ = l, delete e[t], e[t] = n.value, e.__proto__ = i
-      } else
+      } else {
         e[t] = n.value;
-    else {
-      if (!y)
+    } } else {
+      if (!y) {
         throw new TypeError(A);
+      }
       p(n, "get") && d(e, t, n.get), p(n, "set") && v(e, t, n.set)
     }
     return e
@@ -481,8 +534,9 @@ if (!Object.defineProperty || C) {
 Object.defineProperties ||
     (Object.defineProperties =
          function(e, t) {
-           for (var n in t)
+           for (var n in t) {
              p(t, n) && Object.defineProperty(e, n, t[n]);
+           }
            return e
          }),
     Object.seal || (Object.seal = function(e) { return e }),
@@ -499,11 +553,13 @@ Object.preventExtensions ||
     Object.isSealed || (Object.isSealed = function(e) { return !1 }),
     Object.isFrozen || (Object.isFrozen = function(e) { return !1 }),
     Object.isExtensible || (Object.isExtensible = function(e) {
-      if (Object(e) === e)
+      if (Object(e) === e) {
         throw new TypeError;
+      }
       var t = "";
-      while (p(e, t))
+      while (p(e, t)) {
         t += "?";
+      }
       e[t] = !0;
       var n = p(e, t);
       return delete e[t], n
@@ -516,19 +572,23 @@ if (!Object.keys) {
             "isPrototypeOf", "propertyIsEnumerable", "constructor"
           ],
       D = _.length;
-  for (var P in {toString : null})
+  for (var P in {toString : null}) {
     M = !1;
+  }
   Object.keys = function I(e) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError("Object.keys called on a non-object");
+    }
     var I = [];
-    for (var t in e)
+    for (var t in e) {
       p(e, t) && I.push(t);
-    if (M)
+    }
+    if (M) {
       for (var n = 0, r = D; n < r; n++) {
         var i = _[n];
         p(e, i) && I.push(i)
       }
+    }
     return I
   }
 }
@@ -542,8 +602,9 @@ if (!String.prototype.trim || H.trim()) {
       function() { return String(this).replace(B, "").replace(j, "") }
 }
 var F = function(e) {
-  if (e == null)
+  if (e == null) {
     throw new TypeError("can't convert " + e + " to object");
+  }
   return Object(e)
 }
            }),
@@ -555,34 +616,41 @@ r._emit = r._dispatchEvent = function(e, t) {
   this._eventRegistry || (this._eventRegistry = {}),
       this._defaultHandlers || (this._defaultHandlers = {});
   var n = this._eventRegistry[e] || [], r = this._defaultHandlers[e];
-  if (!n.length && !r)
+  if (!n.length && !r) {
     return;
-  if (typeof t != "object" || !t)
+  }
+  if (typeof t != "object" || !t) {
     t = {};
+  }
   t.type || (t.type = e), t.stopPropagation || (t.stopPropagation = i),
       t.preventDefault || (t.preventDefault = s), t.target || (t.target = this);
   for (var o = 0; o < n.length; o++) {
     n[o](t);
-    if (t.propagationStopped)
+    if (t.propagationStopped) {
       break
   }
-  if (r && !t.defaultPrevented)
+    }
+  if (r && !t.defaultPrevented) {
     return r(t)
-}, r._signal = function(e, t) {
+}
+  }, r._signal = function(e, t) {
   var n = (this._eventRegistry || {})[e];
-  if (!n)
+  if (!n) {
     return;
-  for (var r = 0; r < n.length; r++)
+  }
+  for (var r = 0; r < n.length; r++) {
     n[r](t)
-}, r.once = function(e, t) {
+}
+  }, r.once = function(e, t) {
   var n = this, r = function() {
     fun && fun.apply(null, arguments), n.removeEventListener(event, r)
   };
   this.addEventListener(event, r)
 }, r.setDefaultHandler = function(e, t) {
   this._defaultHandlers = this._defaultHandlers || {};
-  if (this._defaultHandlers[e])
+  if (this._defaultHandlers[e]) {
     throw new Error("The default handler for '" + e + "' is already set");
+  }
   this._defaultHandlers[e] = t
 }, r.on = r.addEventListener = function(e, t, n) {
   this._eventRegistry = this._eventRegistry || {};
@@ -592,8 +660,9 @@ r._emit = r._dispatchEvent = function(e, t) {
 }, r.removeListener = r.removeEventListener = function(e, t) {
   this._eventRegistry = this._eventRegistry || {};
   var n = this._eventRegistry[e];
-  if (!n)
+  if (!n) {
     return;
+  }
   var r = n.indexOf(t);
   r !== -1 && n.splice(r, 1)
 }, r.removeAllListeners = function(e) {
@@ -609,9 +678,10 @@ t.inherits = function() {
     t.prototype.constructor = t
   }
 }(), t.mixin = function(e, t) {
-  for (var n in t)
+  for (var n in t) {
     e[n] = t[n]
-}, t.implement = function(e, n) { t.mixin(e, n) }
+}
+  }, t.implement = function(e, n) { t.mixin(e, n) }
            }),
     define("ace/mode/json_worker",
            [
@@ -711,8 +781,9 @@ r.implement(this, i),
     this.$autoNewLine = "\n", this.$newLineMode = "auto",
     this.setNewLineMode =
         function(e) {
-      if (this.$newLineMode === e)
+      if (this.$newLineMode === e) {
         return;
+      }
       this.$newLineMode = e
     },
     this.getNewLineMode = function() { return this.$newLineMode },
@@ -723,8 +794,9 @@ r.implement(this, i),
     this.getAllLines = function() { return this.getLines(0, this.getLength()) },
     this.getLength = function() { return this.$lines.length },
     this.getTextRange = function(e) {
-      if (e.start.row == e.end.row)
+      if (e.start.row == e.end.row) {
         return this.$lines[e.start.row].substring(e.start.column, e.end.column);
+      }
       var t = this.getLines(e.start.row + 1, e.end.row - 1);
       return t.unshift(
                  (this.$lines[e.start.row] || "").substring(e.start.column)),
@@ -736,8 +808,9 @@ r.implement(this, i),
                             e.column = this.getLine(t - 1).length),
              e
     }, this.insert = function(e, t) {
-      if (!t || t.length === 0)
+      if (!t || t.length === 0) {
         return e;
+      }
       e = this.$clipPosition(e),
       this.getLength() <= 1 && this.$detectNewLine(t);
       var n = this.$split(t), r = n.splice(0, 1)[0],
@@ -771,8 +844,9 @@ r.implement(this, i),
       };
       return this._emit("change", {data : r}), n
     }, this.insertInLine = function(e, t) {
-      if (t.length == 0)
+      if (t.length == 0) {
         return e;
+      }
       var n = this.$lines[e.row] || "";
       this.$lines[e.row] = n.substring(0, e.column) + t + n.substring(e.column);
       var r = {row : e.row, column : e.column + t.length},
@@ -780,8 +854,9 @@ r.implement(this, i),
       return this._emit("change", {data : i}), r
     }, this.remove = function(e) {
       e.start = this.$clipPosition(e.start), e.end = this.$clipPosition(e.end);
-      if (e.isEmpty())
+      if (e.isEmpty()) {
         return e.start;
+      }
       var t = e.start.row, n = e.end.row;
       if (e.isMultiLine()) {
         var r = e.start.column == 0 ? t : t + 1, i = n - 1;
@@ -790,12 +865,14 @@ r.implement(this, i),
             r != t &&
                 (this.removeInLine(t, e.start.column, this.getLine(t).length),
                  this.removeNewLine(e.start.row))
-      } else
+      } else {
         this.removeInLine(t, e.start.column, e.end.column);
+      }
       return e.start
     }, this.removeInLine = function(e, t, n) {
-      if (t == n)
+      if (t == n) {
         return;
+      }
       var r = new s(e, t, e, n), i = this.getLine(e), o = i.substring(t, n),
           u = i.substring(0, t) + i.substring(n, i.length);
       this.$lines.splice(e, 1, u);
@@ -820,15 +897,18 @@ r.implement(this, i),
       };
       this._emit("change", {data : o})
     }, this.replace = function(e, t) {
-      if (t.length == 0 && e.isEmpty())
+      if (t.length == 0 && e.isEmpty()) {
         return e.start;
-      if (t == this.getTextRange(e))
+      }
+      if (t == this.getTextRange(e)) {
         return e.end;
+      }
       this.remove(e);
-      if (t)
+      if (t) {
         var n = this.insert(e.start, t);
-      else
+      } else {
         n = e.start;
+      }
       return n
     }, this.applyDeltas = function(e) {
       for (var t = 0; t < e.length; t++) {
@@ -866,8 +946,9 @@ r.implement(this, i),
       var n = this.$lines || this.getAllLines(),
           r = this.getNewLineCharacter().length, i = 0,
           s = Math.min(e.row, n.length);
-      for (var o = t || 0; o < s; ++o)
+      for (var o = t || 0; o < s; ++o) {
         i += n[o].length;
+      }
       return i + r * o + e.column
     }
 }).call(u.prototype),
@@ -944,23 +1025,27 @@ this.isEqual = function(e) {
                    ? -1
                    : this.compare(e, t)
 }, this.clipRows = function(e, t) {
-  if (this.end.row > t)
+  if (this.end.row > t) {
     var n = {row : t + 1, column : 0};
-  else if (this.end.row < e)
+  } else if (this.end.row < e) {
     var n = {row : e, column : 0};
-  if (this.start.row > t)
+  }
+  if (this.start.row > t) {
     var r = {row : t + 1, column : 0};
-  else if (this.start.row < e)
+  } else if (this.start.row < e) {
     var r = {row : e, column : 0};
+  }
   return i.fromPoints(r || this.start, n || this.end)
 }, this.extend = function(e, t) {
   var n = this.compare(e, t);
-  if (n == 0)
+  if (n == 0) {
     return this;
-  if (n == -1)
+  }
+  if (n == -1) {
     var r = {row : e, column : t};
-  else
+  } else {
     var s = {row : e, column : t};
+  }
   return i.fromPoints(r || this.start, s || this.end)
 }, this.isEmpty = function() {
   return this.start.row === this.end.row &&
@@ -1009,12 +1094,15 @@ r.implement(this, i),
     this.getDocument = function() { return this.document },
     this.onChange = function(e) {
       var t = e.data, n = t.range;
-      if (n.start.row == n.end.row && n.start.row != this.row)
+      if (n.start.row == n.end.row && n.start.row != this.row) {
         return;
-      if (n.start.row > this.row)
+      }
+      if (n.start.row > this.row) {
         return;
-      if (n.start.row == this.row && n.start.column > this.column)
+      }
+      if (n.start.row == this.row && n.start.column > this.column) {
         return;
+      }
       var r = this.row, i = this.column;
       t.action === "insertText"
           ? n.start.row === r &&n.start.column <= i
@@ -1047,8 +1135,9 @@ r.implement(this, i),
     }, this.setPosition = function(e, t, n) {
       var r;
       n ? r = {row : e, column : t} : r = this.$clipPositionToDocument(e, t);
-      if (this.row == r.row && this.column == r.column)
+      if (this.row == r.row && this.column == r.column) {
         return;
+      }
       var i = {row : this.row, column : this.column};
       this.row = r.row, this.column = r.column,
       this._emit("change", {old : i, value : r})
@@ -1074,9 +1163,10 @@ t.stringReverse = function(e) { return e.split("").reverse().join("") },
       var n = "";
       while (t > 0) {
         t&1 && (n += e);
-        if (t >>= 1)
+        if (t >>= 1) {
           e += e
       }
+        }
       return n
     };
 var r = /^\s\s*/, i = /\s\s*$/;
@@ -1084,36 +1174,43 @@ t.stringTrimLeft = function(e) { return e.replace(r, "") },
     t.stringTrimRight = function(e) { return e.replace(i, "") },
     t.copyObject = function(e) {
       var t = {};
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.copyArray = function(e) {
       var t = [];
-      for (var n = 0, r = e.length; n < r; n++)
+      for (var n = 0, r = e.length; n < r; n++) {
         e[n] && typeof e[n] == "object" ? t[n] = this.copyObject(e[n])
                                         : t[n] = e[n];
+      }
       return t
     }, t.deepCopy = function(e) {
-      if (typeof e != "object")
+      if (typeof e != "object") {
         return e;
+      }
       var t = e.constructor();
-      for (var n in e)
+      for (var n in e) {
         typeof e[n] == "object" ? t[n] = this.deepCopy(e[n]) : t[n] = e[n];
+      }
       return t
     }, t.arrayToMap = function(e) {
       var t = {};
-      for (var n = 0; n < e.length; n++)
+      for (var n = 0; n < e.length; n++) {
         t[e[n]] = 1;
+      }
       return t
     }, t.createMap = function(e) {
       var t = Object.create(null);
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.arrayRemove = function(e, t) {
-      for (var n = 0; n <= e.length; n++)
+      for (var n = 0; n <= e.length; n++) {
         t === e[n] && e.splice(n, 1)
-    }, t.escapeRegExp = function(e) {
+    }
+      }, t.escapeRegExp = function(e) {
       return e.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1")
     }, t.escapeHTML = function(e) {
       return e.replace(/&/g, "&#38;")
@@ -1163,54 +1260,65 @@ var r, i,
     }, f = function() {
       var e, t = "";
       i === "-" && (t = "-", a("-"));
-      while (i >= "0" && i <= "9")
+      while (i >= "0" && i <= "9") {
         t += i, a();
+      }
       if (i === ".") {
         t += ".";
-        while (a() && i >= "0" && i <= "9")
+        while (a() && i >= "0" && i <= "9") {
           t += i
       }
+        }
       if (i === "e" || i === "E") {
         t += i, a();
-        if (i === "-" || i === "+")
+        if (i === "-" || i === "+") {
           t += i, a();
-        while (i >= "0" && i <= "9")
+        }
+        while (i >= "0" && i <= "9") {
           t += i, a()
       }
+        }
       e = +t;
-      if (!isNaN(e))
+      if (!isNaN(e)) {
         return e;
+      }
       u("Bad number")
     }, l = function() {
       var e, t, n = "", r;
-      if (i === '"')
+      if (i === '"') {
         while (a()) {
-          if (i === '"')
+          if (i === '"') {
             return a(), n;
+          }
           if (i === "\\") {
             a();
             if (i === "u") {
               r = 0;
               for (t = 0; t < 4; t += 1) {
                 e = parseInt(a(), 16);
-                if (!isFinite(e))
+                if (!isFinite(e)) {
                   break;
+                }
                 r = r * 16 + e
               }
               n += String.fromCharCode(r)
             } else {
-              if (typeof s[i] != "string")
+              if (typeof s[i] != "string") {
                 break;
+              }
               n += s[i]
             }
-          } else
+          } else {
             n += i
         }
+          }
+      }
       u("Bad string")
     }, c = function() {
-      while (i && i <= " ")
+      while (i && i <= " ") {
         a()
-    }, h = function() {
+    }
+      }, h = function() {
       switch (i) {
       case "t":
         return a("t"), a("r"), a("u"), a("e"), !0;
@@ -1224,12 +1332,14 @@ var r, i,
       var e = [];
       if (i === "[") {
         a("["), c();
-        if (i === "]")
+        if (i === "]") {
           return a("]"), e;
+        }
         while (i) {
           e.push(p()), c();
-          if (i === "]")
+          if (i === "]") {
             return a("]"), e;
+          }
           a(","), c()
         }
       }
@@ -1238,14 +1348,16 @@ var r, i,
       var e, t = {};
       if (i === "{") {
         a("{"), c();
-        if (i === "}")
+        if (i === "}") {
           return a("}"), t;
+        }
         while (i) {
           e = l(), c(), a(":"),
           Object.hasOwnProperty.call(t, e) && u('Duplicate key "' + e + '"'),
           t[e] = p(), c();
-          if (i === "}")
+          if (i === "}") {
             return a("}"), t;
+          }
           a(","), c()
         }
       }
@@ -1270,10 +1382,12 @@ return p = function() {
   return o = e, r = 0, i = " ", n = p(), c(), i && u("Syntax error"),
          typeof t == "function" ? function s(e, n) {
            var r, i, o = e[n];
-           if (o && typeof o == "object")
-             for (r in o)
+           if (o && typeof o == "object") {
+             for (r in o) {
                Object.hasOwnProperty.call(o, r) &&
                    (i = s(o, r), i !== undefined ? o[r] = i : delete o[r]);
+             }
+           }
            return t.call(e, n, o)
          }({"" : n}, "") : n
 }

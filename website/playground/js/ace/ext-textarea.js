@@ -6,12 +6,14 @@ define(
     ],
     function(e, t, n) {
       function a(e, t) {
-        for (var n in t)
+        for (var n in t) {
           e.style[n] = t[n]
       }
+        }
       function f(e, t) {
-        if (e.type != "textarea")
+        if (e.type != "textarea") {
           throw "Textarea required!";
+        }
         var n = e.parentNode, i = document.createElement("div"),
             s = function() {
               var t = "position:relative;";
@@ -49,8 +51,9 @@ define(
                         }))
                 : n.focus()
         }, n.setOption = function(t, i) {
-          if (o[t] == i)
+          if (o[t] == i) {
             return;
+          }
           switch (t) {
           case "gutter":
             f.setShowGutter(c(i));
@@ -112,8 +115,9 @@ define(
         }, n.getOption = function(e) {
           return o[e]
         }, n.getOptions = function() { return o };
-        for (var h in t.options)
+        for (var h in t.options) {
           n.setOption(h, t.options[h]);
+        }
         return n
       }
       function h(e, t, n, i) {
@@ -124,9 +128,10 @@ define(
             return
           }
           e.push("<select title='" + t + "'>");
-          for (var i in n)
+          for (var i in n) {
             e.push("<option value='" + i + "' "),
                 r == i && e.push(" selected "), e.push(">", n[i], "</option>");
+          }
           e.push("</select>")
         }
         var s = null, o = {
@@ -202,9 +207,10 @@ define(
             },
             a = [];
         a.push("<table><tr><th>Setting</th><th>Value</th></tr>");
-        for (var l in i)
+        for (var l in i) {
           a.push("<tr><td>", o[l], "</td>"), a.push("<td>"),
               f(a, l, u[l], i[l]), a.push("</td></tr>");
+        }
         a.push("</table>"), e.innerHTML = a.join("");
         var c = function(e) {
           var t = e.currentTarget;
@@ -213,11 +219,13 @@ define(
           var t = e.currentTarget;
           n.setOption(t.title, t.checked)
         }, p = e.getElementsByTagName("select");
-        for (var d = 0; d < p.length; d++)
+        for (var d = 0; d < p.length; d++) {
           p[d].onchange = c;
+        }
         var v = e.getElementsByTagName("input");
-        for (var d = 0; d < v.length; d++)
+        for (var d = 0; d < v.length; d++) {
           v[d].onclick = h;
+        }
         var m = document.createElement("input");
         m.type = "button", m.value = "Hide",
         r.addListener(m, "click", function() { n.setDisplaySettings(!1) }),
@@ -231,8 +239,9 @@ define(
         r || (window.getComputedStyle
                   ? r = window.getComputedStyle(e, "").getPropertyValue(n)
                   : r = e.currentStyle[n]);
-        if (!r || r == "auto" || r == "intrinsic")
+        if (!r || r == "auto" || r == "intrinsic") {
           r = t.style[n];
+        }
         return r
       };
       t.transformTextarea = function(e, t) {

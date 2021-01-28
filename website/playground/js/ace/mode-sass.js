@@ -76,9 +76,10 @@ define("ace/mode/sass",
                       n = "azimuth|background-attachment|background-color|background-image|background-position|background-repeat|background|border-bottom-color|border-bottom-style|border-bottom-width|border-bottom|border-collapse|border-color|border-left-color|border-left-style|border-left-width|border-left|border-right-color|border-right-style|border-right-width|border-right|border-spacing|border-style|border-top-color|border-top-style|border-top-width|border-top|border-width|border|bottom|box-shadow|box-sizing|caption-side|clear|clip|color|content|counter-increment|counter-reset|cue-after|cue-before|cue|cursor|direction|display|elevation|empty-cells|float|font-family|font-size-adjust|font-size|font-stretch|font-style|font-variant|font-weight|font|height|left|letter-spacing|line-height|list-style-image|list-style-position|list-style-type|list-style|margin-bottom|margin-left|margin-right|margin-top|marker-offset|margin|marks|max-height|max-width|min-height|min-width|opacity|orphans|outline-color|outline-style|outline-width|outline|overflow|overflow-x|overflow-y|padding-bottom|padding-left|padding-right|padding-top|padding|page-break-after|page-break-before|page-break-inside|page|pause-after|pause-before|pause|pitch-range|pitch|play-during|position|quotes|richness|right|size|speak-header|speak-numeral|speak-punctuation|speech-rate|speak|stress|table-layout|text-align|text-decoration|text-indent|text-shadow|text-transform|top|unicode-bidi|vertical-align|visibility|voice-family|volume|white-space|widows|width|word-spacing|z-index"
                               .split("|"),
                       r = [];
-                  for (var i = 0, s = e.length; i < s; i++)
+                  for (var i = 0, s = e.length; i < s; i++) {
                     Array.prototype.push.apply(
                         r, (e[i] + t.join("|" + e[i])).split("|"));
+                  }
                   return Array.prototype.push.apply(r, t),
                          Array.prototype.push.apply(r, n), r
                 }()),
@@ -195,19 +196,23 @@ define("ace/mode/sass",
           r.inherits(o, i), function() {
             this.getFoldWidgetRange = function(e, t, n) {
               var r = this.indentationBlock(e, n);
-              if (r)
+              if (r) {
                 return r;
+              }
               var i = /\S/, o = e.getLine(n), u = o.search(i);
-              if (u == -1 || o[u] != "#")
+              if (u == -1 || o[u] != "#") {
                 return;
+              }
               var a = o.length, f = e.getLength(), l = n, c = n;
               while (++n < f) {
                 o = e.getLine(n);
                 var h = o.search(i);
-                if (h == -1)
+                if (h == -1) {
                   continue;
-                if (o[h] != "#")
+                }
+                if (o[h] != "#") {
                   break;
+                }
                 c = n
               }
               if (c > l) {
@@ -217,17 +222,20 @@ define("ace/mode/sass",
             }, this.getFoldWidget = function(e, t, n) {
               var r = e.getLine(n), i = r.search(/\S/), s = e.getLine(n + 1),
                   o = e.getLine(n - 1), u = o.search(/\S/), a = s.search(/\S/);
-              if (i == -1)
+              if (i == -1) {
                 return e.foldWidgets[n - 1] = u != -1 && u < a ? "start" : "",
                                          "";
+              }
               if (u == -1) {
-                if (i == a && r[i] == "#" && s[i] == "#")
+                if (i == a && r[i] == "#" && s[i] == "#") {
                   return e.foldWidgets[n - 1] = "", e.foldWidgets[n + 1] = "",
                                            "start"
-              } else if (u == i && r[i] == "#" && o[i] == "#" &&
-                         e.getLine(n - 2).search(/\S/) == -1)
+              } } else if (u == i && r[i] == "#" && o[i] == "#" 
+                  && e.getLine(n - 2).search(/\S/) == -1
+              ) {
                 return e.foldWidgets[n - 1] = "start",
                                          e.foldWidgets[n + 1] = "", "";
+              }
               return u != -1 && u < i ? e.foldWidgets[n - 1] = "start"
                                       : e.foldWidgets[n - 1] = "",
                                                           i < a ? "start" : ""

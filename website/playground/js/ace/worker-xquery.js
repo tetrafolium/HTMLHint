@@ -1,7 +1,8 @@
 "no use strict";
 (function(e) {
-if (typeof e.window != "undefined" && e.document)
+if (typeof e.window != "undefined" && e.document) {
   return;
+}
 e.console = {
   log : function() {
     var e = Array.prototype.slice.call(arguments, 0);
@@ -27,15 +28,17 @@ e.console = {
       }
       return t
     }, e.require = function(e, t) {
-      if (!t.charAt)
+      if (!t.charAt) {
         throw new Error(
             "worker.js require() accepts only (parentId, id) as arguments");
+      }
       t = normalizeModule(e, t);
       var n = require.modules[t];
-      if (n)
+      if (n) {
         return n.initialized ||
                    (n.initialized = !0, n.exports = n.factory().exports),
                n.exports;
+      }
       var r = t.split("/");
       r[0] = require.tlns[r[0]] || r[0];
       var i = r.join("/") + ".js";
@@ -44,8 +47,9 @@ e.console = {
       arguments.length == 2
           ? (n = t, typeof e != "string" && (t = e, e = require.id))
           : arguments.length == 1 && (n = e, e = require.id);
-      if (e.indexOf("text!") === 0)
+      if (e.indexOf("text!") === 0) {
         return;
+      }
       var r = function(t, n) { return require(e, t, n) };
       require.modules[e] = {
         factory : function() {
@@ -69,17 +73,19 @@ e.console = {
     }, e.main = null, e.sender = null, e.onmessage = function(e) {
       var t = e.data;
       if (t.command) {
-        if (!main[t.command])
+        if (!main[t.command]) {
           throw new Error("Unknown command:" + t.command);
+        }
         main[t.command].apply(main, t.args)
       } else if (t.init) {
         initBaseUrls(t.tlns), require(null, "ace/lib/fixoldbrowsers"),
             sender = initSender();
         var n = require(null, t.module)[t.classname];
         main = new n(sender)
-      } else
+      } else {
         t.event && sender && sender._emit(t.event, t.data)
     }
+      }
 })(this),
     define(
         "ace/lib/fixoldbrowsers",
@@ -95,11 +101,14 @@ function r(e) {
          (e.sticky ? "y" : "")
 }
 function i(e, t, n) {
-  if (Array.prototype.indexOf)
+  if (Array.prototype.indexOf) {
     return e.indexOf(t, n);
-  for (var r = n || 0; r < e.length; r++)
-    if (e[r] === t)
+  }
+  for (var r = n || 0; r < e.length; r++) {
+    if (e[r] === t) {
       return r;
+    }
+  }
   return -1
 }
 var s = {
@@ -113,20 +122,24 @@ var s = {
       var e = /^/g;
       return s.test.call(e, ""), !e.lastIndex
     }();
-if (u && o)
+if (u && o) {
   return;
+}
 RegExp.prototype.exec = function(e) {
   var t = s.exec.apply(this, arguments), n, a;
   if (typeof e == "string" && t) {
     !o && t.length > 1 && i(t, "") > -1 &&
         (a = RegExp(this.source, s.replace.call(r(this), "g", "")),
          s.replace.call(e.slice(t.index), a, function() {
-           for (var e = 1; e < arguments.length - 2; e++)
+           for (var e = 1; e < arguments.length - 2; e++) {
              arguments[e] === undefined && (t[e] = undefined)
-         }));
-    if (this._xregexp && this._xregexp.captureNames)
-      for (var f = 1; f < t.length; f++)
+         }
+           }));
+    if (this._xregexp && this._xregexp.captureNames) {
+      for (var f = 1; f < t.length; f++) {
         n = this._xregexp.captureNames[f - 1], n && (t[n] = t[f]);
+      }
+    }
     !u && this.global && !t[0].length && this.lastIndex > t.index &&
         this.lastIndex--
   }
@@ -161,26 +174,30 @@ function o(e) {
 }
 function u(e) {
   var t, n, r;
-  if (o(e))
+  if (o(e)) {
     return e;
+  }
   n = e.valueOf;
   if (typeof n == "function") {
     t = n.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   r = e.toString;
   if (typeof r == "function") {
     t = r.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   throw new TypeError
 }
 Function.prototype.bind || (Function.prototype.bind = function(e) {
   var t = this;
-  if (typeof t != "function")
+  if (typeof t != "function") {
     throw new TypeError("Function.prototype.bind called on incompatible " + t);
+  }
   var n = c.call(arguments, 1), i = function() {
     if (this instanceof i) {
       var r = t.apply(this, n.concat(c.call(arguments)));
@@ -195,49 +212,44 @@ Function.prototype.bind || (Function.prototype.bind = function(e) {
 var a = Function.prototype.call, f = Array.prototype, l = Object.prototype,
     c = f.slice, h = a.bind(l.toString), p = a.bind(l.hasOwnProperty), d, v, m,
     g, y;
-if (y = p(l, "__defineGetter__"))
+if (y = p(l, "__defineGetter__")) {
   d = a.bind(l.__defineGetter__), v = a.bind(l.__defineSetter__),
   m = a.bind(l.__lookupGetter__), g = a.bind(l.__lookupSetter__);
-if ([ 1, 2 ].splice(0).length != 2)
-  if (!function() {
-        function e(e) {
-          var t = new Array(e + 2);
-          return t[0] = t[1] = 0, t
-        }
-        var t = [], n;
-        t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),
-            n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;
-        if (n + 1 == t.length)
-          return !0
-      }())
+}
+if ([ 1, 2 ].splice(0).length != 2) {
+  if (!function() {      function e(e) {      var t = new Array(e + 2);      return t[0] = t[1] = 0, t      }      var t = [], n;      t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),      n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;      if (n + 1 == t.length) {      return !0}      }()
+  ) {
     Array.prototype.splice = function(e, t) {
       var n = this.length;
       e > 0 ? e > n && (e = n)
             : e == void 0 ? e = 0 : e < 0 && (e = Math.max(n + e, 0)),
                             e + t < n || (t = n - e);
       var r = this.slice(e, e + t), i = c.call(arguments, 2), s = i.length;
-      if (e === n)
+      if (e === n) {
         s && this.push.apply(this, i);
-      else {
+      } else {
         var o = Math.min(t, n - e), u = e + o, a = u + s - o, f = n - u,
             l = n - o;
-        if (a < u)
-          for (var h = 0; h < f; ++h)
+        if (a < u) {
+          for (var h = 0; h < f; ++h) {
             this[a + h] = this[u + h];
-        else if (a > u)
-          for (h = f; h--;)
+        } } else if (a > u) {
+          for (h = f; h--;) {
             this[a + h] = this[u + h];
-        if (s && e === l)
+          }
+        }
+        if (s && e === l) {
           this.length = l, this.push.apply(this, i);
-        else {
+        } else {
           this.length = l + s;
-          for (h = 0; h < s; ++h)
+          for (h = 0; h < s; ++h) {
             this[e + h] = i[h]
         }
+          }
       }
       return r
     };
-  else {
+  } else {
     var b = Array.prototype.splice;
     Array.prototype.splice = function(e, t) {
       return arguments.length ? b.apply(this,
@@ -248,6 +260,7 @@ if ([ 1, 2 ].splice(0).length != 2)
                               : []
     }
   }
+}
 Array.isArray ||
     (Array.isArray = function(e) { return h(e) == "[object Array]" });
 var w = Object("a"), E = w[0] != "a" || !(0 in w);
@@ -257,21 +270,25 @@ Array.prototype.forEach ||
            var t = F(this),
                n = E && h(this) == "[object String]" ? this.split("") : t,
                r = arguments[1], i = -1, s = n.length >>> 0;
-           if (h(e) != "[object Function]")
+           if (h(e) != "[object Function]") {
              throw new TypeError;
-           while (++i < s)
+           }
+           while (++i < s) {
              i in n && e.call(r, n[i], i, t)
-         }),
+         }
+           }),
     Array.prototype.map ||
         (Array.prototype.map =
              function(e) {
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = Array(r), s = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var o = 0; o < r; o++)
+               }
+               for (var o = 0; o < r; o++) {
                  o in n && (i[o] = e.call(s, n[o], o, t));
+               }
                return i
              }),
     Array.prototype.filter ||
@@ -280,10 +297,12 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = [], s, o = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var u = 0; u < r; u++)
+               }
+               for (var u = 0; u < r; u++) {
                  u in n && (s = n[u], e.call(o, s, u, t) && i.push(s));
+               }
                return i
              }),
     Array.prototype.every ||
@@ -292,11 +311,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && !e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && !e.call(i, n[s], s, t)) {
                    return !1;
+                 }
+               }
                return !0
              }),
     Array.prototype.some ||
@@ -305,11 +327,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && e.call(i, n[s], s, t)) {
                    return !0;
+                 }
+               }
                return !1
              }),
     Array.prototype.reduce ||
@@ -318,92 +343,112 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0;
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               if (!r && arguments.length == 1)
+               }
+               if (!r && arguments.length == 1) {
                  throw new TypeError(
                      "reduce of empty array with no initial value");
+               }
                var i = 0, s;
-               if (arguments.length >= 2)
+               if (arguments.length >= 2) {
                  s = arguments[1];
-               else
+               } else {
                  do {
                    if (i in n) {
                      s = n[i++];
                      break
                    }
-                   if (++i >= r)
+                   if (++i >= r) {
                      throw new TypeError(
                          "reduce of empty array with no initial value")
-                 } while (!0);
-               for (; i < r; i++)
+                 }
+                   } while (!0);
+               }
+               for (; i < r; i++) {
                  i in n && (s = e.call(void 0, s, n[i], i, t));
+               }
                return s
              }),
     Array.prototype.reduceRight || (Array.prototype.reduceRight = function(e) {
       var t = F(this),
           n = E && h(this) == "[object String]" ? this.split("") : t,
           r = n.length >>> 0;
-      if (h(e) != "[object Function]")
+      if (h(e) != "[object Function]") {
         throw new TypeError(e + " is not a function");
-      if (!r && arguments.length == 1)
+      }
+      if (!r && arguments.length == 1) {
         throw new TypeError("reduceRight of empty array with no initial value");
+      }
       var i, s = r - 1;
-      if (arguments.length >= 2)
+      if (arguments.length >= 2) {
         i = arguments[1];
-      else
+      } else {
         do {
           if (s in n) {
             i = n[s--];
             break
           }
-          if (--s < 0)
+          if (--s < 0) {
             throw new TypeError(
                 "reduceRight of empty array with no initial value")
-        } while (!0);
-      do
+        }
+          } while (!0);
+      }
+      do {
         s in this && (i = e.call(void 0, i, n[s], s, t));
+      }
       while (s--);
       return i
     });
-if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1)
+if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1) {
   Array.prototype.indexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = 0;
     arguments.length > 1 && (r = s(arguments[1])),
         r = r >= 0 ? r : Math.max(0, n + r);
-    for (; r < n; r++)
-      if (r in t && t[r] === e)
+    for (; r < n; r++) {
+      if (r in t && t[r] === e) {
         return r;
+      }
+    }
     return -1
   };
-if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1)
+}
+if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1) {
   Array.prototype.lastIndexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = n - 1;
     arguments.length > 1 && (r = Math.min(r, s(arguments[1]))),
         r = r >= 0 ? r : n - Math.abs(r);
-    for (; r >= 0; r--)
-      if (r in t && e === t[r])
+    for (; r >= 0; r--) {
+      if (r in t && e === t[r]) {
         return r;
+      }
+    }
     return -1
   };
+}
 Object.getPrototypeOf || (Object.getPrototypeOf = function(e) {
   return e.__proto__ || (e.constructor ? e.constructor.prototype : l)
 });
 if (!Object.getOwnPropertyDescriptor) {
   var S = "Object.getOwnPropertyDescriptor called on a non-object: ";
   Object.getOwnPropertyDescriptor = function(e, t) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(S + e);
-    if (!p(e, t))
+    }
+    if (!p(e, t)) {
       return;
+    }
     var n, r, i;
     n = {enumerable : !0, configurable : !0};
     if (y) {
@@ -411,9 +456,10 @@ if (!Object.getOwnPropertyDescriptor) {
       e.__proto__ = l;
       var r = m(e, t), i = g(e, t);
       e.__proto__ = s;
-      if (r || i)
+      if (r || i) {
         return r && (n.get = r), i && (n.set = i), n
     }
+      }
     return n.value = e[t], n
   }
 }
@@ -425,19 +471,21 @@ if (!Object.create) {
     return { __proto__: null }
   } : x = function() {
     var e = {};
-    for (var t in e)
+    for (var t in e) {
       e[t] = null;
+    }
     return e.constructor = e.hasOwnProperty = e.propertyIsEnumerable =
                e.isPrototypeOf = e.toLocaleString = e.toString = e.valueOf =
                    e.__proto__ = null,
            e
   }, Object.create = function(e, t) {
     var n;
-    if (e === null)
+    if (e === null) {
       n = x();
-    else {
-      if (typeof e != "object")
+    } else {
+      if (typeof e != "object") {
         throw new TypeError("typeof prototype[" + typeof e + "] != 'object'");
+      }
       var r = function() {};
       r.prototype = e, n = new r, n.__proto__ = e
     }
@@ -447,32 +495,37 @@ if (!Object.create) {
 if (Object.defineProperty) {
   var T = i({}),
       N = typeof document == "undefined" || i(document.createElement("div"));
-  if (!T || !N)
+  if (!T || !N) {
     var C = Object.defineProperty
 }
+  }
 if (!Object.defineProperty || C) {
   var k = "Property description must be an object: ",
       L = "Object.defineProperty called on non-object: ",
       A = "getters & setters can not be defined on this javascript engine";
   Object.defineProperty = function(e, t, n) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(L + e);
-    if (typeof n != "object" && typeof n != "function" || n === null)
+    }
+    if (typeof n != "object" && typeof n != "function" || n === null) {
       throw new TypeError(k + n);
-    if (C)
+    }
+    if (C) {
       try {
         return C.call(Object, e, t, n)
       } catch (r) {
       }
-    if (p(n, "value"))
+    }
+    if (p(n, "value")) {
       if (y && (m(e, t) || g(e, t))) {
         var i = e.__proto__;
         e.__proto__ = l, delete e[t], e[t] = n.value, e.__proto__ = i
-      } else
+      } else {
         e[t] = n.value;
-    else {
-      if (!y)
+    } } else {
+      if (!y) {
         throw new TypeError(A);
+      }
       p(n, "get") && d(e, t, n.get), p(n, "set") && v(e, t, n.set)
     }
     return e
@@ -481,8 +534,9 @@ if (!Object.defineProperty || C) {
 Object.defineProperties ||
     (Object.defineProperties =
          function(e, t) {
-           for (var n in t)
+           for (var n in t) {
              p(t, n) && Object.defineProperty(e, n, t[n]);
+           }
            return e
          }),
     Object.seal || (Object.seal = function(e) { return e }),
@@ -499,11 +553,13 @@ Object.preventExtensions ||
     Object.isSealed || (Object.isSealed = function(e) { return !1 }),
     Object.isFrozen || (Object.isFrozen = function(e) { return !1 }),
     Object.isExtensible || (Object.isExtensible = function(e) {
-      if (Object(e) === e)
+      if (Object(e) === e) {
         throw new TypeError;
+      }
       var t = "";
-      while (p(e, t))
+      while (p(e, t)) {
         t += "?";
+      }
       e[t] = !0;
       var n = p(e, t);
       return delete e[t], n
@@ -516,19 +572,23 @@ if (!Object.keys) {
             "isPrototypeOf", "propertyIsEnumerable", "constructor"
           ],
       D = _.length;
-  for (var P in {toString : null})
+  for (var P in {toString : null}) {
     M = !1;
+  }
   Object.keys = function I(e) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError("Object.keys called on a non-object");
+    }
     var I = [];
-    for (var t in e)
+    for (var t in e) {
       p(e, t) && I.push(t);
-    if (M)
+    }
+    if (M) {
       for (var n = 0, r = D; n < r; n++) {
         var i = _[n];
         p(e, i) && I.push(i)
       }
+    }
     return I
   }
 }
@@ -542,8 +602,9 @@ if (!String.prototype.trim || H.trim()) {
       function() { return String(this).replace(B, "").replace(j, "") }
 }
 var F = function(e) {
-  if (e == null)
+  if (e == null) {
     throw new TypeError("can't convert " + e + " to object");
+  }
   return Object(e)
 }
            }),
@@ -555,34 +616,41 @@ r._emit = r._dispatchEvent = function(e, t) {
   this._eventRegistry || (this._eventRegistry = {}),
       this._defaultHandlers || (this._defaultHandlers = {});
   var n = this._eventRegistry[e] || [], r = this._defaultHandlers[e];
-  if (!n.length && !r)
+  if (!n.length && !r) {
     return;
-  if (typeof t != "object" || !t)
+  }
+  if (typeof t != "object" || !t) {
     t = {};
+  }
   t.type || (t.type = e), t.stopPropagation || (t.stopPropagation = i),
       t.preventDefault || (t.preventDefault = s), t.target || (t.target = this);
   for (var o = 0; o < n.length; o++) {
     n[o](t);
-    if (t.propagationStopped)
+    if (t.propagationStopped) {
       break
   }
-  if (r && !t.defaultPrevented)
+    }
+  if (r && !t.defaultPrevented) {
     return r(t)
-}, r._signal = function(e, t) {
+}
+  }, r._signal = function(e, t) {
   var n = (this._eventRegistry || {})[e];
-  if (!n)
+  if (!n) {
     return;
-  for (var r = 0; r < n.length; r++)
+  }
+  for (var r = 0; r < n.length; r++) {
     n[r](t)
-}, r.once = function(e, t) {
+}
+  }, r.once = function(e, t) {
   var n = this, r = function() {
     fun && fun.apply(null, arguments), n.removeEventListener(event, r)
   };
   this.addEventListener(event, r)
 }, r.setDefaultHandler = function(e, t) {
   this._defaultHandlers = this._defaultHandlers || {};
-  if (this._defaultHandlers[e])
+  if (this._defaultHandlers[e]) {
     throw new Error("The default handler for '" + e + "' is already set");
+  }
   this._defaultHandlers[e] = t
 }, r.on = r.addEventListener = function(e, t, n) {
   this._eventRegistry = this._eventRegistry || {};
@@ -592,8 +660,9 @@ r._emit = r._dispatchEvent = function(e, t) {
 }, r.removeListener = r.removeEventListener = function(e, t) {
   this._eventRegistry = this._eventRegistry || {};
   var n = this._eventRegistry[e];
-  if (!n)
+  if (!n) {
     return;
+  }
   var r = n.indexOf(t);
   r !== -1 && n.splice(r, 1)
 }, r.removeAllListeners = function(e) {
@@ -609,9 +678,10 @@ t.inherits = function() {
     t.prototype.constructor = t
   }
 }(), t.mixin = function(e, t) {
-  for (var n in t)
+  for (var n in t) {
     e[n] = t[n]
-}, t.implement = function(e, n) { t.mixin(e, n) }
+}
+  }, t.implement = function(e, n) { t.mixin(e, n) }
            }),
     define("ace/mode/xquery_worker",
            [
@@ -635,8 +705,9 @@ r.inherits(a, i), function() {
       var r = t.getParseTree(), i = new u(r, e), a = i.getTokens();
       this.sender.emit("highlight", {tokens : a, lines : i.lines})
     } catch (f) {
-      if (!(f instanceof n.ParseException))
+      if (!(f instanceof n.ParseException)) {
         throw f;
+      }
       var l = e.substring(0, f.getBegin()), c = l.split("\n").length,
           h = f.getBegin() - l.lastIndexOf("\n"), p = n.getErrorMessage(f);
       this.sender.emit("error",
@@ -718,8 +789,9 @@ r.implement(this, i),
     this.$autoNewLine = "\n", this.$newLineMode = "auto",
     this.setNewLineMode =
         function(e) {
-      if (this.$newLineMode === e)
+      if (this.$newLineMode === e) {
         return;
+      }
       this.$newLineMode = e
     },
     this.getNewLineMode = function() { return this.$newLineMode },
@@ -730,8 +802,9 @@ r.implement(this, i),
     this.getAllLines = function() { return this.getLines(0, this.getLength()) },
     this.getLength = function() { return this.$lines.length },
     this.getTextRange = function(e) {
-      if (e.start.row == e.end.row)
+      if (e.start.row == e.end.row) {
         return this.$lines[e.start.row].substring(e.start.column, e.end.column);
+      }
       var t = this.getLines(e.start.row + 1, e.end.row - 1);
       return t.unshift(
                  (this.$lines[e.start.row] || "").substring(e.start.column)),
@@ -743,8 +816,9 @@ r.implement(this, i),
                             e.column = this.getLine(t - 1).length),
              e
     }, this.insert = function(e, t) {
-      if (!t || t.length === 0)
+      if (!t || t.length === 0) {
         return e;
+      }
       e = this.$clipPosition(e),
       this.getLength() <= 1 && this.$detectNewLine(t);
       var n = this.$split(t), r = n.splice(0, 1)[0],
@@ -778,8 +852,9 @@ r.implement(this, i),
       };
       return this._emit("change", {data : r}), n
     }, this.insertInLine = function(e, t) {
-      if (t.length == 0)
+      if (t.length == 0) {
         return e;
+      }
       var n = this.$lines[e.row] || "";
       this.$lines[e.row] = n.substring(0, e.column) + t + n.substring(e.column);
       var r = {row : e.row, column : e.column + t.length},
@@ -787,8 +862,9 @@ r.implement(this, i),
       return this._emit("change", {data : i}), r
     }, this.remove = function(e) {
       e.start = this.$clipPosition(e.start), e.end = this.$clipPosition(e.end);
-      if (e.isEmpty())
+      if (e.isEmpty()) {
         return e.start;
+      }
       var t = e.start.row, n = e.end.row;
       if (e.isMultiLine()) {
         var r = e.start.column == 0 ? t : t + 1, i = n - 1;
@@ -797,12 +873,14 @@ r.implement(this, i),
             r != t &&
                 (this.removeInLine(t, e.start.column, this.getLine(t).length),
                  this.removeNewLine(e.start.row))
-      } else
+      } else {
         this.removeInLine(t, e.start.column, e.end.column);
+      }
       return e.start
     }, this.removeInLine = function(e, t, n) {
-      if (t == n)
+      if (t == n) {
         return;
+      }
       var r = new s(e, t, e, n), i = this.getLine(e), o = i.substring(t, n),
           u = i.substring(0, t) + i.substring(n, i.length);
       this.$lines.splice(e, 1, u);
@@ -827,15 +905,18 @@ r.implement(this, i),
       };
       this._emit("change", {data : o})
     }, this.replace = function(e, t) {
-      if (t.length == 0 && e.isEmpty())
+      if (t.length == 0 && e.isEmpty()) {
         return e.start;
-      if (t == this.getTextRange(e))
+      }
+      if (t == this.getTextRange(e)) {
         return e.end;
+      }
       this.remove(e);
-      if (t)
+      if (t) {
         var n = this.insert(e.start, t);
-      else
+      } else {
         n = e.start;
+      }
       return n
     }, this.applyDeltas = function(e) {
       for (var t = 0; t < e.length; t++) {
@@ -873,8 +954,9 @@ r.implement(this, i),
       var n = this.$lines || this.getAllLines(),
           r = this.getNewLineCharacter().length, i = 0,
           s = Math.min(e.row, n.length);
-      for (var o = t || 0; o < s; ++o)
+      for (var o = t || 0; o < s; ++o) {
         i += n[o].length;
+      }
       return i + r * o + e.column
     }
 }).call(u.prototype),
@@ -951,23 +1033,27 @@ this.isEqual = function(e) {
                    ? -1
                    : this.compare(e, t)
 }, this.clipRows = function(e, t) {
-  if (this.end.row > t)
+  if (this.end.row > t) {
     var n = {row : t + 1, column : 0};
-  else if (this.end.row < e)
+  } else if (this.end.row < e) {
     var n = {row : e, column : 0};
-  if (this.start.row > t)
+  }
+  if (this.start.row > t) {
     var r = {row : t + 1, column : 0};
-  else if (this.start.row < e)
+  } else if (this.start.row < e) {
     var r = {row : e, column : 0};
+  }
   return i.fromPoints(r || this.start, n || this.end)
 }, this.extend = function(e, t) {
   var n = this.compare(e, t);
-  if (n == 0)
+  if (n == 0) {
     return this;
-  if (n == -1)
+  }
+  if (n == -1) {
     var r = {row : e, column : t};
-  else
+  } else {
     var s = {row : e, column : t};
+  }
   return i.fromPoints(r || this.start, s || this.end)
 }, this.isEmpty = function() {
   return this.start.row === this.end.row &&
@@ -1016,12 +1102,15 @@ r.implement(this, i),
     this.getDocument = function() { return this.document },
     this.onChange = function(e) {
       var t = e.data, n = t.range;
-      if (n.start.row == n.end.row && n.start.row != this.row)
+      if (n.start.row == n.end.row && n.start.row != this.row) {
         return;
-      if (n.start.row > this.row)
+      }
+      if (n.start.row > this.row) {
         return;
-      if (n.start.row == this.row && n.start.column > this.column)
+      }
+      if (n.start.row == this.row && n.start.column > this.column) {
         return;
+      }
       var r = this.row, i = this.column;
       t.action === "insertText"
           ? n.start.row === r &&n.start.column <= i
@@ -1054,8 +1143,9 @@ r.implement(this, i),
     }, this.setPosition = function(e, t, n) {
       var r;
       n ? r = {row : e, column : t} : r = this.$clipPositionToDocument(e, t);
-      if (this.row == r.row && this.column == r.column)
+      if (this.row == r.row && this.column == r.column) {
         return;
+      }
       var i = {row : this.row, column : this.column};
       this.row = r.row, this.column = r.column,
       this._emit("change", {old : i, value : r})
@@ -1081,9 +1171,10 @@ t.stringReverse = function(e) { return e.split("").reverse().join("") },
       var n = "";
       while (t > 0) {
         t&1 && (n += e);
-        if (t >>= 1)
+        if (t >>= 1) {
           e += e
       }
+        }
       return n
     };
 var r = /^\s\s*/, i = /\s\s*$/;
@@ -1091,36 +1182,43 @@ t.stringTrimLeft = function(e) { return e.replace(r, "") },
     t.stringTrimRight = function(e) { return e.replace(i, "") },
     t.copyObject = function(e) {
       var t = {};
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.copyArray = function(e) {
       var t = [];
-      for (var n = 0, r = e.length; n < r; n++)
+      for (var n = 0, r = e.length; n < r; n++) {
         e[n] && typeof e[n] == "object" ? t[n] = this.copyObject(e[n])
                                         : t[n] = e[n];
+      }
       return t
     }, t.deepCopy = function(e) {
-      if (typeof e != "object")
+      if (typeof e != "object") {
         return e;
+      }
       var t = e.constructor();
-      for (var n in e)
+      for (var n in e) {
         typeof e[n] == "object" ? t[n] = this.deepCopy(e[n]) : t[n] = e[n];
+      }
       return t
     }, t.arrayToMap = function(e) {
       var t = {};
-      for (var n = 0; n < e.length; n++)
+      for (var n = 0; n < e.length; n++) {
         t[e[n]] = 1;
+      }
       return t
     }, t.createMap = function(e) {
       var t = Object.create(null);
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.arrayRemove = function(e, t) {
-      for (var n = 0; n <= e.length; n++)
+      for (var n = 0; n <= e.length; n++) {
         t === e[n] && e.splice(n, 1)
-    }, t.escapeRegExp = function(e) {
+    }
+      }, t.escapeRegExp = function(e) {
       return e.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1")
     }, t.escapeHTML = function(e) {
       return e.replace(/&/g, "&#38;")
@@ -1169,9 +1267,10 @@ var r = t.JSONParseTreeHandler = function(e) {
       var e = u.children[0], t = null;
       for (var n = u.children.length - 1; n >= 0; n--) {
         t = u.children[n];
-        if (t.pos.el !== 0 || t.pos.ec !== 0)
+        if (t.pos.el !== 0 || t.pos.ec !== 0) {
           break
       }
+        }
       u.pos.sl = e.pos.sl, u.pos.sc = e.pos.sc, u.pos.el = t.pos.el,
       u.pos.ec = t.pos.ec
     }
@@ -1204,8 +1303,9 @@ var r = t.JSONParseTreeHandler = function(e) {
       o = null, u = null, a = e, f = 0, l = 0, c = 0, h = 0;
   this.closeParseTree =
       function() {
-    while (u.getParent !== null)
+    while (u.getParent !== null) {
       r();
+    }
     r()
   },
   this.peek = function() { return u },
@@ -1290,10 +1390,12 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 42604 && Cl != 43628 && Cl != 50284 && Cl != 53356 &&
-          Cl != 54380 && Cl != 55916 && Cl != 72300 && Cl != 93337 &&
-          Cl != 94316 && Cl != 104044 && Cl != 113772 && Cl != 115353)
+      if (Cl != 42604 && Cl != 43628 && Cl != 50284 && Cl != 53356 
+          && Cl != 54380 && Cl != 55916 && Cl != 72300 && Cl != 93337 
+          && Cl != 94316 && Cl != 104044 && Cl != 113772 && Cl != 115353
+      ) {
         break;
+      }
       switch (Al) {
       case 108:
         El(178);
@@ -1344,10 +1446,12 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 16492 && Cl != 48748 && Cl != 51820 && Cl != 74348 &&
-          Cl != 79468 && Cl != 82540 && Cl != 101996 && Cl != 131692 &&
-          Cl != 134252)
+      if (Cl != 16492 && Cl != 48748 && Cl != 51820 && Cl != 74348 
+          && Cl != 79468 && Cl != 82540 && Cl != 101996 && Cl != 131692 
+          && Cl != 134252
+      ) {
         break;
+      }
       switch (Al) {
       case 108:
         El(175);
@@ -1542,8 +1646,9 @@ var r = t.XQueryParser = function i(e, t) {
     }
     for (;;) {
       wl(180);
-      if (Al == 53)
+      if (Al == 53) {
         break;
+      }
       yl(), T(), wl(29), vl(60), wl(17), vl(11)
     }
     ql.endNonterminal("DecimalFormatDecl", Ll)
@@ -1608,8 +1713,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(81), wl(15), vl(7);
       for (;;) {
         wl(103);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(15), vl(7)
       }
     }
@@ -1634,8 +1740,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(81), wl(15), vl(7);
       for (;;) {
         wl(103);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(15), vl(7)
       }
     }
@@ -1678,8 +1785,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("AnnotatedDecl", Ll), vl(108);
     for (;;) {
       wl(170);
-      if (Al != 32 && Al != 257)
+      if (Al != 32 && Al != 257) {
         break;
+      }
       switch (Al) {
       case 257:
         yl(), P();
@@ -1716,8 +1824,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(34), wl(154), yl(), ri();
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(154), yl(), ri()
       }
       vl(37)
@@ -1730,8 +1839,9 @@ var r = t.XQueryParser = function i(e, t) {
       ml(34), wl(154), ii();
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         ml(41), wl(154), ii()
       }
       ml(37)
@@ -1773,8 +1883,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("ParamList", Ll), z();
     for (;;) {
       wl(101);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(21), yl(), z()
     }
     ql.endNonterminal("ParamList", Ll)
@@ -1783,8 +1894,9 @@ var r = t.XQueryParser = function i(e, t) {
     W();
     for (;;) {
       wl(101);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(21), W()
     }
   }
@@ -1810,8 +1922,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Q() {
     ql.startNonterminal("Expr", Ll), Nf();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(267), yl(), Nf()
     }
     ql.endNonterminal("Expr", Ll)
@@ -1819,8 +1932,9 @@ var r = t.XQueryParser = function i(e, t) {
   function G() {
     Cf();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(267), Cf()
     }
   }
@@ -1828,8 +1942,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("FLWORExpr", Ll), et();
     for (;;) {
       wl(173);
-      if (Al == 220)
+      if (Al == 220) {
         break;
+      }
       yl(), nt()
     }
     yl(), nn(), ql.endNonterminal("FLWORExpr", Ll)
@@ -1838,8 +1953,9 @@ var r = t.XQueryParser = function i(e, t) {
     tt();
     for (;;) {
       wl(173);
-      if (Al == 220)
+      if (Al == 220) {
         break;
+      }
       rt()
     }
     rn()
@@ -1927,8 +2043,9 @@ var r = t.XQueryParser = function i(e, t) {
   function it() {
     ql.startNonterminal("ForClause", Ll), vl(137), wl(21), yl(), ot();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(21), yl(), ot()
     }
     ql.endNonterminal("ForClause", Ll)
@@ -1936,8 +2053,9 @@ var r = t.XQueryParser = function i(e, t) {
   function st() {
     ml(137), wl(21), ut();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(21), ut()
     }
   }
@@ -1970,8 +2088,9 @@ var r = t.XQueryParser = function i(e, t) {
   function dt() {
     ql.startNonterminal("LetClause", Ll), vl(174), wl(96), yl(), mt();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(96), yl(), mt()
     }
     ql.endNonterminal("LetClause", Ll)
@@ -1979,8 +2098,9 @@ var r = t.XQueryParser = function i(e, t) {
   function vt() {
     ml(174), wl(96), gt();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(96), gt()
     }
   }
@@ -2030,8 +2150,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("TumblingWindowClause", Ll), vl(251), wl(85), vl(269),
         wl(21), vl(31), wl(253), yl(), fi(), wl(110), Al == 79 && (yl(), cs()),
         wl(53), vl(154), wl(267), yl(), Nf(), yl(), Tt();
-    if (Al == 126 || Al == 198)
+    if (Al == 126 || Al == 198) {
       yl(), Ct();
+    }
     ql.endNonterminal("TumblingWindowClause", Ll)
   }
   function Et() {
@@ -2110,8 +2231,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("GroupingSpecList", Ll), Wt();
     for (;;) {
       wl(176);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(21), yl(), Wt()
     }
     ql.endNonterminal("GroupingSpecList", Ll)
@@ -2120,21 +2242,24 @@ var r = t.XQueryParser = function i(e, t) {
     Xt();
     for (;;) {
       wl(176);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(21), Xt()
     }
   }
   function Wt() {
     ql.startNonterminal("GroupingSpec", Ll), Vt(), wl(182);
-    if (Al == 52 || Al == 79)
+    if (Al == 52 || Al == 79) {
       Al == 79 && (yl(), cs()), wl(27), vl(52), wl(267), yl(), Nf();
+    }
     Al == 94 && (vl(94), wl(15), vl(7)), ql.endNonterminal("GroupingSpec", Ll)
   }
   function Xt() {
     $t(), wl(182);
-    if (Al == 52 || Al == 79)
+    if (Al == 52 || Al == 79) {
       Al == 79 && hs(), wl(27), ml(52), wl(267), Cf();
+    }
     Al == 94 && (ml(94), wl(15), ml(7))
   }
   function Vt() {
@@ -2167,8 +2292,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("OrderSpecList", Ll), Yt();
     for (;;) {
       wl(176);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(267), yl(), Yt()
     }
     ql.endNonterminal("OrderSpecList", Ll)
@@ -2177,8 +2303,9 @@ var r = t.XQueryParser = function i(e, t) {
     Zt();
     for (;;) {
       wl(176);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(267), Zt()
     }
   }
@@ -2189,7 +2316,7 @@ var r = t.XQueryParser = function i(e, t) {
   function Zt() { Cf(), tn() }
   function en() {
     ql.startNonterminal("OrderModifier", Ll);
-    if (Al == 80 || Al == 113)
+    if (Al == 80 || Al == 113) {
       switch (Al) {
       case 80:
         vl(80);
@@ -2197,6 +2324,7 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         vl(113)
       }
+    }
     wl(179);
     if (Al == 123) {
       vl(123), wl(121);
@@ -2212,7 +2340,7 @@ var r = t.XQueryParser = function i(e, t) {
         ql.endNonterminal("OrderModifier", Ll)
   }
   function tn() {
-    if (Al == 80 || Al == 113)
+    if (Al == 80 || Al == 113) {
       switch (Al) {
       case 80:
         ml(80);
@@ -2220,6 +2348,7 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         ml(113)
       }
+    }
     wl(179);
     if (Al == 123) {
       ml(123), wl(121);
@@ -2250,8 +2379,9 @@ var r = t.XQueryParser = function i(e, t) {
     wl(21), vl(31), wl(253), yl(), fi(), wl(110), Al == 79 && (yl(), cs()),
         wl(53), vl(154), wl(267), yl(), Nf();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(21), vl(31), wl(253), yl(), fi(), wl(110),
           Al == 79 && (yl(), cs()), wl(53), vl(154), wl(267), yl(), Nf()
     }
@@ -2268,8 +2398,9 @@ var r = t.XQueryParser = function i(e, t) {
     wl(21), ml(31), wl(253), li(), wl(110), Al == 79 && hs(), wl(53), ml(154),
         wl(267), Cf();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(21), ml(31), wl(253), li(), wl(110), Al == 79 && hs(), wl(53),
           ml(154), wl(267), Cf()
     }
@@ -2280,9 +2411,10 @@ var r = t.XQueryParser = function i(e, t) {
         yl(), Q(), vl(37);
     for (;;) {
       wl(35), yl(), fn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     vl(109), wl(70), vl(220), wl(267), yl(), Nf(),
         ql.endNonterminal("SwitchExpr", Ll)
   }
@@ -2290,26 +2422,29 @@ var r = t.XQueryParser = function i(e, t) {
     ml(243), wl(22), ml(34), wl(267), G(), ml(37);
     for (;;) {
       wl(35), ln();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     ml(109), wl(70), ml(220), wl(267), Cf()
   }
   function fn() {
     ql.startNonterminal("SwitchCaseClause", Ll);
     for (;;) {
       vl(88), wl(267), yl(), cn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     vl(220), wl(267), yl(), Nf(), ql.endNonterminal("SwitchCaseClause", Ll)
   }
   function ln() {
     for (;;) {
       ml(88), wl(267), hn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     ml(220), wl(267), Cf()
   }
   function cn() {
@@ -2322,9 +2457,10 @@ var r = t.XQueryParser = function i(e, t) {
         yl(), Q(), vl(37);
     for (;;) {
       wl(35), yl(), vn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     vl(109), wl(95), Al == 31 && (vl(31), wl(253), yl(), fi()), wl(70), vl(220),
         wl(267), yl(), Nf(), ql.endNonterminal("TypeswitchExpr", Ll)
   }
@@ -2332,9 +2468,10 @@ var r = t.XQueryParser = function i(e, t) {
     ml(253), wl(22), ml(34), wl(267), G(), ml(37);
     for (;;) {
       wl(35), mn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     ml(109), wl(95), Al == 31 && (ml(31), wl(253), li()), wl(70), ml(220),
         wl(267), Cf()
   }
@@ -2352,8 +2489,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("SequenceTypeUnion", Ll), ps();
     for (;;) {
       wl(134);
-      if (Al != 279)
+      if (Al != 279) {
         break;
+      }
       vl(279), wl(259), yl(), ps()
     }
     ql.endNonterminal("SequenceTypeUnion", Ll)
@@ -2362,8 +2500,9 @@ var r = t.XQueryParser = function i(e, t) {
     ds();
     for (;;) {
       wl(134);
-      if (Al != 279)
+      if (Al != 279) {
         break;
+      }
       ml(279), wl(259), ds()
     }
   }
@@ -2380,18 +2519,20 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("TryCatchExpr", Ll), xn();
     for (;;) {
       wl(36), yl(), kn(), wl(184);
-      if (Al != 91)
+      if (Al != 91) {
         break
     }
+      }
     ql.endNonterminal("TryCatchExpr", Ll)
   }
   function Sn() {
     Tn();
     for (;;) {
       wl(36), Ln(), wl(184);
-      if (Al != 91)
+      if (Al != 91) {
         break
     }
+      }
   }
   function xn() {
     ql.startNonterminal("TryClause", Ll), vl(250), wl(87), vl(276), wl(267),
@@ -2413,8 +2554,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("CatchErrorList", Ll), $r();
     for (;;) {
       wl(136);
-      if (Al != 279)
+      if (Al != 279) {
         break;
+      }
       vl(279), wl(255), yl(), $r()
     }
     ql.endNonterminal("CatchErrorList", Ll)
@@ -2423,16 +2565,18 @@ var r = t.XQueryParser = function i(e, t) {
     Jr();
     for (;;) {
       wl(136);
-      if (Al != 279)
+      if (Al != 279) {
         break;
+      }
       ml(279), wl(255), Jr()
     }
   }
   function Mn() {
     ql.startNonterminal("OrExpr", Ll), Dn();
     for (;;) {
-      if (Al != 200)
+      if (Al != 200) {
         break;
+      }
       vl(200), wl(265), yl(), Dn()
     }
     ql.endNonterminal("OrExpr", Ll)
@@ -2440,16 +2584,18 @@ var r = t.XQueryParser = function i(e, t) {
   function _n() {
     Pn();
     for (;;) {
-      if (Al != 200)
+      if (Al != 200) {
         break;
+      }
       ml(200), wl(265), Pn()
     }
   }
   function Dn() {
     ql.startNonterminal("AndExpr", Ll), Hn();
     for (;;) {
-      if (Al != 75)
+      if (Al != 75) {
         break;
+      }
       vl(75), wl(265), yl(), Hn()
     }
     ql.endNonterminal("AndExpr", Ll)
@@ -2457,16 +2603,18 @@ var r = t.XQueryParser = function i(e, t) {
   function Pn() {
     Bn();
     for (;;) {
-      if (Al != 75)
+      if (Al != 75) {
         break;
+      }
       ml(75), wl(265), Bn()
     }
   }
   function Hn() {
     ql.startNonterminal("ComparisonExpr", Ll), jn();
-    if (Al == 27 || Al == 54 || Al == 57 || Al == 58 || Al == 60 || Al == 61 ||
-        Al == 62 || Al == 63 || Al == 128 || Al == 146 || Al == 150 ||
-        Al == 164 || Al == 172 || Al == 178 || Al == 186) {
+    if (Al == 27 || Al == 54 || Al == 57 || Al == 58 || Al == 60 || Al == 61 
+        || Al == 62 || Al == 63 || Al == 128 || Al == 146 || Al == 150 
+        || Al == 164 || Al == 172 || Al == 178 || Al == 186
+    ) {
       switch (Al) {
       case 128:
       case 146:
@@ -2490,9 +2638,10 @@ var r = t.XQueryParser = function i(e, t) {
   }
   function Bn() {
     Fn();
-    if (Al == 27 || Al == 54 || Al == 57 || Al == 58 || Al == 60 || Al == 61 ||
-        Al == 62 || Al == 63 || Al == 128 || Al == 146 || Al == 150 ||
-        Al == 164 || Al == 172 || Al == 178 || Al == 186) {
+    if (Al == 27 || Al == 54 || Al == 57 || Al == 58 || Al == 60 || Al == 61 
+        || Al == 62 || Al == 63 || Al == 128 || Al == 146 || Al == 150 
+        || Al == 164 || Al == 172 || Al == 178 || Al == 186
+    ) {
       switch (Al) {
       case 128:
       case 146:
@@ -2526,8 +2675,9 @@ var r = t.XQueryParser = function i(e, t) {
   function In() {
     ql.startNonterminal("StringConcatExpr", Ll), Rn();
     for (;;) {
-      if (Al != 280)
+      if (Al != 280) {
         break;
+      }
       vl(280), wl(265), yl(), Rn()
     }
     ql.endNonterminal("StringConcatExpr", Ll)
@@ -2535,8 +2685,9 @@ var r = t.XQueryParser = function i(e, t) {
   function qn() {
     Un();
     for (;;) {
-      if (Al != 280)
+      if (Al != 280) {
         break;
+      }
       ml(280), wl(265), Un()
     }
   }
@@ -2549,8 +2700,9 @@ var r = t.XQueryParser = function i(e, t) {
   function zn() {
     ql.startNonterminal("AdditiveExpr", Ll), Xn();
     for (;;) {
-      if (Al != 40 && Al != 42)
+      if (Al != 40 && Al != 42) {
         break;
+      }
       switch (Al) {
       case 40:
         vl(40);
@@ -2565,8 +2717,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Wn() {
     Vn();
     for (;;) {
-      if (Al != 40 && Al != 42)
+      if (Al != 40 && Al != 42) {
         break;
+      }
       switch (Al) {
       case 40:
         ml(40);
@@ -2580,8 +2733,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Xn() {
     ql.startNonterminal("MultiplicativeExpr", Ll), $n();
     for (;;) {
-      if (Al != 38 && Al != 118 && Al != 151 && Al != 180)
+      if (Al != 38 && Al != 118 && Al != 151 && Al != 180) {
         break;
+      }
       switch (Al) {
       case 38:
         vl(38);
@@ -2602,8 +2756,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Vn() {
     Jn();
     for (;;) {
-      if (Al != 38 && Al != 118 && Al != 151 && Al != 180)
+      if (Al != 38 && Al != 118 && Al != 151 && Al != 180) {
         break;
+      }
       switch (Al) {
       case 38:
         ml(38);
@@ -2623,8 +2778,9 @@ var r = t.XQueryParser = function i(e, t) {
   function $n() {
     ql.startNonterminal("UnionExpr", Ll), Kn();
     for (;;) {
-      if (Al != 254 && Al != 279)
+      if (Al != 254 && Al != 279) {
         break;
+      }
       switch (Al) {
       case 254:
         vl(254);
@@ -2639,8 +2795,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Jn() {
     Qn();
     for (;;) {
-      if (Al != 254 && Al != 279)
+      if (Al != 254 && Al != 279) {
         break;
+      }
       switch (Al) {
       case 254:
         ml(254);
@@ -2655,8 +2812,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("IntersectExceptExpr", Ll), Gn();
     for (;;) {
       wl(222);
-      if (Al != 131 && Al != 162)
+      if (Al != 131 && Al != 162) {
         break;
+      }
       switch (Al) {
       case 162:
         vl(162);
@@ -2672,8 +2830,9 @@ var r = t.XQueryParser = function i(e, t) {
     Yn();
     for (;;) {
       wl(222);
-      if (Al != 131 && Al != 162)
+      if (Al != 131 && Al != 162) {
         break;
+      }
       switch (Al) {
       case 162:
         ml(162);
@@ -2720,8 +2879,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("UnaryExpr", Ll);
     for (;;) {
       wl(265);
-      if (Al != 40 && Al != 42)
+      if (Al != 40 && Al != 42) {
         break;
+      }
       switch (Al) {
       case 42:
         vl(42);
@@ -2735,8 +2895,9 @@ var r = t.XQueryParser = function i(e, t) {
   function or() {
     for (;;) {
       wl(265);
-      if (Al != 40 && Al != 42)
+      if (Al != 40 && Al != 42) {
         break;
+      }
       switch (Al) {
       case 42:
         ml(42);
@@ -2796,8 +2957,9 @@ var r = t.XQueryParser = function i(e, t) {
   function fr() {
     ql.startNonterminal("SimpleMapExpr", Ll), Nr();
     for (;;) {
-      if (Al != 26)
+      if (Al != 26) {
         break;
+      }
       vl(26), wl(264), yl(), Nr()
     }
     ql.endNonterminal("SimpleMapExpr", Ll)
@@ -2805,8 +2967,9 @@ var r = t.XQueryParser = function i(e, t) {
   function lr() {
     Cr();
     for (;;) {
-      if (Al != 26)
+      if (Al != 26) {
         break;
+      }
       ml(26), wl(264), Cr()
     }
   }
@@ -2926,7 +3089,7 @@ var r = t.XQueryParser = function i(e, t) {
   }
   function gr() {
     ql.startNonterminal("ValidateExpr", Ll), vl(260), wl(160);
-    if (Al != 276)
+    if (Al != 276) {
       switch (Al) {
       case 252:
         vl(252), wl(253), yl(), po();
@@ -2934,12 +3097,13 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         yl(), br()
       }
+    }
     wl(87), vl(276), wl(267), yl(), Q(), vl(282),
         ql.endNonterminal("ValidateExpr", Ll)
   }
   function yr() {
     ml(260), wl(160);
-    if (Al != 276)
+    if (Al != 276) {
       switch (Al) {
       case 252:
         ml(252), wl(253), vo();
@@ -2947,6 +3111,7 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         wr()
       }
+    }
     wl(87), ml(276), wl(267), G(), ml(282)
   }
   function br() {
@@ -2973,18 +3138,20 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("ExtensionExpr", Ll);
     for (;;) {
       yl(), xr(), wl(100);
-      if (Al != 35)
+      if (Al != 35) {
         break
     }
+      }
     vl(276), wl(273), Al != 282 && (yl(), Q()), vl(282),
         ql.endNonterminal("ExtensionExpr", Ll)
   }
   function Sr() {
     for (;;) {
       Tr(), wl(100);
-      if (Al != 35)
+      if (Al != 35) {
         break
     }
+      }
     ml(276), wl(273), Al != 282 && G(), ml(282)
   }
   function xr() {
@@ -3096,22 +3263,23 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 25 && Cl != 27 && Cl != 37 && Cl != 38 && Cl != 40 &&
-          Cl != 41 && Cl != 42 && Cl != 46 && Cl != 47 && Cl != 49 &&
-          Cl != 53 && Cl != 54 && Cl != 57 && Cl != 58 && Cl != 60 &&
-          Cl != 61 && Cl != 62 && Cl != 63 && Cl != 69 && Cl != 70 &&
-          Cl != 75 && Cl != 79 && Cl != 80 && Cl != 81 && Cl != 84 &&
-          Cl != 87 && Cl != 88 && Cl != 89 && Cl != 90 && Cl != 94 &&
-          Cl != 99 && Cl != 105 && Cl != 109 && Cl != 113 && Cl != 118 &&
-          Cl != 122 && Cl != 123 && Cl != 126 && Cl != 128 && Cl != 131 &&
-          Cl != 137 && Cl != 146 && Cl != 148 && Cl != 150 && Cl != 151 &&
-          Cl != 160 && Cl != 162 && Cl != 163 && Cl != 164 && Cl != 172 &&
-          Cl != 174 && Cl != 178 && Cl != 180 && Cl != 181 && Cl != 186 &&
-          Cl != 198 && Cl != 200 && Cl != 201 && Cl != 205 && Cl != 220 &&
-          Cl != 224 && Cl != 232 && Cl != 236 && Cl != 237 && Cl != 247 &&
-          Cl != 248 && Cl != 249 && Cl != 254 && Cl != 266 && Cl != 270 &&
-          Cl != 273 && Cl != 279 && Cl != 280 && Cl != 281 && Cl != 282 &&
-          Cl != 23578 && Cl != 24090) {
+      if (Cl != 25 && Cl != 27 && Cl != 37 && Cl != 38 && Cl != 40 
+          && Cl != 41 && Cl != 42 && Cl != 46 && Cl != 47 && Cl != 49 
+          && Cl != 53 && Cl != 54 && Cl != 57 && Cl != 58 && Cl != 60 
+          && Cl != 61 && Cl != 62 && Cl != 63 && Cl != 69 && Cl != 70 
+          && Cl != 75 && Cl != 79 && Cl != 80 && Cl != 81 && Cl != 84 
+          && Cl != 87 && Cl != 88 && Cl != 89 && Cl != 90 && Cl != 94 
+          && Cl != 99 && Cl != 105 && Cl != 109 && Cl != 113 && Cl != 118 
+          && Cl != 122 && Cl != 123 && Cl != 126 && Cl != 128 && Cl != 131 
+          && Cl != 137 && Cl != 146 && Cl != 148 && Cl != 150 && Cl != 151 
+          && Cl != 160 && Cl != 162 && Cl != 163 && Cl != 164 && Cl != 172 
+          && Cl != 174 && Cl != 178 && Cl != 180 && Cl != 181 && Cl != 186 
+          && Cl != 198 && Cl != 200 && Cl != 201 && Cl != 205 && Cl != 220 
+          && Cl != 224 && Cl != 232 && Cl != 236 && Cl != 237 && Cl != 247 
+          && Cl != 248 && Cl != 249 && Cl != 254 && Cl != 266 && Cl != 270 
+          && Cl != 273 && Cl != 279 && Cl != 280 && Cl != 281 && Cl != 282 
+          && Cl != 23578 && Cl != 24090
+      ) {
         Cl = pl(2, Ll);
         if (Cl == 0) {
           var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -3137,8 +3305,9 @@ var r = t.XQueryParser = function i(e, t) {
           hl(2, Ll, Cl)
         }
       }
-      if (Cl != -1 && Cl != 46 && Cl != 47)
+      if (Cl != -1 && Cl != 46 && Cl != 47) {
         break;
+      }
       switch (Al) {
       case 46:
         vl(46);
@@ -3163,22 +3332,23 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 25 && Cl != 27 && Cl != 37 && Cl != 38 && Cl != 40 &&
-          Cl != 41 && Cl != 42 && Cl != 46 && Cl != 47 && Cl != 49 &&
-          Cl != 53 && Cl != 54 && Cl != 57 && Cl != 58 && Cl != 60 &&
-          Cl != 61 && Cl != 62 && Cl != 63 && Cl != 69 && Cl != 70 &&
-          Cl != 75 && Cl != 79 && Cl != 80 && Cl != 81 && Cl != 84 &&
-          Cl != 87 && Cl != 88 && Cl != 89 && Cl != 90 && Cl != 94 &&
-          Cl != 99 && Cl != 105 && Cl != 109 && Cl != 113 && Cl != 118 &&
-          Cl != 122 && Cl != 123 && Cl != 126 && Cl != 128 && Cl != 131 &&
-          Cl != 137 && Cl != 146 && Cl != 148 && Cl != 150 && Cl != 151 &&
-          Cl != 160 && Cl != 162 && Cl != 163 && Cl != 164 && Cl != 172 &&
-          Cl != 174 && Cl != 178 && Cl != 180 && Cl != 181 && Cl != 186 &&
-          Cl != 198 && Cl != 200 && Cl != 201 && Cl != 205 && Cl != 220 &&
-          Cl != 224 && Cl != 232 && Cl != 236 && Cl != 237 && Cl != 247 &&
-          Cl != 248 && Cl != 249 && Cl != 254 && Cl != 266 && Cl != 270 &&
-          Cl != 273 && Cl != 279 && Cl != 280 && Cl != 281 && Cl != 282 &&
-          Cl != 23578 && Cl != 24090) {
+      if (Cl != 25 && Cl != 27 && Cl != 37 && Cl != 38 && Cl != 40 
+          && Cl != 41 && Cl != 42 && Cl != 46 && Cl != 47 && Cl != 49 
+          && Cl != 53 && Cl != 54 && Cl != 57 && Cl != 58 && Cl != 60 
+          && Cl != 61 && Cl != 62 && Cl != 63 && Cl != 69 && Cl != 70 
+          && Cl != 75 && Cl != 79 && Cl != 80 && Cl != 81 && Cl != 84 
+          && Cl != 87 && Cl != 88 && Cl != 89 && Cl != 90 && Cl != 94 
+          && Cl != 99 && Cl != 105 && Cl != 109 && Cl != 113 && Cl != 118 
+          && Cl != 122 && Cl != 123 && Cl != 126 && Cl != 128 && Cl != 131 
+          && Cl != 137 && Cl != 146 && Cl != 148 && Cl != 150 && Cl != 151 
+          && Cl != 160 && Cl != 162 && Cl != 163 && Cl != 164 && Cl != 172 
+          && Cl != 174 && Cl != 178 && Cl != 180 && Cl != 181 && Cl != 186 
+          && Cl != 198 && Cl != 200 && Cl != 201 && Cl != 205 && Cl != 220 
+          && Cl != 224 && Cl != 232 && Cl != 236 && Cl != 237 && Cl != 247 
+          && Cl != 248 && Cl != 249 && Cl != 254 && Cl != 266 && Cl != 270 
+          && Cl != 273 && Cl != 279 && Cl != 280 && Cl != 281 && Cl != 282 
+          && Cl != 23578 && Cl != 24090
+      ) {
         Cl = pl(2, Ll);
         if (Cl == 0) {
           var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -3205,8 +3375,9 @@ var r = t.XQueryParser = function i(e, t) {
           }
         }
       }
-      if (Cl != -1 && Cl != 46 && Cl != 47)
+      if (Cl != -1 && Cl != 46 && Cl != 47) {
         break;
+      }
       switch (Al) {
       case 46:
         ml(46);
@@ -3372,53 +3543,54 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 17486 || Cl == 17575 || Cl == 17602 || Cl == 35922 ||
-        Cl == 35961 || Cl == 36024 || Cl == 36056 || Cl == 38482 ||
-        Cl == 38521 || Cl == 38584 || Cl == 38616 || Cl == 40530 ||
-        Cl == 40569 || Cl == 40632 || Cl == 40664 || Cl == 41042 ||
-        Cl == 41081 || Cl == 41144 || Cl == 41176 || Cl == 41554 ||
-        Cl == 41593 || Cl == 41656 || Cl == 41688 || Cl == 43090 ||
-        Cl == 43129 || Cl == 43192 || Cl == 43224 || Cl == 45138 ||
-        Cl == 45177 || Cl == 45240 || Cl == 45272 || Cl == 45650 ||
-        Cl == 45689 || Cl == 45752 || Cl == 45784 || Cl == 46162 ||
-        Cl == 46201 || Cl == 46264 || Cl == 46296 || Cl == 48210 ||
-        Cl == 48249 || Cl == 48312 || Cl == 48344 || Cl == 53842 ||
-        Cl == 53881 || Cl == 53944 || Cl == 53976 || Cl == 55890 ||
-        Cl == 55929 || Cl == 55992 || Cl == 56024 || Cl == 57938 ||
-        Cl == 57977 || Cl == 58040 || Cl == 58072 || Cl == 60498 ||
-        Cl == 60537 || Cl == 60600 || Cl == 60632 || Cl == 62546 ||
-        Cl == 62585 || Cl == 62648 || Cl == 62680 || Cl == 63058 ||
-        Cl == 63097 || Cl == 63160 || Cl == 63192 || Cl == 64594 ||
-        Cl == 64633 || Cl == 64696 || Cl == 64728 || Cl == 65618 ||
-        Cl == 65657 || Cl == 65720 || Cl == 65752 || Cl == 67154 ||
-        Cl == 67193 || Cl == 67256 || Cl == 67288 || Cl == 70226 ||
-        Cl == 70265 || Cl == 70328 || Cl == 70360 || Cl == 74834 ||
-        Cl == 74873 || Cl == 74936 || Cl == 74968 || Cl == 75858 ||
-        Cl == 75897 || Cl == 75960 || Cl == 75992 || Cl == 76882 ||
-        Cl == 76921 || Cl == 76984 || Cl == 77016 || Cl == 77394 ||
-        Cl == 77433 || Cl == 77496 || Cl == 77528 || Cl == 82002 ||
-        Cl == 82041 || Cl == 82104 || Cl == 82136 || Cl == 83026 ||
-        Cl == 83065 || Cl == 83128 || Cl == 83160 || Cl == 83538 ||
-        Cl == 83577 || Cl == 83640 || Cl == 83672 || Cl == 84050 ||
-        Cl == 84089 || Cl == 84152 || Cl == 84184 || Cl == 88146 ||
-        Cl == 88185 || Cl == 88248 || Cl == 88280 || Cl == 89170 ||
-        Cl == 89209 || Cl == 89272 || Cl == 89304 || Cl == 91218 ||
-        Cl == 91257 || Cl == 91320 || Cl == 91352 || Cl == 92242 ||
-        Cl == 92281 || Cl == 92344 || Cl == 92376 || Cl == 92754 ||
-        Cl == 92793 || Cl == 92856 || Cl == 92888 || Cl == 95314 ||
-        Cl == 95353 || Cl == 95416 || Cl == 95448 || Cl == 101458 ||
-        Cl == 101497 || Cl == 101560 || Cl == 101592 || Cl == 102482 ||
-        Cl == 102521 || Cl == 102584 || Cl == 102616 || Cl == 102994 ||
-        Cl == 103033 || Cl == 103096 || Cl == 103128 || Cl == 112722 ||
-        Cl == 112761 || Cl == 112824 || Cl == 112856 || Cl == 114770 ||
-        Cl == 114809 || Cl == 114872 || Cl == 114904 || Cl == 120914 ||
-        Cl == 120953 || Cl == 121016 || Cl == 121048 || Cl == 121426 ||
-        Cl == 121465 || Cl == 121528 || Cl == 121560 || Cl == 127058 ||
-        Cl == 127097 || Cl == 127160 || Cl == 127192 || Cl == 127570 ||
-        Cl == 127609 || Cl == 127672 || Cl == 127704 || Cl == 130130 ||
-        Cl == 130169 || Cl == 130232 || Cl == 130264 || Cl == 136274 ||
-        Cl == 136313 || Cl == 136376 || Cl == 136408 || Cl == 138322 ||
-        Cl == 138361 || Cl == 138424 || Cl == 138456) {
+    if (Cl == 17486 || Cl == 17575 || Cl == 17602 || Cl == 35922 
+        || Cl == 35961 || Cl == 36024 || Cl == 36056 || Cl == 38482 
+        || Cl == 38521 || Cl == 38584 || Cl == 38616 || Cl == 40530 
+        || Cl == 40569 || Cl == 40632 || Cl == 40664 || Cl == 41042 
+        || Cl == 41081 || Cl == 41144 || Cl == 41176 || Cl == 41554 
+        || Cl == 41593 || Cl == 41656 || Cl == 41688 || Cl == 43090 
+        || Cl == 43129 || Cl == 43192 || Cl == 43224 || Cl == 45138 
+        || Cl == 45177 || Cl == 45240 || Cl == 45272 || Cl == 45650 
+        || Cl == 45689 || Cl == 45752 || Cl == 45784 || Cl == 46162 
+        || Cl == 46201 || Cl == 46264 || Cl == 46296 || Cl == 48210 
+        || Cl == 48249 || Cl == 48312 || Cl == 48344 || Cl == 53842 
+        || Cl == 53881 || Cl == 53944 || Cl == 53976 || Cl == 55890 
+        || Cl == 55929 || Cl == 55992 || Cl == 56024 || Cl == 57938 
+        || Cl == 57977 || Cl == 58040 || Cl == 58072 || Cl == 60498 
+        || Cl == 60537 || Cl == 60600 || Cl == 60632 || Cl == 62546 
+        || Cl == 62585 || Cl == 62648 || Cl == 62680 || Cl == 63058 
+        || Cl == 63097 || Cl == 63160 || Cl == 63192 || Cl == 64594 
+        || Cl == 64633 || Cl == 64696 || Cl == 64728 || Cl == 65618 
+        || Cl == 65657 || Cl == 65720 || Cl == 65752 || Cl == 67154 
+        || Cl == 67193 || Cl == 67256 || Cl == 67288 || Cl == 70226 
+        || Cl == 70265 || Cl == 70328 || Cl == 70360 || Cl == 74834 
+        || Cl == 74873 || Cl == 74936 || Cl == 74968 || Cl == 75858 
+        || Cl == 75897 || Cl == 75960 || Cl == 75992 || Cl == 76882 
+        || Cl == 76921 || Cl == 76984 || Cl == 77016 || Cl == 77394 
+        || Cl == 77433 || Cl == 77496 || Cl == 77528 || Cl == 82002 
+        || Cl == 82041 || Cl == 82104 || Cl == 82136 || Cl == 83026 
+        || Cl == 83065 || Cl == 83128 || Cl == 83160 || Cl == 83538 
+        || Cl == 83577 || Cl == 83640 || Cl == 83672 || Cl == 84050 
+        || Cl == 84089 || Cl == 84152 || Cl == 84184 || Cl == 88146 
+        || Cl == 88185 || Cl == 88248 || Cl == 88280 || Cl == 89170 
+        || Cl == 89209 || Cl == 89272 || Cl == 89304 || Cl == 91218 
+        || Cl == 91257 || Cl == 91320 || Cl == 91352 || Cl == 92242 
+        || Cl == 92281 || Cl == 92344 || Cl == 92376 || Cl == 92754 
+        || Cl == 92793 || Cl == 92856 || Cl == 92888 || Cl == 95314 
+        || Cl == 95353 || Cl == 95416 || Cl == 95448 || Cl == 101458 
+        || Cl == 101497 || Cl == 101560 || Cl == 101592 || Cl == 102482 
+        || Cl == 102521 || Cl == 102584 || Cl == 102616 || Cl == 102994 
+        || Cl == 103033 || Cl == 103096 || Cl == 103128 || Cl == 112722 
+        || Cl == 112761 || Cl == 112824 || Cl == 112856 || Cl == 114770 
+        || Cl == 114809 || Cl == 114872 || Cl == 114904 || Cl == 120914 
+        || Cl == 120953 || Cl == 121016 || Cl == 121048 || Cl == 121426 
+        || Cl == 121465 || Cl == 121528 || Cl == 121560 || Cl == 127058 
+        || Cl == 127097 || Cl == 127160 || Cl == 127192 || Cl == 127570 
+        || Cl == 127609 || Cl == 127672 || Cl == 127704 || Cl == 130130 
+        || Cl == 130169 || Cl == 130232 || Cl == 130264 || Cl == 136274 
+        || Cl == 136313 || Cl == 136376 || Cl == 136408 || Cl == 138322 
+        || Cl == 138361 || Cl == 138424 || Cl == 138456
+    ) {
       Cl = pl(3, Ll);
       if (Cl == 0) {
         var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -4201,53 +4373,54 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 17486 || Cl == 17575 || Cl == 17602 || Cl == 35922 ||
-        Cl == 35961 || Cl == 36024 || Cl == 36056 || Cl == 38482 ||
-        Cl == 38521 || Cl == 38584 || Cl == 38616 || Cl == 40530 ||
-        Cl == 40569 || Cl == 40632 || Cl == 40664 || Cl == 41042 ||
-        Cl == 41081 || Cl == 41144 || Cl == 41176 || Cl == 41554 ||
-        Cl == 41593 || Cl == 41656 || Cl == 41688 || Cl == 43090 ||
-        Cl == 43129 || Cl == 43192 || Cl == 43224 || Cl == 45138 ||
-        Cl == 45177 || Cl == 45240 || Cl == 45272 || Cl == 45650 ||
-        Cl == 45689 || Cl == 45752 || Cl == 45784 || Cl == 46162 ||
-        Cl == 46201 || Cl == 46264 || Cl == 46296 || Cl == 48210 ||
-        Cl == 48249 || Cl == 48312 || Cl == 48344 || Cl == 53842 ||
-        Cl == 53881 || Cl == 53944 || Cl == 53976 || Cl == 55890 ||
-        Cl == 55929 || Cl == 55992 || Cl == 56024 || Cl == 57938 ||
-        Cl == 57977 || Cl == 58040 || Cl == 58072 || Cl == 60498 ||
-        Cl == 60537 || Cl == 60600 || Cl == 60632 || Cl == 62546 ||
-        Cl == 62585 || Cl == 62648 || Cl == 62680 || Cl == 63058 ||
-        Cl == 63097 || Cl == 63160 || Cl == 63192 || Cl == 64594 ||
-        Cl == 64633 || Cl == 64696 || Cl == 64728 || Cl == 65618 ||
-        Cl == 65657 || Cl == 65720 || Cl == 65752 || Cl == 67154 ||
-        Cl == 67193 || Cl == 67256 || Cl == 67288 || Cl == 70226 ||
-        Cl == 70265 || Cl == 70328 || Cl == 70360 || Cl == 74834 ||
-        Cl == 74873 || Cl == 74936 || Cl == 74968 || Cl == 75858 ||
-        Cl == 75897 || Cl == 75960 || Cl == 75992 || Cl == 76882 ||
-        Cl == 76921 || Cl == 76984 || Cl == 77016 || Cl == 77394 ||
-        Cl == 77433 || Cl == 77496 || Cl == 77528 || Cl == 82002 ||
-        Cl == 82041 || Cl == 82104 || Cl == 82136 || Cl == 83026 ||
-        Cl == 83065 || Cl == 83128 || Cl == 83160 || Cl == 83538 ||
-        Cl == 83577 || Cl == 83640 || Cl == 83672 || Cl == 84050 ||
-        Cl == 84089 || Cl == 84152 || Cl == 84184 || Cl == 88146 ||
-        Cl == 88185 || Cl == 88248 || Cl == 88280 || Cl == 89170 ||
-        Cl == 89209 || Cl == 89272 || Cl == 89304 || Cl == 91218 ||
-        Cl == 91257 || Cl == 91320 || Cl == 91352 || Cl == 92242 ||
-        Cl == 92281 || Cl == 92344 || Cl == 92376 || Cl == 92754 ||
-        Cl == 92793 || Cl == 92856 || Cl == 92888 || Cl == 95314 ||
-        Cl == 95353 || Cl == 95416 || Cl == 95448 || Cl == 101458 ||
-        Cl == 101497 || Cl == 101560 || Cl == 101592 || Cl == 102482 ||
-        Cl == 102521 || Cl == 102584 || Cl == 102616 || Cl == 102994 ||
-        Cl == 103033 || Cl == 103096 || Cl == 103128 || Cl == 112722 ||
-        Cl == 112761 || Cl == 112824 || Cl == 112856 || Cl == 114770 ||
-        Cl == 114809 || Cl == 114872 || Cl == 114904 || Cl == 120914 ||
-        Cl == 120953 || Cl == 121016 || Cl == 121048 || Cl == 121426 ||
-        Cl == 121465 || Cl == 121528 || Cl == 121560 || Cl == 127058 ||
-        Cl == 127097 || Cl == 127160 || Cl == 127192 || Cl == 127570 ||
-        Cl == 127609 || Cl == 127672 || Cl == 127704 || Cl == 130130 ||
-        Cl == 130169 || Cl == 130232 || Cl == 130264 || Cl == 136274 ||
-        Cl == 136313 || Cl == 136376 || Cl == 136408 || Cl == 138322 ||
-        Cl == 138361 || Cl == 138424 || Cl == 138456) {
+    if (Cl == 17486 || Cl == 17575 || Cl == 17602 || Cl == 35922 
+        || Cl == 35961 || Cl == 36024 || Cl == 36056 || Cl == 38482 
+        || Cl == 38521 || Cl == 38584 || Cl == 38616 || Cl == 40530 
+        || Cl == 40569 || Cl == 40632 || Cl == 40664 || Cl == 41042 
+        || Cl == 41081 || Cl == 41144 || Cl == 41176 || Cl == 41554 
+        || Cl == 41593 || Cl == 41656 || Cl == 41688 || Cl == 43090 
+        || Cl == 43129 || Cl == 43192 || Cl == 43224 || Cl == 45138 
+        || Cl == 45177 || Cl == 45240 || Cl == 45272 || Cl == 45650 
+        || Cl == 45689 || Cl == 45752 || Cl == 45784 || Cl == 46162 
+        || Cl == 46201 || Cl == 46264 || Cl == 46296 || Cl == 48210 
+        || Cl == 48249 || Cl == 48312 || Cl == 48344 || Cl == 53842 
+        || Cl == 53881 || Cl == 53944 || Cl == 53976 || Cl == 55890 
+        || Cl == 55929 || Cl == 55992 || Cl == 56024 || Cl == 57938 
+        || Cl == 57977 || Cl == 58040 || Cl == 58072 || Cl == 60498 
+        || Cl == 60537 || Cl == 60600 || Cl == 60632 || Cl == 62546 
+        || Cl == 62585 || Cl == 62648 || Cl == 62680 || Cl == 63058 
+        || Cl == 63097 || Cl == 63160 || Cl == 63192 || Cl == 64594 
+        || Cl == 64633 || Cl == 64696 || Cl == 64728 || Cl == 65618 
+        || Cl == 65657 || Cl == 65720 || Cl == 65752 || Cl == 67154 
+        || Cl == 67193 || Cl == 67256 || Cl == 67288 || Cl == 70226 
+        || Cl == 70265 || Cl == 70328 || Cl == 70360 || Cl == 74834 
+        || Cl == 74873 || Cl == 74936 || Cl == 74968 || Cl == 75858 
+        || Cl == 75897 || Cl == 75960 || Cl == 75992 || Cl == 76882 
+        || Cl == 76921 || Cl == 76984 || Cl == 77016 || Cl == 77394 
+        || Cl == 77433 || Cl == 77496 || Cl == 77528 || Cl == 82002 
+        || Cl == 82041 || Cl == 82104 || Cl == 82136 || Cl == 83026 
+        || Cl == 83065 || Cl == 83128 || Cl == 83160 || Cl == 83538 
+        || Cl == 83577 || Cl == 83640 || Cl == 83672 || Cl == 84050 
+        || Cl == 84089 || Cl == 84152 || Cl == 84184 || Cl == 88146 
+        || Cl == 88185 || Cl == 88248 || Cl == 88280 || Cl == 89170 
+        || Cl == 89209 || Cl == 89272 || Cl == 89304 || Cl == 91218 
+        || Cl == 91257 || Cl == 91320 || Cl == 91352 || Cl == 92242 
+        || Cl == 92281 || Cl == 92344 || Cl == 92376 || Cl == 92754 
+        || Cl == 92793 || Cl == 92856 || Cl == 92888 || Cl == 95314 
+        || Cl == 95353 || Cl == 95416 || Cl == 95448 || Cl == 101458 
+        || Cl == 101497 || Cl == 101560 || Cl == 101592 || Cl == 102482 
+        || Cl == 102521 || Cl == 102584 || Cl == 102616 || Cl == 102994 
+        || Cl == 103033 || Cl == 103096 || Cl == 103128 || Cl == 112722 
+        || Cl == 112761 || Cl == 112824 || Cl == 112856 || Cl == 114770 
+        || Cl == 114809 || Cl == 114872 || Cl == 114904 || Cl == 120914 
+        || Cl == 120953 || Cl == 121016 || Cl == 121048 || Cl == 121426 
+        || Cl == 121465 || Cl == 121528 || Cl == 121560 || Cl == 127058 
+        || Cl == 127097 || Cl == 127160 || Cl == 127192 || Cl == 127570 
+        || Cl == 127609 || Cl == 127672 || Cl == 127704 || Cl == 130130 
+        || Cl == 130169 || Cl == 130232 || Cl == 130264 || Cl == 136274 
+        || Cl == 136313 || Cl == 136376 || Cl == 136408 || Cl == 138322 
+        || Cl == 138361 || Cl == 138424 || Cl == 138456
+    ) {
       Cl = pl(3, Ll);
       if (Cl == 0) {
         var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -5218,8 +5391,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("PostfixExpr", Ll), Zf();
     for (;;) {
       wl(239);
-      if (Al != 34 && Al != 68)
+      if (Al != 34 && Al != 68) {
         break;
+      }
       switch (Al) {
       case 68:
         yl(), ti();
@@ -5234,8 +5408,9 @@ var r = t.XQueryParser = function i(e, t) {
     el();
     for (;;) {
       wl(239);
-      if (Al != 34 && Al != 68)
+      if (Al != 34 && Al != 68) {
         break;
+      }
       switch (Al) {
       case 68:
         ni();
@@ -5251,8 +5426,9 @@ var r = t.XQueryParser = function i(e, t) {
       yl(), Ei();
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(270), yl(), Ei()
       }
     }
@@ -5264,8 +5440,9 @@ var r = t.XQueryParser = function i(e, t) {
       Si();
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         ml(41), wl(270), Si()
       }
     }
@@ -5275,8 +5452,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("PredicateList", Ll);
     for (;;) {
       wl(236);
-      if (Al != 68)
+      if (Al != 68) {
         break;
+      }
       yl(), ti()
     }
     ql.endNonterminal("PredicateList", Ll)
@@ -5284,8 +5462,9 @@ var r = t.XQueryParser = function i(e, t) {
   function ei() {
     for (;;) {
       wl(236);
-      if (Al != 68)
+      if (Al != 68) {
         break;
+      }
       ni()
     }
   }
@@ -5460,8 +5639,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(61);
       for (;;) {
         Sl(174);
-        if (Al == 56)
+        if (Al == 56) {
           break;
+        }
         Ii()
       }
       vl(56), Sl(4), vl(20), Sl(12), Al == 21 && vl(21), Sl(8), vl(61)
@@ -5478,8 +5658,9 @@ var r = t.XQueryParser = function i(e, t) {
       ml(61);
       for (;;) {
         Sl(174);
-        if (Al == 56)
+        if (Al == 56) {
           break;
+        }
         qi()
       }
       ml(56), Sl(4), ml(20), Sl(12), Al == 21 && ml(21), Sl(8), ml(61)
@@ -5489,8 +5670,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("DirAttributeList", Ll);
     for (;;) {
       Sl(19);
-      if (Al != 21)
+      if (Al != 21) {
         break;
+      }
       vl(21), Sl(91),
           Al == 20 && (vl(20), Sl(11), Al == 21 && vl(21), Sl(7), vl(60),
                        Sl(18), Al == 21 && vl(21), Di())
@@ -5500,8 +5682,9 @@ var r = t.XQueryParser = function i(e, t) {
   function _i() {
     for (;;) {
       Sl(19);
-      if (Al != 21)
+      if (Al != 21) {
         break;
+      }
       ml(21), Sl(91),
           Al == 20 && (ml(20), Sl(11), Al == 21 && ml(21), Sl(7), ml(60),
                        Sl(18), Al == 21 && ml(21), Pi())
@@ -5514,8 +5697,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(28);
       for (;;) {
         Sl(167);
-        if (Al == 28)
+        if (Al == 28) {
           break;
+        }
         switch (Al) {
         case 13:
           vl(13);
@@ -5530,8 +5714,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(33);
       for (;;) {
         Sl(168);
-        if (Al == 33)
+        if (Al == 33) {
           break;
+        }
         switch (Al) {
         case 14:
           vl(14);
@@ -5551,8 +5736,9 @@ var r = t.XQueryParser = function i(e, t) {
       ml(28);
       for (;;) {
         Sl(167);
-        if (Al == 28)
+        if (Al == 28) {
           break;
+        }
         switch (Al) {
         case 13:
           ml(13);
@@ -5567,8 +5753,9 @@ var r = t.XQueryParser = function i(e, t) {
       ml(33);
       for (;;) {
         Sl(168);
-        if (Al == 33)
+        if (Al == 33) {
           break;
+        }
         switch (Al) {
         case 14:
           ml(14);
@@ -5587,7 +5774,7 @@ var r = t.XQueryParser = function i(e, t) {
       vl(16);
       break;
     default:
-      If()
+      If() {
     }
     ql.endNonterminal("QuotAttrValueContent", Ll)
   }
@@ -5607,7 +5794,7 @@ var r = t.XQueryParser = function i(e, t) {
       vl(17);
       break;
     default:
-      If()
+      If() {
     }
     ql.endNonterminal("AposAttrValueContent", Ll)
   }
@@ -5635,7 +5822,7 @@ var r = t.XQueryParser = function i(e, t) {
       vl(15);
       break;
     default:
-      If()
+      If() {
     }
     ql.endNonterminal("DirElemContent", Ll)
   }
@@ -5824,8 +6011,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("InlineFunctionExpr", Ll);
     for (;;) {
       wl(97);
-      if (Al != 32)
+      if (Al != 32) {
         break;
+      }
       yl(), H()
     }
     vl(145), wl(22), vl(34), wl(94), Al == 31 && (yl(), R()), vl(37), wl(111),
@@ -5835,8 +6023,9 @@ var r = t.XQueryParser = function i(e, t) {
   function as () {
     for (;;) {
       wl(97);
-      if (Al != 32)
+      if (Al != 32) {
         break;
+      }
       B()
     }
     ml(145), wl(22), ml(34), wl(94), Al == 31 && U(), ml(37), wl(111),
@@ -6207,7 +6396,7 @@ var r = t.XQueryParser = function i(e, t) {
   function Ps() { ml(191), wl(22), ml(34), wl(23), ml(37) }
   function Hs() {
     ql.startNonterminal("DocumentTest", Ll), vl(120), wl(22), vl(34), wl(144);
-    if (Al != 37)
+    if (Al != 37) {
       switch (Al) {
       case 121:
         yl(), Zs();
@@ -6215,11 +6404,12 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         yl(), ro()
       }
+    }
     wl(23), vl(37), ql.endNonterminal("DocumentTest", Ll)
   }
   function Bs() {
     ml(120), wl(22), ml(34), wl(144);
-    if (Al != 37)
+    if (Al != 37) {
       switch (Al) {
       case 121:
         eo();
@@ -6227,6 +6417,7 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         io()
       }
+    }
     wl(23), ml(37)
   }
   function js() {
@@ -6246,7 +6437,7 @@ var r = t.XQueryParser = function i(e, t) {
   function Us() { ml(185), wl(22), ml(34), wl(23), ml(37) }
   function zs() {
     ql.startNonterminal("PITest", Ll), vl(216), wl(22), vl(34), wl(251);
-    if (Al != 37)
+    if (Al != 37) {
       switch (Al) {
       case 11:
         vl(11);
@@ -6254,11 +6445,12 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         yl(), Pa()
       }
+    }
     wl(23), vl(37), ql.endNonterminal("PITest", Ll)
   }
   function Ws() {
     ml(216), wl(22), ml(34), wl(251);
-    if (Al != 37)
+    if (Al != 37) {
       switch (Al) {
       case 11:
         ml(11);
@@ -6266,6 +6458,7 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Ha()
       }
+    }
     wl(23), ml(37)
   }
   function Xs() {
@@ -6378,8 +6571,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("FunctionTest", Ll);
     for (;;) {
       wl(97);
-      if (Al != 32)
+      if (Al != 32) {
         break;
+      }
       yl(), H()
     }
     switch (Al) {
@@ -6415,8 +6609,9 @@ var r = t.XQueryParser = function i(e, t) {
   function go() {
     for (;;) {
       wl(97);
-      if (Al != 32)
+      if (Al != 32) {
         break;
+      }
       B()
     }
     switch (Al) {
@@ -6461,8 +6656,9 @@ var r = t.XQueryParser = function i(e, t) {
       yl(), ps();
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(259), yl(), ps()
       }
     }
@@ -6475,8 +6671,9 @@ var r = t.XQueryParser = function i(e, t) {
       ds();
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         ml(41), wl(259), ds()
       }
     }
@@ -6629,8 +6826,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("TransformExpr", Ll), vl(103), wl(21), vl(31), wl(253),
         yl(), fi(), wl(27), vl(52), wl(267), yl(), Nf();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(21), vl(31), wl(253), yl(), fi(), wl(27), vl(52), wl(267),
           yl(), Nf()
     }
@@ -6640,8 +6838,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Uo() {
     ml(103), wl(21), ml(31), wl(253), li(), wl(27), ml(52), wl(267), Cf();
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(21), ml(31), wl(253), li(), wl(27), ml(52), wl(267), Cf()
     }
     ml(181), wl(267), Cf(), ml(220), wl(267), Cf()
@@ -6657,9 +6856,11 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 115 && Cl != 117 && Cl != 127 && Cl != 202 && Cl != 223 &&
-          Cl != 269 && Cl != 64593 && Cl != 121425)
+      if (Cl != 115 && Cl != 117 && Cl != 127 && Cl != 202 && Cl != 223 
+          && Cl != 269 && Cl != 64593 && Cl != 121425
+      ) {
         break;
+      }
       yl(), gu()
     }
     ql.endNonterminal("FTSelection", Ll)
@@ -6675,9 +6876,11 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 115 && Cl != 117 && Cl != 127 && Cl != 202 && Cl != 223 &&
-          Cl != 269 && Cl != 64593 && Cl != 121425)
+      if (Cl != 115 && Cl != 117 && Cl != 127 && Cl != 202 && Cl != 223 
+          && Cl != 269 && Cl != 64593 && Cl != 121425
+      ) {
         break;
+      }
       yu()
     }
   }
@@ -6689,8 +6892,9 @@ var r = t.XQueryParser = function i(e, t) {
   function $o() {
     ql.startNonterminal("FTOr", Ll), Ko();
     for (;;) {
-      if (Al != 144)
+      if (Al != 144) {
         break;
+      }
       vl(144), wl(162), yl(), Ko()
     }
     ql.endNonterminal("FTOr", Ll)
@@ -6698,16 +6902,18 @@ var r = t.XQueryParser = function i(e, t) {
   function Jo() {
     Qo();
     for (;;) {
-      if (Al != 144)
+      if (Al != 144) {
         break;
+      }
       ml(144), wl(162), Qo()
     }
   }
   function Ko() {
     ql.startNonterminal("FTAnd", Ll), Go();
     for (;;) {
-      if (Al != 142)
+      if (Al != 142) {
         break;
+      }
       vl(142), wl(162), yl(), Go()
     }
     ql.endNonterminal("FTAnd", Ll)
@@ -6715,8 +6921,9 @@ var r = t.XQueryParser = function i(e, t) {
   function Qo() {
     Yo();
     for (;;) {
-      if (Al != 142)
+      if (Al != 142) {
         break;
+      }
       ml(142), wl(162), Yo()
     }
   }
@@ -6724,8 +6931,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("FTMildNot", Ll), Zo();
     for (;;) {
       wl(212);
-      if (Al != 193)
+      if (Al != 193) {
         break;
+      }
       vl(193), wl(53), vl(154), wl(162), yl(), Zo()
     }
     ql.endNonterminal("FTMildNot", Ll)
@@ -6734,8 +6942,9 @@ var r = t.XQueryParser = function i(e, t) {
     eu();
     for (;;) {
       wl(212);
-      if (Al != 193)
+      if (Al != 193) {
         break;
+      }
       ml(193), wl(53), ml(154), wl(162), eu()
     }
   }
@@ -6778,8 +6987,9 @@ var r = t.XQueryParser = function i(e, t) {
   }
   function su() {
     ql.startNonterminal("FTWords", Ll), uu(), wl(221);
-    if (Al == 71 || Al == 76 || Al == 210)
+    if (Al == 71 || Al == 76 || Al == 210) {
       yl(), cu();
+    }
     ql.endNonterminal("FTWords", Ll)
   }
   function ou() { au(), wl(221), (Al == 71 || Al == 76 || Al == 210) && hu() }
@@ -6807,18 +7017,20 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("FTExtensionSelection", Ll);
     for (;;) {
       yl(), xr(), wl(100);
-      if (Al != 35)
+      if (Al != 35) {
         break
     }
+      }
     vl(276), wl(166), Al != 282 && (yl(), zo()), vl(282),
         ql.endNonterminal("FTExtensionSelection", Ll)
   }
   function lu() {
     for (;;) {
       Tr(), wl(100);
-      if (Al != 35)
+      if (Al != 35) {
         break
     }
+      }
     ml(276), wl(166), Al != 282 && Wo(), ml(282)
   }
   function cu() {
@@ -7052,17 +7264,19 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("FTMatchOptions", Ll);
     for (;;) {
       vl(259), wl(181), yl(), Hu(), wl(214);
-      if (Al != 259)
+      if (Al != 259) {
         break
     }
+      }
     ql.endNonterminal("FTMatchOptions", Ll)
   }
   function Pu() {
     for (;;) {
       ml(259), wl(181), Bu(), wl(214);
-      if (Al != 259)
+      if (Al != 259) {
         break
     }
+      }
   }
   function Hu() {
     ql.startNonterminal("FTMatchOption", Ll);
@@ -7246,8 +7460,9 @@ var r = t.XQueryParser = function i(e, t) {
         }
         for (;;) {
           wl(101);
-          if (Al != 41)
+          if (Al != 41) {
             break;
+          }
           vl(41), wl(31), yl(), Xu()
         }
         vl(37)
@@ -7280,8 +7495,9 @@ var r = t.XQueryParser = function i(e, t) {
         }
         for (;;) {
           wl(101);
-          if (Al != 41)
+          if (Al != 41) {
             break;
+          }
           ml(41), wl(31), Vu()
         }
         ml(37)
@@ -7301,8 +7517,9 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 130 || Cl == 140 || Cl == 88657 || Cl == 93777)
+    if (Cl == 130 || Cl == 140 || Cl == 88657 || Cl == 93777) {
       yl(), $u(), wl(58), vl(175);
+    }
     ql.endNonterminal("FTThesaurusID", Ll)
   }
   function Vu() {
@@ -7315,9 +7532,10 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 130 || Cl == 140 || Cl == 88657 || Cl == 93777)
+    if (Cl == 130 || Cl == 140 || Cl == 88657 || Cl == 93777) {
       Ju(), wl(58), ml(175)
   }
+    }
   function $u() {
     ql.startNonterminal("FTLiteralRange", Ll);
     switch (Al) {
@@ -7368,8 +7586,9 @@ var r = t.XQueryParser = function i(e, t) {
         vl(109);
         for (;;) {
           wl(217);
-          if (Al != 131 && Al != 254)
+          if (Al != 131 && Al != 254) {
             break;
+          }
           yl(), Zu()
         }
         break;
@@ -7377,8 +7596,9 @@ var r = t.XQueryParser = function i(e, t) {
         yl(), Gu();
         for (;;) {
           wl(217);
-          if (Al != 131 && Al != 254)
+          if (Al != 131 && Al != 254) {
             break;
+          }
           yl(), Zu()
         }
       }
@@ -7397,8 +7617,9 @@ var r = t.XQueryParser = function i(e, t) {
         ml(109);
         for (;;) {
           wl(217);
-          if (Al != 131 && Al != 254)
+          if (Al != 131 && Al != 254) {
             break;
+          }
           ea()
         }
         break;
@@ -7406,8 +7627,9 @@ var r = t.XQueryParser = function i(e, t) {
         Yu();
         for (;;) {
           wl(217);
-          if (Al != 131 && Al != 254)
+          if (Al != 131 && Al != 254) {
             break;
+          }
           ea()
         }
       }
@@ -7426,8 +7648,9 @@ var r = t.XQueryParser = function i(e, t) {
       vl(34), wl(17), vl(11);
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(17), vl(11)
       }
       vl(37)
@@ -7443,8 +7666,9 @@ var r = t.XQueryParser = function i(e, t) {
       ml(34), wl(17), ml(11);
       for (;;) {
         wl(101);
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         ml(41), wl(17), ml(11)
       }
       ml(37)
@@ -7535,8 +7759,9 @@ var r = t.XQueryParser = function i(e, t) {
   function va() {
     ql.startNonterminal("IndexKeyTypeDecl", Ll), vl(79), wl(253), yl(), ma(),
         wl(169);
-    if (Al == 39 || Al == 40 || Al == 64)
+    if (Al == 39 || Al == 40 || Al == 64) {
       yl(), vs();
+    }
     ql.endNonterminal("IndexKeyTypeDecl", Ll)
   }
   function ma() {
@@ -7553,8 +7778,9 @@ var r = t.XQueryParser = function i(e, t) {
         pa();
     for (;;) {
       wl(103);
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(264), yl(), pa()
     }
     ql.endNonterminal("IndexDecl", Ll)
@@ -7621,8 +7847,9 @@ var r = t.XQueryParser = function i(e, t) {
     ml(36);
     for (;;) {
       Sl(89);
-      if (Al == 50)
+      if (Al == 50) {
         break;
+      }
       switch (Al) {
       case 24:
         ml(24);
@@ -9473,148 +9700,149 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 25 && Cl != 282 && Cl != 12805 && Cl != 12806 && Cl != 12808 &&
-          Cl != 12809 && Cl != 12810 && Cl != 12811 && Cl != 12844 &&
-          Cl != 12845 && Cl != 12846 && Cl != 12870 && Cl != 12872 &&
-          Cl != 12873 && Cl != 12874 && Cl != 12875 && Cl != 12878 &&
-          Cl != 12879 && Cl != 12880 && Cl != 12881 && Cl != 12882 &&
-          Cl != 12883 && Cl != 12884 && Cl != 12885 && Cl != 12886 &&
-          Cl != 12888 && Cl != 12889 && Cl != 12890 && Cl != 12891 &&
-          Cl != 12893 && Cl != 12894 && Cl != 12896 && Cl != 12897 &&
-          Cl != 12898 && Cl != 12901 && Cl != 12902 && Cl != 12903 &&
-          Cl != 12904 && Cl != 12905 && Cl != 12906 && Cl != 12908 &&
-          Cl != 12909 && Cl != 12910 && Cl != 12911 && Cl != 12912 &&
-          Cl != 12913 && Cl != 12918 && Cl != 12919 && Cl != 12920 &&
-          Cl != 12921 && Cl != 12922 && Cl != 12923 && Cl != 12924 &&
-          Cl != 12925 && Cl != 12926 && Cl != 12928 && Cl != 12929 &&
-          Cl != 12931 && Cl != 12932 && Cl != 12933 && Cl != 12934 &&
-          Cl != 12935 && Cl != 12936 && Cl != 12937 && Cl != 12941 &&
-          Cl != 12945 && Cl != 12946 && Cl != 12948 && Cl != 12950 &&
-          Cl != 12951 && Cl != 12952 && Cl != 12953 && Cl != 12954 &&
-          Cl != 12955 && Cl != 12959 && Cl != 12960 && Cl != 12961 &&
-          Cl != 12962 && Cl != 12963 && Cl != 12964 && Cl != 12965 &&
-          Cl != 12967 && Cl != 12970 && Cl != 12971 && Cl != 12972 &&
-          Cl != 12974 && Cl != 12976 && Cl != 12978 && Cl != 12980 &&
-          Cl != 12981 && Cl != 12982 && Cl != 12984 && Cl != 12985 &&
-          Cl != 12986 && Cl != 12991 && Cl != 12992 && Cl != 12994 &&
-          Cl != 12998 && Cl != 12999 && Cl != 13e3 && Cl != 13001 &&
-          Cl != 13002 && Cl != 13003 && Cl != 13006 && Cl != 13012 &&
-          Cl != 13013 && Cl != 13016 && Cl != 13018 && Cl != 13019 &&
-          Cl != 13020 && Cl != 13021 && Cl != 13022 && Cl != 13024 &&
-          Cl != 13025 && Cl != 13026 && Cl != 13027 && Cl != 13028 &&
-          Cl != 13029 && Cl != 13034 && Cl != 13035 && Cl != 13036 &&
-          Cl != 13037 && Cl != 13040 && Cl != 13043 && Cl != 13044 &&
-          Cl != 13048 && Cl != 13049 && Cl != 13050 && Cl != 13051 &&
-          Cl != 13052 && Cl != 13053 && Cl != 13054 && Cl != 13056 &&
-          Cl != 13057 && Cl != 13060 && Cl != 13061 && Cl != 13062 &&
-          Cl != 13063 && Cl != 13066 && Cl != 13067 && Cl != 13070 &&
-          Cl != 13074 && Cl != 16134 && Cl != 20997 && Cl != 20998 &&
-          Cl != 21e3 && Cl != 21001 && Cl != 21002 && Cl != 21003 &&
-          Cl != 21036 && Cl != 21037 && Cl != 21038 && Cl != 21062 &&
-          Cl != 21064 && Cl != 21065 && Cl != 21066 && Cl != 21067 &&
-          Cl != 21070 && Cl != 21071 && Cl != 21072 && Cl != 21073 &&
-          Cl != 21074 && Cl != 21075 && Cl != 21076 && Cl != 21077 &&
-          Cl != 21078 && Cl != 21080 && Cl != 21081 && Cl != 21082 &&
-          Cl != 21083 && Cl != 21085 && Cl != 21086 && Cl != 21088 &&
-          Cl != 21089 && Cl != 21090 && Cl != 21093 && Cl != 21094 &&
-          Cl != 21095 && Cl != 21096 && Cl != 21097 && Cl != 21098 &&
-          Cl != 21100 && Cl != 21101 && Cl != 21102 && Cl != 21103 &&
-          Cl != 21104 && Cl != 21105 && Cl != 21110 && Cl != 21111 &&
-          Cl != 21112 && Cl != 21113 && Cl != 21114 && Cl != 21115 &&
-          Cl != 21116 && Cl != 21117 && Cl != 21118 && Cl != 21120 &&
-          Cl != 21121 && Cl != 21123 && Cl != 21124 && Cl != 21125 &&
-          Cl != 21126 && Cl != 21127 && Cl != 21128 && Cl != 21129 &&
-          Cl != 21133 && Cl != 21137 && Cl != 21138 && Cl != 21140 &&
-          Cl != 21142 && Cl != 21143 && Cl != 21144 && Cl != 21145 &&
-          Cl != 21146 && Cl != 21147 && Cl != 21151 && Cl != 21152 &&
-          Cl != 21153 && Cl != 21154 && Cl != 21155 && Cl != 21156 &&
-          Cl != 21157 && Cl != 21159 && Cl != 21162 && Cl != 21163 &&
-          Cl != 21164 && Cl != 21166 && Cl != 21168 && Cl != 21170 &&
-          Cl != 21172 && Cl != 21173 && Cl != 21174 && Cl != 21176 &&
-          Cl != 21177 && Cl != 21178 && Cl != 21183 && Cl != 21184 &&
-          Cl != 21186 && Cl != 21190 && Cl != 21191 && Cl != 21192 &&
-          Cl != 21193 && Cl != 21194 && Cl != 21195 && Cl != 21198 &&
-          Cl != 21204 && Cl != 21205 && Cl != 21208 && Cl != 21210 &&
-          Cl != 21211 && Cl != 21212 && Cl != 21213 && Cl != 21214 &&
-          Cl != 21216 && Cl != 21217 && Cl != 21218 && Cl != 21219 &&
-          Cl != 21220 && Cl != 21221 && Cl != 21226 && Cl != 21227 &&
-          Cl != 21228 && Cl != 21229 && Cl != 21232 && Cl != 21235 &&
-          Cl != 21236 && Cl != 21240 && Cl != 21241 && Cl != 21242 &&
-          Cl != 21243 && Cl != 21244 && Cl != 21245 && Cl != 21246 &&
-          Cl != 21248 && Cl != 21249 && Cl != 21252 && Cl != 21253 &&
-          Cl != 21254 && Cl != 21255 && Cl != 21258 && Cl != 21259 &&
-          Cl != 21262 && Cl != 21266 && Cl != 27141 && Cl != 27142 &&
-          Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 &&
-          Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 &&
-          Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 &&
-          Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 &&
-          Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 &&
-          Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 &&
-          Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 &&
-          Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 &&
-          Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 &&
-          Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 &&
-          Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 &&
-          Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 &&
-          Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 &&
-          Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 &&
-          Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 &&
-          Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 &&
-          Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 &&
-          Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 &&
-          Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 &&
-          Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 &&
-          Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 &&
-          Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 &&
-          Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 &&
-          Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 &&
-          Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 &&
-          Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 &&
-          Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 &&
-          Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 &&
-          Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 &&
-          Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 &&
-          Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 &&
-          Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 &&
-          Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 &&
-          Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 &&
-          Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 &&
-          Cl != 113284 && Cl != 144389 && Cl != 144390 && Cl != 144392 &&
-          Cl != 144393 && Cl != 144394 && Cl != 144395 && Cl != 144428 &&
-          Cl != 144429 && Cl != 144430 && Cl != 144454 && Cl != 144456 &&
-          Cl != 144457 && Cl != 144458 && Cl != 144459 && Cl != 144462 &&
-          Cl != 144463 && Cl != 144464 && Cl != 144465 && Cl != 144466 &&
-          Cl != 144467 && Cl != 144468 && Cl != 144469 && Cl != 144470 &&
-          Cl != 144472 && Cl != 144473 && Cl != 144474 && Cl != 144475 &&
-          Cl != 144477 && Cl != 144478 && Cl != 144480 && Cl != 144481 &&
-          Cl != 144482 && Cl != 144485 && Cl != 144486 && Cl != 144487 &&
-          Cl != 144488 && Cl != 144489 && Cl != 144490 && Cl != 144492 &&
-          Cl != 144493 && Cl != 144494 && Cl != 144495 && Cl != 144496 &&
-          Cl != 144497 && Cl != 144502 && Cl != 144503 && Cl != 144504 &&
-          Cl != 144505 && Cl != 144506 && Cl != 144507 && Cl != 144508 &&
-          Cl != 144509 && Cl != 144510 && Cl != 144512 && Cl != 144513 &&
-          Cl != 144515 && Cl != 144516 && Cl != 144517 && Cl != 144518 &&
-          Cl != 144519 && Cl != 144520 && Cl != 144521 && Cl != 144525 &&
-          Cl != 144529 && Cl != 144530 && Cl != 144532 && Cl != 144534 &&
-          Cl != 144535 && Cl != 144536 && Cl != 144537 && Cl != 144538 &&
-          Cl != 144539 && Cl != 144543 && Cl != 144544 && Cl != 144545 &&
-          Cl != 144546 && Cl != 144547 && Cl != 144548 && Cl != 144549 &&
-          Cl != 144551 && Cl != 144554 && Cl != 144555 && Cl != 144556 &&
-          Cl != 144558 && Cl != 144560 && Cl != 144562 && Cl != 144564 &&
-          Cl != 144565 && Cl != 144566 && Cl != 144568 && Cl != 144569 &&
-          Cl != 144570 && Cl != 144575 && Cl != 144576 && Cl != 144578 &&
-          Cl != 144582 && Cl != 144583 && Cl != 144584 && Cl != 144585 &&
-          Cl != 144586 && Cl != 144587 && Cl != 144590 && Cl != 144596 &&
-          Cl != 144597 && Cl != 144600 && Cl != 144602 && Cl != 144603 &&
-          Cl != 144604 && Cl != 144605 && Cl != 144606 && Cl != 144608 &&
-          Cl != 144609 && Cl != 144610 && Cl != 144611 && Cl != 144612 &&
-          Cl != 144613 && Cl != 144618 && Cl != 144619 && Cl != 144620 &&
-          Cl != 144621 && Cl != 144624 && Cl != 144627 && Cl != 144628 &&
-          Cl != 144632 && Cl != 144633 && Cl != 144634 && Cl != 144635 &&
-          Cl != 144636 && Cl != 144637 && Cl != 144638 && Cl != 144640 &&
-          Cl != 144641 && Cl != 144644 && Cl != 144645 && Cl != 144646 &&
-          Cl != 144647 && Cl != 144650 && Cl != 144651 && Cl != 144654 &&
-          Cl != 144658) {
+      if (Cl != 25 && Cl != 282 && Cl != 12805 && Cl != 12806 && Cl != 12808 
+          && Cl != 12809 && Cl != 12810 && Cl != 12811 && Cl != 12844 
+          && Cl != 12845 && Cl != 12846 && Cl != 12870 && Cl != 12872 
+          && Cl != 12873 && Cl != 12874 && Cl != 12875 && Cl != 12878 
+          && Cl != 12879 && Cl != 12880 && Cl != 12881 && Cl != 12882 
+          && Cl != 12883 && Cl != 12884 && Cl != 12885 && Cl != 12886 
+          && Cl != 12888 && Cl != 12889 && Cl != 12890 && Cl != 12891 
+          && Cl != 12893 && Cl != 12894 && Cl != 12896 && Cl != 12897 
+          && Cl != 12898 && Cl != 12901 && Cl != 12902 && Cl != 12903 
+          && Cl != 12904 && Cl != 12905 && Cl != 12906 && Cl != 12908 
+          && Cl != 12909 && Cl != 12910 && Cl != 12911 && Cl != 12912 
+          && Cl != 12913 && Cl != 12918 && Cl != 12919 && Cl != 12920 
+          && Cl != 12921 && Cl != 12922 && Cl != 12923 && Cl != 12924 
+          && Cl != 12925 && Cl != 12926 && Cl != 12928 && Cl != 12929 
+          && Cl != 12931 && Cl != 12932 && Cl != 12933 && Cl != 12934 
+          && Cl != 12935 && Cl != 12936 && Cl != 12937 && Cl != 12941 
+          && Cl != 12945 && Cl != 12946 && Cl != 12948 && Cl != 12950 
+          && Cl != 12951 && Cl != 12952 && Cl != 12953 && Cl != 12954 
+          && Cl != 12955 && Cl != 12959 && Cl != 12960 && Cl != 12961 
+          && Cl != 12962 && Cl != 12963 && Cl != 12964 && Cl != 12965 
+          && Cl != 12967 && Cl != 12970 && Cl != 12971 && Cl != 12972 
+          && Cl != 12974 && Cl != 12976 && Cl != 12978 && Cl != 12980 
+          && Cl != 12981 && Cl != 12982 && Cl != 12984 && Cl != 12985 
+          && Cl != 12986 && Cl != 12991 && Cl != 12992 && Cl != 12994 
+          && Cl != 12998 && Cl != 12999 && Cl != 13e3 && Cl != 13001 
+          && Cl != 13002 && Cl != 13003 && Cl != 13006 && Cl != 13012 
+          && Cl != 13013 && Cl != 13016 && Cl != 13018 && Cl != 13019 
+          && Cl != 13020 && Cl != 13021 && Cl != 13022 && Cl != 13024 
+          && Cl != 13025 && Cl != 13026 && Cl != 13027 && Cl != 13028 
+          && Cl != 13029 && Cl != 13034 && Cl != 13035 && Cl != 13036 
+          && Cl != 13037 && Cl != 13040 && Cl != 13043 && Cl != 13044 
+          && Cl != 13048 && Cl != 13049 && Cl != 13050 && Cl != 13051 
+          && Cl != 13052 && Cl != 13053 && Cl != 13054 && Cl != 13056 
+          && Cl != 13057 && Cl != 13060 && Cl != 13061 && Cl != 13062 
+          && Cl != 13063 && Cl != 13066 && Cl != 13067 && Cl != 13070 
+          && Cl != 13074 && Cl != 16134 && Cl != 20997 && Cl != 20998 
+          && Cl != 21e3 && Cl != 21001 && Cl != 21002 && Cl != 21003 
+          && Cl != 21036 && Cl != 21037 && Cl != 21038 && Cl != 21062 
+          && Cl != 21064 && Cl != 21065 && Cl != 21066 && Cl != 21067 
+          && Cl != 21070 && Cl != 21071 && Cl != 21072 && Cl != 21073 
+          && Cl != 21074 && Cl != 21075 && Cl != 21076 && Cl != 21077 
+          && Cl != 21078 && Cl != 21080 && Cl != 21081 && Cl != 21082 
+          && Cl != 21083 && Cl != 21085 && Cl != 21086 && Cl != 21088 
+          && Cl != 21089 && Cl != 21090 && Cl != 21093 && Cl != 21094 
+          && Cl != 21095 && Cl != 21096 && Cl != 21097 && Cl != 21098 
+          && Cl != 21100 && Cl != 21101 && Cl != 21102 && Cl != 21103 
+          && Cl != 21104 && Cl != 21105 && Cl != 21110 && Cl != 21111 
+          && Cl != 21112 && Cl != 21113 && Cl != 21114 && Cl != 21115 
+          && Cl != 21116 && Cl != 21117 && Cl != 21118 && Cl != 21120 
+          && Cl != 21121 && Cl != 21123 && Cl != 21124 && Cl != 21125 
+          && Cl != 21126 && Cl != 21127 && Cl != 21128 && Cl != 21129 
+          && Cl != 21133 && Cl != 21137 && Cl != 21138 && Cl != 21140 
+          && Cl != 21142 && Cl != 21143 && Cl != 21144 && Cl != 21145 
+          && Cl != 21146 && Cl != 21147 && Cl != 21151 && Cl != 21152 
+          && Cl != 21153 && Cl != 21154 && Cl != 21155 && Cl != 21156 
+          && Cl != 21157 && Cl != 21159 && Cl != 21162 && Cl != 21163 
+          && Cl != 21164 && Cl != 21166 && Cl != 21168 && Cl != 21170 
+          && Cl != 21172 && Cl != 21173 && Cl != 21174 && Cl != 21176 
+          && Cl != 21177 && Cl != 21178 && Cl != 21183 && Cl != 21184 
+          && Cl != 21186 && Cl != 21190 && Cl != 21191 && Cl != 21192 
+          && Cl != 21193 && Cl != 21194 && Cl != 21195 && Cl != 21198 
+          && Cl != 21204 && Cl != 21205 && Cl != 21208 && Cl != 21210 
+          && Cl != 21211 && Cl != 21212 && Cl != 21213 && Cl != 21214 
+          && Cl != 21216 && Cl != 21217 && Cl != 21218 && Cl != 21219 
+          && Cl != 21220 && Cl != 21221 && Cl != 21226 && Cl != 21227 
+          && Cl != 21228 && Cl != 21229 && Cl != 21232 && Cl != 21235 
+          && Cl != 21236 && Cl != 21240 && Cl != 21241 && Cl != 21242 
+          && Cl != 21243 && Cl != 21244 && Cl != 21245 && Cl != 21246 
+          && Cl != 21248 && Cl != 21249 && Cl != 21252 && Cl != 21253 
+          && Cl != 21254 && Cl != 21255 && Cl != 21258 && Cl != 21259 
+          && Cl != 21262 && Cl != 21266 && Cl != 27141 && Cl != 27142 
+          && Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 
+          && Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 
+          && Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 
+          && Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 
+          && Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 
+          && Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 
+          && Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 
+          && Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 
+          && Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 
+          && Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 
+          && Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 
+          && Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 
+          && Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 
+          && Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 
+          && Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 
+          && Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 
+          && Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 
+          && Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 
+          && Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 
+          && Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 
+          && Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 
+          && Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 
+          && Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 
+          && Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 
+          && Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 
+          && Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 
+          && Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 
+          && Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 
+          && Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 
+          && Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 
+          && Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 
+          && Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 
+          && Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 
+          && Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 
+          && Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 
+          && Cl != 113284 && Cl != 144389 && Cl != 144390 && Cl != 144392 
+          && Cl != 144393 && Cl != 144394 && Cl != 144395 && Cl != 144428 
+          && Cl != 144429 && Cl != 144430 && Cl != 144454 && Cl != 144456 
+          && Cl != 144457 && Cl != 144458 && Cl != 144459 && Cl != 144462 
+          && Cl != 144463 && Cl != 144464 && Cl != 144465 && Cl != 144466 
+          && Cl != 144467 && Cl != 144468 && Cl != 144469 && Cl != 144470 
+          && Cl != 144472 && Cl != 144473 && Cl != 144474 && Cl != 144475 
+          && Cl != 144477 && Cl != 144478 && Cl != 144480 && Cl != 144481 
+          && Cl != 144482 && Cl != 144485 && Cl != 144486 && Cl != 144487 
+          && Cl != 144488 && Cl != 144489 && Cl != 144490 && Cl != 144492 
+          && Cl != 144493 && Cl != 144494 && Cl != 144495 && Cl != 144496 
+          && Cl != 144497 && Cl != 144502 && Cl != 144503 && Cl != 144504 
+          && Cl != 144505 && Cl != 144506 && Cl != 144507 && Cl != 144508 
+          && Cl != 144509 && Cl != 144510 && Cl != 144512 && Cl != 144513 
+          && Cl != 144515 && Cl != 144516 && Cl != 144517 && Cl != 144518 
+          && Cl != 144519 && Cl != 144520 && Cl != 144521 && Cl != 144525 
+          && Cl != 144529 && Cl != 144530 && Cl != 144532 && Cl != 144534 
+          && Cl != 144535 && Cl != 144536 && Cl != 144537 && Cl != 144538 
+          && Cl != 144539 && Cl != 144543 && Cl != 144544 && Cl != 144545 
+          && Cl != 144546 && Cl != 144547 && Cl != 144548 && Cl != 144549 
+          && Cl != 144551 && Cl != 144554 && Cl != 144555 && Cl != 144556 
+          && Cl != 144558 && Cl != 144560 && Cl != 144562 && Cl != 144564 
+          && Cl != 144565 && Cl != 144566 && Cl != 144568 && Cl != 144569 
+          && Cl != 144570 && Cl != 144575 && Cl != 144576 && Cl != 144578 
+          && Cl != 144582 && Cl != 144583 && Cl != 144584 && Cl != 144585 
+          && Cl != 144586 && Cl != 144587 && Cl != 144590 && Cl != 144596 
+          && Cl != 144597 && Cl != 144600 && Cl != 144602 && Cl != 144603 
+          && Cl != 144604 && Cl != 144605 && Cl != 144606 && Cl != 144608 
+          && Cl != 144609 && Cl != 144610 && Cl != 144611 && Cl != 144612 
+          && Cl != 144613 && Cl != 144618 && Cl != 144619 && Cl != 144620 
+          && Cl != 144621 && Cl != 144624 && Cl != 144627 && Cl != 144628 
+          && Cl != 144632 && Cl != 144633 && Cl != 144634 && Cl != 144635 
+          && Cl != 144636 && Cl != 144637 && Cl != 144638 && Cl != 144640 
+          && Cl != 144641 && Cl != 144644 && Cl != 144645 && Cl != 144646 
+          && Cl != 144647 && Cl != 144650 && Cl != 144651 && Cl != 144654 
+          && Cl != 144658
+      ) {
         Cl = pl(6, Ll);
         if (Cl == 0) {
           var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -9630,44 +9858,46 @@ var r = t.XQueryParser = function i(e, t) {
           hl(6, Ll, Cl)
         }
       }
-      if (Cl != -1 && Cl != 16134 && Cl != 27141 && Cl != 27142 &&
-          Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 &&
-          Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 &&
-          Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 &&
-          Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 &&
-          Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 &&
-          Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 &&
-          Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 &&
-          Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 &&
-          Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 &&
-          Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 &&
-          Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 &&
-          Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 &&
-          Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 &&
-          Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 &&
-          Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 &&
-          Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 &&
-          Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 &&
-          Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 &&
-          Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 &&
-          Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 &&
-          Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 &&
-          Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 &&
-          Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 &&
-          Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 &&
-          Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 &&
-          Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 &&
-          Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 &&
-          Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 &&
-          Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 &&
-          Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 &&
-          Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 &&
-          Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 &&
-          Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 &&
-          Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 &&
-          Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 &&
-          Cl != 113284)
+      if (Cl != -1 && Cl != 16134 && Cl != 27141 && Cl != 27142 
+          && Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 
+          && Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 
+          && Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 
+          && Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 
+          && Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 
+          && Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 
+          && Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 
+          && Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 
+          && Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 
+          && Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 
+          && Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 
+          && Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 
+          && Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 
+          && Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 
+          && Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 
+          && Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 
+          && Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 
+          && Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 
+          && Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 
+          && Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 
+          && Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 
+          && Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 
+          && Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 
+          && Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 
+          && Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 
+          && Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 
+          && Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 
+          && Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 
+          && Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 
+          && Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 
+          && Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 
+          && Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 
+          && Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 
+          && Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 
+          && Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 
+          && Cl != 113284
+      ) {
         break;
+      }
       yl(), Wa()
     }
     ql.endNonterminal("Statements", Ll)
@@ -9898,148 +10128,149 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl != 25 && Cl != 282 && Cl != 12805 && Cl != 12806 && Cl != 12808 &&
-          Cl != 12809 && Cl != 12810 && Cl != 12811 && Cl != 12844 &&
-          Cl != 12845 && Cl != 12846 && Cl != 12870 && Cl != 12872 &&
-          Cl != 12873 && Cl != 12874 && Cl != 12875 && Cl != 12878 &&
-          Cl != 12879 && Cl != 12880 && Cl != 12881 && Cl != 12882 &&
-          Cl != 12883 && Cl != 12884 && Cl != 12885 && Cl != 12886 &&
-          Cl != 12888 && Cl != 12889 && Cl != 12890 && Cl != 12891 &&
-          Cl != 12893 && Cl != 12894 && Cl != 12896 && Cl != 12897 &&
-          Cl != 12898 && Cl != 12901 && Cl != 12902 && Cl != 12903 &&
-          Cl != 12904 && Cl != 12905 && Cl != 12906 && Cl != 12908 &&
-          Cl != 12909 && Cl != 12910 && Cl != 12911 && Cl != 12912 &&
-          Cl != 12913 && Cl != 12918 && Cl != 12919 && Cl != 12920 &&
-          Cl != 12921 && Cl != 12922 && Cl != 12923 && Cl != 12924 &&
-          Cl != 12925 && Cl != 12926 && Cl != 12928 && Cl != 12929 &&
-          Cl != 12931 && Cl != 12932 && Cl != 12933 && Cl != 12934 &&
-          Cl != 12935 && Cl != 12936 && Cl != 12937 && Cl != 12941 &&
-          Cl != 12945 && Cl != 12946 && Cl != 12948 && Cl != 12950 &&
-          Cl != 12951 && Cl != 12952 && Cl != 12953 && Cl != 12954 &&
-          Cl != 12955 && Cl != 12959 && Cl != 12960 && Cl != 12961 &&
-          Cl != 12962 && Cl != 12963 && Cl != 12964 && Cl != 12965 &&
-          Cl != 12967 && Cl != 12970 && Cl != 12971 && Cl != 12972 &&
-          Cl != 12974 && Cl != 12976 && Cl != 12978 && Cl != 12980 &&
-          Cl != 12981 && Cl != 12982 && Cl != 12984 && Cl != 12985 &&
-          Cl != 12986 && Cl != 12991 && Cl != 12992 && Cl != 12994 &&
-          Cl != 12998 && Cl != 12999 && Cl != 13e3 && Cl != 13001 &&
-          Cl != 13002 && Cl != 13003 && Cl != 13006 && Cl != 13012 &&
-          Cl != 13013 && Cl != 13016 && Cl != 13018 && Cl != 13019 &&
-          Cl != 13020 && Cl != 13021 && Cl != 13022 && Cl != 13024 &&
-          Cl != 13025 && Cl != 13026 && Cl != 13027 && Cl != 13028 &&
-          Cl != 13029 && Cl != 13034 && Cl != 13035 && Cl != 13036 &&
-          Cl != 13037 && Cl != 13040 && Cl != 13043 && Cl != 13044 &&
-          Cl != 13048 && Cl != 13049 && Cl != 13050 && Cl != 13051 &&
-          Cl != 13052 && Cl != 13053 && Cl != 13054 && Cl != 13056 &&
-          Cl != 13057 && Cl != 13060 && Cl != 13061 && Cl != 13062 &&
-          Cl != 13063 && Cl != 13066 && Cl != 13067 && Cl != 13070 &&
-          Cl != 13074 && Cl != 16134 && Cl != 20997 && Cl != 20998 &&
-          Cl != 21e3 && Cl != 21001 && Cl != 21002 && Cl != 21003 &&
-          Cl != 21036 && Cl != 21037 && Cl != 21038 && Cl != 21062 &&
-          Cl != 21064 && Cl != 21065 && Cl != 21066 && Cl != 21067 &&
-          Cl != 21070 && Cl != 21071 && Cl != 21072 && Cl != 21073 &&
-          Cl != 21074 && Cl != 21075 && Cl != 21076 && Cl != 21077 &&
-          Cl != 21078 && Cl != 21080 && Cl != 21081 && Cl != 21082 &&
-          Cl != 21083 && Cl != 21085 && Cl != 21086 && Cl != 21088 &&
-          Cl != 21089 && Cl != 21090 && Cl != 21093 && Cl != 21094 &&
-          Cl != 21095 && Cl != 21096 && Cl != 21097 && Cl != 21098 &&
-          Cl != 21100 && Cl != 21101 && Cl != 21102 && Cl != 21103 &&
-          Cl != 21104 && Cl != 21105 && Cl != 21110 && Cl != 21111 &&
-          Cl != 21112 && Cl != 21113 && Cl != 21114 && Cl != 21115 &&
-          Cl != 21116 && Cl != 21117 && Cl != 21118 && Cl != 21120 &&
-          Cl != 21121 && Cl != 21123 && Cl != 21124 && Cl != 21125 &&
-          Cl != 21126 && Cl != 21127 && Cl != 21128 && Cl != 21129 &&
-          Cl != 21133 && Cl != 21137 && Cl != 21138 && Cl != 21140 &&
-          Cl != 21142 && Cl != 21143 && Cl != 21144 && Cl != 21145 &&
-          Cl != 21146 && Cl != 21147 && Cl != 21151 && Cl != 21152 &&
-          Cl != 21153 && Cl != 21154 && Cl != 21155 && Cl != 21156 &&
-          Cl != 21157 && Cl != 21159 && Cl != 21162 && Cl != 21163 &&
-          Cl != 21164 && Cl != 21166 && Cl != 21168 && Cl != 21170 &&
-          Cl != 21172 && Cl != 21173 && Cl != 21174 && Cl != 21176 &&
-          Cl != 21177 && Cl != 21178 && Cl != 21183 && Cl != 21184 &&
-          Cl != 21186 && Cl != 21190 && Cl != 21191 && Cl != 21192 &&
-          Cl != 21193 && Cl != 21194 && Cl != 21195 && Cl != 21198 &&
-          Cl != 21204 && Cl != 21205 && Cl != 21208 && Cl != 21210 &&
-          Cl != 21211 && Cl != 21212 && Cl != 21213 && Cl != 21214 &&
-          Cl != 21216 && Cl != 21217 && Cl != 21218 && Cl != 21219 &&
-          Cl != 21220 && Cl != 21221 && Cl != 21226 && Cl != 21227 &&
-          Cl != 21228 && Cl != 21229 && Cl != 21232 && Cl != 21235 &&
-          Cl != 21236 && Cl != 21240 && Cl != 21241 && Cl != 21242 &&
-          Cl != 21243 && Cl != 21244 && Cl != 21245 && Cl != 21246 &&
-          Cl != 21248 && Cl != 21249 && Cl != 21252 && Cl != 21253 &&
-          Cl != 21254 && Cl != 21255 && Cl != 21258 && Cl != 21259 &&
-          Cl != 21262 && Cl != 21266 && Cl != 27141 && Cl != 27142 &&
-          Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 &&
-          Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 &&
-          Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 &&
-          Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 &&
-          Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 &&
-          Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 &&
-          Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 &&
-          Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 &&
-          Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 &&
-          Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 &&
-          Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 &&
-          Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 &&
-          Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 &&
-          Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 &&
-          Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 &&
-          Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 &&
-          Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 &&
-          Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 &&
-          Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 &&
-          Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 &&
-          Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 &&
-          Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 &&
-          Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 &&
-          Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 &&
-          Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 &&
-          Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 &&
-          Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 &&
-          Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 &&
-          Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 &&
-          Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 &&
-          Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 &&
-          Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 &&
-          Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 &&
-          Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 &&
-          Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 &&
-          Cl != 113284 && Cl != 144389 && Cl != 144390 && Cl != 144392 &&
-          Cl != 144393 && Cl != 144394 && Cl != 144395 && Cl != 144428 &&
-          Cl != 144429 && Cl != 144430 && Cl != 144454 && Cl != 144456 &&
-          Cl != 144457 && Cl != 144458 && Cl != 144459 && Cl != 144462 &&
-          Cl != 144463 && Cl != 144464 && Cl != 144465 && Cl != 144466 &&
-          Cl != 144467 && Cl != 144468 && Cl != 144469 && Cl != 144470 &&
-          Cl != 144472 && Cl != 144473 && Cl != 144474 && Cl != 144475 &&
-          Cl != 144477 && Cl != 144478 && Cl != 144480 && Cl != 144481 &&
-          Cl != 144482 && Cl != 144485 && Cl != 144486 && Cl != 144487 &&
-          Cl != 144488 && Cl != 144489 && Cl != 144490 && Cl != 144492 &&
-          Cl != 144493 && Cl != 144494 && Cl != 144495 && Cl != 144496 &&
-          Cl != 144497 && Cl != 144502 && Cl != 144503 && Cl != 144504 &&
-          Cl != 144505 && Cl != 144506 && Cl != 144507 && Cl != 144508 &&
-          Cl != 144509 && Cl != 144510 && Cl != 144512 && Cl != 144513 &&
-          Cl != 144515 && Cl != 144516 && Cl != 144517 && Cl != 144518 &&
-          Cl != 144519 && Cl != 144520 && Cl != 144521 && Cl != 144525 &&
-          Cl != 144529 && Cl != 144530 && Cl != 144532 && Cl != 144534 &&
-          Cl != 144535 && Cl != 144536 && Cl != 144537 && Cl != 144538 &&
-          Cl != 144539 && Cl != 144543 && Cl != 144544 && Cl != 144545 &&
-          Cl != 144546 && Cl != 144547 && Cl != 144548 && Cl != 144549 &&
-          Cl != 144551 && Cl != 144554 && Cl != 144555 && Cl != 144556 &&
-          Cl != 144558 && Cl != 144560 && Cl != 144562 && Cl != 144564 &&
-          Cl != 144565 && Cl != 144566 && Cl != 144568 && Cl != 144569 &&
-          Cl != 144570 && Cl != 144575 && Cl != 144576 && Cl != 144578 &&
-          Cl != 144582 && Cl != 144583 && Cl != 144584 && Cl != 144585 &&
-          Cl != 144586 && Cl != 144587 && Cl != 144590 && Cl != 144596 &&
-          Cl != 144597 && Cl != 144600 && Cl != 144602 && Cl != 144603 &&
-          Cl != 144604 && Cl != 144605 && Cl != 144606 && Cl != 144608 &&
-          Cl != 144609 && Cl != 144610 && Cl != 144611 && Cl != 144612 &&
-          Cl != 144613 && Cl != 144618 && Cl != 144619 && Cl != 144620 &&
-          Cl != 144621 && Cl != 144624 && Cl != 144627 && Cl != 144628 &&
-          Cl != 144632 && Cl != 144633 && Cl != 144634 && Cl != 144635 &&
-          Cl != 144636 && Cl != 144637 && Cl != 144638 && Cl != 144640 &&
-          Cl != 144641 && Cl != 144644 && Cl != 144645 && Cl != 144646 &&
-          Cl != 144647 && Cl != 144650 && Cl != 144651 && Cl != 144654 &&
-          Cl != 144658) {
+      if (Cl != 25 && Cl != 282 && Cl != 12805 && Cl != 12806 && Cl != 12808 
+          && Cl != 12809 && Cl != 12810 && Cl != 12811 && Cl != 12844 
+          && Cl != 12845 && Cl != 12846 && Cl != 12870 && Cl != 12872 
+          && Cl != 12873 && Cl != 12874 && Cl != 12875 && Cl != 12878 
+          && Cl != 12879 && Cl != 12880 && Cl != 12881 && Cl != 12882 
+          && Cl != 12883 && Cl != 12884 && Cl != 12885 && Cl != 12886 
+          && Cl != 12888 && Cl != 12889 && Cl != 12890 && Cl != 12891 
+          && Cl != 12893 && Cl != 12894 && Cl != 12896 && Cl != 12897 
+          && Cl != 12898 && Cl != 12901 && Cl != 12902 && Cl != 12903 
+          && Cl != 12904 && Cl != 12905 && Cl != 12906 && Cl != 12908 
+          && Cl != 12909 && Cl != 12910 && Cl != 12911 && Cl != 12912 
+          && Cl != 12913 && Cl != 12918 && Cl != 12919 && Cl != 12920 
+          && Cl != 12921 && Cl != 12922 && Cl != 12923 && Cl != 12924 
+          && Cl != 12925 && Cl != 12926 && Cl != 12928 && Cl != 12929 
+          && Cl != 12931 && Cl != 12932 && Cl != 12933 && Cl != 12934 
+          && Cl != 12935 && Cl != 12936 && Cl != 12937 && Cl != 12941 
+          && Cl != 12945 && Cl != 12946 && Cl != 12948 && Cl != 12950 
+          && Cl != 12951 && Cl != 12952 && Cl != 12953 && Cl != 12954 
+          && Cl != 12955 && Cl != 12959 && Cl != 12960 && Cl != 12961 
+          && Cl != 12962 && Cl != 12963 && Cl != 12964 && Cl != 12965 
+          && Cl != 12967 && Cl != 12970 && Cl != 12971 && Cl != 12972 
+          && Cl != 12974 && Cl != 12976 && Cl != 12978 && Cl != 12980 
+          && Cl != 12981 && Cl != 12982 && Cl != 12984 && Cl != 12985 
+          && Cl != 12986 && Cl != 12991 && Cl != 12992 && Cl != 12994 
+          && Cl != 12998 && Cl != 12999 && Cl != 13e3 && Cl != 13001 
+          && Cl != 13002 && Cl != 13003 && Cl != 13006 && Cl != 13012 
+          && Cl != 13013 && Cl != 13016 && Cl != 13018 && Cl != 13019 
+          && Cl != 13020 && Cl != 13021 && Cl != 13022 && Cl != 13024 
+          && Cl != 13025 && Cl != 13026 && Cl != 13027 && Cl != 13028 
+          && Cl != 13029 && Cl != 13034 && Cl != 13035 && Cl != 13036 
+          && Cl != 13037 && Cl != 13040 && Cl != 13043 && Cl != 13044 
+          && Cl != 13048 && Cl != 13049 && Cl != 13050 && Cl != 13051 
+          && Cl != 13052 && Cl != 13053 && Cl != 13054 && Cl != 13056 
+          && Cl != 13057 && Cl != 13060 && Cl != 13061 && Cl != 13062 
+          && Cl != 13063 && Cl != 13066 && Cl != 13067 && Cl != 13070 
+          && Cl != 13074 && Cl != 16134 && Cl != 20997 && Cl != 20998 
+          && Cl != 21e3 && Cl != 21001 && Cl != 21002 && Cl != 21003 
+          && Cl != 21036 && Cl != 21037 && Cl != 21038 && Cl != 21062 
+          && Cl != 21064 && Cl != 21065 && Cl != 21066 && Cl != 21067 
+          && Cl != 21070 && Cl != 21071 && Cl != 21072 && Cl != 21073 
+          && Cl != 21074 && Cl != 21075 && Cl != 21076 && Cl != 21077 
+          && Cl != 21078 && Cl != 21080 && Cl != 21081 && Cl != 21082 
+          && Cl != 21083 && Cl != 21085 && Cl != 21086 && Cl != 21088 
+          && Cl != 21089 && Cl != 21090 && Cl != 21093 && Cl != 21094 
+          && Cl != 21095 && Cl != 21096 && Cl != 21097 && Cl != 21098 
+          && Cl != 21100 && Cl != 21101 && Cl != 21102 && Cl != 21103 
+          && Cl != 21104 && Cl != 21105 && Cl != 21110 && Cl != 21111 
+          && Cl != 21112 && Cl != 21113 && Cl != 21114 && Cl != 21115 
+          && Cl != 21116 && Cl != 21117 && Cl != 21118 && Cl != 21120 
+          && Cl != 21121 && Cl != 21123 && Cl != 21124 && Cl != 21125 
+          && Cl != 21126 && Cl != 21127 && Cl != 21128 && Cl != 21129 
+          && Cl != 21133 && Cl != 21137 && Cl != 21138 && Cl != 21140 
+          && Cl != 21142 && Cl != 21143 && Cl != 21144 && Cl != 21145 
+          && Cl != 21146 && Cl != 21147 && Cl != 21151 && Cl != 21152 
+          && Cl != 21153 && Cl != 21154 && Cl != 21155 && Cl != 21156 
+          && Cl != 21157 && Cl != 21159 && Cl != 21162 && Cl != 21163 
+          && Cl != 21164 && Cl != 21166 && Cl != 21168 && Cl != 21170 
+          && Cl != 21172 && Cl != 21173 && Cl != 21174 && Cl != 21176 
+          && Cl != 21177 && Cl != 21178 && Cl != 21183 && Cl != 21184 
+          && Cl != 21186 && Cl != 21190 && Cl != 21191 && Cl != 21192 
+          && Cl != 21193 && Cl != 21194 && Cl != 21195 && Cl != 21198 
+          && Cl != 21204 && Cl != 21205 && Cl != 21208 && Cl != 21210 
+          && Cl != 21211 && Cl != 21212 && Cl != 21213 && Cl != 21214 
+          && Cl != 21216 && Cl != 21217 && Cl != 21218 && Cl != 21219 
+          && Cl != 21220 && Cl != 21221 && Cl != 21226 && Cl != 21227 
+          && Cl != 21228 && Cl != 21229 && Cl != 21232 && Cl != 21235 
+          && Cl != 21236 && Cl != 21240 && Cl != 21241 && Cl != 21242 
+          && Cl != 21243 && Cl != 21244 && Cl != 21245 && Cl != 21246 
+          && Cl != 21248 && Cl != 21249 && Cl != 21252 && Cl != 21253 
+          && Cl != 21254 && Cl != 21255 && Cl != 21258 && Cl != 21259 
+          && Cl != 21262 && Cl != 21266 && Cl != 27141 && Cl != 27142 
+          && Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 
+          && Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 
+          && Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 
+          && Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 
+          && Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 
+          && Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 
+          && Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 
+          && Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 
+          && Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 
+          && Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 
+          && Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 
+          && Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 
+          && Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 
+          && Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 
+          && Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 
+          && Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 
+          && Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 
+          && Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 
+          && Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 
+          && Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 
+          && Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 
+          && Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 
+          && Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 
+          && Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 
+          && Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 
+          && Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 
+          && Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 
+          && Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 
+          && Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 
+          && Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 
+          && Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 
+          && Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 
+          && Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 
+          && Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 
+          && Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 
+          && Cl != 113284 && Cl != 144389 && Cl != 144390 && Cl != 144392 
+          && Cl != 144393 && Cl != 144394 && Cl != 144395 && Cl != 144428 
+          && Cl != 144429 && Cl != 144430 && Cl != 144454 && Cl != 144456 
+          && Cl != 144457 && Cl != 144458 && Cl != 144459 && Cl != 144462 
+          && Cl != 144463 && Cl != 144464 && Cl != 144465 && Cl != 144466 
+          && Cl != 144467 && Cl != 144468 && Cl != 144469 && Cl != 144470 
+          && Cl != 144472 && Cl != 144473 && Cl != 144474 && Cl != 144475 
+          && Cl != 144477 && Cl != 144478 && Cl != 144480 && Cl != 144481 
+          && Cl != 144482 && Cl != 144485 && Cl != 144486 && Cl != 144487 
+          && Cl != 144488 && Cl != 144489 && Cl != 144490 && Cl != 144492 
+          && Cl != 144493 && Cl != 144494 && Cl != 144495 && Cl != 144496 
+          && Cl != 144497 && Cl != 144502 && Cl != 144503 && Cl != 144504 
+          && Cl != 144505 && Cl != 144506 && Cl != 144507 && Cl != 144508 
+          && Cl != 144509 && Cl != 144510 && Cl != 144512 && Cl != 144513 
+          && Cl != 144515 && Cl != 144516 && Cl != 144517 && Cl != 144518 
+          && Cl != 144519 && Cl != 144520 && Cl != 144521 && Cl != 144525 
+          && Cl != 144529 && Cl != 144530 && Cl != 144532 && Cl != 144534 
+          && Cl != 144535 && Cl != 144536 && Cl != 144537 && Cl != 144538 
+          && Cl != 144539 && Cl != 144543 && Cl != 144544 && Cl != 144545 
+          && Cl != 144546 && Cl != 144547 && Cl != 144548 && Cl != 144549 
+          && Cl != 144551 && Cl != 144554 && Cl != 144555 && Cl != 144556 
+          && Cl != 144558 && Cl != 144560 && Cl != 144562 && Cl != 144564 
+          && Cl != 144565 && Cl != 144566 && Cl != 144568 && Cl != 144569 
+          && Cl != 144570 && Cl != 144575 && Cl != 144576 && Cl != 144578 
+          && Cl != 144582 && Cl != 144583 && Cl != 144584 && Cl != 144585 
+          && Cl != 144586 && Cl != 144587 && Cl != 144590 && Cl != 144596 
+          && Cl != 144597 && Cl != 144600 && Cl != 144602 && Cl != 144603 
+          && Cl != 144604 && Cl != 144605 && Cl != 144606 && Cl != 144608 
+          && Cl != 144609 && Cl != 144610 && Cl != 144611 && Cl != 144612 
+          && Cl != 144613 && Cl != 144618 && Cl != 144619 && Cl != 144620 
+          && Cl != 144621 && Cl != 144624 && Cl != 144627 && Cl != 144628 
+          && Cl != 144632 && Cl != 144633 && Cl != 144634 && Cl != 144635 
+          && Cl != 144636 && Cl != 144637 && Cl != 144638 && Cl != 144640 
+          && Cl != 144641 && Cl != 144644 && Cl != 144645 && Cl != 144646 
+          && Cl != 144647 && Cl != 144650 && Cl != 144651 && Cl != 144654 
+          && Cl != 144658
+      ) {
         Cl = pl(6, Ll);
         if (Cl == 0) {
           var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -10056,44 +10287,46 @@ var r = t.XQueryParser = function i(e, t) {
           }
         }
       }
-      if (Cl != -1 && Cl != 16134 && Cl != 27141 && Cl != 27142 &&
-          Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 &&
-          Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 &&
-          Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 &&
-          Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 &&
-          Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 &&
-          Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 &&
-          Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 &&
-          Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 &&
-          Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 &&
-          Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 &&
-          Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 &&
-          Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 &&
-          Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 &&
-          Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 &&
-          Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 &&
-          Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 &&
-          Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 &&
-          Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 &&
-          Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 &&
-          Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 &&
-          Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 &&
-          Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 &&
-          Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 &&
-          Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 &&
-          Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 &&
-          Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 &&
-          Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 &&
-          Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 &&
-          Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 &&
-          Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 &&
-          Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 &&
-          Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 &&
-          Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 &&
-          Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 &&
-          Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 &&
-          Cl != 113284)
+      if (Cl != -1 && Cl != 16134 && Cl != 27141 && Cl != 27142 
+          && Cl != 27144 && Cl != 27145 && Cl != 27146 && Cl != 27147 
+          && Cl != 27180 && Cl != 27181 && Cl != 27182 && Cl != 27206 
+          && Cl != 27208 && Cl != 27209 && Cl != 27210 && Cl != 27211 
+          && Cl != 27214 && Cl != 27215 && Cl != 27216 && Cl != 27217 
+          && Cl != 27218 && Cl != 27219 && Cl != 27220 && Cl != 27221 
+          && Cl != 27222 && Cl != 27224 && Cl != 27225 && Cl != 27226 
+          && Cl != 27227 && Cl != 27229 && Cl != 27230 && Cl != 27232 
+          && Cl != 27233 && Cl != 27234 && Cl != 27237 && Cl != 27238 
+          && Cl != 27239 && Cl != 27240 && Cl != 27241 && Cl != 27242 
+          && Cl != 27244 && Cl != 27245 && Cl != 27246 && Cl != 27247 
+          && Cl != 27248 && Cl != 27249 && Cl != 27254 && Cl != 27255 
+          && Cl != 27256 && Cl != 27257 && Cl != 27258 && Cl != 27259 
+          && Cl != 27260 && Cl != 27261 && Cl != 27262 && Cl != 27264 
+          && Cl != 27265 && Cl != 27267 && Cl != 27268 && Cl != 27269 
+          && Cl != 27270 && Cl != 27271 && Cl != 27272 && Cl != 27273 
+          && Cl != 27277 && Cl != 27281 && Cl != 27282 && Cl != 27284 
+          && Cl != 27286 && Cl != 27287 && Cl != 27288 && Cl != 27289 
+          && Cl != 27290 && Cl != 27291 && Cl != 27295 && Cl != 27296 
+          && Cl != 27297 && Cl != 27298 && Cl != 27299 && Cl != 27300 
+          && Cl != 27301 && Cl != 27303 && Cl != 27306 && Cl != 27307 
+          && Cl != 27308 && Cl != 27310 && Cl != 27312 && Cl != 27314 
+          && Cl != 27316 && Cl != 27317 && Cl != 27318 && Cl != 27320 
+          && Cl != 27321 && Cl != 27322 && Cl != 27327 && Cl != 27328 
+          && Cl != 27330 && Cl != 27334 && Cl != 27335 && Cl != 27336 
+          && Cl != 27337 && Cl != 27338 && Cl != 27339 && Cl != 27342 
+          && Cl != 27348 && Cl != 27349 && Cl != 27352 && Cl != 27354 
+          && Cl != 27355 && Cl != 27356 && Cl != 27357 && Cl != 27358 
+          && Cl != 27360 && Cl != 27361 && Cl != 27362 && Cl != 27363 
+          && Cl != 27364 && Cl != 27365 && Cl != 27370 && Cl != 27371 
+          && Cl != 27372 && Cl != 27373 && Cl != 27376 && Cl != 27379 
+          && Cl != 27380 && Cl != 27384 && Cl != 27385 && Cl != 27386 
+          && Cl != 27387 && Cl != 27388 && Cl != 27389 && Cl != 27390 
+          && Cl != 27392 && Cl != 27393 && Cl != 27396 && Cl != 27397 
+          && Cl != 27398 && Cl != 27399 && Cl != 27402 && Cl != 27403 
+          && Cl != 27406 && Cl != 27410 && Cl != 90198 && Cl != 90214 
+          && Cl != 113284
+      ) {
         break;
+      }
       Xa()
     }
   }
@@ -10146,111 +10379,112 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 2836 || Cl == 3103 || Cl == 3104 || Cl == 3348 || Cl == 4372 ||
-        Cl == 4884 || Cl == 5396 || Cl == 5908 || Cl == 16148 || Cl == 16660 ||
-        Cl == 17675 || Cl == 17684 || Cl == 18196 || Cl == 20756 ||
-        Cl == 21780 || Cl == 22804 || Cl == 23316 || Cl == 23828 ||
-        Cl == 24340 || Cl == 27924 || Cl == 28436 || Cl == 30484 ||
-        Cl == 34068 || Cl == 35092 || Cl == 35871 || Cl == 35872 ||
-        Cl == 36116 || Cl == 36895 || Cl == 36896 || Cl == 37140 ||
-        Cl == 37407 || Cl == 37408 || Cl == 37652 || Cl == 37919 ||
-        Cl == 37920 || Cl == 38164 || Cl == 38431 || Cl == 38432 ||
-        Cl == 38676 || Cl == 39700 || Cl == 39967 || Cl == 39968 ||
-        Cl == 40212 || Cl == 40479 || Cl == 40480 || Cl == 40724 ||
-        Cl == 40991 || Cl == 40992 || Cl == 41236 || Cl == 41503 ||
-        Cl == 41504 || Cl == 41748 || Cl == 42015 || Cl == 42016 ||
-        Cl == 42260 || Cl == 42527 || Cl == 42528 || Cl == 42772 ||
-        Cl == 43039 || Cl == 43040 || Cl == 43284 || Cl == 43551 ||
-        Cl == 43552 || Cl == 43796 || Cl == 44063 || Cl == 44064 ||
-        Cl == 44308 || Cl == 45087 || Cl == 45088 || Cl == 45332 ||
-        Cl == 45599 || Cl == 45600 || Cl == 45844 || Cl == 46111 ||
-        Cl == 46112 || Cl == 46356 || Cl == 46623 || Cl == 46624 ||
-        Cl == 46868 || Cl == 47647 || Cl == 47648 || Cl == 47892 ||
-        Cl == 48159 || Cl == 48160 || Cl == 48404 || Cl == 49183 ||
-        Cl == 49184 || Cl == 49428 || Cl == 49695 || Cl == 49696 ||
-        Cl == 49940 || Cl == 50207 || Cl == 50208 || Cl == 50452 ||
-        Cl == 51743 || Cl == 51744 || Cl == 51988 || Cl == 52255 ||
-        Cl == 52256 || Cl == 52500 || Cl == 52767 || Cl == 52768 ||
-        Cl == 53012 || Cl == 53279 || Cl == 53280 || Cl == 53524 ||
-        Cl == 53791 || Cl == 53792 || Cl == 54036 || Cl == 54303 ||
-        Cl == 54304 || Cl == 54548 || Cl == 55327 || Cl == 55328 ||
-        Cl == 55572 || Cl == 55839 || Cl == 55840 || Cl == 56084 ||
-        Cl == 56351 || Cl == 56352 || Cl == 56596 || Cl == 56863 ||
-        Cl == 56864 || Cl == 57108 || Cl == 57375 || Cl == 57376 ||
-        Cl == 57620 || Cl == 57887 || Cl == 57888 || Cl == 58132 ||
-        Cl == 60447 || Cl == 60448 || Cl == 60692 || Cl == 60959 ||
-        Cl == 60960 || Cl == 61204 || Cl == 61471 || Cl == 61472 ||
-        Cl == 61716 || Cl == 61983 || Cl == 61984 || Cl == 62228 ||
-        Cl == 62495 || Cl == 62496 || Cl == 62740 || Cl == 63007 ||
-        Cl == 63008 || Cl == 63252 || Cl == 63519 || Cl == 63520 ||
-        Cl == 63764 || Cl == 64031 || Cl == 64032 || Cl == 64276 ||
-        Cl == 64543 || Cl == 64544 || Cl == 64788 || Cl == 65567 ||
-        Cl == 65568 || Cl == 65812 || Cl == 66079 || Cl == 66080 ||
-        Cl == 66324 || Cl == 67103 || Cl == 67104 || Cl == 67348 ||
-        Cl == 67615 || Cl == 67616 || Cl == 67860 || Cl == 68127 ||
-        Cl == 68128 || Cl == 68372 || Cl == 68639 || Cl == 68640 ||
-        Cl == 68884 || Cl == 69151 || Cl == 69152 || Cl == 69396 ||
-        Cl == 69663 || Cl == 69664 || Cl == 69908 || Cl == 70175 ||
-        Cl == 70176 || Cl == 70420 || Cl == 72223 || Cl == 72224 ||
-        Cl == 72468 || Cl == 74271 || Cl == 74272 || Cl == 74516 ||
-        Cl == 74783 || Cl == 74784 || Cl == 75028 || Cl == 75807 ||
-        Cl == 75808 || Cl == 76052 || Cl == 76831 || Cl == 76832 ||
-        Cl == 77076 || Cl == 77343 || Cl == 77344 || Cl == 77588 ||
-        Cl == 77855 || Cl == 77856 || Cl == 78100 || Cl == 78367 ||
-        Cl == 78368 || Cl == 78612 || Cl == 78879 || Cl == 78880 ||
-        Cl == 79124 || Cl == 79391 || Cl == 79392 || Cl == 79636 ||
-        Cl == 81439 || Cl == 81440 || Cl == 81684 || Cl == 81951 ||
-        Cl == 81952 || Cl == 82196 || Cl == 82463 || Cl == 82464 ||
-        Cl == 82708 || Cl == 82975 || Cl == 82976 || Cl == 83220 ||
-        Cl == 83487 || Cl == 83488 || Cl == 83732 || Cl == 83999 ||
-        Cl == 84e3 || Cl == 84244 || Cl == 84511 || Cl == 84512 ||
-        Cl == 84756 || Cl == 85535 || Cl == 85536 || Cl == 85780 ||
-        Cl == 87071 || Cl == 87072 || Cl == 87316 || Cl == 87583 ||
-        Cl == 87584 || Cl == 87828 || Cl == 88095 || Cl == 88096 ||
-        Cl == 88340 || Cl == 89119 || Cl == 89120 || Cl == 89364 ||
-        Cl == 90143 || Cl == 90144 || Cl == 90388 || Cl == 91167 ||
-        Cl == 91168 || Cl == 91412 || Cl == 92191 || Cl == 92192 ||
-        Cl == 92436 || Cl == 92703 || Cl == 92704 || Cl == 92948 ||
-        Cl == 93215 || Cl == 93216 || Cl == 93460 || Cl == 94239 ||
-        Cl == 94240 || Cl == 94484 || Cl == 94751 || Cl == 94752 ||
-        Cl == 94996 || Cl == 95263 || Cl == 95264 || Cl == 95508 ||
-        Cl == 97823 || Cl == 97824 || Cl == 98068 || Cl == 98335 ||
-        Cl == 98336 || Cl == 98580 || Cl == 99359 || Cl == 99360 ||
-        Cl == 99604 || Cl == 101407 || Cl == 101408 || Cl == 101652 ||
-        Cl == 101919 || Cl == 101920 || Cl == 102164 || Cl == 102431 ||
-        Cl == 102432 || Cl == 102676 || Cl == 102943 || Cl == 102944 ||
-        Cl == 103188 || Cl == 103455 || Cl == 103456 || Cl == 103700 ||
-        Cl == 103967 || Cl == 103968 || Cl == 104212 || Cl == 105503 ||
-        Cl == 105504 || Cl == 105748 || Cl == 108575 || Cl == 108576 ||
-        Cl == 108820 || Cl == 109087 || Cl == 109088 || Cl == 109332 ||
-        Cl == 110623 || Cl == 110624 || Cl == 110868 || Cl == 111647 ||
-        Cl == 111648 || Cl == 111892 || Cl == 112159 || Cl == 112160 ||
-        Cl == 112404 || Cl == 112671 || Cl == 112672 || Cl == 112916 ||
-        Cl == 113183 || Cl == 113184 || Cl == 113428 || Cl == 113695 ||
-        Cl == 113696 || Cl == 113940 || Cl == 114719 || Cl == 114720 ||
-        Cl == 114964 || Cl == 115231 || Cl == 115232 || Cl == 115476 ||
-        Cl == 115743 || Cl == 115744 || Cl == 115988 || Cl == 116255 ||
-        Cl == 116256 || Cl == 116500 || Cl == 116767 || Cl == 116768 ||
-        Cl == 117012 || Cl == 117279 || Cl == 117280 || Cl == 117524 ||
-        Cl == 119839 || Cl == 119840 || Cl == 120084 || Cl == 120351 ||
-        Cl == 120352 || Cl == 120596 || Cl == 120863 || Cl == 120864 ||
-        Cl == 121108 || Cl == 121375 || Cl == 121376 || Cl == 121620 ||
-        Cl == 122911 || Cl == 122912 || Cl == 123156 || Cl == 124447 ||
-        Cl == 124448 || Cl == 124692 || Cl == 124959 || Cl == 124960 ||
-        Cl == 125204 || Cl == 127007 || Cl == 127008 || Cl == 127252 ||
-        Cl == 127519 || Cl == 127520 || Cl == 127764 || Cl == 128031 ||
-        Cl == 128032 || Cl == 128276 || Cl == 128543 || Cl == 128544 ||
-        Cl == 128788 || Cl == 129055 || Cl == 129056 || Cl == 129300 ||
-        Cl == 129567 || Cl == 129568 || Cl == 129812 || Cl == 130079 ||
-        Cl == 130080 || Cl == 130324 || Cl == 131103 || Cl == 131104 ||
-        Cl == 131348 || Cl == 131615 || Cl == 131616 || Cl == 131860 ||
-        Cl == 133151 || Cl == 133152 || Cl == 133396 || Cl == 133663 ||
-        Cl == 133664 || Cl == 133908 || Cl == 134175 || Cl == 134176 ||
-        Cl == 134420 || Cl == 134687 || Cl == 134688 || Cl == 134932 ||
-        Cl == 136223 || Cl == 136224 || Cl == 136468 || Cl == 136735 ||
-        Cl == 136736 || Cl == 136980 || Cl == 138271 || Cl == 138272 ||
-        Cl == 138516 || Cl == 140319 || Cl == 140320 || Cl == 140564 ||
-        Cl == 141588 || Cl == 142612 || Cl == 144660) {
+    if (Cl == 2836 || Cl == 3103 || Cl == 3104 || Cl == 3348 || Cl == 4372 
+        || Cl == 4884 || Cl == 5396 || Cl == 5908 || Cl == 16148 || Cl == 16660 
+        || Cl == 17675 || Cl == 17684 || Cl == 18196 || Cl == 20756 
+        || Cl == 21780 || Cl == 22804 || Cl == 23316 || Cl == 23828 
+        || Cl == 24340 || Cl == 27924 || Cl == 28436 || Cl == 30484 
+        || Cl == 34068 || Cl == 35092 || Cl == 35871 || Cl == 35872 
+        || Cl == 36116 || Cl == 36895 || Cl == 36896 || Cl == 37140 
+        || Cl == 37407 || Cl == 37408 || Cl == 37652 || Cl == 37919 
+        || Cl == 37920 || Cl == 38164 || Cl == 38431 || Cl == 38432 
+        || Cl == 38676 || Cl == 39700 || Cl == 39967 || Cl == 39968 
+        || Cl == 40212 || Cl == 40479 || Cl == 40480 || Cl == 40724 
+        || Cl == 40991 || Cl == 40992 || Cl == 41236 || Cl == 41503 
+        || Cl == 41504 || Cl == 41748 || Cl == 42015 || Cl == 42016 
+        || Cl == 42260 || Cl == 42527 || Cl == 42528 || Cl == 42772 
+        || Cl == 43039 || Cl == 43040 || Cl == 43284 || Cl == 43551 
+        || Cl == 43552 || Cl == 43796 || Cl == 44063 || Cl == 44064 
+        || Cl == 44308 || Cl == 45087 || Cl == 45088 || Cl == 45332 
+        || Cl == 45599 || Cl == 45600 || Cl == 45844 || Cl == 46111 
+        || Cl == 46112 || Cl == 46356 || Cl == 46623 || Cl == 46624 
+        || Cl == 46868 || Cl == 47647 || Cl == 47648 || Cl == 47892 
+        || Cl == 48159 || Cl == 48160 || Cl == 48404 || Cl == 49183 
+        || Cl == 49184 || Cl == 49428 || Cl == 49695 || Cl == 49696 
+        || Cl == 49940 || Cl == 50207 || Cl == 50208 || Cl == 50452 
+        || Cl == 51743 || Cl == 51744 || Cl == 51988 || Cl == 52255 
+        || Cl == 52256 || Cl == 52500 || Cl == 52767 || Cl == 52768 
+        || Cl == 53012 || Cl == 53279 || Cl == 53280 || Cl == 53524 
+        || Cl == 53791 || Cl == 53792 || Cl == 54036 || Cl == 54303 
+        || Cl == 54304 || Cl == 54548 || Cl == 55327 || Cl == 55328 
+        || Cl == 55572 || Cl == 55839 || Cl == 55840 || Cl == 56084 
+        || Cl == 56351 || Cl == 56352 || Cl == 56596 || Cl == 56863 
+        || Cl == 56864 || Cl == 57108 || Cl == 57375 || Cl == 57376 
+        || Cl == 57620 || Cl == 57887 || Cl == 57888 || Cl == 58132 
+        || Cl == 60447 || Cl == 60448 || Cl == 60692 || Cl == 60959 
+        || Cl == 60960 || Cl == 61204 || Cl == 61471 || Cl == 61472 
+        || Cl == 61716 || Cl == 61983 || Cl == 61984 || Cl == 62228 
+        || Cl == 62495 || Cl == 62496 || Cl == 62740 || Cl == 63007 
+        || Cl == 63008 || Cl == 63252 || Cl == 63519 || Cl == 63520 
+        || Cl == 63764 || Cl == 64031 || Cl == 64032 || Cl == 64276 
+        || Cl == 64543 || Cl == 64544 || Cl == 64788 || Cl == 65567 
+        || Cl == 65568 || Cl == 65812 || Cl == 66079 || Cl == 66080 
+        || Cl == 66324 || Cl == 67103 || Cl == 67104 || Cl == 67348 
+        || Cl == 67615 || Cl == 67616 || Cl == 67860 || Cl == 68127 
+        || Cl == 68128 || Cl == 68372 || Cl == 68639 || Cl == 68640 
+        || Cl == 68884 || Cl == 69151 || Cl == 69152 || Cl == 69396 
+        || Cl == 69663 || Cl == 69664 || Cl == 69908 || Cl == 70175 
+        || Cl == 70176 || Cl == 70420 || Cl == 72223 || Cl == 72224 
+        || Cl == 72468 || Cl == 74271 || Cl == 74272 || Cl == 74516 
+        || Cl == 74783 || Cl == 74784 || Cl == 75028 || Cl == 75807 
+        || Cl == 75808 || Cl == 76052 || Cl == 76831 || Cl == 76832 
+        || Cl == 77076 || Cl == 77343 || Cl == 77344 || Cl == 77588 
+        || Cl == 77855 || Cl == 77856 || Cl == 78100 || Cl == 78367 
+        || Cl == 78368 || Cl == 78612 || Cl == 78879 || Cl == 78880 
+        || Cl == 79124 || Cl == 79391 || Cl == 79392 || Cl == 79636 
+        || Cl == 81439 || Cl == 81440 || Cl == 81684 || Cl == 81951 
+        || Cl == 81952 || Cl == 82196 || Cl == 82463 || Cl == 82464 
+        || Cl == 82708 || Cl == 82975 || Cl == 82976 || Cl == 83220 
+        || Cl == 83487 || Cl == 83488 || Cl == 83732 || Cl == 83999 
+        || Cl == 84e3 || Cl == 84244 || Cl == 84511 || Cl == 84512 
+        || Cl == 84756 || Cl == 85535 || Cl == 85536 || Cl == 85780 
+        || Cl == 87071 || Cl == 87072 || Cl == 87316 || Cl == 87583 
+        || Cl == 87584 || Cl == 87828 || Cl == 88095 || Cl == 88096 
+        || Cl == 88340 || Cl == 89119 || Cl == 89120 || Cl == 89364 
+        || Cl == 90143 || Cl == 90144 || Cl == 90388 || Cl == 91167 
+        || Cl == 91168 || Cl == 91412 || Cl == 92191 || Cl == 92192 
+        || Cl == 92436 || Cl == 92703 || Cl == 92704 || Cl == 92948 
+        || Cl == 93215 || Cl == 93216 || Cl == 93460 || Cl == 94239 
+        || Cl == 94240 || Cl == 94484 || Cl == 94751 || Cl == 94752 
+        || Cl == 94996 || Cl == 95263 || Cl == 95264 || Cl == 95508 
+        || Cl == 97823 || Cl == 97824 || Cl == 98068 || Cl == 98335 
+        || Cl == 98336 || Cl == 98580 || Cl == 99359 || Cl == 99360 
+        || Cl == 99604 || Cl == 101407 || Cl == 101408 || Cl == 101652 
+        || Cl == 101919 || Cl == 101920 || Cl == 102164 || Cl == 102431 
+        || Cl == 102432 || Cl == 102676 || Cl == 102943 || Cl == 102944 
+        || Cl == 103188 || Cl == 103455 || Cl == 103456 || Cl == 103700 
+        || Cl == 103967 || Cl == 103968 || Cl == 104212 || Cl == 105503 
+        || Cl == 105504 || Cl == 105748 || Cl == 108575 || Cl == 108576 
+        || Cl == 108820 || Cl == 109087 || Cl == 109088 || Cl == 109332 
+        || Cl == 110623 || Cl == 110624 || Cl == 110868 || Cl == 111647 
+        || Cl == 111648 || Cl == 111892 || Cl == 112159 || Cl == 112160 
+        || Cl == 112404 || Cl == 112671 || Cl == 112672 || Cl == 112916 
+        || Cl == 113183 || Cl == 113184 || Cl == 113428 || Cl == 113695 
+        || Cl == 113696 || Cl == 113940 || Cl == 114719 || Cl == 114720 
+        || Cl == 114964 || Cl == 115231 || Cl == 115232 || Cl == 115476 
+        || Cl == 115743 || Cl == 115744 || Cl == 115988 || Cl == 116255 
+        || Cl == 116256 || Cl == 116500 || Cl == 116767 || Cl == 116768 
+        || Cl == 117012 || Cl == 117279 || Cl == 117280 || Cl == 117524 
+        || Cl == 119839 || Cl == 119840 || Cl == 120084 || Cl == 120351 
+        || Cl == 120352 || Cl == 120596 || Cl == 120863 || Cl == 120864 
+        || Cl == 121108 || Cl == 121375 || Cl == 121376 || Cl == 121620 
+        || Cl == 122911 || Cl == 122912 || Cl == 123156 || Cl == 124447 
+        || Cl == 124448 || Cl == 124692 || Cl == 124959 || Cl == 124960 
+        || Cl == 125204 || Cl == 127007 || Cl == 127008 || Cl == 127252 
+        || Cl == 127519 || Cl == 127520 || Cl == 127764 || Cl == 128031 
+        || Cl == 128032 || Cl == 128276 || Cl == 128543 || Cl == 128544 
+        || Cl == 128788 || Cl == 129055 || Cl == 129056 || Cl == 129300 
+        || Cl == 129567 || Cl == 129568 || Cl == 129812 || Cl == 130079 
+        || Cl == 130080 || Cl == 130324 || Cl == 131103 || Cl == 131104 
+        || Cl == 131348 || Cl == 131615 || Cl == 131616 || Cl == 131860 
+        || Cl == 133151 || Cl == 133152 || Cl == 133396 || Cl == 133663 
+        || Cl == 133664 || Cl == 133908 || Cl == 134175 || Cl == 134176 
+        || Cl == 134420 || Cl == 134687 || Cl == 134688 || Cl == 134932 
+        || Cl == 136223 || Cl == 136224 || Cl == 136468 || Cl == 136735 
+        || Cl == 136736 || Cl == 136980 || Cl == 138271 || Cl == 138272 
+        || Cl == 138516 || Cl == 140319 || Cl == 140320 || Cl == 140564 
+        || Cl == 141588 || Cl == 142612 || Cl == 144660
+    ) {
       Cl = pl(7, Ll);
       if (Cl == 0) {
         var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -10374,111 +10608,112 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 2836 || Cl == 3103 || Cl == 3104 || Cl == 3348 || Cl == 4372 ||
-        Cl == 4884 || Cl == 5396 || Cl == 5908 || Cl == 16148 || Cl == 16660 ||
-        Cl == 17675 || Cl == 17684 || Cl == 18196 || Cl == 20756 ||
-        Cl == 21780 || Cl == 22804 || Cl == 23316 || Cl == 23828 ||
-        Cl == 24340 || Cl == 27924 || Cl == 28436 || Cl == 30484 ||
-        Cl == 34068 || Cl == 35092 || Cl == 35871 || Cl == 35872 ||
-        Cl == 36116 || Cl == 36895 || Cl == 36896 || Cl == 37140 ||
-        Cl == 37407 || Cl == 37408 || Cl == 37652 || Cl == 37919 ||
-        Cl == 37920 || Cl == 38164 || Cl == 38431 || Cl == 38432 ||
-        Cl == 38676 || Cl == 39700 || Cl == 39967 || Cl == 39968 ||
-        Cl == 40212 || Cl == 40479 || Cl == 40480 || Cl == 40724 ||
-        Cl == 40991 || Cl == 40992 || Cl == 41236 || Cl == 41503 ||
-        Cl == 41504 || Cl == 41748 || Cl == 42015 || Cl == 42016 ||
-        Cl == 42260 || Cl == 42527 || Cl == 42528 || Cl == 42772 ||
-        Cl == 43039 || Cl == 43040 || Cl == 43284 || Cl == 43551 ||
-        Cl == 43552 || Cl == 43796 || Cl == 44063 || Cl == 44064 ||
-        Cl == 44308 || Cl == 45087 || Cl == 45088 || Cl == 45332 ||
-        Cl == 45599 || Cl == 45600 || Cl == 45844 || Cl == 46111 ||
-        Cl == 46112 || Cl == 46356 || Cl == 46623 || Cl == 46624 ||
-        Cl == 46868 || Cl == 47647 || Cl == 47648 || Cl == 47892 ||
-        Cl == 48159 || Cl == 48160 || Cl == 48404 || Cl == 49183 ||
-        Cl == 49184 || Cl == 49428 || Cl == 49695 || Cl == 49696 ||
-        Cl == 49940 || Cl == 50207 || Cl == 50208 || Cl == 50452 ||
-        Cl == 51743 || Cl == 51744 || Cl == 51988 || Cl == 52255 ||
-        Cl == 52256 || Cl == 52500 || Cl == 52767 || Cl == 52768 ||
-        Cl == 53012 || Cl == 53279 || Cl == 53280 || Cl == 53524 ||
-        Cl == 53791 || Cl == 53792 || Cl == 54036 || Cl == 54303 ||
-        Cl == 54304 || Cl == 54548 || Cl == 55327 || Cl == 55328 ||
-        Cl == 55572 || Cl == 55839 || Cl == 55840 || Cl == 56084 ||
-        Cl == 56351 || Cl == 56352 || Cl == 56596 || Cl == 56863 ||
-        Cl == 56864 || Cl == 57108 || Cl == 57375 || Cl == 57376 ||
-        Cl == 57620 || Cl == 57887 || Cl == 57888 || Cl == 58132 ||
-        Cl == 60447 || Cl == 60448 || Cl == 60692 || Cl == 60959 ||
-        Cl == 60960 || Cl == 61204 || Cl == 61471 || Cl == 61472 ||
-        Cl == 61716 || Cl == 61983 || Cl == 61984 || Cl == 62228 ||
-        Cl == 62495 || Cl == 62496 || Cl == 62740 || Cl == 63007 ||
-        Cl == 63008 || Cl == 63252 || Cl == 63519 || Cl == 63520 ||
-        Cl == 63764 || Cl == 64031 || Cl == 64032 || Cl == 64276 ||
-        Cl == 64543 || Cl == 64544 || Cl == 64788 || Cl == 65567 ||
-        Cl == 65568 || Cl == 65812 || Cl == 66079 || Cl == 66080 ||
-        Cl == 66324 || Cl == 67103 || Cl == 67104 || Cl == 67348 ||
-        Cl == 67615 || Cl == 67616 || Cl == 67860 || Cl == 68127 ||
-        Cl == 68128 || Cl == 68372 || Cl == 68639 || Cl == 68640 ||
-        Cl == 68884 || Cl == 69151 || Cl == 69152 || Cl == 69396 ||
-        Cl == 69663 || Cl == 69664 || Cl == 69908 || Cl == 70175 ||
-        Cl == 70176 || Cl == 70420 || Cl == 72223 || Cl == 72224 ||
-        Cl == 72468 || Cl == 74271 || Cl == 74272 || Cl == 74516 ||
-        Cl == 74783 || Cl == 74784 || Cl == 75028 || Cl == 75807 ||
-        Cl == 75808 || Cl == 76052 || Cl == 76831 || Cl == 76832 ||
-        Cl == 77076 || Cl == 77343 || Cl == 77344 || Cl == 77588 ||
-        Cl == 77855 || Cl == 77856 || Cl == 78100 || Cl == 78367 ||
-        Cl == 78368 || Cl == 78612 || Cl == 78879 || Cl == 78880 ||
-        Cl == 79124 || Cl == 79391 || Cl == 79392 || Cl == 79636 ||
-        Cl == 81439 || Cl == 81440 || Cl == 81684 || Cl == 81951 ||
-        Cl == 81952 || Cl == 82196 || Cl == 82463 || Cl == 82464 ||
-        Cl == 82708 || Cl == 82975 || Cl == 82976 || Cl == 83220 ||
-        Cl == 83487 || Cl == 83488 || Cl == 83732 || Cl == 83999 ||
-        Cl == 84e3 || Cl == 84244 || Cl == 84511 || Cl == 84512 ||
-        Cl == 84756 || Cl == 85535 || Cl == 85536 || Cl == 85780 ||
-        Cl == 87071 || Cl == 87072 || Cl == 87316 || Cl == 87583 ||
-        Cl == 87584 || Cl == 87828 || Cl == 88095 || Cl == 88096 ||
-        Cl == 88340 || Cl == 89119 || Cl == 89120 || Cl == 89364 ||
-        Cl == 90143 || Cl == 90144 || Cl == 90388 || Cl == 91167 ||
-        Cl == 91168 || Cl == 91412 || Cl == 92191 || Cl == 92192 ||
-        Cl == 92436 || Cl == 92703 || Cl == 92704 || Cl == 92948 ||
-        Cl == 93215 || Cl == 93216 || Cl == 93460 || Cl == 94239 ||
-        Cl == 94240 || Cl == 94484 || Cl == 94751 || Cl == 94752 ||
-        Cl == 94996 || Cl == 95263 || Cl == 95264 || Cl == 95508 ||
-        Cl == 97823 || Cl == 97824 || Cl == 98068 || Cl == 98335 ||
-        Cl == 98336 || Cl == 98580 || Cl == 99359 || Cl == 99360 ||
-        Cl == 99604 || Cl == 101407 || Cl == 101408 || Cl == 101652 ||
-        Cl == 101919 || Cl == 101920 || Cl == 102164 || Cl == 102431 ||
-        Cl == 102432 || Cl == 102676 || Cl == 102943 || Cl == 102944 ||
-        Cl == 103188 || Cl == 103455 || Cl == 103456 || Cl == 103700 ||
-        Cl == 103967 || Cl == 103968 || Cl == 104212 || Cl == 105503 ||
-        Cl == 105504 || Cl == 105748 || Cl == 108575 || Cl == 108576 ||
-        Cl == 108820 || Cl == 109087 || Cl == 109088 || Cl == 109332 ||
-        Cl == 110623 || Cl == 110624 || Cl == 110868 || Cl == 111647 ||
-        Cl == 111648 || Cl == 111892 || Cl == 112159 || Cl == 112160 ||
-        Cl == 112404 || Cl == 112671 || Cl == 112672 || Cl == 112916 ||
-        Cl == 113183 || Cl == 113184 || Cl == 113428 || Cl == 113695 ||
-        Cl == 113696 || Cl == 113940 || Cl == 114719 || Cl == 114720 ||
-        Cl == 114964 || Cl == 115231 || Cl == 115232 || Cl == 115476 ||
-        Cl == 115743 || Cl == 115744 || Cl == 115988 || Cl == 116255 ||
-        Cl == 116256 || Cl == 116500 || Cl == 116767 || Cl == 116768 ||
-        Cl == 117012 || Cl == 117279 || Cl == 117280 || Cl == 117524 ||
-        Cl == 119839 || Cl == 119840 || Cl == 120084 || Cl == 120351 ||
-        Cl == 120352 || Cl == 120596 || Cl == 120863 || Cl == 120864 ||
-        Cl == 121108 || Cl == 121375 || Cl == 121376 || Cl == 121620 ||
-        Cl == 122911 || Cl == 122912 || Cl == 123156 || Cl == 124447 ||
-        Cl == 124448 || Cl == 124692 || Cl == 124959 || Cl == 124960 ||
-        Cl == 125204 || Cl == 127007 || Cl == 127008 || Cl == 127252 ||
-        Cl == 127519 || Cl == 127520 || Cl == 127764 || Cl == 128031 ||
-        Cl == 128032 || Cl == 128276 || Cl == 128543 || Cl == 128544 ||
-        Cl == 128788 || Cl == 129055 || Cl == 129056 || Cl == 129300 ||
-        Cl == 129567 || Cl == 129568 || Cl == 129812 || Cl == 130079 ||
-        Cl == 130080 || Cl == 130324 || Cl == 131103 || Cl == 131104 ||
-        Cl == 131348 || Cl == 131615 || Cl == 131616 || Cl == 131860 ||
-        Cl == 133151 || Cl == 133152 || Cl == 133396 || Cl == 133663 ||
-        Cl == 133664 || Cl == 133908 || Cl == 134175 || Cl == 134176 ||
-        Cl == 134420 || Cl == 134687 || Cl == 134688 || Cl == 134932 ||
-        Cl == 136223 || Cl == 136224 || Cl == 136468 || Cl == 136735 ||
-        Cl == 136736 || Cl == 136980 || Cl == 138271 || Cl == 138272 ||
-        Cl == 138516 || Cl == 140319 || Cl == 140320 || Cl == 140564 ||
-        Cl == 141588 || Cl == 142612 || Cl == 144660) {
+    if (Cl == 2836 || Cl == 3103 || Cl == 3104 || Cl == 3348 || Cl == 4372 
+        || Cl == 4884 || Cl == 5396 || Cl == 5908 || Cl == 16148 || Cl == 16660 
+        || Cl == 17675 || Cl == 17684 || Cl == 18196 || Cl == 20756 
+        || Cl == 21780 || Cl == 22804 || Cl == 23316 || Cl == 23828 
+        || Cl == 24340 || Cl == 27924 || Cl == 28436 || Cl == 30484 
+        || Cl == 34068 || Cl == 35092 || Cl == 35871 || Cl == 35872 
+        || Cl == 36116 || Cl == 36895 || Cl == 36896 || Cl == 37140 
+        || Cl == 37407 || Cl == 37408 || Cl == 37652 || Cl == 37919 
+        || Cl == 37920 || Cl == 38164 || Cl == 38431 || Cl == 38432 
+        || Cl == 38676 || Cl == 39700 || Cl == 39967 || Cl == 39968 
+        || Cl == 40212 || Cl == 40479 || Cl == 40480 || Cl == 40724 
+        || Cl == 40991 || Cl == 40992 || Cl == 41236 || Cl == 41503 
+        || Cl == 41504 || Cl == 41748 || Cl == 42015 || Cl == 42016 
+        || Cl == 42260 || Cl == 42527 || Cl == 42528 || Cl == 42772 
+        || Cl == 43039 || Cl == 43040 || Cl == 43284 || Cl == 43551 
+        || Cl == 43552 || Cl == 43796 || Cl == 44063 || Cl == 44064 
+        || Cl == 44308 || Cl == 45087 || Cl == 45088 || Cl == 45332 
+        || Cl == 45599 || Cl == 45600 || Cl == 45844 || Cl == 46111 
+        || Cl == 46112 || Cl == 46356 || Cl == 46623 || Cl == 46624 
+        || Cl == 46868 || Cl == 47647 || Cl == 47648 || Cl == 47892 
+        || Cl == 48159 || Cl == 48160 || Cl == 48404 || Cl == 49183 
+        || Cl == 49184 || Cl == 49428 || Cl == 49695 || Cl == 49696 
+        || Cl == 49940 || Cl == 50207 || Cl == 50208 || Cl == 50452 
+        || Cl == 51743 || Cl == 51744 || Cl == 51988 || Cl == 52255 
+        || Cl == 52256 || Cl == 52500 || Cl == 52767 || Cl == 52768 
+        || Cl == 53012 || Cl == 53279 || Cl == 53280 || Cl == 53524 
+        || Cl == 53791 || Cl == 53792 || Cl == 54036 || Cl == 54303 
+        || Cl == 54304 || Cl == 54548 || Cl == 55327 || Cl == 55328 
+        || Cl == 55572 || Cl == 55839 || Cl == 55840 || Cl == 56084 
+        || Cl == 56351 || Cl == 56352 || Cl == 56596 || Cl == 56863 
+        || Cl == 56864 || Cl == 57108 || Cl == 57375 || Cl == 57376 
+        || Cl == 57620 || Cl == 57887 || Cl == 57888 || Cl == 58132 
+        || Cl == 60447 || Cl == 60448 || Cl == 60692 || Cl == 60959 
+        || Cl == 60960 || Cl == 61204 || Cl == 61471 || Cl == 61472 
+        || Cl == 61716 || Cl == 61983 || Cl == 61984 || Cl == 62228 
+        || Cl == 62495 || Cl == 62496 || Cl == 62740 || Cl == 63007 
+        || Cl == 63008 || Cl == 63252 || Cl == 63519 || Cl == 63520 
+        || Cl == 63764 || Cl == 64031 || Cl == 64032 || Cl == 64276 
+        || Cl == 64543 || Cl == 64544 || Cl == 64788 || Cl == 65567 
+        || Cl == 65568 || Cl == 65812 || Cl == 66079 || Cl == 66080 
+        || Cl == 66324 || Cl == 67103 || Cl == 67104 || Cl == 67348 
+        || Cl == 67615 || Cl == 67616 || Cl == 67860 || Cl == 68127 
+        || Cl == 68128 || Cl == 68372 || Cl == 68639 || Cl == 68640 
+        || Cl == 68884 || Cl == 69151 || Cl == 69152 || Cl == 69396 
+        || Cl == 69663 || Cl == 69664 || Cl == 69908 || Cl == 70175 
+        || Cl == 70176 || Cl == 70420 || Cl == 72223 || Cl == 72224 
+        || Cl == 72468 || Cl == 74271 || Cl == 74272 || Cl == 74516 
+        || Cl == 74783 || Cl == 74784 || Cl == 75028 || Cl == 75807 
+        || Cl == 75808 || Cl == 76052 || Cl == 76831 || Cl == 76832 
+        || Cl == 77076 || Cl == 77343 || Cl == 77344 || Cl == 77588 
+        || Cl == 77855 || Cl == 77856 || Cl == 78100 || Cl == 78367 
+        || Cl == 78368 || Cl == 78612 || Cl == 78879 || Cl == 78880 
+        || Cl == 79124 || Cl == 79391 || Cl == 79392 || Cl == 79636 
+        || Cl == 81439 || Cl == 81440 || Cl == 81684 || Cl == 81951 
+        || Cl == 81952 || Cl == 82196 || Cl == 82463 || Cl == 82464 
+        || Cl == 82708 || Cl == 82975 || Cl == 82976 || Cl == 83220 
+        || Cl == 83487 || Cl == 83488 || Cl == 83732 || Cl == 83999 
+        || Cl == 84e3 || Cl == 84244 || Cl == 84511 || Cl == 84512 
+        || Cl == 84756 || Cl == 85535 || Cl == 85536 || Cl == 85780 
+        || Cl == 87071 || Cl == 87072 || Cl == 87316 || Cl == 87583 
+        || Cl == 87584 || Cl == 87828 || Cl == 88095 || Cl == 88096 
+        || Cl == 88340 || Cl == 89119 || Cl == 89120 || Cl == 89364 
+        || Cl == 90143 || Cl == 90144 || Cl == 90388 || Cl == 91167 
+        || Cl == 91168 || Cl == 91412 || Cl == 92191 || Cl == 92192 
+        || Cl == 92436 || Cl == 92703 || Cl == 92704 || Cl == 92948 
+        || Cl == 93215 || Cl == 93216 || Cl == 93460 || Cl == 94239 
+        || Cl == 94240 || Cl == 94484 || Cl == 94751 || Cl == 94752 
+        || Cl == 94996 || Cl == 95263 || Cl == 95264 || Cl == 95508 
+        || Cl == 97823 || Cl == 97824 || Cl == 98068 || Cl == 98335 
+        || Cl == 98336 || Cl == 98580 || Cl == 99359 || Cl == 99360 
+        || Cl == 99604 || Cl == 101407 || Cl == 101408 || Cl == 101652 
+        || Cl == 101919 || Cl == 101920 || Cl == 102164 || Cl == 102431 
+        || Cl == 102432 || Cl == 102676 || Cl == 102943 || Cl == 102944 
+        || Cl == 103188 || Cl == 103455 || Cl == 103456 || Cl == 103700 
+        || Cl == 103967 || Cl == 103968 || Cl == 104212 || Cl == 105503 
+        || Cl == 105504 || Cl == 105748 || Cl == 108575 || Cl == 108576 
+        || Cl == 108820 || Cl == 109087 || Cl == 109088 || Cl == 109332 
+        || Cl == 110623 || Cl == 110624 || Cl == 110868 || Cl == 111647 
+        || Cl == 111648 || Cl == 111892 || Cl == 112159 || Cl == 112160 
+        || Cl == 112404 || Cl == 112671 || Cl == 112672 || Cl == 112916 
+        || Cl == 113183 || Cl == 113184 || Cl == 113428 || Cl == 113695 
+        || Cl == 113696 || Cl == 113940 || Cl == 114719 || Cl == 114720 
+        || Cl == 114964 || Cl == 115231 || Cl == 115232 || Cl == 115476 
+        || Cl == 115743 || Cl == 115744 || Cl == 115988 || Cl == 116255 
+        || Cl == 116256 || Cl == 116500 || Cl == 116767 || Cl == 116768 
+        || Cl == 117012 || Cl == 117279 || Cl == 117280 || Cl == 117524 
+        || Cl == 119839 || Cl == 119840 || Cl == 120084 || Cl == 120351 
+        || Cl == 120352 || Cl == 120596 || Cl == 120863 || Cl == 120864 
+        || Cl == 121108 || Cl == 121375 || Cl == 121376 || Cl == 121620 
+        || Cl == 122911 || Cl == 122912 || Cl == 123156 || Cl == 124447 
+        || Cl == 124448 || Cl == 124692 || Cl == 124959 || Cl == 124960 
+        || Cl == 125204 || Cl == 127007 || Cl == 127008 || Cl == 127252 
+        || Cl == 127519 || Cl == 127520 || Cl == 127764 || Cl == 128031 
+        || Cl == 128032 || Cl == 128276 || Cl == 128543 || Cl == 128544 
+        || Cl == 128788 || Cl == 129055 || Cl == 129056 || Cl == 129300 
+        || Cl == 129567 || Cl == 129568 || Cl == 129812 || Cl == 130079 
+        || Cl == 130080 || Cl == 130324 || Cl == 131103 || Cl == 131104 
+        || Cl == 131348 || Cl == 131615 || Cl == 131616 || Cl == 131860 
+        || Cl == 133151 || Cl == 133152 || Cl == 133396 || Cl == 133663 
+        || Cl == 133664 || Cl == 133908 || Cl == 134175 || Cl == 134176 
+        || Cl == 134420 || Cl == 134687 || Cl == 134688 || Cl == 134932 
+        || Cl == 136223 || Cl == 136224 || Cl == 136468 || Cl == 136735 
+        || Cl == 136736 || Cl == 136980 || Cl == 138271 || Cl == 138272 
+        || Cl == 138516 || Cl == 140319 || Cl == 140320 || Cl == 140564 
+        || Cl == 141588 || Cl == 142612 || Cl == 144660
+    ) {
       Cl = pl(7, Ll);
       if (Cl == 0) {
         var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -10600,8 +10835,9 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("FLWORStatement", Ll), et();
     for (;;) {
       wl(173);
-      if (Al == 220)
+      if (Al == 220) {
         break;
+      }
       yl(), nt()
     }
     yl(), uf(), ql.endNonterminal("FLWORStatement", Ll)
@@ -10610,8 +10846,9 @@ var r = t.XQueryParser = function i(e, t) {
     tt();
     for (;;) {
       wl(173);
-      if (Al == 220)
+      if (Al == 220) {
         break;
+      }
       rt()
     }
     af()
@@ -10635,9 +10872,10 @@ var r = t.XQueryParser = function i(e, t) {
         wl(267), yl(), Q(), vl(37);
     for (;;) {
       wl(35), yl(), pf(), wl(113);
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     vl(109), wl(70), vl(220), wl(267), yl(), Wa(),
         ql.endNonterminal("SwitchStatement", Ll)
   }
@@ -10645,26 +10883,29 @@ var r = t.XQueryParser = function i(e, t) {
     ml(243), wl(22), ml(34), wl(267), G(), ml(37);
     for (;;) {
       wl(35), df(), wl(113);
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     ml(109), wl(70), ml(220), wl(267), Xa()
   }
   function pf() {
     ql.startNonterminal("SwitchCaseStatement", Ll);
     for (;;) {
       vl(88), wl(267), yl(), cn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     vl(220), wl(267), yl(), Wa(), ql.endNonterminal("SwitchCaseStatement", Ll)
   }
   function df() {
     for (;;) {
       ml(88), wl(267), hn();
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     ml(220), wl(267), Xa()
   }
   function vf() {
@@ -10678,11 +10919,12 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl == 38491 || Cl == 45659 || Cl == 46171 || Cl == 60507 ||
-          Cl == 65627 || Cl == 67163 || Cl == 74843 || Cl == 76891 ||
-          Cl == 77403 || Cl == 82011 || Cl == 83035 || Cl == 84059 ||
-          Cl == 88155 || Cl == 91227 || Cl == 92251 || Cl == 95323 ||
-          Cl == 102491 || Cl == 127067 || Cl == 127579 || Cl == 130139) {
+      if (Cl == 38491 || Cl == 45659 || Cl == 46171 || Cl == 60507 
+          || Cl == 65627 || Cl == 67163 || Cl == 74843 || Cl == 76891 
+          || Cl == 77403 || Cl == 82011 || Cl == 83035 || Cl == 84059 
+          || Cl == 88155 || Cl == 91227 || Cl == 92251 || Cl == 95323 
+          || Cl == 102491 || Cl == 127067 || Cl == 127579 || Cl == 130139
+      ) {
         Cl = pl(8, Ll);
         if (Cl == 0) {
           var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -10698,37 +10940,39 @@ var r = t.XQueryParser = function i(e, t) {
           hl(8, Ll, Cl)
         }
       }
-      if (Cl != -1 && Cl != 2651 && Cl != 3163 && Cl != 35931 && Cl != 36955 &&
-          Cl != 37467 && Cl != 37979 && Cl != 40027 && Cl != 40539 &&
-          Cl != 41051 && Cl != 41563 && Cl != 42075 && Cl != 42587 &&
-          Cl != 43099 && Cl != 43611 && Cl != 44123 && Cl != 45147 &&
-          Cl != 46683 && Cl != 47707 && Cl != 48219 && Cl != 49243 &&
-          Cl != 49755 && Cl != 50267 && Cl != 51803 && Cl != 52315 &&
-          Cl != 52827 && Cl != 53339 && Cl != 53851 && Cl != 54363 &&
-          Cl != 55387 && Cl != 55899 && Cl != 56411 && Cl != 56923 &&
-          Cl != 57435 && Cl != 57947 && Cl != 61019 && Cl != 61531 &&
-          Cl != 62043 && Cl != 62555 && Cl != 63067 && Cl != 63579 &&
-          Cl != 64091 && Cl != 64603 && Cl != 66139 && Cl != 67675 &&
-          Cl != 68187 && Cl != 68699 && Cl != 69211 && Cl != 69723 &&
-          Cl != 70235 && Cl != 72283 && Cl != 74331 && Cl != 75867 &&
-          Cl != 77915 && Cl != 78427 && Cl != 78939 && Cl != 79451 &&
-          Cl != 81499 && Cl != 82523 && Cl != 83547 && Cl != 84571 &&
-          Cl != 85595 && Cl != 87131 && Cl != 87643 && Cl != 89179 &&
-          Cl != 90203 && Cl != 92763 && Cl != 93275 && Cl != 94299 &&
-          Cl != 94811 && Cl != 97883 && Cl != 98395 && Cl != 99419 &&
-          Cl != 101467 && Cl != 101979 && Cl != 103003 && Cl != 103515 &&
-          Cl != 104027 && Cl != 105563 && Cl != 108635 && Cl != 109147 &&
-          Cl != 110683 && Cl != 111707 && Cl != 112219 && Cl != 112731 &&
-          Cl != 113243 && Cl != 113755 && Cl != 114779 && Cl != 115291 &&
-          Cl != 115803 && Cl != 116315 && Cl != 116827 && Cl != 117339 &&
-          Cl != 119899 && Cl != 120411 && Cl != 120923 && Cl != 121435 &&
-          Cl != 122971 && Cl != 124507 && Cl != 125019 && Cl != 128091 &&
-          Cl != 128603 && Cl != 129115 && Cl != 129627 && Cl != 131163 &&
-          Cl != 131675 && Cl != 133211 && Cl != 133723 && Cl != 134235 &&
-          Cl != 134747 && Cl != 136283 && Cl != 136795 && Cl != 138331 &&
-          Cl != 140379)
+      if (Cl != -1 && Cl != 2651 && Cl != 3163 && Cl != 35931 && Cl != 36955 
+          && Cl != 37467 && Cl != 37979 && Cl != 40027 && Cl != 40539 
+          && Cl != 41051 && Cl != 41563 && Cl != 42075 && Cl != 42587 
+          && Cl != 43099 && Cl != 43611 && Cl != 44123 && Cl != 45147 
+          && Cl != 46683 && Cl != 47707 && Cl != 48219 && Cl != 49243 
+          && Cl != 49755 && Cl != 50267 && Cl != 51803 && Cl != 52315 
+          && Cl != 52827 && Cl != 53339 && Cl != 53851 && Cl != 54363 
+          && Cl != 55387 && Cl != 55899 && Cl != 56411 && Cl != 56923 
+          && Cl != 57435 && Cl != 57947 && Cl != 61019 && Cl != 61531 
+          && Cl != 62043 && Cl != 62555 && Cl != 63067 && Cl != 63579 
+          && Cl != 64091 && Cl != 64603 && Cl != 66139 && Cl != 67675 
+          && Cl != 68187 && Cl != 68699 && Cl != 69211 && Cl != 69723 
+          && Cl != 70235 && Cl != 72283 && Cl != 74331 && Cl != 75867 
+          && Cl != 77915 && Cl != 78427 && Cl != 78939 && Cl != 79451 
+          && Cl != 81499 && Cl != 82523 && Cl != 83547 && Cl != 84571 
+          && Cl != 85595 && Cl != 87131 && Cl != 87643 && Cl != 89179 
+          && Cl != 90203 && Cl != 92763 && Cl != 93275 && Cl != 94299 
+          && Cl != 94811 && Cl != 97883 && Cl != 98395 && Cl != 99419 
+          && Cl != 101467 && Cl != 101979 && Cl != 103003 && Cl != 103515 
+          && Cl != 104027 && Cl != 105563 && Cl != 108635 && Cl != 109147 
+          && Cl != 110683 && Cl != 111707 && Cl != 112219 && Cl != 112731 
+          && Cl != 113243 && Cl != 113755 && Cl != 114779 && Cl != 115291 
+          && Cl != 115803 && Cl != 116315 && Cl != 116827 && Cl != 117339 
+          && Cl != 119899 && Cl != 120411 && Cl != 120923 && Cl != 121435 
+          && Cl != 122971 && Cl != 124507 && Cl != 125019 && Cl != 128091 
+          && Cl != 128603 && Cl != 129115 && Cl != 129627 && Cl != 131163 
+          && Cl != 131675 && Cl != 133211 && Cl != 133723 && Cl != 134235 
+          && Cl != 134747 && Cl != 136283 && Cl != 136795 && Cl != 138331 
+          && Cl != 140379
+      ) {
         break
     }
+      }
     ql.endNonterminal("TryCatchStatement", Ll)
   }
   function mf() {
@@ -10742,11 +10986,12 @@ var r = t.XQueryParser = function i(e, t) {
       default:
         Cl = Al
       }
-      if (Cl == 38491 || Cl == 45659 || Cl == 46171 || Cl == 60507 ||
-          Cl == 65627 || Cl == 67163 || Cl == 74843 || Cl == 76891 ||
-          Cl == 77403 || Cl == 82011 || Cl == 83035 || Cl == 84059 ||
-          Cl == 88155 || Cl == 91227 || Cl == 92251 || Cl == 95323 ||
-          Cl == 102491 || Cl == 127067 || Cl == 127579 || Cl == 130139) {
+      if (Cl == 38491 || Cl == 45659 || Cl == 46171 || Cl == 60507 
+          || Cl == 65627 || Cl == 67163 || Cl == 74843 || Cl == 76891 
+          || Cl == 77403 || Cl == 82011 || Cl == 83035 || Cl == 84059 
+          || Cl == 88155 || Cl == 91227 || Cl == 92251 || Cl == 95323 
+          || Cl == 102491 || Cl == 127067 || Cl == 127579 || Cl == 130139
+      ) {
         Cl = pl(8, Ll);
         if (Cl == 0) {
           var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -10763,36 +11008,38 @@ var r = t.XQueryParser = function i(e, t) {
           }
         }
       }
-      if (Cl != -1 && Cl != 2651 && Cl != 3163 && Cl != 35931 && Cl != 36955 &&
-          Cl != 37467 && Cl != 37979 && Cl != 40027 && Cl != 40539 &&
-          Cl != 41051 && Cl != 41563 && Cl != 42075 && Cl != 42587 &&
-          Cl != 43099 && Cl != 43611 && Cl != 44123 && Cl != 45147 &&
-          Cl != 46683 && Cl != 47707 && Cl != 48219 && Cl != 49243 &&
-          Cl != 49755 && Cl != 50267 && Cl != 51803 && Cl != 52315 &&
-          Cl != 52827 && Cl != 53339 && Cl != 53851 && Cl != 54363 &&
-          Cl != 55387 && Cl != 55899 && Cl != 56411 && Cl != 56923 &&
-          Cl != 57435 && Cl != 57947 && Cl != 61019 && Cl != 61531 &&
-          Cl != 62043 && Cl != 62555 && Cl != 63067 && Cl != 63579 &&
-          Cl != 64091 && Cl != 64603 && Cl != 66139 && Cl != 67675 &&
-          Cl != 68187 && Cl != 68699 && Cl != 69211 && Cl != 69723 &&
-          Cl != 70235 && Cl != 72283 && Cl != 74331 && Cl != 75867 &&
-          Cl != 77915 && Cl != 78427 && Cl != 78939 && Cl != 79451 &&
-          Cl != 81499 && Cl != 82523 && Cl != 83547 && Cl != 84571 &&
-          Cl != 85595 && Cl != 87131 && Cl != 87643 && Cl != 89179 &&
-          Cl != 90203 && Cl != 92763 && Cl != 93275 && Cl != 94299 &&
-          Cl != 94811 && Cl != 97883 && Cl != 98395 && Cl != 99419 &&
-          Cl != 101467 && Cl != 101979 && Cl != 103003 && Cl != 103515 &&
-          Cl != 104027 && Cl != 105563 && Cl != 108635 && Cl != 109147 &&
-          Cl != 110683 && Cl != 111707 && Cl != 112219 && Cl != 112731 &&
-          Cl != 113243 && Cl != 113755 && Cl != 114779 && Cl != 115291 &&
-          Cl != 115803 && Cl != 116315 && Cl != 116827 && Cl != 117339 &&
-          Cl != 119899 && Cl != 120411 && Cl != 120923 && Cl != 121435 &&
-          Cl != 122971 && Cl != 124507 && Cl != 125019 && Cl != 128091 &&
-          Cl != 128603 && Cl != 129115 && Cl != 129627 && Cl != 131163 &&
-          Cl != 131675 && Cl != 133211 && Cl != 133723 && Cl != 134235 &&
-          Cl != 134747 && Cl != 136283 && Cl != 136795 && Cl != 138331 &&
-          Cl != 140379)
+      if (Cl != -1 && Cl != 2651 && Cl != 3163 && Cl != 35931 && Cl != 36955 
+          && Cl != 37467 && Cl != 37979 && Cl != 40027 && Cl != 40539 
+          && Cl != 41051 && Cl != 41563 && Cl != 42075 && Cl != 42587 
+          && Cl != 43099 && Cl != 43611 && Cl != 44123 && Cl != 45147 
+          && Cl != 46683 && Cl != 47707 && Cl != 48219 && Cl != 49243 
+          && Cl != 49755 && Cl != 50267 && Cl != 51803 && Cl != 52315 
+          && Cl != 52827 && Cl != 53339 && Cl != 53851 && Cl != 54363 
+          && Cl != 55387 && Cl != 55899 && Cl != 56411 && Cl != 56923 
+          && Cl != 57435 && Cl != 57947 && Cl != 61019 && Cl != 61531 
+          && Cl != 62043 && Cl != 62555 && Cl != 63067 && Cl != 63579 
+          && Cl != 64091 && Cl != 64603 && Cl != 66139 && Cl != 67675 
+          && Cl != 68187 && Cl != 68699 && Cl != 69211 && Cl != 69723 
+          && Cl != 70235 && Cl != 72283 && Cl != 74331 && Cl != 75867 
+          && Cl != 77915 && Cl != 78427 && Cl != 78939 && Cl != 79451 
+          && Cl != 81499 && Cl != 82523 && Cl != 83547 && Cl != 84571 
+          && Cl != 85595 && Cl != 87131 && Cl != 87643 && Cl != 89179 
+          && Cl != 90203 && Cl != 92763 && Cl != 93275 && Cl != 94299 
+          && Cl != 94811 && Cl != 97883 && Cl != 98395 && Cl != 99419 
+          && Cl != 101467 && Cl != 101979 && Cl != 103003 && Cl != 103515 
+          && Cl != 104027 && Cl != 105563 && Cl != 108635 && Cl != 109147 
+          && Cl != 110683 && Cl != 111707 && Cl != 112219 && Cl != 112731 
+          && Cl != 113243 && Cl != 113755 && Cl != 114779 && Cl != 115291 
+          && Cl != 115803 && Cl != 116315 && Cl != 116827 && Cl != 117339 
+          && Cl != 119899 && Cl != 120411 && Cl != 120923 && Cl != 121435 
+          && Cl != 122971 && Cl != 124507 && Cl != 125019 && Cl != 128091 
+          && Cl != 128603 && Cl != 129115 && Cl != 129627 && Cl != 131163 
+          && Cl != 131675 && Cl != 133211 && Cl != 133723 && Cl != 134235 
+          && Cl != 134747 && Cl != 136283 && Cl != 136795 && Cl != 138331 
+          && Cl != 140379
+      ) {
         break;
+      }
       wl(36), ml(91), wl(255), On(), Ga()
     }
   }
@@ -10801,9 +11048,10 @@ var r = t.XQueryParser = function i(e, t) {
         wl(267), yl(), Q(), vl(37);
     for (;;) {
       wl(35), yl(), bf(), wl(113);
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     vl(109), wl(95), Al == 31 && (vl(31), wl(253), yl(), fi()), wl(70), vl(220),
         wl(267), yl(), Wa(), ql.endNonterminal("TypeswitchStatement", Ll)
   }
@@ -10811,9 +11059,10 @@ var r = t.XQueryParser = function i(e, t) {
     ml(253), wl(22), ml(34), wl(267), G(), ml(37);
     for (;;) {
       wl(35), wf(), wl(113);
-      if (Al != 88)
+      if (Al != 88) {
         break
     }
+      }
     ml(109), wl(95), Al == 31 && (ml(31), wl(253), li()), wl(70), ml(220),
         wl(267), Xa()
   }
@@ -10831,16 +11080,18 @@ var r = t.XQueryParser = function i(e, t) {
     ql.startNonterminal("VarDeclStatement", Ll);
     for (;;) {
       wl(98);
-      if (Al != 32)
+      if (Al != 32) {
         break;
+      }
       yl(), H()
     }
     vl(262), wl(21), vl(31), wl(253), yl(), fi(), wl(157),
         Al == 79 && (yl(), cs()), wl(145),
         Al == 52 && (vl(52), wl(267), yl(), Nf());
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       vl(41), wl(21), vl(31), wl(253), yl(), fi(), wl(157),
           Al == 79 && (yl(), cs()), wl(145),
           Al == 52 && (vl(52), wl(267), yl(), Nf())
@@ -10850,15 +11101,17 @@ var r = t.XQueryParser = function i(e, t) {
   function Sf() {
     for (;;) {
       wl(98);
-      if (Al != 32)
+      if (Al != 32) {
         break;
+      }
       B()
     }
     ml(262), wl(21), ml(31), wl(253), li(), wl(157), Al == 79 && hs(), wl(145),
         Al == 52 && (ml(52), wl(267), Cf());
     for (;;) {
-      if (Al != 41)
+      if (Al != 41) {
         break;
+      }
       ml(41), wl(21), ml(31), wl(253), li(), wl(157), Al == 79 && hs(), wl(145),
           Al == 52 && (ml(52), wl(267), Cf())
     }
@@ -10993,7 +11246,8 @@ var r = t.XQueryParser = function i(e, t) {
       Ao();
       break;
     case 98010:
-      Do();
+      Do { ();
+      }
       break;
     case 98011:
     case 133851:
@@ -11538,45 +11792,46 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 2836 || Cl == 3348 || Cl == 4372 || Cl == 4884 || Cl == 5396 ||
-        Cl == 5908 || Cl == 16148 || Cl == 16660 || Cl == 17684 ||
-        Cl == 18196 || Cl == 20756 || Cl == 21780 || Cl == 22804 ||
-        Cl == 23316 || Cl == 23828 || Cl == 24340 || Cl == 27924 ||
-        Cl == 28436 || Cl == 30484 || Cl == 34068 || Cl == 35092 ||
-        Cl == 36116 || Cl == 37140 || Cl == 37652 || Cl == 38164 ||
-        Cl == 38676 || Cl == 39700 || Cl == 40212 || Cl == 40724 ||
-        Cl == 41236 || Cl == 41748 || Cl == 42260 || Cl == 42772 ||
-        Cl == 43284 || Cl == 43796 || Cl == 44308 || Cl == 45332 ||
-        Cl == 45844 || Cl == 46356 || Cl == 46868 || Cl == 47892 ||
-        Cl == 48404 || Cl == 49428 || Cl == 49940 || Cl == 50452 ||
-        Cl == 51988 || Cl == 52500 || Cl == 53012 || Cl == 53524 ||
-        Cl == 54036 || Cl == 54548 || Cl == 55572 || Cl == 56084 ||
-        Cl == 56596 || Cl == 57108 || Cl == 57620 || Cl == 58132 ||
-        Cl == 60692 || Cl == 61204 || Cl == 61716 || Cl == 62228 ||
-        Cl == 62740 || Cl == 63252 || Cl == 63764 || Cl == 64276 ||
-        Cl == 64788 || Cl == 65812 || Cl == 66324 || Cl == 67348 ||
-        Cl == 67860 || Cl == 68372 || Cl == 68884 || Cl == 69396 ||
-        Cl == 69908 || Cl == 70420 || Cl == 72468 || Cl == 74516 ||
-        Cl == 75028 || Cl == 76052 || Cl == 77076 || Cl == 77588 ||
-        Cl == 78100 || Cl == 78612 || Cl == 79124 || Cl == 79636 ||
-        Cl == 81684 || Cl == 82196 || Cl == 82708 || Cl == 83220 ||
-        Cl == 83732 || Cl == 84244 || Cl == 84756 || Cl == 85780 ||
-        Cl == 87316 || Cl == 87828 || Cl == 88340 || Cl == 89364 ||
-        Cl == 90388 || Cl == 91412 || Cl == 92436 || Cl == 92948 ||
-        Cl == 93460 || Cl == 94484 || Cl == 94996 || Cl == 95508 ||
-        Cl == 98068 || Cl == 98580 || Cl == 99604 || Cl == 101652 ||
-        Cl == 102164 || Cl == 102676 || Cl == 103188 || Cl == 103700 ||
-        Cl == 104212 || Cl == 105748 || Cl == 108820 || Cl == 109332 ||
-        Cl == 110868 || Cl == 111892 || Cl == 112404 || Cl == 112916 ||
-        Cl == 113428 || Cl == 113940 || Cl == 114964 || Cl == 115476 ||
-        Cl == 115988 || Cl == 116500 || Cl == 117012 || Cl == 117524 ||
-        Cl == 120084 || Cl == 120596 || Cl == 121108 || Cl == 121620 ||
-        Cl == 123156 || Cl == 124692 || Cl == 125204 || Cl == 127252 ||
-        Cl == 127764 || Cl == 128276 || Cl == 128788 || Cl == 129300 ||
-        Cl == 129812 || Cl == 130324 || Cl == 131348 || Cl == 131860 ||
-        Cl == 133396 || Cl == 133908 || Cl == 134420 || Cl == 134932 ||
-        Cl == 136468 || Cl == 136980 || Cl == 138516 || Cl == 140564 ||
-        Cl == 141588 || Cl == 142612 || Cl == 144660) {
+    if (Cl == 2836 || Cl == 3348 || Cl == 4372 || Cl == 4884 || Cl == 5396 
+        || Cl == 5908 || Cl == 16148 || Cl == 16660 || Cl == 17684 
+        || Cl == 18196 || Cl == 20756 || Cl == 21780 || Cl == 22804 
+        || Cl == 23316 || Cl == 23828 || Cl == 24340 || Cl == 27924 
+        || Cl == 28436 || Cl == 30484 || Cl == 34068 || Cl == 35092 
+        || Cl == 36116 || Cl == 37140 || Cl == 37652 || Cl == 38164 
+        || Cl == 38676 || Cl == 39700 || Cl == 40212 || Cl == 40724 
+        || Cl == 41236 || Cl == 41748 || Cl == 42260 || Cl == 42772 
+        || Cl == 43284 || Cl == 43796 || Cl == 44308 || Cl == 45332 
+        || Cl == 45844 || Cl == 46356 || Cl == 46868 || Cl == 47892 
+        || Cl == 48404 || Cl == 49428 || Cl == 49940 || Cl == 50452 
+        || Cl == 51988 || Cl == 52500 || Cl == 53012 || Cl == 53524 
+        || Cl == 54036 || Cl == 54548 || Cl == 55572 || Cl == 56084 
+        || Cl == 56596 || Cl == 57108 || Cl == 57620 || Cl == 58132 
+        || Cl == 60692 || Cl == 61204 || Cl == 61716 || Cl == 62228 
+        || Cl == 62740 || Cl == 63252 || Cl == 63764 || Cl == 64276 
+        || Cl == 64788 || Cl == 65812 || Cl == 66324 || Cl == 67348 
+        || Cl == 67860 || Cl == 68372 || Cl == 68884 || Cl == 69396 
+        || Cl == 69908 || Cl == 70420 || Cl == 72468 || Cl == 74516 
+        || Cl == 75028 || Cl == 76052 || Cl == 77076 || Cl == 77588 
+        || Cl == 78100 || Cl == 78612 || Cl == 79124 || Cl == 79636 
+        || Cl == 81684 || Cl == 82196 || Cl == 82708 || Cl == 83220 
+        || Cl == 83732 || Cl == 84244 || Cl == 84756 || Cl == 85780 
+        || Cl == 87316 || Cl == 87828 || Cl == 88340 || Cl == 89364 
+        || Cl == 90388 || Cl == 91412 || Cl == 92436 || Cl == 92948 
+        || Cl == 93460 || Cl == 94484 || Cl == 94996 || Cl == 95508 
+        || Cl == 98068 || Cl == 98580 || Cl == 99604 || Cl == 101652 
+        || Cl == 102164 || Cl == 102676 || Cl == 103188 || Cl == 103700 
+        || Cl == 104212 || Cl == 105748 || Cl == 108820 || Cl == 109332 
+        || Cl == 110868 || Cl == 111892 || Cl == 112404 || Cl == 112916 
+        || Cl == 113428 || Cl == 113940 || Cl == 114964 || Cl == 115476 
+        || Cl == 115988 || Cl == 116500 || Cl == 117012 || Cl == 117524 
+        || Cl == 120084 || Cl == 120596 || Cl == 121108 || Cl == 121620 
+        || Cl == 123156 || Cl == 124692 || Cl == 125204 || Cl == 127252 
+        || Cl == 127764 || Cl == 128276 || Cl == 128788 || Cl == 129300 
+        || Cl == 129812 || Cl == 130324 || Cl == 131348 || Cl == 131860 
+        || Cl == 133396 || Cl == 133908 || Cl == 134420 || Cl == 134932 
+        || Cl == 136468 || Cl == 136980 || Cl == 138516 || Cl == 140564 
+        || Cl == 141588 || Cl == 142612 || Cl == 144660
+    ) {
       Cl = pl(12, Ll);
       if (Cl == 0) {
         var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -12025,45 +12280,46 @@ var r = t.XQueryParser = function i(e, t) {
     default:
       Cl = Al
     }
-    if (Cl == 2836 || Cl == 3348 || Cl == 4372 || Cl == 4884 || Cl == 5396 ||
-        Cl == 5908 || Cl == 16148 || Cl == 16660 || Cl == 17684 ||
-        Cl == 18196 || Cl == 20756 || Cl == 21780 || Cl == 22804 ||
-        Cl == 23316 || Cl == 23828 || Cl == 24340 || Cl == 27924 ||
-        Cl == 28436 || Cl == 30484 || Cl == 34068 || Cl == 35092 ||
-        Cl == 36116 || Cl == 37140 || Cl == 37652 || Cl == 38164 ||
-        Cl == 38676 || Cl == 39700 || Cl == 40212 || Cl == 40724 ||
-        Cl == 41236 || Cl == 41748 || Cl == 42260 || Cl == 42772 ||
-        Cl == 43284 || Cl == 43796 || Cl == 44308 || Cl == 45332 ||
-        Cl == 45844 || Cl == 46356 || Cl == 46868 || Cl == 47892 ||
-        Cl == 48404 || Cl == 49428 || Cl == 49940 || Cl == 50452 ||
-        Cl == 51988 || Cl == 52500 || Cl == 53012 || Cl == 53524 ||
-        Cl == 54036 || Cl == 54548 || Cl == 55572 || Cl == 56084 ||
-        Cl == 56596 || Cl == 57108 || Cl == 57620 || Cl == 58132 ||
-        Cl == 60692 || Cl == 61204 || Cl == 61716 || Cl == 62228 ||
-        Cl == 62740 || Cl == 63252 || Cl == 63764 || Cl == 64276 ||
-        Cl == 64788 || Cl == 65812 || Cl == 66324 || Cl == 67348 ||
-        Cl == 67860 || Cl == 68372 || Cl == 68884 || Cl == 69396 ||
-        Cl == 69908 || Cl == 70420 || Cl == 72468 || Cl == 74516 ||
-        Cl == 75028 || Cl == 76052 || Cl == 77076 || Cl == 77588 ||
-        Cl == 78100 || Cl == 78612 || Cl == 79124 || Cl == 79636 ||
-        Cl == 81684 || Cl == 82196 || Cl == 82708 || Cl == 83220 ||
-        Cl == 83732 || Cl == 84244 || Cl == 84756 || Cl == 85780 ||
-        Cl == 87316 || Cl == 87828 || Cl == 88340 || Cl == 89364 ||
-        Cl == 90388 || Cl == 91412 || Cl == 92436 || Cl == 92948 ||
-        Cl == 93460 || Cl == 94484 || Cl == 94996 || Cl == 95508 ||
-        Cl == 98068 || Cl == 98580 || Cl == 99604 || Cl == 101652 ||
-        Cl == 102164 || Cl == 102676 || Cl == 103188 || Cl == 103700 ||
-        Cl == 104212 || Cl == 105748 || Cl == 108820 || Cl == 109332 ||
-        Cl == 110868 || Cl == 111892 || Cl == 112404 || Cl == 112916 ||
-        Cl == 113428 || Cl == 113940 || Cl == 114964 || Cl == 115476 ||
-        Cl == 115988 || Cl == 116500 || Cl == 117012 || Cl == 117524 ||
-        Cl == 120084 || Cl == 120596 || Cl == 121108 || Cl == 121620 ||
-        Cl == 123156 || Cl == 124692 || Cl == 125204 || Cl == 127252 ||
-        Cl == 127764 || Cl == 128276 || Cl == 128788 || Cl == 129300 ||
-        Cl == 129812 || Cl == 130324 || Cl == 131348 || Cl == 131860 ||
-        Cl == 133396 || Cl == 133908 || Cl == 134420 || Cl == 134932 ||
-        Cl == 136468 || Cl == 136980 || Cl == 138516 || Cl == 140564 ||
-        Cl == 141588 || Cl == 142612 || Cl == 144660) {
+    if (Cl == 2836 || Cl == 3348 || Cl == 4372 || Cl == 4884 || Cl == 5396 
+        || Cl == 5908 || Cl == 16148 || Cl == 16660 || Cl == 17684 
+        || Cl == 18196 || Cl == 20756 || Cl == 21780 || Cl == 22804 
+        || Cl == 23316 || Cl == 23828 || Cl == 24340 || Cl == 27924 
+        || Cl == 28436 || Cl == 30484 || Cl == 34068 || Cl == 35092 
+        || Cl == 36116 || Cl == 37140 || Cl == 37652 || Cl == 38164 
+        || Cl == 38676 || Cl == 39700 || Cl == 40212 || Cl == 40724 
+        || Cl == 41236 || Cl == 41748 || Cl == 42260 || Cl == 42772 
+        || Cl == 43284 || Cl == 43796 || Cl == 44308 || Cl == 45332 
+        || Cl == 45844 || Cl == 46356 || Cl == 46868 || Cl == 47892 
+        || Cl == 48404 || Cl == 49428 || Cl == 49940 || Cl == 50452 
+        || Cl == 51988 || Cl == 52500 || Cl == 53012 || Cl == 53524 
+        || Cl == 54036 || Cl == 54548 || Cl == 55572 || Cl == 56084 
+        || Cl == 56596 || Cl == 57108 || Cl == 57620 || Cl == 58132 
+        || Cl == 60692 || Cl == 61204 || Cl == 61716 || Cl == 62228 
+        || Cl == 62740 || Cl == 63252 || Cl == 63764 || Cl == 64276 
+        || Cl == 64788 || Cl == 65812 || Cl == 66324 || Cl == 67348 
+        || Cl == 67860 || Cl == 68372 || Cl == 68884 || Cl == 69396 
+        || Cl == 69908 || Cl == 70420 || Cl == 72468 || Cl == 74516 
+        || Cl == 75028 || Cl == 76052 || Cl == 77076 || Cl == 77588 
+        || Cl == 78100 || Cl == 78612 || Cl == 79124 || Cl == 79636 
+        || Cl == 81684 || Cl == 82196 || Cl == 82708 || Cl == 83220 
+        || Cl == 83732 || Cl == 84244 || Cl == 84756 || Cl == 85780 
+        || Cl == 87316 || Cl == 87828 || Cl == 88340 || Cl == 89364 
+        || Cl == 90388 || Cl == 91412 || Cl == 92436 || Cl == 92948 
+        || Cl == 93460 || Cl == 94484 || Cl == 94996 || Cl == 95508 
+        || Cl == 98068 || Cl == 98580 || Cl == 99604 || Cl == 101652 
+        || Cl == 102164 || Cl == 102676 || Cl == 103188 || Cl == 103700 
+        || Cl == 104212 || Cl == 105748 || Cl == 108820 || Cl == 109332 
+        || Cl == 110868 || Cl == 111892 || Cl == 112404 || Cl == 112916 
+        || Cl == 113428 || Cl == 113940 || Cl == 114964 || Cl == 115476 
+        || Cl == 115988 || Cl == 116500 || Cl == 117012 || Cl == 117524 
+        || Cl == 120084 || Cl == 120596 || Cl == 121108 || Cl == 121620 
+        || Cl == 123156 || Cl == 124692 || Cl == 125204 || Cl == 127252 
+        || Cl == 127764 || Cl == 128276 || Cl == 128788 || Cl == 129300 
+        || Cl == 129812 || Cl == 130324 || Cl == 131348 || Cl == 131860 
+        || Cl == 133396 || Cl == 133908 || Cl == 134420 || Cl == 134932 
+        || Cl == 136468 || Cl == 136980 || Cl == 138516 || Cl == 140564 
+        || Cl == 141588 || Cl == 142612 || Cl == 144660
+    ) {
       Cl = pl(12, Ll);
       if (Cl == 0) {
         var e = kl, t = Ll, n = Al, r = Ol, i = Ml, s = _l, o = Dl, u = Pl;
@@ -12382,8 +12638,9 @@ var r = t.XQueryParser = function i(e, t) {
     if (Al != 282) {
       yl(), sl();
       for (;;) {
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         vl(41), wl(267), yl(), sl()
       }
     }
@@ -12394,8 +12651,9 @@ var r = t.XQueryParser = function i(e, t) {
     if (Al != 282) {
       ol();
       for (;;) {
-        if (Al != 41)
+        if (Al != 41) {
           break;
+        }
         ml(41), wl(267), ol()
       }
     }
@@ -12459,8 +12717,9 @@ var r = t.XQueryParser = function i(e, t) {
     for (;;) {
       t = Tl(e);
       if (t != 22) {
-        if (t != 36)
+        if (t != 36) {
           break;
+        }
         gl(t)
       }
     }
@@ -12481,9 +12740,9 @@ var r = t.XQueryParser = function i(e, t) {
     for (var o = r & 4095; o != 0;) {
       var u, a = n < zl ? Ul.charCodeAt(n) : 0;
       ++n;
-      if (a < 128)
+      if (a < 128) {
         u = i.MAP0[a];
-      else if (a < 55296) {
+      } else if (a < 55296) {
         var f = a >> 4;
         u = i.MAP1[(a & 15) + i.MAP1[(f & 31) + i.MAP1[f >> 5]]]
       } else {
@@ -12494,9 +12753,9 @@ var r = t.XQueryParser = function i(e, t) {
         }
         var l = 0, c = 5;
         for (var h = 3;; h = c + l >> 1) {
-          if (i.MAP2[h] > a)
+          if (i.MAP2[h] > a) {
             c = h - 1;
-          else {
+          } else {
             if (!(i.MAP2[6 + h] < a)) {
               u = i.MAP2[12 + h];
               break
@@ -12520,14 +12779,15 @@ var r = t.XQueryParser = function i(e, t) {
       var f = Xl < zl ? Ul.charCodeAt(Xl) : 0;
       return f >= 56320 && f < 57344 && --Xl, dl(Wl, Xl, s, -1, -1)
     }
-    if (t)
+    if (t) {
       for (var d = r >> 9; d > 0; --d) {
         --Xl;
         var f = Xl < zl ? Ul.charCodeAt(Xl) : 0;
         f >= 56320 && f < 57344 && --Xl
       }
-    else
+    } else {
       Xl -= r >> 9;
+    }
     return (r & 511) - 1
   }
   n(e, t);
@@ -12581,9 +12841,10 @@ r
         f = r.EXPECTED[(o & 3) +
                        r.EXPECTED[(u & 3) +
                                   r.EXPECTED[(a & 7) + r.EXPECTED[a >> 3]]]];
-    for (; f != 0; f >>>= 1, ++s)
+    for (; f != 0; f >>>= 1, ++s) {
       (f & 1) != 0 && t.push(r.TOKEN[s])
   }
+    }
   return t
 },
    r.MAP0 =

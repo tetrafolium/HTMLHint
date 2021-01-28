@@ -24,8 +24,9 @@ define("ace/mode/css",
                function(e, t, n) {
              var r = this.$getIndent(t),
                  i = this.$tokenizer.getLineTokens(t, e).tokens;
-             if (i.length && i[i.length - 1].type == "comment")
+             if (i.length && i[i.length - 1].type == "comment") {
                return r;
+             }
              var s = t.match(/^.*\{\s*$/);
              return s && (r += n), r
            },
@@ -184,12 +185,14 @@ define("ace/mode/css",
                    e, t) { return /^\s+$/.test(e) ? /^\s*\}/.test(t) : !1 },
                this.autoOutdent = function(e, t) {
                  var n = e.getLine(t), i = n.match(/^(\s*\})/);
-                 if (!i)
+                 if (!i) {
                    return 0;
+                 }
                  var s = i[1].length,
                      o = e.findMatchingBracket({row : t, column : s});
-                 if (!o || o.row == t)
+                 if (!o || o.row == t) {
                    return 0;
+                 }
                  var u = this.$getIndent(e.getLine(o.row));
                  e.replace(new r(t, 0, t, s - 1), u)
                }, this.$getIndent = function(e) { return e.match(/^\s*/)[0] }
@@ -238,9 +241,10 @@ define("ace/mode/css",
                                    var l = r.doc.getLine(i.start.row),
                                        c = l.substring(i.end.column,
                                                        i.end.column + 1);
-                                   if (c === ";")
+                                   if (c === ";") {
                                      return i.end.column++, i
                                  }
+                                   }
                                }
                              }),
                     this.add("semicolon", "insertion", function(e, t, n, r, i) {
@@ -273,9 +277,10 @@ define("ace/mode/css",
                   var n = e.getCursorPosition(), r = new s(t, n.row, n.column);
                   if (!this.$matchTokenType(r.getCurrentToken() || "text", u)) {
                     var i = new s(t, n.row, n.column + 1);
-                    if (!this.$matchTokenType(i.getCurrentToken() || "text", u))
+                    if (!this.$matchTokenType(i.getCurrentToken() || "text", u)) {
                       return !1
                   }
+                    }
                   return r.stepForward(),
                          r.getCurrentTokenRow() !== n.row ||
                              this.$matchTokenType(r.getCurrentToken() || "text",
@@ -315,25 +320,27 @@ define("ace/mode/css",
                       if (i == "{") {
                         var a = n.getSelectionRange(),
                             f = r.doc.getTextRange(a);
-                        if (f !== "" && f !== "{" &&
-                            n.getWrapBehavioursEnabled())
+                        if (f !== "" && f !== "{" 
+                            && n.getWrapBehavioursEnabled()
+                        )
                           return {text : "{" + f + "}", selection : !1};
-                        if (m.isSaneInsertion(n, r))
+                        if (m.isSaneInsertion(n, r)) {
                           return /[\]\}\)]/.test(u[s.column])
                                      ? (m.recordAutoInsert(n, r, "}"),
                                         {text : "{}", selection : [ 1, 1 ]})
                                      : (m.recordMaybeInsert(n, r, "{"),
                                         {text : "{", selection : [ 1, 1 ]})
-                      } else if (i == "}") {
+                      } } else if (i == "}") {
                         var l = u.substring(s.column, s.column + 1);
                         if (l == "}") {
                           var c = r.$findOpeningBracket(
                               "}", {column : s.column + 1, row : s.row});
-                          if (c !== null && m.isAutoInsertedClosing(s, u, i))
+                          if (c !== null && m.isAutoInsertedClosing(s, u, i)) {
                             return m.popAutoInsertedClosing(), {
                               text: "", selection: [ 1, 1 ]
                             }
                         }
+                          }
                       } else if (i == "\n" || i == "\r\n") {
                         var p = "";
                         m.isMaybeInsertedClosing(s, u) &&
@@ -343,8 +350,9 @@ define("ace/mode/css",
                         if (l == "}" || p !== "") {
                           var d = r.findMatchingBracket(
                               {row : s.row, column : s.column}, "}");
-                          if (!d)
+                          if (!d) {
                             return null;
+                          }
                           var v = this.getNextLineIndent(
                                   e, u.substring(0, s.column),
                                   r.getTabString()),
@@ -363,8 +371,9 @@ define("ace/mode/css",
                              var o = r.doc.getLine(i.start.row),
                                  u = o.substring(i.end.column,
                                                  i.end.column + 1);
-                             if (u == "}")
+                             if (u == "}") {
                                return i.end.column++, i;
+                             }
                              h--
                            }
                          }),
@@ -376,21 +385,22 @@ define("ace/mode/css",
                             o = r.doc.getTextRange(s);
                         if (o !== "" && n.getWrapBehavioursEnabled())
                           return {text : "(" + o + ")", selection : !1};
-                        if (m.isSaneInsertion(n, r))
+                        if (m.isSaneInsertion(n, r)) {
                           return m.recordAutoInsert(n, r, ")"), {
                             text: "()", selection: [ 1, 1 ]
                           }
-                      } else if (i == ")") {
+                      } } else if (i == ")") {
                         var u = n.getCursorPosition(), a = r.doc.getLine(u.row),
                             f = a.substring(u.column, u.column + 1);
                         if (f == ")") {
                           var l = r.$findOpeningBracket(
                               ")", {column : u.column + 1, row : u.row});
-                          if (l !== null && m.isAutoInsertedClosing(u, a, i))
+                          if (l !== null && m.isAutoInsertedClosing(u, a, i)) {
                             return m.popAutoInsertedClosing(), {
                               text: "", selection: [ 1, 1 ]
                             }
                         }
+                          }
                       }
                     }),
                 this.add("parens", "deletion",
@@ -400,9 +410,10 @@ define("ace/mode/css",
                              var o = r.doc.getLine(i.start.row),
                                  u = o.substring(i.start.column + 1,
                                                  i.start.column + 2);
-                             if (u == ")")
+                             if (u == ")") {
                                return i.end.column++, i
                            }
+                             }
                          }),
                 this.add(
                     "brackets", "insertion",
@@ -412,21 +423,22 @@ define("ace/mode/css",
                             o = r.doc.getTextRange(s);
                         if (o !== "" && n.getWrapBehavioursEnabled())
                           return {text : "[" + o + "]", selection : !1};
-                        if (m.isSaneInsertion(n, r))
+                        if (m.isSaneInsertion(n, r)) {
                           return m.recordAutoInsert(n, r, "]"), {
                             text: "[]", selection: [ 1, 1 ]
                           }
-                      } else if (i == "]") {
+                      } } else if (i == "]") {
                         var u = n.getCursorPosition(), a = r.doc.getLine(u.row),
                             f = a.substring(u.column, u.column + 1);
                         if (f == "]") {
                           var l = r.$findOpeningBracket(
                               "]", {column : u.column + 1, row : u.row});
-                          if (l !== null && m.isAutoInsertedClosing(u, a, i))
+                          if (l !== null && m.isAutoInsertedClosing(u, a, i)) {
                             return m.popAutoInsertedClosing(), {
                               text: "", selection: [ 1, 1 ]
                             }
                         }
+                          }
                       }
                     }),
                 this.add("brackets", "deletion",
@@ -436,9 +448,10 @@ define("ace/mode/css",
                              var o = r.doc.getLine(i.start.row),
                                  u = o.substring(i.start.column + 1,
                                                  i.start.column + 2);
-                             if (u == "]")
+                             if (u == "]") {
                                return i.end.column++, i
                            }
+                             }
                          }),
                 this.add(
                     "string_dquotes", "insertion",
@@ -446,30 +459,34 @@ define("ace/mode/css",
                       if (i == '"' || i == "'") {
                         var s = i, o = n.getSelectionRange(),
                             u = r.doc.getTextRange(o);
-                        if (u !== "" && u !== "'" && u != '"' &&
-                            n.getWrapBehavioursEnabled())
+                        if (u !== "" && u !== "'" && u != '"' 
+                            && n.getWrapBehavioursEnabled()
+                        )
                           return {text : s + u + s, selection : !1};
                         var a = n.getCursorPosition(), f = r.doc.getLine(a.row),
                             l = f.substring(a.column - 1, a.column);
-                        if (l == "\\")
+                        if (l == "\\") {
                           return null;
+                        }
                         var c = r.getTokens(o.start.row), h = 0, p, d = -1;
                         for (var v = 0; v < c.length; v++) {
                           p = c[v], p.type == "string"
                                         ? d = -1
                                         : d < 0 && (d = p.value.indexOf(s));
-                          if (p.value.length + h > o.start.column)
+                          if (p.value.length + h > o.start.column) {
                             break;
+                          }
                           h += c[v].value.length
                         }
-                        if (!p ||
-                            d < 0 && p.type !== "comment" &&
-                                (p.type !== "string" ||
-                                 o.start.column !== p.value.length + h - 1 &&
-                                     p.value.lastIndexOf(s) ===
-                                         p.value.length - 1)) {
-                          if (!m.isSaneInsertion(n, r))
+                        if (!p 
+                            || d < 0 && p.type !== "comment" 
+                            && (p.type !== "string" 
+                            || o.start.column !== p.value.length + h - 1 
+                            && p.value.lastIndexOf(s) ===                            p.value.length - 1)
+                        ) {
+                          if (!m.isSaneInsertion(n, r)) {
                             return;
+                          }
                           return { text: s + s, selection: [ 1, 1 ] }
                         }
                         if (p && p.type === "string") {
@@ -484,9 +501,10 @@ define("ace/mode/css",
                   if (!i.isMultiLine() && (s == '"' || s == "'")) {
                     var o = r.doc.getLine(i.start.row),
                         u = o.substring(i.start.column + 1, i.start.column + 2);
-                    if (u == s)
+                    if (u == s) {
                       return i.end.column++, i
                   }
+                    }
                 })
               };
           r.inherits(m, i), t.CstyleBehaviour = m
@@ -516,8 +534,9 @@ define("ace/mode/css",
                    return i[1] ? this.openingBracketBlock(e, i[1], n, s)
                                : e.getCommentFoldRange(n, s + i[0].length, 1)
                  }
-                 if (t !== "markbeginend")
+                 if (t !== "markbeginend") {
                    return;
+                 }
                  var i = r.match(this.foldingStopMarker);
                  if (i) {
                    var s = i.index + i[0].length;

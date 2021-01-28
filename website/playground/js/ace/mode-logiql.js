@@ -25,12 +25,14 @@ define("ace/mode/logiql",
            }, this.autoOutdent = function(e, t, n) {
              var r = t.getLine(n), i = r.match(/^\s+/),
                  s = r.lastIndexOf(".") + 1;
-             if (!i || !n || !s)
+             if (!i || !n || !s) {
                return 0;
+             }
              var o = t.getLine(n + 1),
                  u = this.getMatching(t, {row : n, column : s});
-             if (!u || u.start.row == n)
+             if (!u || u.start.row == n) {
                return 0;
+             }
              s = i[0].length;
              var a = this.$getIndent(t.getLine(u.start.row));
              t.replace(new f(n + 1, 0, n + 1, s), a)
@@ -39,22 +41,27 @@ define("ace/mode/logiql",
                  typeof t == "object" && (n = t.column, t = t.row);
              var r = e.getTokenAt(t, n), i = "keyword.start", s = "keyword.end",
                  o;
-             if (!r)
+             if (!r) {
                return;
+             }
              if (r.type == i) {
                var u = new a(e, t, n);
                u.step = u.stepForward
              } else {
-               if (r.type != s)
+               if (r.type != s) {
                  return;
+               }
                var u = new a(e, t, n);
                u.step = u.stepBackward
              }
-             while (o = u.step())
-               if (o.type == i || o.type == s)
+             while (o = u.step()) {
+               if (o.type == i || o.type == s) {
                  break;
-             if (!o)
+               }
+             }
+             if (!o) {
                return;
+             }
              var l = u.getCurrentTokenColumn(), t = u.getCurrentTokenRow();
              return new f(t, l, t, l + o.value.length)
            }
@@ -191,19 +198,23 @@ define("ace/mode/logiql",
           r.inherits(o, i), function() {
             this.getFoldWidgetRange = function(e, t, n) {
               var r = this.indentationBlock(e, n);
-              if (r)
+              if (r) {
                 return r;
+              }
               var i = /\S/, o = e.getLine(n), u = o.search(i);
-              if (u == -1 || o[u] != "#")
+              if (u == -1 || o[u] != "#") {
                 return;
+              }
               var a = o.length, f = e.getLength(), l = n, c = n;
               while (++n < f) {
                 o = e.getLine(n);
                 var h = o.search(i);
-                if (h == -1)
+                if (h == -1) {
                   continue;
-                if (o[h] != "#")
+                }
+                if (o[h] != "#") {
                   break;
+                }
                 c = n
               }
               if (c > l) {
@@ -213,17 +224,20 @@ define("ace/mode/logiql",
             }, this.getFoldWidget = function(e, t, n) {
               var r = e.getLine(n), i = r.search(/\S/), s = e.getLine(n + 1),
                   o = e.getLine(n - 1), u = o.search(/\S/), a = s.search(/\S/);
-              if (i == -1)
+              if (i == -1) {
                 return e.foldWidgets[n - 1] = u != -1 && u < a ? "start" : "",
                                          "";
+              }
               if (u == -1) {
-                if (i == a && r[i] == "#" && s[i] == "#")
+                if (i == a && r[i] == "#" && s[i] == "#") {
                   return e.foldWidgets[n - 1] = "", e.foldWidgets[n + 1] = "",
                                            "start"
-              } else if (u == i && r[i] == "#" && o[i] == "#" &&
-                         e.getLine(n - 2).search(/\S/) == -1)
+              } } else if (u == i && r[i] == "#" && o[i] == "#" 
+                  && e.getLine(n - 2).search(/\S/) == -1
+              ) {
                 return e.foldWidgets[n - 1] = "start",
                                          e.foldWidgets[n + 1] = "", "";
+              }
               return u != -1 && u < i ? e.foldWidgets[n - 1] = "start"
                                       : e.foldWidgets[n - 1] = "",
                                                           i < a ? "start" : ""

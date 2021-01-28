@@ -1,7 +1,8 @@
 "no use strict";
 (function(e) {
-if (typeof e.window != "undefined" && e.document)
+if (typeof e.window != "undefined" && e.document) {
   return;
+}
 e.console = {
   log : function() {
     var e = Array.prototype.slice.call(arguments, 0);
@@ -27,15 +28,17 @@ e.console = {
       }
       return t
     }, e.require = function(e, t) {
-      if (!t.charAt)
+      if (!t.charAt) {
         throw new Error(
             "worker.js require() accepts only (parentId, id) as arguments");
+      }
       t = normalizeModule(e, t);
       var n = require.modules[t];
-      if (n)
+      if (n) {
         return n.initialized ||
                    (n.initialized = !0, n.exports = n.factory().exports),
                n.exports;
+      }
       var r = t.split("/");
       r[0] = require.tlns[r[0]] || r[0];
       var i = r.join("/") + ".js";
@@ -44,8 +47,9 @@ e.console = {
       arguments.length == 2
           ? (n = t, typeof e != "string" && (t = e, e = require.id))
           : arguments.length == 1 && (n = e, e = require.id);
-      if (e.indexOf("text!") === 0)
+      if (e.indexOf("text!") === 0) {
         return;
+      }
       var r = function(t, n) { return require(e, t, n) };
       require.modules[e] = {
         factory : function() {
@@ -69,17 +73,19 @@ e.console = {
     }, e.main = null, e.sender = null, e.onmessage = function(e) {
       var t = e.data;
       if (t.command) {
-        if (!main[t.command])
+        if (!main[t.command]) {
           throw new Error("Unknown command:" + t.command);
+        }
         main[t.command].apply(main, t.args)
       } else if (t.init) {
         initBaseUrls(t.tlns), require(null, "ace/lib/fixoldbrowsers"),
             sender = initSender();
         var n = require(null, t.module)[t.classname];
         main = new n(sender)
-      } else
+      } else {
         t.event && sender && sender._emit(t.event, t.data)
     }
+      }
 })(this),
     define(
         "ace/lib/fixoldbrowsers",
@@ -95,11 +101,14 @@ function r(e) {
          (e.sticky ? "y" : "")
 }
 function i(e, t, n) {
-  if (Array.prototype.indexOf)
+  if (Array.prototype.indexOf) {
     return e.indexOf(t, n);
-  for (var r = n || 0; r < e.length; r++)
-    if (e[r] === t)
+  }
+  for (var r = n || 0; r < e.length; r++) {
+    if (e[r] === t) {
       return r;
+    }
+  }
   return -1
 }
 var s = {
@@ -113,20 +122,24 @@ var s = {
       var e = /^/g;
       return s.test.call(e, ""), !e.lastIndex
     }();
-if (u && o)
+if (u && o) {
   return;
+}
 RegExp.prototype.exec = function(e) {
   var t = s.exec.apply(this, arguments), n, a;
   if (typeof e == "string" && t) {
     !o && t.length > 1 && i(t, "") > -1 &&
         (a = RegExp(this.source, s.replace.call(r(this), "g", "")),
          s.replace.call(e.slice(t.index), a, function() {
-           for (var e = 1; e < arguments.length - 2; e++)
+           for (var e = 1; e < arguments.length - 2; e++) {
              arguments[e] === undefined && (t[e] = undefined)
-         }));
-    if (this._xregexp && this._xregexp.captureNames)
-      for (var f = 1; f < t.length; f++)
+         }
+           }));
+    if (this._xregexp && this._xregexp.captureNames) {
+      for (var f = 1; f < t.length; f++) {
         n = this._xregexp.captureNames[f - 1], n && (t[n] = t[f]);
+      }
+    }
     !u && this.global && !t[0].length && this.lastIndex > t.index &&
         this.lastIndex--
   }
@@ -161,26 +174,30 @@ function o(e) {
 }
 function u(e) {
   var t, n, r;
-  if (o(e))
+  if (o(e)) {
     return e;
+  }
   n = e.valueOf;
   if (typeof n == "function") {
     t = n.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   r = e.toString;
   if (typeof r == "function") {
     t = r.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   throw new TypeError
 }
 Function.prototype.bind || (Function.prototype.bind = function(e) {
   var t = this;
-  if (typeof t != "function")
+  if (typeof t != "function") {
     throw new TypeError("Function.prototype.bind called on incompatible " + t);
+  }
   var n = c.call(arguments, 1), i = function() {
     if (this instanceof i) {
       var r = t.apply(this, n.concat(c.call(arguments)));
@@ -195,49 +212,44 @@ Function.prototype.bind || (Function.prototype.bind = function(e) {
 var a = Function.prototype.call, f = Array.prototype, l = Object.prototype,
     c = f.slice, h = a.bind(l.toString), p = a.bind(l.hasOwnProperty), d, v, m,
     g, y;
-if (y = p(l, "__defineGetter__"))
+if (y = p(l, "__defineGetter__")) {
   d = a.bind(l.__defineGetter__), v = a.bind(l.__defineSetter__),
   m = a.bind(l.__lookupGetter__), g = a.bind(l.__lookupSetter__);
-if ([ 1, 2 ].splice(0).length != 2)
-  if (!function() {
-        function e(e) {
-          var t = new Array(e + 2);
-          return t[0] = t[1] = 0, t
-        }
-        var t = [], n;
-        t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),
-            n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;
-        if (n + 1 == t.length)
-          return !0
-      }())
+}
+if ([ 1, 2 ].splice(0).length != 2) {
+  if (!function() {      function e(e) {      var t = new Array(e + 2);      return t[0] = t[1] = 0, t      }      var t = [], n;      t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),      n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;      if (n + 1 == t.length) {      return !0}      }()
+  ) {
     Array.prototype.splice = function(e, t) {
       var n = this.length;
       e > 0 ? e > n && (e = n)
             : e == void 0 ? e = 0 : e < 0 && (e = Math.max(n + e, 0)),
                             e + t < n || (t = n - e);
       var r = this.slice(e, e + t), i = c.call(arguments, 2), s = i.length;
-      if (e === n)
+      if (e === n) {
         s && this.push.apply(this, i);
-      else {
+      } else {
         var o = Math.min(t, n - e), u = e + o, a = u + s - o, f = n - u,
             l = n - o;
-        if (a < u)
-          for (var h = 0; h < f; ++h)
+        if (a < u) {
+          for (var h = 0; h < f; ++h) {
             this[a + h] = this[u + h];
-        else if (a > u)
-          for (h = f; h--;)
+        } } else if (a > u) {
+          for (h = f; h--;) {
             this[a + h] = this[u + h];
-        if (s && e === l)
+          }
+        }
+        if (s && e === l) {
           this.length = l, this.push.apply(this, i);
-        else {
+        } else {
           this.length = l + s;
-          for (h = 0; h < s; ++h)
+          for (h = 0; h < s; ++h) {
             this[e + h] = i[h]
         }
+          }
       }
       return r
     };
-  else {
+  } else {
     var b = Array.prototype.splice;
     Array.prototype.splice = function(e, t) {
       return arguments.length ? b.apply(this,
@@ -248,6 +260,7 @@ if ([ 1, 2 ].splice(0).length != 2)
                               : []
     }
   }
+}
 Array.isArray ||
     (Array.isArray = function(e) { return h(e) == "[object Array]" });
 var w = Object("a"), E = w[0] != "a" || !(0 in w);
@@ -257,21 +270,25 @@ Array.prototype.forEach ||
            var t = F(this),
                n = E && h(this) == "[object String]" ? this.split("") : t,
                r = arguments[1], i = -1, s = n.length >>> 0;
-           if (h(e) != "[object Function]")
+           if (h(e) != "[object Function]") {
              throw new TypeError;
-           while (++i < s)
+           }
+           while (++i < s) {
              i in n && e.call(r, n[i], i, t)
-         }),
+         }
+           }),
     Array.prototype.map ||
         (Array.prototype.map =
              function(e) {
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = Array(r), s = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var o = 0; o < r; o++)
+               }
+               for (var o = 0; o < r; o++) {
                  o in n && (i[o] = e.call(s, n[o], o, t));
+               }
                return i
              }),
     Array.prototype.filter ||
@@ -280,10 +297,12 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = [], s, o = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var u = 0; u < r; u++)
+               }
+               for (var u = 0; u < r; u++) {
                  u in n && (s = n[u], e.call(o, s, u, t) && i.push(s));
+               }
                return i
              }),
     Array.prototype.every ||
@@ -292,11 +311,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && !e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && !e.call(i, n[s], s, t)) {
                    return !1;
+                 }
+               }
                return !0
              }),
     Array.prototype.some ||
@@ -305,11 +327,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && e.call(i, n[s], s, t)) {
                    return !0;
+                 }
+               }
                return !1
              }),
     Array.prototype.reduce ||
@@ -318,92 +343,112 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0;
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               if (!r && arguments.length == 1)
+               }
+               if (!r && arguments.length == 1) {
                  throw new TypeError(
                      "reduce of empty array with no initial value");
+               }
                var i = 0, s;
-               if (arguments.length >= 2)
+               if (arguments.length >= 2) {
                  s = arguments[1];
-               else
+               } else {
                  do {
                    if (i in n) {
                      s = n[i++];
                      break
                    }
-                   if (++i >= r)
+                   if (++i >= r) {
                      throw new TypeError(
                          "reduce of empty array with no initial value")
-                 } while (!0);
-               for (; i < r; i++)
+                 }
+                   } while (!0);
+               }
+               for (; i < r; i++) {
                  i in n && (s = e.call(void 0, s, n[i], i, t));
+               }
                return s
              }),
     Array.prototype.reduceRight || (Array.prototype.reduceRight = function(e) {
       var t = F(this),
           n = E && h(this) == "[object String]" ? this.split("") : t,
           r = n.length >>> 0;
-      if (h(e) != "[object Function]")
+      if (h(e) != "[object Function]") {
         throw new TypeError(e + " is not a function");
-      if (!r && arguments.length == 1)
+      }
+      if (!r && arguments.length == 1) {
         throw new TypeError("reduceRight of empty array with no initial value");
+      }
       var i, s = r - 1;
-      if (arguments.length >= 2)
+      if (arguments.length >= 2) {
         i = arguments[1];
-      else
+      } else {
         do {
           if (s in n) {
             i = n[s--];
             break
           }
-          if (--s < 0)
+          if (--s < 0) {
             throw new TypeError(
                 "reduceRight of empty array with no initial value")
-        } while (!0);
-      do
+        }
+          } while (!0);
+      }
+      do {
         s in this && (i = e.call(void 0, i, n[s], s, t));
+      }
       while (s--);
       return i
     });
-if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1)
+if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1) {
   Array.prototype.indexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = 0;
     arguments.length > 1 && (r = s(arguments[1])),
         r = r >= 0 ? r : Math.max(0, n + r);
-    for (; r < n; r++)
-      if (r in t && t[r] === e)
+    for (; r < n; r++) {
+      if (r in t && t[r] === e) {
         return r;
+      }
+    }
     return -1
   };
-if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1)
+}
+if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1) {
   Array.prototype.lastIndexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = n - 1;
     arguments.length > 1 && (r = Math.min(r, s(arguments[1]))),
         r = r >= 0 ? r : n - Math.abs(r);
-    for (; r >= 0; r--)
-      if (r in t && e === t[r])
+    for (; r >= 0; r--) {
+      if (r in t && e === t[r]) {
         return r;
+      }
+    }
     return -1
   };
+}
 Object.getPrototypeOf || (Object.getPrototypeOf = function(e) {
   return e.__proto__ || (e.constructor ? e.constructor.prototype : l)
 });
 if (!Object.getOwnPropertyDescriptor) {
   var S = "Object.getOwnPropertyDescriptor called on a non-object: ";
   Object.getOwnPropertyDescriptor = function(e, t) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(S + e);
-    if (!p(e, t))
+    }
+    if (!p(e, t)) {
       return;
+    }
     var n, r, i;
     n = {enumerable : !0, configurable : !0};
     if (y) {
@@ -411,9 +456,10 @@ if (!Object.getOwnPropertyDescriptor) {
       e.__proto__ = l;
       var r = m(e, t), i = g(e, t);
       e.__proto__ = s;
-      if (r || i)
+      if (r || i) {
         return r && (n.get = r), i && (n.set = i), n
     }
+      }
     return n.value = e[t], n
   }
 }
@@ -425,19 +471,21 @@ if (!Object.create) {
     return { __proto__: null }
   } : x = function() {
     var e = {};
-    for (var t in e)
+    for (var t in e) {
       e[t] = null;
+    }
     return e.constructor = e.hasOwnProperty = e.propertyIsEnumerable =
                e.isPrototypeOf = e.toLocaleString = e.toString = e.valueOf =
                    e.__proto__ = null,
            e
   }, Object.create = function(e, t) {
     var n;
-    if (e === null)
+    if (e === null) {
       n = x();
-    else {
-      if (typeof e != "object")
+    } else {
+      if (typeof e != "object") {
         throw new TypeError("typeof prototype[" + typeof e + "] != 'object'");
+      }
       var r = function() {};
       r.prototype = e, n = new r, n.__proto__ = e
     }
@@ -447,32 +495,37 @@ if (!Object.create) {
 if (Object.defineProperty) {
   var T = i({}),
       N = typeof document == "undefined" || i(document.createElement("div"));
-  if (!T || !N)
+  if (!T || !N) {
     var C = Object.defineProperty
 }
+  }
 if (!Object.defineProperty || C) {
   var k = "Property description must be an object: ",
       L = "Object.defineProperty called on non-object: ",
       A = "getters & setters can not be defined on this javascript engine";
   Object.defineProperty = function(e, t, n) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(L + e);
-    if (typeof n != "object" && typeof n != "function" || n === null)
+    }
+    if (typeof n != "object" && typeof n != "function" || n === null) {
       throw new TypeError(k + n);
-    if (C)
+    }
+    if (C) {
       try {
         return C.call(Object, e, t, n)
       } catch (r) {
       }
-    if (p(n, "value"))
+    }
+    if (p(n, "value")) {
       if (y && (m(e, t) || g(e, t))) {
         var i = e.__proto__;
         e.__proto__ = l, delete e[t], e[t] = n.value, e.__proto__ = i
-      } else
+      } else {
         e[t] = n.value;
-    else {
-      if (!y)
+    } } else {
+      if (!y) {
         throw new TypeError(A);
+      }
       p(n, "get") && d(e, t, n.get), p(n, "set") && v(e, t, n.set)
     }
     return e
@@ -481,8 +534,9 @@ if (!Object.defineProperty || C) {
 Object.defineProperties ||
     (Object.defineProperties =
          function(e, t) {
-           for (var n in t)
+           for (var n in t) {
              p(t, n) && Object.defineProperty(e, n, t[n]);
+           }
            return e
          }),
     Object.seal || (Object.seal = function(e) { return e }),
@@ -499,11 +553,13 @@ Object.preventExtensions ||
     Object.isSealed || (Object.isSealed = function(e) { return !1 }),
     Object.isFrozen || (Object.isFrozen = function(e) { return !1 }),
     Object.isExtensible || (Object.isExtensible = function(e) {
-      if (Object(e) === e)
+      if (Object(e) === e) {
         throw new TypeError;
+      }
       var t = "";
-      while (p(e, t))
+      while (p(e, t)) {
         t += "?";
+      }
       e[t] = !0;
       var n = p(e, t);
       return delete e[t], n
@@ -516,19 +572,23 @@ if (!Object.keys) {
             "isPrototypeOf", "propertyIsEnumerable", "constructor"
           ],
       D = _.length;
-  for (var P in {toString : null})
+  for (var P in {toString : null}) {
     M = !1;
+  }
   Object.keys = function I(e) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError("Object.keys called on a non-object");
+    }
     var I = [];
-    for (var t in e)
+    for (var t in e) {
       p(e, t) && I.push(t);
-    if (M)
+    }
+    if (M) {
       for (var n = 0, r = D; n < r; n++) {
         var i = _[n];
         p(e, i) && I.push(i)
       }
+    }
     return I
   }
 }
@@ -542,8 +602,9 @@ if (!String.prototype.trim || H.trim()) {
       function() { return String(this).replace(B, "").replace(j, "") }
 }
 var F = function(e) {
-  if (e == null)
+  if (e == null) {
     throw new TypeError("can't convert " + e + " to object");
+  }
   return Object(e)
 }
            }),
@@ -555,34 +616,41 @@ r._emit = r._dispatchEvent = function(e, t) {
   this._eventRegistry || (this._eventRegistry = {}),
       this._defaultHandlers || (this._defaultHandlers = {});
   var n = this._eventRegistry[e] || [], r = this._defaultHandlers[e];
-  if (!n.length && !r)
+  if (!n.length && !r) {
     return;
-  if (typeof t != "object" || !t)
+  }
+  if (typeof t != "object" || !t) {
     t = {};
+  }
   t.type || (t.type = e), t.stopPropagation || (t.stopPropagation = i),
       t.preventDefault || (t.preventDefault = s), t.target || (t.target = this);
   for (var o = 0; o < n.length; o++) {
     n[o](t);
-    if (t.propagationStopped)
+    if (t.propagationStopped) {
       break
   }
-  if (r && !t.defaultPrevented)
+    }
+  if (r && !t.defaultPrevented) {
     return r(t)
-}, r._signal = function(e, t) {
+}
+  }, r._signal = function(e, t) {
   var n = (this._eventRegistry || {})[e];
-  if (!n)
+  if (!n) {
     return;
-  for (var r = 0; r < n.length; r++)
+  }
+  for (var r = 0; r < n.length; r++) {
     n[r](t)
-}, r.once = function(e, t) {
+}
+  }, r.once = function(e, t) {
   var n = this, r = function() {
     fun && fun.apply(null, arguments), n.removeEventListener(event, r)
   };
   this.addEventListener(event, r)
 }, r.setDefaultHandler = function(e, t) {
   this._defaultHandlers = this._defaultHandlers || {};
-  if (this._defaultHandlers[e])
+  if (this._defaultHandlers[e]) {
     throw new Error("The default handler for '" + e + "' is already set");
+  }
   this._defaultHandlers[e] = t
 }, r.on = r.addEventListener = function(e, t, n) {
   this._eventRegistry = this._eventRegistry || {};
@@ -592,8 +660,9 @@ r._emit = r._dispatchEvent = function(e, t) {
 }, r.removeListener = r.removeEventListener = function(e, t) {
   this._eventRegistry = this._eventRegistry || {};
   var n = this._eventRegistry[e];
-  if (!n)
+  if (!n) {
     return;
+  }
   var r = n.indexOf(t);
   r !== -1 && n.splice(r, 1)
 }, r.removeAllListeners = function(e) {
@@ -609,9 +678,10 @@ t.inherits = function() {
     t.prototype.constructor = t
   }
 }(), t.mixin = function(e, t) {
-  for (var n in t)
+  for (var n in t) {
     e[n] = t[n]
-}, t.implement = function(e, n) { t.mixin(e, n) }
+}
+  }, t.implement = function(e, n) { t.mixin(e, n) }
            }),
     define("ace/mode/javascript_worker",
            [
@@ -665,9 +735,10 @@ oop.inherits(JavaScriptWorker, Mirror), function() {
     try {
       eval("throw 0;" + str)
     } catch (e) {
-      if (e === 0)
+      if (e === 0) {
         return !0
     }
+      }
     return !1
   }, this.onUpdate = function() {
     var e = this.doc.getValue();
@@ -681,8 +752,9 @@ oop.inherits(JavaScriptWorker, Mirror), function() {
     var r = lint.errors, i = !1;
     for (var s = 0; s < r.length; s++) {
       var o = r[s];
-      if (!o)
+      if (!o) {
         continue;
+      }
       var u = o.raw, a = "warning";
       if (u == "Missing semicolon.") {
         var f = o.evidence.substr(o.character);
@@ -691,8 +763,9 @@ oop.inherits(JavaScriptWorker, Mirror), function() {
             ? (o.reason = 'Missing ";" before statement', a = "error")
             : a = "info"
       } else {
-        if (disabledWarningsRe.test(u))
+        if (disabledWarningsRe.test(u)) {
           continue;
+        }
         infoRe.test(u) ? a = "info"
                        : errorsRe.test(u)
                              ? (i = !0, a = n)
@@ -787,8 +860,9 @@ r.implement(this, i),
     this.$autoNewLine = "\n", this.$newLineMode = "auto",
     this.setNewLineMode =
         function(e) {
-      if (this.$newLineMode === e)
+      if (this.$newLineMode === e) {
         return;
+      }
       this.$newLineMode = e
     },
     this.getNewLineMode = function() { return this.$newLineMode },
@@ -799,8 +873,9 @@ r.implement(this, i),
     this.getAllLines = function() { return this.getLines(0, this.getLength()) },
     this.getLength = function() { return this.$lines.length },
     this.getTextRange = function(e) {
-      if (e.start.row == e.end.row)
+      if (e.start.row == e.end.row) {
         return this.$lines[e.start.row].substring(e.start.column, e.end.column);
+      }
       var t = this.getLines(e.start.row + 1, e.end.row - 1);
       return t.unshift(
                  (this.$lines[e.start.row] || "").substring(e.start.column)),
@@ -812,8 +887,9 @@ r.implement(this, i),
                             e.column = this.getLine(t - 1).length),
              e
     }, this.insert = function(e, t) {
-      if (!t || t.length === 0)
+      if (!t || t.length === 0) {
         return e;
+      }
       e = this.$clipPosition(e),
       this.getLength() <= 1 && this.$detectNewLine(t);
       var n = this.$split(t), r = n.splice(0, 1)[0],
@@ -847,8 +923,9 @@ r.implement(this, i),
       };
       return this._emit("change", {data : r}), n
     }, this.insertInLine = function(e, t) {
-      if (t.length == 0)
+      if (t.length == 0) {
         return e;
+      }
       var n = this.$lines[e.row] || "";
       this.$lines[e.row] = n.substring(0, e.column) + t + n.substring(e.column);
       var r = {row : e.row, column : e.column + t.length},
@@ -856,8 +933,9 @@ r.implement(this, i),
       return this._emit("change", {data : i}), r
     }, this.remove = function(e) {
       e.start = this.$clipPosition(e.start), e.end = this.$clipPosition(e.end);
-      if (e.isEmpty())
+      if (e.isEmpty()) {
         return e.start;
+      }
       var t = e.start.row, n = e.end.row;
       if (e.isMultiLine()) {
         var r = e.start.column == 0 ? t : t + 1, i = n - 1;
@@ -866,12 +944,14 @@ r.implement(this, i),
             r != t &&
                 (this.removeInLine(t, e.start.column, this.getLine(t).length),
                  this.removeNewLine(e.start.row))
-      } else
+      } else {
         this.removeInLine(t, e.start.column, e.end.column);
+      }
       return e.start
     }, this.removeInLine = function(e, t, n) {
-      if (t == n)
+      if (t == n) {
         return;
+      }
       var r = new s(e, t, e, n), i = this.getLine(e), o = i.substring(t, n),
           u = i.substring(0, t) + i.substring(n, i.length);
       this.$lines.splice(e, 1, u);
@@ -896,15 +976,18 @@ r.implement(this, i),
       };
       this._emit("change", {data : o})
     }, this.replace = function(e, t) {
-      if (t.length == 0 && e.isEmpty())
+      if (t.length == 0 && e.isEmpty()) {
         return e.start;
-      if (t == this.getTextRange(e))
+      }
+      if (t == this.getTextRange(e)) {
         return e.end;
+      }
       this.remove(e);
-      if (t)
+      if (t) {
         var n = this.insert(e.start, t);
-      else
+      } else {
         n = e.start;
+      }
       return n
     }, this.applyDeltas = function(e) {
       for (var t = 0; t < e.length; t++) {
@@ -942,8 +1025,9 @@ r.implement(this, i),
       var n = this.$lines || this.getAllLines(),
           r = this.getNewLineCharacter().length, i = 0,
           s = Math.min(e.row, n.length);
-      for (var o = t || 0; o < s; ++o)
+      for (var o = t || 0; o < s; ++o) {
         i += n[o].length;
+      }
       return i + r * o + e.column
     }
 }).call(u.prototype),
@@ -1020,23 +1104,27 @@ this.isEqual = function(e) {
                    ? -1
                    : this.compare(e, t)
 }, this.clipRows = function(e, t) {
-  if (this.end.row > t)
+  if (this.end.row > t) {
     var n = {row : t + 1, column : 0};
-  else if (this.end.row < e)
+  } else if (this.end.row < e) {
     var n = {row : e, column : 0};
-  if (this.start.row > t)
+  }
+  if (this.start.row > t) {
     var r = {row : t + 1, column : 0};
-  else if (this.start.row < e)
+  } else if (this.start.row < e) {
     var r = {row : e, column : 0};
+  }
   return i.fromPoints(r || this.start, n || this.end)
 }, this.extend = function(e, t) {
   var n = this.compare(e, t);
-  if (n == 0)
+  if (n == 0) {
     return this;
-  if (n == -1)
+  }
+  if (n == -1) {
     var r = {row : e, column : t};
-  else
+  } else {
     var s = {row : e, column : t};
+  }
   return i.fromPoints(r || this.start, s || this.end)
 }, this.isEmpty = function() {
   return this.start.row === this.end.row &&
@@ -1085,12 +1173,15 @@ r.implement(this, i),
     this.getDocument = function() { return this.document },
     this.onChange = function(e) {
       var t = e.data, n = t.range;
-      if (n.start.row == n.end.row && n.start.row != this.row)
+      if (n.start.row == n.end.row && n.start.row != this.row) {
         return;
-      if (n.start.row > this.row)
+      }
+      if (n.start.row > this.row) {
         return;
-      if (n.start.row == this.row && n.start.column > this.column)
+      }
+      if (n.start.row == this.row && n.start.column > this.column) {
         return;
+      }
       var r = this.row, i = this.column;
       t.action === "insertText"
           ? n.start.row === r &&n.start.column <= i
@@ -1123,8 +1214,9 @@ r.implement(this, i),
     }, this.setPosition = function(e, t, n) {
       var r;
       n ? r = {row : e, column : t} : r = this.$clipPositionToDocument(e, t);
-      if (this.row == r.row && this.column == r.column)
+      if (this.row == r.row && this.column == r.column) {
         return;
+      }
       var i = {row : this.row, column : this.column};
       this.row = r.row, this.column = r.column,
       this._emit("change", {old : i, value : r})
@@ -1150,9 +1242,10 @@ t.stringReverse = function(e) { return e.split("").reverse().join("") },
       var n = "";
       while (t > 0) {
         t&1 && (n += e);
-        if (t >>= 1)
+        if (t >>= 1) {
           e += e
       }
+        }
       return n
     };
 var r = /^\s\s*/, i = /\s\s*$/;
@@ -1160,36 +1253,43 @@ t.stringTrimLeft = function(e) { return e.replace(r, "") },
     t.stringTrimRight = function(e) { return e.replace(i, "") },
     t.copyObject = function(e) {
       var t = {};
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.copyArray = function(e) {
       var t = [];
-      for (var n = 0, r = e.length; n < r; n++)
+      for (var n = 0, r = e.length; n < r; n++) {
         e[n] && typeof e[n] == "object" ? t[n] = this.copyObject(e[n])
                                         : t[n] = e[n];
+      }
       return t
     }, t.deepCopy = function(e) {
-      if (typeof e != "object")
+      if (typeof e != "object") {
         return e;
+      }
       var t = e.constructor();
-      for (var n in e)
+      for (var n in e) {
         typeof e[n] == "object" ? t[n] = this.deepCopy(e[n]) : t[n] = e[n];
+      }
       return t
     }, t.arrayToMap = function(e) {
       var t = {};
-      for (var n = 0; n < e.length; n++)
+      for (var n = 0; n < e.length; n++) {
         t[e[n]] = 1;
+      }
       return t
     }, t.createMap = function(e) {
       var t = Object.create(null);
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.arrayRemove = function(e, t) {
-      for (var n = 0; n <= e.length; n++)
+      for (var n = 0; n <= e.length; n++) {
         t === e[n] && e.splice(n, 1)
-    }, t.escapeRegExp = function(e) {
+    }
+      }, t.escapeRegExp = function(e) {
       return e.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1")
     }, t.escapeHTML = function(e) {
       return e.replace(/&/g, "&#38;")
@@ -1241,9 +1341,10 @@ var r = function() {
   }
   function f(e, n) {
     var i;
-    for (i in n)
+    for (i in n) {
       t(n, i) && !t(r.blacklist, i) && (e[i] = n[i])
   }
+    }
   function l() {
     Object.keys(r.blacklist).forEach(function(e) { delete Ft[e] })
   }
@@ -1343,12 +1444,14 @@ var r = function() {
           y = !0;
           break
         }
-        if (p.id !== "(endline)" && p.id !== ",")
+        if (p.id !== "(endline)" && p.id !== ",") {
           break;
+        }
         p = vn.token()
       }
-      if (y)
+      if (y) {
         break;
+      }
       i === "/*global" && p.value === "-" && (g = !0, p = vn.token()),
           p.type !== "(string)" && p.type !== "(identifier)" &&
               i !== "/*members" && m("Bad option.", p),
@@ -1361,19 +1464,19 @@ var r = function() {
           "maxstatements", "maxparams", "maxdepth", "maxcomplexity", "maxerr",
           "maxlen", "indent"
         ];
-        if (b.indexOf(p.value) > -1 && (i === "/*jshint" || i === "/*jslint"))
+        if (b.indexOf(p.value) > -1 && (i === "/*jshint" || i === "/*jslint")) {
           u = +v.value,
           (typeof u != "number" || !isFinite(u) || u <= 0 ||
            Math.floor(u) !== u) &&
               m("Expected a small integer and instead saw '{a}'.", v, v.value),
           p.value === "indent" && (a.white = !0), a[p.value] = u;
-        else if (p.value === "validthis")
+        } else if (p.value === "validthis") {
           wt["(global)"]
               ? m("Option 'validthis' can't be used in a global scope.")
               : v.value === "true" || v.value === "false"
                     ? a[p.value] = v.value === "true"
                     : m("Bad option value.", v);
-        else if (p.value === "quotmark" && i === "/*jshint")
+        } else if (p.value === "quotmark" && i === "/*jshint") {
           switch (v.value) {
           case "true":
             a.quotmark = !0;
@@ -1388,7 +1491,7 @@ var r = function() {
           default:
             m("Bad option value.", v)
           }
-        else
+        } else {
           v.value === "true" || v.value === "false"
               ? (i === "/*jslint"
                      ? (d = dt[p.value] || p.value, a[d] = v.value === "true",
@@ -1396,23 +1499,27 @@ var r = function() {
                      : a[p.value] = v.value === "true",
                  p.value === "newcap" && (a["(explicitNewcap)"] = !0))
               : m("Bad option value.", v);
+        }
         p = vn.token()
-      } else
+      } else {
         (i === "/*jshint" || i === "/*jslint") && m("Missing option value.", p),
             a[p.value] = !1,
             i === "/*global" && g === !0 &&
                 (r.blacklist[p.value] = p.value, l()),
             p = v
     }
+      }
     i === "/*members" && (jt.quotmark = s), f(Ft, o);
-    for (var w in o)
+    for (var w in o) {
       t(o, w) && (gt[w] = e);
+    }
     h && c()
   }
   function E(e) {
     var t = e || 0, n = 0, r;
-    while (n <= t)
+    while (n <= t) {
       r = Ot[n], r || (r = Ot[n] = vn.token()), n += 1;
+    }
     return r
   }
   function S(e, t) {
@@ -1428,8 +1535,9 @@ var r = function() {
     case "+":
       (Pt.id === "+" || Pt.id === "++") && d("Confusing plusses.")
     }
-    if (Gt.type === "(string)" || Gt.identifier)
+    if (Gt.type === "(string)" || Gt.identifier) {
       ft = Gt.value;
+    }
     e && Pt.id !== e &&
         (t ? Pt.id === "(end)"
                  ? d("Unmatched '{a}'.", t, t.id)
@@ -1440,31 +1548,34 @@ var r = function() {
         qt = Gt, Gt = Pt;
     for (;;) {
       Pt = Ot.shift() || vn.token();
-      if (Pt.id === "(end)" || Pt.id === "(error)")
+      if (Pt.id === "(end)" || Pt.id === "(error)") {
         return;
-      if (Pt.type === "special")
+      }
+      if (Pt.type === "special") {
         w();
-      else if (Pt.id !== "(endline)")
+      } else if (Pt.id !== "(endline)") {
         break
     }
+      }
   }
   function x(e, t) {
     var n, r = !1, i = !1;
     Pt.id === "(end)" && m("Unexpected early end of program.", Gt), S(),
         t && (ft = "anonymous", wt["(verb)"] = Gt.value);
-    if (t === !0 && Gt.fud)
+    if (t === !0 && Gt.fud) {
       n = Gt.fud();
-    else {
-      if (Gt.nud)
+    } else {
+      if (Gt.nud) {
         n = Gt.nud();
-      else {
-        if (Pt.type === "(number)" && Gt.id === ".")
+      } else {
+        if (Pt.type === "(number)" && Gt.id === ".") {
           return d("A leading decimal point can be confused with a dot: '.{a}'.",
                    Gt, Pt.value),
                  S(), Gt;
+        }
         m("Expected an identifier and instead saw '{a}'.", Gt, Gt.id)
       }
-      while (e < Pt.lbp)
+      while (e < Pt.lbp) {
         r = Gt.value === "Array", i = Gt.value === "Object",
         n && (n.value || n.first && n.first.value) &&
             (n.value !== "new" ||
@@ -1478,6 +1589,7 @@ var r = function() {
         Gt.led ? n = Gt.led(n)
                : m("Expected an operator and instead saw '{a}'.", Gt, Gt.id)
     }
+      }
     return n
   }
   function T(e, t) {
@@ -1498,8 +1610,9 @@ var r = function() {
   function k(e, t) {
     if (jt.white) {
       e = e || Gt, t = t || Pt;
-      if (e.value === ";" && t.value === ";")
+      if (e.value === ";" && t.value === ";") {
         return;
+      }
       e.line === t.line && e.character === t.from &&
           (e.from += e.character - e.from,
            d("Missing space after '{a}'.", e, e.value))
@@ -1540,8 +1653,9 @@ var r = function() {
   }
   function _(e, t) {
     var n = Kt[e];
-    if (!n || typeof n != "object")
+    if (!n || typeof n != "object") {
       Kt[e] = n = {id : e, lbp : t, value : e};
+    }
     return n
   }
   function D(e) { return _(e, 0) }
@@ -1555,19 +1669,21 @@ var r = function() {
   }
   function B(e) {
     var t = e.id.charAt(0);
-    if (t >= "a" && t <= "z" || t >= "A" && t <= "Z")
+    if (t >= "a" && t <= "z" || t >= "A" && t <= "Z") {
       e.identifier = e.reserved = !0;
+    }
     return e
   }
   function j(e, t) {
     var n = _(e, 150);
     return B(n), n.nud = typeof t == "function" ? t : function() {
       this.right = x(150), this.arity = "unary";
-      if (this.id === "++" || this.id === "--")
+      if (this.id === "++" || this.id === "--") {
         jt.plusplus ? d("Unexpected use of '{a}'.", this, this.id)
                     : (!this.right.identifier || this.right.reserved) &&
                           this.right.id !== "." && this.right.id !== "[" &&
                           d("Bad operand.", this);
+      }
       return this
     }, n
   }
@@ -1620,14 +1736,16 @@ var r = function() {
                jt.esnext && wt[e.value] === "const" &&
                    d("Attempting to override '{a}' which is a constant", e,
                      e.value);
-               if (e.id === "." || e.id === "[")
+               if (e.id === "." || e.id === "[") {
                  return (!e.left || e.left.value === "arguments") &&
                             d("Bad assignment.", t),
                         t.right = x(19), t;
-               if (e.identifier && !e.reserved)
+               }
+               if (e.identifier && !e.reserved) {
                  return wt[e.value] === "exception" &&
                             d("Do not assign to the exception parameter.", e),
                         t.right = x(19), t;
+               }
                e === Kt["function"] &&
                    d("Expected an identifier in an assignment and instead saw a function invocation.",
                      Gt)
@@ -1646,7 +1764,7 @@ var r = function() {
     return _(e, 20).exps = !0, R(e, function(e, t) {
              jt.bitwise && d("Unexpected use of '{a}'.", t, t.id), k(qt, Gt),
                  k(Gt, Pt);
-             if (e)
+             if (e) {
                return e.id === "." || e.id === "[" ||
                               e.identifier && !e.reserved
                           ? (x(19), t)
@@ -1654,6 +1772,7 @@ var r = function() {
                                  d("Expected an identifier in an assignment, and instead saw a function invocation.",
                                    Gt),
                              t);
+             }
              m("Bad assignment.", t)
            }, 20)
   }
@@ -1667,33 +1786,38 @@ var r = function() {
     }, t
   }
   function J(e) {
-    if (Pt.identifier)
+    if (Pt.identifier) {
       return S(),
              Gt.reserved && !jt.es5 && (!e || Gt.value !== "undefined") &&
                  d("Expected an identifier and instead saw '{a}' (a reserved word).",
                    Gt, Gt.id),
              Gt.value
   }
+    }
   function K(e) {
     var t = J(e);
-    if (t)
+    if (t) {
       return t;
+    }
     Gt.id === "function" && Pt.id === "("
         ? d("Missing name in function declaration.")
         : m("Expected an identifier and instead saw '{a}'.", Pt, Pt.value)
   }
   function Q(e) {
     var t = 0, n;
-    if (Pt.id !== ";" || Bt)
+    if (Pt.id !== ";" || Bt) {
       return;
+    }
     for (;;) {
       n = E(t);
-      if (n.reach)
+      if (n.reach) {
         return;
+      }
       if (n.id !== "(endline)") {
         if (n.id === "function") {
-          if (!jt.latedef)
+          if (!jt.latedef) {
             break;
+          }
           d("Inner functions should be listed at the top of the outer function.",
             n);
           break
@@ -1728,8 +1852,9 @@ var r = function() {
               Gt)
           : jt.nonew && n.id === "(" && n.left.id === "new" &&
                 d("Do not use 'new' for side effects.", i);
-      if (Pt.id === ",")
+      if (Pt.id === ",") {
         return M();
+      }
       Pt.id !== ";"
           ? jt.asi || (!jt.lastsemic || Pt.id !== "}" || Pt.line !== Gt.line) &&
                           v("Missing semicolon.", Gt.line, Gt.character)
@@ -1739,11 +1864,12 @@ var r = function() {
   }
   function Y(e) {
     var t = [], n;
-    while (!Pt.reach && Pt.id !== "(end)")
+    while (!Pt.reach && Pt.id !== "(end)") {
       Pt.id === ";"
           ? (n = E(), (!n || n.id !== "(") && d("Unnecessary semicolon."),
              S(";"))
           : t.push(G(e === Pt.line));
+    }
     return t
   }
   function Z() {
@@ -1753,20 +1879,24 @@ var r = function() {
         t = E(0);
         if (t.id === "(endline)") {
           e = 1;
-          do
+          do {
             n = E(e), e += 1;
+          }
           while (n.id === "(endline)");
           if (n.id !== ";") {
-            if (n.id !== "(string)" && n.id !== "(number)" &&
-                n.id !== "(regexp)" && n.identifier !== !0 && n.id !== "}")
+            if (n.id !== "(string)" && n.id !== "(number)" 
+                && n.id !== "(regexp)" && n.identifier !== !0 && n.id !== "}"
+            ) {
               break;
+            }
             d("Missing semicolon.", Pt)
-          } else
+          } else {
             t = n
-        } else if (t.id === "}")
+        } } else if (t.id === "}") {
           d("Missing semicolon.", t);
-        else if (t.id !== ";")
+        } else if (t.id !== ";") {
           break;
+        }
         A(), S(),
             Jt[Gt.value] && d('Unnecessary directive "{a}".', Gt, Gt.value),
             Gt.value === "use strict" &&
@@ -1780,8 +1910,9 @@ var r = function() {
   function et(e, n, r) {
     var i, s = Nt, o = Ct, u, a = Wt, f, l, c;
     Nt = e;
-    if (!e || !jt.funcscope)
+    if (!e || !jt.funcscope) {
       Wt = Object.create(Wt);
+    }
     k(Gt, Pt), f = Pt;
     var h = wt["(metrics)"];
     h.nestedBlockDepth += 1, h.verifyMaxNestedBlockDepthPerFunction();
@@ -1789,29 +1920,34 @@ var r = function() {
       S("{"), l = Gt.line;
       if (Pt.id !== "}") {
         Ct += jt.indent;
-        while (!e && Pt.from > Ct)
+        while (!e && Pt.from > Ct) {
           Ct += jt.indent;
+        }
         if (r) {
           u = {};
-          for (c in Jt)
+          for (c in Jt) {
             t(Jt, c) && (u[c] = Jt[c]);
+          }
           Z(), jt.strict && wt["(context)"]["(global)"] && !u["use strict"] &&
                    !Jt["use strict"] && d('Missing "use strict" statement.')
         }
         i = Y(l), h.statementCount += i.length, r && (Jt = u), Ct -= jt.indent,
         l !== Pt.line && A()
-      } else
+      } else {
         l !== Pt.line && A();
+      }
       S("}", f), Ct = o
-    } else
+    } else {
       e ? ((!n || jt.curly) &&
                d("Expected '{a}' and instead saw '{b}'.", Pt, "{", Pt.value),
            Bt = !0, Ct += jt.indent, i = [ G(Pt.line === Gt.line) ],
            Ct -= jt.indent, Bt = !1)
         : m("Expected '{a}' and instead saw '{b}'.", Pt, "{", Pt.value);
+    }
     wt["(verb)"] = null;
-    if (!e || !jt.funcscope)
+    if (!e || !jt.funcscope) {
       Wt = a;
+    }
     return Nt = s,
            e && jt.noempty && (!i || i.length === 0) && d("Empty block."),
            h.nestedBlockDepth -= 1, i
@@ -1841,8 +1977,9 @@ var r = function() {
     }
     for (;;) {
       n = K(!0), t.push(n), b(n, "unused", Gt);
-      if (Pt.id !== ",")
+      if (Pt.id !== ",") {
         return S(")", e), C(qt, Gt), t;
+      }
       M()
     }
   }
@@ -1884,8 +2021,9 @@ var r = function() {
               d(n, e)
             }
           }, verifyMaxNestedBlockDepthPerFunction: function() {
-            if (jt.maxdepth && this.nestedBlockDepth > 0 &&
-                this.nestedBlockDepth === jt.maxdepth + 1) {
+            if (jt.maxdepth && this.nestedBlockDepth > 0 
+                && this.nestedBlockDepth === jt.maxdepth + 1
+            ) {
               var e = "Blocks are nested too deeply (" + this.nestedBlockDepth +
                       ").";
               d(e)
@@ -1905,11 +2043,11 @@ var r = function() {
     function e() {
       var e = {}, t = Pt;
       S("{");
-      if (Pt.id !== "}")
+      if (Pt.id !== "}") {
         for (;;) {
-          if (Pt.id === "(end)")
+          if (Pt.id === "(end)") {
             m("Missing '}' to match '{' from line {a}.", Pt, t.line);
-          else {
+          } else {
             if (Pt.id === "}") {
               d("Unexpected comma.", Gt);
               break
@@ -1927,20 +2065,22 @@ var r = function() {
                         Pt.value)
                     : e[Pt.value] = !0,
                       S(), S(":"), at();
-          if (Pt.id !== ",")
+          if (Pt.id !== ",") {
             break;
+          }
           S(",")
         }
+      }
       S("}")
     }
     function t() {
       var e = Pt;
       S("[");
-      if (Pt.id !== "]")
+      if (Pt.id !== "]") {
         for (;;) {
-          if (Pt.id === "(end)")
+          if (Pt.id === "(end)") {
             m("Missing ']' to match '[' from line {a}.", Pt, e.line);
-          else {
+          } else {
             if (Pt.id === "]") {
               d("Unexpected comma.", Gt);
               break
@@ -1948,10 +2088,12 @@ var r = function() {
             Pt.id === "," && m("Unexpected comma.", Pt)
           }
           at();
-          if (Pt.id !== ",")
+          if (Pt.id !== ",") {
             break;
+          }
           S(",")
         }
+      }
       S("]")
     }
     switch (Pt.id) {
@@ -2438,34 +2580,41 @@ var r = function() {
       Array.prototype.forEach || (Array.prototype.forEach =
                                       function(e, t) {
                                         var n = this.length;
-                                        for (var r = 0; r < n; r++)
+                                        for (var r = 0; r < n; r++) {
                                           e.call(t || this, this[r], r, this)
-                                      }),
+                                      }
+                                        }),
       Array.prototype.indexOf || (Array.prototype.indexOf = function(e) {
-        if (this === null || this === undefined)
+        if (this === null || this === undefined) {
           throw new TypeError;
+        }
         var t = new Object(this), n = t.length >>> 0;
-        if (n === 0)
+        if (n === 0) {
           return -1;
+        }
         var r = 0;
         arguments.length > 0 &&
             (r = Number(arguments[1]),
              r != r ? r = 0
                     : r !== 0 && r != Infinity && r != -Infinity &&
                           (r = (r > 0 || -1) * Math.floor(Math.abs(r))));
-        if (r >= n)
+        if (r >= n) {
           return -1;
+        }
         var i = r >= 0 ? r : Math.max(n - Math.abs(r), 0);
-        for (; i < n; i++)
-          if (i in t && t[i] === e)
+        for (; i < n; i++) {
+          if (i in t && t[i] === e) {
             return i;
+          }
+        }
         return -1
       }), typeof Object.create != "function" && (Object.create = function(t) {
             return e.prototype = t, new e
           }), typeof Object.keys != "function" && (Object.keys = function(e) {
                 var n = [], r;
-                for (r in e)
+                for (r in e) {
                   t(e, r) && n.push(r);
+                }
                 return n
               });
   var vn = function() {
@@ -2499,8 +2648,9 @@ var r = function() {
         }
         var t = /^(_+.*|.*_+)$/.test(e);
         if (jt.nomen && t && e !== "_") {
-          if (jt.node && Gt.id !== "." && /^(__dirname|__filename)$/.test(e))
+          if (jt.node && Gt.id !== "." && /^(__dirname|__filename)$/.test(e)) {
             return;
+          }
           v("Unexpected {a} in '{b}'.", u, i, "dangling '_'", e);
           return
         }
@@ -2554,10 +2704,11 @@ var r = function() {
       }, token: function() {
         function t(e) {
           var t = e.exec(a), n;
-          if (t)
+          if (t) {
             return w = t[0].length, n = t[1], c = n.charAt(0), a = a.substr(w),
                    i = r + w - n.length, r += w, n
         }
+          }
         function f(t) {
           function s(e) {
             var t = parseInt(a.substr(f + 1, e), 16);
@@ -2590,11 +2741,13 @@ var r = function() {
               c ? c = !1 : v("Unclosed string.", h, p)
             }
             o = a.charAt(f);
-            if (o === t)
+            if (o === t) {
               return r += 1, a = a.substr(f + 1), n("(string)", l, t);
+            }
             if (o < " ") {
-              if (o === "\n" || o === "\r")
+              if (o === "\n" || o === "\r") {
                 break;
+              }
               v("Control character in string: {a}.", u, r + f, a.slice(0, f))
             } else if (o === "\\") {
               f += 1, r += 1, o = a.charAt(f), C = a.charAt(f + 1);
@@ -2645,8 +2798,9 @@ var r = function() {
                   r);
                 break;
               case "!":
-                if (a.charAt(f - 2) === "<")
+                if (a.charAt(f - 2) === "<") {
                   break;
+                }
               default:
                 v("Bad escapement.", u, r)
               }
@@ -2656,18 +2810,21 @@ var r = function() {
         }
         var l, c, p, d, m, y, b, w, E, S, x, T, N, C;
         for (;;) {
-          if (!a)
+          if (!a) {
             return n(e() ? "(endline)" : "(end)", "");
+          }
           x = t(an);
           if (!x) {
             x = "", c = "";
-            while (a && a < "!")
+            while (a && a < "!") {
               a = a.substr(1);
+            }
             a && (g("Unexpected '{a}'.", u, r, a.substr(0, 1)), a = "")
           } else {
-            if (s(c) || c === "_" || c === "$")
+            if (s(c) || c === "_" || c === "$") {
               return n("(identifier)", x);
-            if (o(c))
+            }
+            if (o(c)) {
               return isFinite(Number(x)) || v("Bad number '{a}'.", u, r, x),
                      s(a.substr(0, 1)) &&
                          v("Missing space after '{a}'.", u, r, x),
@@ -2682,6 +2839,7 @@ var r = function() {
                          v("A trailing decimal point can be confused with a dot '{a}'.",
                            u, r, x),
                      n("(number)", x);
+            }
             switch (x) {
             case '"':
             case "'":
@@ -2692,8 +2850,9 @@ var r = function() {
             case "/*":
               for (;;) {
                 b = a.search(cn);
-                if (b >= 0)
+                if (b >= 0) {
                   break;
+                }
                 e() || g("Unclosed comment.", u, r)
               }
               a = a.substr(b + 2), Gt.comment = !0;
@@ -2729,8 +2888,9 @@ var r = function() {
                     m > 0 && v("{a} unterminated regular expression group(s).",
                                u, i + w, m),
                         c = a.substr(0, w - 1), S = {g : !0, i : !0, m : !0};
-                    while (S[a.charAt(w)] === !0)
+                    while (S[a.charAt(w)] === !0) {
                       S[a.charAt(w)] = !1, w += 1;
+                    }
                     return r += w, a = a.substr(w), S = a.charAt(0),
                                    (S === "/" || S === "*") &&
                                        g("Confusing regular expression.", u, i),
@@ -2759,8 +2919,9 @@ var r = function() {
                         v("Expected '{a}' and instead saw '{b}'.", u, i + w,
                           ":", a.charAt(w))
                       }
-                    } else
+                    } else {
                       p += 1;
+                    }
                     break;
                   case "|":
                     l = !1;
@@ -2770,8 +2931,9 @@ var r = function() {
                     break;
                   case " ":
                     S = 1;
-                    while (a.charAt(w) === " ")
+                    while (a.charAt(w) === " ") {
                       w += 1, S += 1;
+                    }
                     S > 1 &&
                         v("Spaces are hard to count. Use {{a}}.", u, i + w, S);
                     break;
@@ -2846,7 +3008,7 @@ var r = function() {
                   case "*":
                     v("Unescaped '{a}'.", u, i + w, c)
                   }
-                  if (l)
+                  if (l) {
                     switch (a.charAt(w)) {
                     case "?":
                     case "+":
@@ -2863,8 +3025,9 @@ var r = function() {
                       w += 1, E = +c;
                       for (;;) {
                         c = a.charAt(w);
-                        if (c < "0" || c > "9")
+                        if (c < "0" || c > "9") {
                           break;
+                        }
                         w += 1, E = +c + E * 10
                       }
                       y = E;
@@ -2874,8 +3037,9 @@ var r = function() {
                           w += 1, y = +c;
                           for (;;) {
                             c = a.charAt(w);
-                            if (c < "0" || c > "9")
+                            if (c < "0" || c > "9") {
                               break;
+                            }
                             w += 1, y = +c + y * 10
                           }
                         }
@@ -2888,6 +3052,7 @@ var r = function() {
                           E > y && v("'{a}' should not be greater than '{b}'.",
                                      u, i + w, E, y)
                     }
+                  }
                 }
                 return c = a.substr(0, w - 1), r += w, a = a.substr(w),
                        n("(regexp)", c)
@@ -2915,7 +3080,7 @@ var r = function() {
               ? t = undefined
               : typeof t == "boolean" &&
                     (n = wt, wt = St[0], b(e, "var"), t = wt, wt = n);
-          if (wt === t)
+          if (wt === t) {
             switch (wt[e]) {
             case "unused":
               wt[e] = "var";
@@ -2929,13 +3094,13 @@ var r = function() {
             case "label":
               d("'{a}' is a statement label.", Gt, e)
             }
-          else if (wt["(global)"])
+          } else if (wt["(global)"]) {
             jt.undef && typeof Ft[e] != "boolean" &&
                 (ft !== "typeof" && ft !== "delete" ||
                  Pt && (Pt.value === "." || Pt.value === "[")) &&
                 p(wt, "'{a}' is not defined.", Gt, e),
                 nt(Gt);
-          else
+          } else {
             switch (wt[e]) {
             case "closure":
             case "function":
@@ -2950,17 +3115,17 @@ var r = function() {
             case "global":
               break;
             default:
-              if (t === !0)
+              if (t === !0) {
                 wt[e] = !0;
-              else if (t === null)
+              } else if (t === null) {
                 d("'{a}' is not allowed.", Gt, e), nt(Gt);
-              else if (typeof t != "object")
+              } else if (typeof t != "object") {
                 jt.undef &&
                     (ft !== "typeof" && ft !== "delete" ||
                      Pt && (Pt.value === "." || Pt.value === "[")) &&
                     p(wt, "'{a}' is not defined.", Gt, e),
                     wt[e] = !0, nt(Gt);
-              else
+              } else {
                 switch (t[e]) {
                 case "function":
                 case "unction":
@@ -2977,7 +3142,9 @@ var r = function() {
                 case "label":
                   d("'{a}' is a statement label.", Gt, e)
                 }
+              }
             }
+          }
           return this
         },
         led : function() {
@@ -3107,7 +3274,7 @@ var r = function() {
       j("new",
         function() {
           var e = x(155), n;
-          if (e && e.id !== "function")
+          if (e && e.id !== "function") {
             if (e.identifier) {
               e["new"] = !0;
               switch (e.value) {
@@ -3131,11 +3298,12 @@ var r = function() {
                          d("A constructor name should start with an uppercase letter.",
                            Gt))
               }
-            } else
+            } else {
               e.id !== "." && e.id !== "[" && e.id !== "(" &&
                   d("Bad constructor.", Gt);
-          else
+          } } else {
             jt.supernew || d("Weird construction. Delete 'new'.", this);
+          }
           return T(Gt, Pt),
                  Pt.id !== "(" && !jt.supernew &&
                      d("Missing '()' invoking a constructor.", Gt, Gt.value),
@@ -3173,13 +3341,15 @@ var r = function() {
                  : jt.newcap &&
                        d("Missing 'new' prefix when invoking a constructor.",
                          e));
-        if (Pt.id !== ")")
+        if (Pt.id !== ")") {
           for (;;) {
             r[r.length] = x(10), n += 1;
-            if (Pt.id !== ",")
+            if (Pt.id !== ",") {
               break;
+            }
             M()
           }
+        }
         return S(")"), C(qt, Gt),
                typeof e == "object" &&
                    (e.value === "parseInt" && n === 1 &&
@@ -3237,13 +3407,16 @@ var r = function() {
         this.first = [],
         e && (Ct += jt.indent, Pt.from === Ct + jt.indent && (Ct += jt.indent));
         while (Pt.id !== "(end)") {
-          while (Pt.id === ",")
+          while (Pt.id === ",") {
             jt.es5 || d("Extra comma."), S(",");
-          if (Pt.id === "]")
+          }
+          if (Pt.id === "]") {
             break;
+          }
           e && Gt.line !== Pt.line && A(), this.first.push(x(10));
-          if (Pt.id !== ",")
+          if (Pt.id !== ",") {
             break;
+          }
           M();
           if (Pt.id === "]" && !jt.es5) {
             d("Extra comma.", Gt);
@@ -3275,41 +3448,46 @@ var r = function() {
           i && (Ct += jt.indent,
                 Pt.from === Ct + jt.indent && (Ct += jt.indent));
           for (;;) {
-            if (Pt.id === "}")
+            if (Pt.id === "}") {
               break;
+            }
             i && A();
-            if (Pt.value === "get" && E().id !== ":")
+            if (Pt.value === "get" && E().id !== ":") {
               S("get"), jt.es5 || m("get/set are ES5 features."),
                   o = rt(), o || m("Missing property name."), r(o), a = Pt,
                   T(Gt, Pt), s = st(), u = s["(params)"],
                   u && d("Unexpected parameter '{a}' in get {b} function.", a,
                          u[0], o),
                   T(Gt, Pt);
-            else if (Pt.value === "set" && E().id !== ":")
+            } else if (Pt.value === "set" && E().id !== ":") {
               S("set"), jt.es5 || m("get/set are ES5 features."),
                   o = rt(), o || m("Missing property name."), n(o, Pt), a = Pt,
                   T(Gt, Pt), s = st(), u = s["(params)"],
                   (!u || u.length !== 1) &&
                       d("Expected a single parameter in set {a} function.", a,
                         o);
-            else {
+            } else {
               o = rt(), e(o, Pt);
-              if (typeof o != "string")
+              if (typeof o != "string") {
                 break;
+              }
               S(":"), k(Gt, Pt), x(10)
             }
             tt(o);
-            if (Pt.id !== ",")
+            if (Pt.id !== ",") {
               break;
+            }
             M(), Pt.id === ","
                      ? d("Extra comma.", Gt)
                      : Pt.id === "}" && !jt.es5 && d("Extra comma.", Gt)
           }
           i && (Ct -= jt.indent, A()), S("}", this);
-          if (jt.es5)
-            for (var l in f)
+          if (jt.es5) {
+            for (var l in f) {
               t(f, l) && f[l].setter && !f[l].getter &&
                   d("Setter is defined without getter.", f[l].setterToken);
+            }
+          }
           return this
         }, e.fud = function() {
           m("Expected to see a statement and instead saw a block.", Gt)
@@ -3325,8 +3503,9 @@ var r = function() {
                        wt["(global)"] && Ft[t] === !1 &&
                            d("Redefinition of '{a}'.", Gt, t),
                        b(t, "const");
-            if (e)
+            if (e) {
               break;
+            }
             n = Gt, this.first.push(Gt),
             Pt.id !== "=" &&
                 d("const '{a}' is initialized to 'undefined'.", Gt, t),
@@ -3339,8 +3518,9 @@ var r = function() {
                      m("Constant {a} was not declared correctly.", Pt,
                        Pt.value),
                  r = x(0), n.first = r);
-            if (Pt.id !== ",")
+            if (Pt.id !== ",") {
               break;
+            }
             M()
           }
           return this
@@ -3359,8 +3539,9 @@ var r = function() {
               d("const '" + t + "' has already been declared"),
           wt["(global)"] && Ft[t] === !1 && d("Redefinition of '{a}'.", Gt, t),
           b(t, "unused", Gt);
-      if (e)
+      if (e) {
         break;
+      }
       n = Gt, this.first.push(Gt),
       Pt.id === "=" &&
           (k(Gt, Pt), S("="), k(Gt, Pt),
@@ -3370,8 +3551,9 @@ var r = function() {
            E(0).id === "=" && Pt.identifier &&
                m("Variable {a} was not declared correctly.", Pt, Pt.value),
            r = x(0), n.first = r);
-      if (Pt.id !== ",")
+      if (Pt.id !== ",") {
         break;
+      }
       M()
     }
     return this
@@ -3472,7 +3654,7 @@ var r = function() {
       wt["(breakage)"] += 1, S("("), k(this, e), C(),
           this.condition = x(20), S(")", e), C(qt, Gt), k(Gt, Pt), e = Pt,
           S("{"), k(Gt, Pt), Ct += jt.indent, this.cases = [];
-      for (;;)
+      for (;;) {
         switch (Pt.id) {
         case "case":
           switch (wt["(verb)"]) {
@@ -3505,16 +3687,18 @@ var r = function() {
           break;
         case "}":
           Ct -= jt.indent, A(), S("}", e);
-          if (this.cases.length === 1 || this.condition.id === "true" ||
-              this.condition.id === "false")
+          if (this.cases.length === 1 || this.condition.id === "true" 
+              || this.condition.id === "false"
+          ) {
             jt.onecase || d("This 'switch' should be an 'if'.", this);
+          }
           wt["(breakage)"] -= 1, wt["(verb)"] = undefined;
           return;
         case "(end)":
           m("Missing '{a}'.", Pt, "}");
           return;
         default:
-          if (t)
+          if (t) {
             switch (Gt.id) {
             case ",":
               m("Each value should have its own case label.");
@@ -3526,7 +3710,7 @@ var r = function() {
               m("Missing ':' on a case clause.", Gt);
               return
             }
-          else {
+          } else {
             if (Gt.id !== ":") {
               m("Expected '{a}' and instead saw '{b}'.", Pt, "case", Pt.value);
               return
@@ -3534,6 +3718,7 @@ var r = function() {
             S(":"), m("Unexpected '{a}'.", Gt, ":"), Y()
           }
         }
+      }
     }).labelled = !0,
   P("debugger",
     function() {
@@ -3559,9 +3744,9 @@ var r = function() {
       wt["(breakage)"] += 1, wt["(loopage)"] += 1, ut(), S("("), k(this, t),
           C();
       if (E(Pt.id === "var" ? 1 : 0).id === "in") {
-        if (Pt.id === "var")
+        if (Pt.id === "var") {
           S("var"), mn.fud.call(mn, !0);
-        else {
+        } else {
           switch (wt[Pt.value]) {
           case "unused":
             wt[Pt.value] = "var";
@@ -3582,16 +3767,19 @@ var r = function() {
                      this),
                wt["(breakage)"] -= 1, wt["(loopage)"] -= 1, this
       }
-      if (Pt.id !== ";")
-        if (Pt.id === "var")
+      if (Pt.id !== ";") {
+        if (Pt.id === "var") {
           S("var"), mn.fud.call(mn);
-        else
+        } else {
           for (;;) {
             x(0, "for");
-            if (Pt.id !== ",")
+            if (Pt.id !== ",") {
               break;
+            }
             M()
           }
+        }
+      }
       O(Gt), S(";"),
           Pt.id !== ";" &&
               (x(20), Pt.id === "=" &&
@@ -3600,13 +3788,15 @@ var r = function() {
           O(Gt), S(";"),
           Pt.id === ";" &&
               m("Expected '{a}' and instead saw '{b}'.", Pt, ")", ";");
-      if (Pt.id !== ")")
+      if (Pt.id !== ")") {
         for (;;) {
           x(0, "for");
-          if (Pt.id !== ",")
+          if (Pt.id !== ",") {
             break;
+          }
           M()
         }
+      }
       return S(")", t), C(qt, Gt), et(!0, !0), wt["(breakage)"] -= 1,
              wt["(loopage)"] -= 1, this
     }).labelled = !0,
@@ -3673,14 +3863,16 @@ var r = function() {
               e[0] === "-" ? (t = e.slice(1), r.blacklist[t] = t) : Ft[e] = !0
             })),
       p = Object.keys(s);
-      for (h = 0; h < p.length; h++)
+      for (h = 0; h < p.length; h++) {
         m[p[h]] = s[p[h]],
         p[h] === "newcap" && s[p[h]] === !1 && (m["(explicitNewcap)"] = !0),
         p[h] === "indent" && (m.white = !0)
     }
+      }
     jt = m, jt.indent = jt.indent || 4, jt.maxerr = jt.maxerr || 50, Qt = "";
-    for (a = 0; a < jt.indent; a += 1)
+    for (a = 0; a < jt.indent; a += 1) {
       Qt += " ";
+    }
     Ct = 1, xt = Object.create(Ft), Wt = xt, wt = {
       "(global)" : !0,
       "(name)" : "(global)",
@@ -3692,15 +3884,19 @@ var r = function() {
     },
     St = [ wt ], Zt = [], Xt = null, Mt = {}, _t = null, Tt = {}, Nt = !1,
     Ot = [], kt = !1, tn = 0, At = [], Yt = [];
-    if (!i(e) && !Array.isArray(e))
+    if (!i(e) && !Array.isArray(e)) {
       return g("Input is neither a string nor an array of strings.", 0), !1;
-    if (i(e) && /^\s*$/g.test(e))
+    }
+    if (i(e) && /^\s*$/g.test(e)) {
       return g("Input is an empty string.", 0), !1;
-    if (e.length === 0)
+    }
+    if (e.length === 0) {
       return g("Input is an empty array.", 0), !1;
+    }
     vn.init(e), It = !0, Jt = {}, qt = Gt = Pt = Kt["(begin)"];
-    for (var y in s)
+    for (var y in s) {
       t(s, y) && n(y, Gt);
+    }
     c(), f(Ft, o || {}), M.first = !0, Ut = undefined;
     try {
       S();
@@ -3718,19 +3914,22 @@ var r = function() {
       S(Pt && Pt.value !== "." ? "(end)" : undefined);
       var b = function(e, t) {
         do {
-          if (typeof t[e] == "string")
+          if (typeof t[e] == "string") {
             return t[e] === "unused" ? t[e] = "var"
                                      : t[e] === "unction" && (t[e] = "closure"),
                                        !0;
+          }
           t = t["(context)"]
         } while (t);
         return !1
       }, w = function(e, t) {
-        if (!Tt[e])
+        if (!Tt[e]) {
           return;
+        }
         var n = [];
-        for (var r = 0; r < Tt[e].length; r += 1)
+        for (var r = 0; r < Tt[e].length; r += 1) {
           Tt[e][r] !== t && n.push(Tt[e][r]);
+        }
         n.length === 0 ? delete Tt[e] : Tt[e] = n
       }, E = function(e, t) {
         var n = t.line, r = t.character;
@@ -3738,35 +3937,44 @@ var r = function() {
             Yt.push({name : e, line : n, character : r})
       }, x = function(e, t) {
         var n = e[t], r = e["(tokens)"][t];
-        if (t.charAt(0) === "(")
+        if (t.charAt(0) === "(") {
           return;
-        if (n !== "unused" && n !== "unction")
+        }
+        if (n !== "unused" && n !== "unction") {
           return;
-        if (e["(params)"] && e["(params)"].indexOf(t) !== -1)
+        }
+        if (e["(params)"] && e["(params)"].indexOf(t) !== -1) {
           return;
+        }
         E(t, r)
       };
-      for (a = 0; a < r.undefs.length; a += 1)
+      for (a = 0; a < r.undefs.length; a += 1) {
         l = r.undefs[a].slice(0),
         b(l[2].value, l[0]) ? w(l[2].value, l[2].line) : d.apply(d, l.slice(1));
+      }
       St.forEach(function(e) {
-        for (var n in e)
+        for (var n in e) {
           t(e, n) && x(e, n);
-        if (!e["(params)"])
+        }
+        if (!e["(params)"]) {
           return;
+        }
         var r = e["(params)"].slice(), i = r.pop(), s;
         while (i) {
           s = e[i];
-          if (i === "undefined")
+          if (i === "undefined") {
             return;
-          if (s !== "unused" && s !== "unction")
+          }
+          if (s !== "unused" && s !== "unction") {
             return;
+          }
           E(i, e["(tokens)"][i]), i = r.pop()
         }
       });
-      for (var T in gt)
+      for (var T in gt) {
         t(gt, T) && !t(xt, T) && E(T, gt[T])
-    } catch (N) {
+    }
+      } catch (N) {
       if (N) {
         var C = Pt || {};
         r.errors.push({
@@ -3780,34 +3988,39 @@ var r = function() {
     }
     if (r.scope === "(main)") {
       s = s || {};
-      for (a = 0; a < r.internals.length; a += 1)
+      for (a = 0; a < r.internals.length; a += 1) {
         l = r.internals[a], s.scope = l.elem, gn(l.value, s, o)
     }
+      }
     return r.errors.length === 0
   };
   return gn.data = function() {
     var e = {functions : [], options : jt}, n = [], r = [], i, s, o, u, a, f;
     gn.errors.length && (e.errors = gn.errors), kt && (e.json = !0);
-    for (a in Tt)
+    for (a in Tt) {
       t(Tt, a) && n.push({name : a, line : Tt[a]});
+    }
     n.length > 0 && (e.implieds = n), Zt.length > 0 && (e.urls = Zt),
         f = Object.keys(Wt), f.length > 0 && (e.globals = f);
     for (o = 1; o < St.length; o += 1) {
       s = St[o], i = {};
-      for (u = 0; u < Et.length; u += 1)
+      for (u = 0; u < Et.length; u += 1) {
         i[Et[u]] = [];
-      for (u = 0; u < Et.length; u += 1)
+      }
+      for (u = 0; u < Et.length; u += 1) {
         i[Et[u]].length === 0 && delete i[Et[u]];
+      }
       i.name = s["(name)"], i.param = s["(params)"], i.line = s["(line)"],
       i.character = s["(character)"], i.last = s["(last)"],
       i.lastcharacter = s["(lastcharacter)"], e.functions.push(i)
     }
     Yt.length > 0 && (e.unused = Yt), r = [];
-    for (a in Mt)
+    for (a in Mt) {
       if (typeof Mt[a] == "number") {
         e.member = Mt;
         break
       }
+    }
     return e
   }, gn.jshint = gn, gn
 }();

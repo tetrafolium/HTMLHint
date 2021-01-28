@@ -58,12 +58,14 @@ define("ace/mode/c9search",
                    e, t) { return /^\s+$/.test(e) ? /^\s*\}/.test(t) : !1 },
                this.autoOutdent = function(e, t) {
                  var n = e.getLine(t), i = n.match(/^(\s*\})/);
-                 if (!i)
+                 if (!i) {
                    return 0;
+                 }
                  var s = i[1].length,
                      o = e.findMatchingBracket({row : t, column : s});
-                 if (!o || o.row == t)
+                 if (!o || o.row == t) {
                    return 0;
+                 }
                  var u = this.$getIndent(e.getLine(o.row));
                  e.replace(new r(t, 0, t, s - 1), u)
                }, this.$getIndent = function(e) { return e.match(/^\s*/)[0] }
@@ -86,17 +88,20 @@ define("ace/mode/c9search",
                      o = /^(Found.*|Searching for.*)$/, u = /^(\S.*\:|\s*)$/,
                      a = o.test(s) ? o : u;
                  if (this.foldingStartMarker.test(s)) {
-                   for (var f = n + 1, l = e.getLength(); f < l; f++)
-                     if (a.test(r[f]))
+                   for (var f = n + 1, l = e.getLength(); f < l; f++) {
+                     if (a.test(r[f])) {
                        break;
+                     }
+                   }
                    return new i(n, s.length, f, 0)
                  }
                  if (this.foldingStopMarker.test(s)) {
                    for (var f = n - 1; f >= 0; f--) {
                      s = r[f];
-                     if (a.test(s))
+                     if (a.test(s)) {
                        break
                    }
+                     }
                    return new i(f, s.length, n, 0)
                  }
                }

@@ -93,11 +93,12 @@
 
         $parent.trigger(e = $.Event('close'))
 
-        if (e.isDefaultPrevented()) return
+        if (e.isDefaultPrevented()) { return
 
             $parent.removeClass('in')
 
         function removeElement() { $parent.trigger('closed').remove() }
+        }
 
         $.support.transition && $parent.hasClass('fade')
             ? $parent.on($.support.transition.end, removeElement)
@@ -113,9 +114,11 @@
       function(option) {
     return this.each(function() {
       var $this = $(this), data = $this.data('alert')
-      if (!data) $this.data('alert', (data = new Alert(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
+      if (!data) { $this.data('alert', (data = new Alert(this)))
+      if (typeof option == 'string') { data[option].call($this)
+    }
+      }
+      })
   }
 
       $.fn.alert.Constructor = Alert
@@ -207,8 +210,9 @@
           options = typeof option == 'object' && option
       if (!data) $this.data('button', (data = new Button(this, options)))
       if (option == 'toggle') data.toggle()
-      else if (option) data.setState(option)
-    })
+      else if (option) { data.setState(option)
+    }
+      })
   }
 
       $.fn.button.defaults = {loadingText : 'loading...'}
@@ -230,9 +234,10 @@
       $(document)
           .on('click.button.data-api', '[data-toggle^=button]', function(e) {
             var $btn = $(e.target)
-            if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+            if (!$btn.hasClass('btn')) { $btn = $btn.closest('.btn')
             $btn.button('toggle')
-          })
+          }
+            })
 }(window
       .jQuery); /* ==========================================================
                  * bootstrap-carousel.js v2.3.1
@@ -272,9 +277,11 @@
       Carousel.prototype = {
 
     cycle : function(e) {
-      if (!e)
+      if (!e) {
         this.paused = false
-        if (this.interval) clearInterval(this.interval);
+        if (this.interval) { clearInterval(this.interval);
+        }
+      }
       this.options.interval && !this.paused &&
           (this.interval =
                setInterval($.proxy(this.next, this), this.options.interval))
@@ -293,11 +300,12 @@
       var activeIndex = this.getActiveIndex(),
           that = this
 
-          if (pos > (this.$items.length - 1) || pos < 0) return
+          if (pos > (this.$items.length - 1) || pos < 0) { return
 
           if (this.sliding) {
         return this.$element.one('slid', function() { that.to(pos) })
       }
+          }
 
       if (activeIndex == pos) {
         return this.pause().cycle()
@@ -309,27 +317,31 @@
 
     ,
     pause : function(e) {
-      if (!e)
+      if (!e) {
         this.paused = true
-        if (this.$element.find('.next, .prev').length &&
-            $.support.transition.end) {
+        if (this.$element.find('.next, .prev').length 
+            && $.support.transition.end
+        ) {
           this.$element.trigger($.support.transition.end) this.cycle(true)
         }
+      }
       clearInterval(this.interval) this.interval = null
       return this
     }
 
     ,
     next : function() {
-      if (this.sliding)
+      if (this.sliding) {
         return return this.slide('next')
     }
+      }
 
     ,
     prev : function() {
-      if (this.sliding)
+      if (this.sliding) {
         return return this.slide('prev')
     }
+      }
 
     ,
     slide : function(type, next) {
@@ -347,7 +359,7 @@
 
       e = $.Event('slide', {relatedTarget : $next[0], direction : direction})
 
-      if ($next.hasClass('active')) return
+      if ($next.hasClass('active')) { return
 
           if (this.$indicators.length) {
         this.$indicators.find('.active')
@@ -357,10 +369,11 @@
               $nextIndicator && $nextIndicator.addClass('active')
             })
       }
+      }
 
       if ($.support.transition && this.$element.hasClass('slide')) {
         this.$element.trigger(e)
-        if (e.isDefaultPrevented()) return $next.addClass(type)
+        if (e.isDefaultPrevented()) { return $next.addClass(type)
         $next[0].offsetWidth // force reflow
         $active.addClass(direction)
         $next.addClass(direction) this.$element.one(
@@ -371,12 +384,13 @@
               that.sliding = false
               setTimeout(function() { that.$element.trigger('slid') }, 0)
             })
-      } else {
+      } } else {
         this.$element.trigger(e)
-        if (e.isDefaultPrevented()) return $active.removeClass('active')
+        if (e.isDefaultPrevented()) { return $active.removeClass('active')
         $next.addClass('active') this.sliding =
             false this.$element.trigger('slid')
       }
+        }
 
       isCycling && this.cycle()
 
@@ -400,8 +414,9 @@
       if (!data) $this.data('carousel', (data = new Carousel(this, options)))
       if (typeof option == 'number') data.to(option)
       else if (action) data[action]()
-      else if (options.interval) data.pause().cycle()
-    })
+      else if (options.interval) { data.pause().cycle()
+    }
+      })
   }
 
       $.fn.carousel.defaults = {interval : 5000, pause : 'hover'}
@@ -494,7 +509,7 @@
     show : function() {
       var dimension, scroll, actives, hasData
 
-      if (this.transitioning || this.$element.hasClass('in')) return
+      if (this.transitioning || this.$element.hasClass('in')) { return
 
           dimension = this.dimension()
       scroll = $.camelCase([ 'scroll', dimension ].join('-'))
@@ -502,8 +517,10 @@
 
       if (actives && actives.length) {
         hasData = actives.data('collapse')
-        if (hasData && hasData.transitioning) return actives.collapse('hide')
+        if (hasData && hasData.transitioning) { return actives.collapse('hide')
         hasData || actives.data('collapse', null)
+      }
+        }
       }
 
       this.$element[dimension](0) this.transition('addClass', $.Event('show'),
@@ -514,12 +531,14 @@
     ,
     hide : function() {
       var dimension
-      if (this.transitioning ||
-          !this.$element.hasClass('in')) return dimension =
+      if (this.transitioning 
+          || !this.$element.hasClass('in')
+      ) { return dimension =
           this.dimension() this.reset(this.$element[dimension]()) this
               .transition('removeClass', $.Event('hide'),
                           'hidden') this.$element[dimension](0)
     }
+      }
 
     ,
     reset : function(size) {
@@ -539,15 +558,16 @@
     transition : function(method, startEvent, completeEvent) {
       var that = this, complete =
                            function() {
-        if (startEvent.type == 'show')
+        if (startEvent.type == 'show') {
           that.reset()
           that.transitioning = 0
           that.$element.trigger(completeEvent)
       }
+        }
 
                            this.$element.trigger(startEvent)
 
-      if (startEvent.isDefaultPrevented()) return
+      if (startEvent.isDefaultPrevented()) { return
 
           this.transitioning = 1
 
@@ -557,6 +577,7 @@
           ? this.$element.one($.support.transition.end, complete)
           : complete()
     }
+      }
 
     ,
     toggle :
@@ -575,9 +596,11 @@
       var $this = $(this), data = $this.data('collapse'),
           options = $.extend({}, $.fn.collapse.defaults, $this.data(),
                              typeof option == 'object' && option)
-      if (!data) $this.data('collapse', (data = new Collapse(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.collapse.defaults = {toggle : true}
@@ -653,7 +676,7 @@
                 toggle : function(e) {
                   var $this = $(this), $parent, isActive
 
-                  if ($this.is('.disabled, :disabled')) return
+                  if ($this.is('.disabled, :disabled')) { return
 
                       $parent = getParent($this)
 
@@ -663,6 +686,7 @@
 
                   if (!isActive) {
                     $parent.toggleClass('open')
+                  }
                   }
 
                   $this.focus()
@@ -674,38 +698,45 @@
                 keydown : function(e) {
                   var $this, $items, $active, $parent, isActive, index
 
-                  if (!/(38|40|27)/.test(e.keyCode)) return
+                  if (!/(38|40|27)/.test(e.keyCode)) { return
 
                       $this = $(this)
 
                   e.preventDefault()
                   e.stopPropagation()
 
-                  if ($this.is('.disabled, :disabled')) return
+                  if ($this.is('.disabled, :disabled')) { return
 
                       $parent = getParent($this)
 
                   isActive = $parent.hasClass('open')
 
                   if (!isActive || (isActive && e.keyCode == 27)) {
-                    if (e.which == 27)
+                    if (e.which == 27) {
                       $parent.find(toggle).focus()
                       return $this.click()
+                  }
+                    }
+                  }
                   }
 
                   $items = $('[role=menu] li:not(.divider):visible a', $parent)
 
-                  if (!$items.length) return
+                  if (!$items.length) { return
 
                       index = $items.index($items.filter(':focus'))
 
-                  if (e.keyCode == 38 && index > 0) index-- // up
-                      if (e.keyCode == 40 && index < $items.length - 1)
+                  if (e.keyCode == 38 && index > 0) { index-- // up
+                      if (e.keyCode == 40 && index < $items.length - 1) {
                           index++ // down
-                      if (!~index) index = 0
+                      if (!~index) { index = 0
 
                   $items.eq(index).focus()
                 }
+                      }
+                  }
+                  }
+                      }
 
               }
 
@@ -725,10 +756,11 @@
 
         $parent = selector && $(selector)
 
-        if (!$parent || !$parent.length) $parent = $this.parent()
+        if (!$parent || !$parent.length) { $parent = $this.parent()
 
         return $parent
       }
+        }
 
       /* DROPDOWN PLUGIN DEFINITION
        * ========================== */
@@ -739,9 +771,11 @@
       function(option) {
     return this.each(function() {
       var $this = $(this), data = $this.data('dropdown')
-      if (!data) $this.data('dropdown', (data = new Dropdown(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
+      if (!data) { $this.data('dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') { data[option].call($this)
+    }
+      }
+      })
   }
 
       $.fn.dropdown.Constructor = Dropdown
@@ -814,7 +848,7 @@
 
                                this.$element.trigger(e)
 
-      if (this.isShown || e.isDefaultPrevented()) return
+      if (this.isShown || e.isDefaultPrevented()) { return
 
           this.isShown =
           true
@@ -847,6 +881,7 @@
                     : that.$element.focus().trigger('shown')
               })
     }
+      }
 
     ,
     hide : function(e) {
@@ -858,7 +893,7 @@
 
                   this.$element.trigger(e)
 
-      if (!this.isShown || e.isDefaultPrevented()) return
+      if (!this.isShown || e.isDefaultPrevented()) { return
 
           this.isShown = false
 
@@ -874,12 +909,14 @@
           ? this.hideWithTransition()
           : this.hideModal()
     }
+      }
 
     ,
     enforceFocus : function() {
       var that = this $(document).on('focusin.modal', function(e) {
-        if (that.$element[0] !== e.target &&
-            !that.$element.has(e.target).length) {
+        if (that.$element[0] !== e.target 
+            && !that.$element.has(e.target).length
+        ) {
           that.$element.focus()
         }
       })
@@ -942,18 +979,19 @@
                             ? $.proxy(this.$element[0].focus, this.$element[0])
                             : $.proxy(this.hide, this))
 
-        if (doAnimate) this.$backdrop[0]
+        if (doAnimate) { this.$backdrop[0]
             .offsetWidth // force reflow
 
             this.$backdrop.addClass('in')
 
-        if (!callback) return
+        if (!callback) { return
 
             doAnimate
             ? this.$backdrop.one($.support.transition.end, callback)
             : callback()
       }
-      else if (!this.isShown && this.$backdrop) {
+        }
+      } else if (!this.isShown && this.$backdrop) {
         this.$backdrop.removeClass('in')
 
         $.support.transition && this.$element.hasClass('fade')
@@ -979,8 +1017,9 @@
                              typeof option == 'object' && option)
       if (!data) $this.data('modal', (data = new Modal(this, options)))
       if (typeof option == 'string') data[option]()
-      else if (options.show) data.show()
-    })
+      else if (options.show) { data.show()
+    }
+      })
   }
 
       $.fn.modal.defaults = {backdrop : true, keyboard : true, show : true}
@@ -1102,33 +1141,39 @@
 
               this._options &&
               $.each(this._options, function(key, value) {
-                if (defaults[key] != value)
+                if (defaults[key] != value) {
                   options[key] = value
-              }, this)
+              }
+                }, this)
 
       self = $(e.currentTarget)[this.type](options).data(this.type)
 
-      if (!self.options.delay || !self.options.delay.show) return self.show()
+      if (!self.options.delay || !self.options.delay.show) { return self.show()
 
       clearTimeout(this.timeout)
       self.hoverState = 'in' this.timeout = setTimeout(function() {
-        if (self.hoverState == 'in')
+        if (self.hoverState == 'in') {
           self.show()
-      }, self.options.delay.show)
+      }
+        }, self.options.delay.show)
     }
+      }
 
     ,
     leave : function(e) {
       var self = $(e.currentTarget)[this.type](this._options).data(this.type)
 
-      if (this.timeout) clearTimeout(this.timeout)
-      if (!self.options.delay || !self.options.delay.hide) return self.hide()
+      if (this.timeout) { clearTimeout(this.timeout)
+      if (!self.options.delay || !self.options.delay.hide) { return self.hide()
 
       self.hoverState = 'out' this.timeout = setTimeout(function() {
-        if (self.hoverState == 'out')
+        if (self.hoverState == 'out') {
           self.hide()
-      }, self.options.delay.hide)
+      }
+        }, self.options.delay.hide)
     }
+      }
+      }
 
     ,
     show : function() {
@@ -1137,10 +1182,11 @@
 
       if (this.hasContent() && this.enabled) {
         this.$element.trigger(e)
-        if (e.isDefaultPrevented()) return $tip = this.tip() this.setContent()
+        if (e.isDefaultPrevented()) { return $tip = this.tip() this.setContent()
 
         if (this.options.animation) {
           $tip.addClass('fade')
+        }
         }
 
         placement =
@@ -1213,9 +1259,10 @@
         this.replaceArrow(actualHeight - height, actualHeight, 'top')
       }
 
-      if (replace)
+      if (replace) {
         $tip.offset(offset)
     }
+      }
 
     ,
     replaceArrow : function(delta, dimension, position) {
@@ -1237,7 +1284,7 @@
           e = $.Event('hide')
 
                   this.$element.trigger(e)
-      if (e.isDefaultPrevented()) return
+      if (e.isDefaultPrevented()) { return
 
           $tip.removeClass('in')
 
@@ -1249,6 +1296,7 @@
           clearTimeout(timeout)
           $tip.detach()
         })
+      }
       }
 
       $.support.transition && this.$tip.hasClass('fade')
@@ -1263,8 +1311,9 @@
     ,
     fixTitle : function() {
       var $e = this.$element
-      if ($e.attr('title') ||
-          typeof ($e.attr('data-original-title')) != 'string') {
+      if ($e.attr('title') 
+          || typeof ($e.attr('data-original-title')) != 'string'
+      ) {
         $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
       }
     }
@@ -1341,9 +1390,11 @@
     return this.each(function() {
       var $this = $(this), data = $this.data('tooltip'),
           options = typeof option == 'object' && option
-      if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('tooltip', (data = new Tooltip(this, options)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.tooltip.Constructor = Tooltip
@@ -1455,9 +1506,11 @@
     return this.each(function() {
       var $this = $(this), data = $this.data('popover'),
           options = typeof option == 'object' && option
-      if (!data) $this.data('popover', (data = new Popover(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('popover', (data = new Popover(this, options)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.popover.Constructor = Popover
@@ -1599,9 +1652,11 @@
     return this.each(function() {
       var $this = $(this), data = $this.data('scrollspy'),
           options = typeof option == 'object' && option
-      if (!data) $this.data('scrollspy', (data = new ScrollSpy(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('scrollspy', (data = new ScrollSpy(this, options)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.scrollspy.Constructor = ScrollSpy
@@ -1670,7 +1725,7 @@
             selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
       }
 
-      if ($this.parent('li').hasClass('active'))
+      if ($this.parent('li').hasClass('active')) {
         return
 
             previous = $ul.find('.active:last a')[0]
@@ -1679,7 +1734,7 @@
 
         $this.trigger(e)
 
-        if (e.isDefaultPrevented()) return
+        if (e.isDefaultPrevented()) { return
 
             $target = $(selector)
 
@@ -1689,6 +1744,8 @@
                                     {type : 'shown', relatedTarget : previous})
                               })
     }
+      }
+        }
 
     ,
     activate : function(element, container, callback) {
@@ -1733,9 +1790,11 @@
       function(option) {
     return this.each(function() {
       var $this = $(this), data = $this.data('tab')
-      if (!data) $this.data('tab', (data = new Tab(this)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('tab', (data = new Tab(this)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.tab.Constructor = Tab
@@ -1876,9 +1935,11 @@
       while (item = items.shift()) {
         if (!item.toLowerCase().indexOf(this.query.toLowerCase()))
           beginswith.push(item)
-          else if (~item.indexOf(this.query)) caseSensitive.push(item)
-          else caseInsensitive.push(item)
+          else if (~item.indexOf(this.query)) { caseSensitive.push(item)
+          else { caseInsensitive.push(item)
       }
+          }
+          }
 
       return beginswith.concat(caseSensitive, caseInsensitive)
     }
@@ -1957,7 +2018,7 @@
 
     ,
     move : function(e) {
-      if (!this.shown)
+      if (!this.shown) {
         return
 
             switch (e.keyCode) {
@@ -1975,6 +2036,7 @@
               e.preventDefault() this.next()
           break
         }
+      }
 
       e.stopPropagation()
     }
@@ -1987,9 +2049,10 @@
 
     ,
     keypress : function(e) {
-      if (this.suppressKeyPressRepeat)
+      if (this.suppressKeyPressRepeat) {
         return this.move(e)
     }
+      }
 
     ,
     keyup : function(e) {
@@ -2003,11 +2066,13 @@
 
             case 9:  // tab
             case 13: // enter
-            if (!this.shown) return this.select()
+            if (!this.shown) { return; 
+            } this.select()
         break
 
             case 27: // escape
-            if (!this.shown) return this.hide()
+            if (!this.shown) { return; 
+            } this.hide()
         break
 
             default: this.lookup()
@@ -2023,8 +2088,9 @@
     ,
     blur : function(e) {
       this.focused = false
-      if (!this.mousedover && this.shown) this.hide()
+      if (!this.mousedover && this.shown) { this.hide()
     }
+      }
 
     ,
     click : function(e) {
@@ -2041,8 +2107,9 @@
     ,
     mouseleave : function(e) {
       this.mousedover = false
-      if (!this.focused && this.shown) this.hide()
+      if (!this.focused && this.shown) { this.hide()
     }
+      }
 
   }
 
@@ -2056,9 +2123,11 @@
     return this.each(function() {
       var $this = $(this), data = $this.data('typeahead'),
           options = typeof option == 'object' && option
-      if (!data) $this.data('typeahead', (data = new Typeahead(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('typeahead', (data = new Typeahead(this, options)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.typeahead.defaults = {
@@ -2087,9 +2156,10 @@
           .on('focus.typeahead.data-api', '[data-provide="typeahead"]',
               function(e) {
                 var $this = $(this)
-                if ($this.data('typeahead')) return $this.typeahead(
+                if ($this.data('typeahead')) { return $this.typeahead(
                     $this.data())
-              })
+              }
+                })
 }(window.jQuery);
 /* ==========================================================
  * bootstrap-affix.js v2.3.1
@@ -2128,7 +2198,7 @@
 
       Affix.prototype.checkPosition =
           function() {
-    if (!this.$element.is(':visible'))
+    if (!this.$element.is(':visible')) {
       return
 
           var scrollHeight = $(document).height(),
@@ -2137,9 +2207,9 @@
               offsetBottom = offset.bottom, offsetTop = offset.top,
               reset = 'affix affix-top affix-bottom', affix
 
-      if (typeof offset != 'object') offsetBottom = offsetTop = offset
-      if (typeof offsetTop == 'function') offsetTop = offset.top()
-      if (typeof offsetBottom == 'function') offsetBottom = offset.bottom()
+      if (typeof offset != 'object') { offsetBottom = offsetTop = offset
+      if (typeof offsetTop == 'function') { offsetTop = offset.top()
+      if (typeof offsetBottom == 'function') { offsetBottom = offset.bottom()
 
       affix = this.unpin != null && (scrollTop + this.unpin <= position.top)
                   ? false
@@ -2150,7 +2220,7 @@
                         : offsetTop != null && scrollTop <= offsetTop ? 'top'
                                                                       : false
 
-      if (this.affixed === affix) return
+      if (this.affixed === affix) { return
 
           this.affixed = affix this.unpin =
           affix == 'bottom'
@@ -2160,6 +2230,11 @@
                 this.$element.removeClass(reset)
                     .addClass('affix' + (affix ? '-' + affix : ''))
   }
+      }
+      }
+      }
+    }
+      }
 
   /* AFFIX PLUGIN DEFINITION
    * ======================= */
@@ -2171,9 +2246,11 @@
     return this.each(function() {
       var $this = $(this), data = $this.data('affix'),
           options = typeof option == 'object' && option
-      if (!data) $this.data('affix', (data = new Affix(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
+      if (!data) { $this.data('affix', (data = new Affix(this, options)))
+      if (typeof option == 'string') { data[option]()
+    }
+      }
+      })
   }
 
       $.fn.affix.Constructor = Affix

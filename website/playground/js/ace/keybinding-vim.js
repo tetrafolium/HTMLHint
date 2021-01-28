@@ -15,19 +15,21 @@ define("ace/keyboard/vim",
              };
          t.handler = {
            handleMacRepeat : function(e, t, n) {
-             if (t == -1)
+             if (t == -1) {
                e.inputChar = n, e.lastEvent = "input";
-             else if (e.inputChar && e.$lastHash == t && e.$lastKey == n) {
-               if (e.lastEvent == "input")
+             } else if (e.inputChar && e.$lastHash == t && e.$lastKey == n) {
+               if (e.lastEvent == "input") {
                  e.lastEvent = "input1";
-               else if (e.lastEvent == "input1")
+               } else if (e.lastEvent == "input1") {
                  return !0
-             } else
+             } } else {
                e.$lastHash = t, e.$lastKey = n, e.lastEvent = "keypress"
-           },
+           }
+             },
            handleKeyboard : function(e, t, n, s, a) {
-             if (t != 0 && (n == "" || n == "\0"))
+             if (t != 0 && (n == "" || n == "\0")) {
                return null;
+             }
              t == 1 && (n = "ctrl-" + n);
              if (n == "esc" && t == 0 || n == "ctrl-[")
                return {command : i.stop};
@@ -85,9 +87,10 @@ define("ace/keyboard/vim",
               u = e("./registers"), a = 1, f = 2, l = 3, c = 4, h = 8,
               p =
                   function(t, n, r) {
-                while (0 < n--)
+                while (0 < n--) {
                   t.apply(this, r)
-              },
+              }
+                },
               d =
                   function(e) {
                 var t = e.renderer, n = t.$cursorLayer.getPixelPosition(),
@@ -205,8 +208,9 @@ define("ace/keyboard/vim",
                       var s = e.getCursorPosition(), o = i.text.split("\n");
                       e.session.getDocument().insertLines(s.row + 1, o),
                           e.moveCursorTo(s.row + 1, 0)
-                    } else
+                    } else {
                       e.navigateRight(), e.insert(i.text), e.navigateLeft();
+                    }
                     e.setOverwrite(!0), e.selection.clearSelection()
                   }
                 },
@@ -218,8 +222,9 @@ define("ace/keyboard/vim",
                       var s = e.getCursorPosition(), o = i.text.split("\n");
                       e.session.getDocument().insertLines(s.row, o),
                           e.moveCursorTo(s.row, 0)
-                    } else
+                    } else {
                       e.insert(i.text);
+                    }
                     e.setOverwrite(!0), e.selection.clearSelection()
                   }
                 },
@@ -245,16 +250,18 @@ define("ace/keyboard/vim",
                 u : {
                   fn : function(e, t, n, r) {
                     n = parseInt(n || 1, 10);
-                    for (var i = 0; i < n; i++)
+                    for (var i = 0; i < n; i++) {
                       e.undo();
+                    }
                     e.selection.clearSelection()
                   }
                 },
                 "ctrl-r" : {
                   fn : function(e, t, n, r) {
                     n = parseInt(n || 1, 10);
-                    for (var i = 0; i < n; i++)
+                    for (var i = 0; i < n; i++) {
                       e.redo();
+                    }
                     e.selection.clearSelection()
                   }
                 },
@@ -285,43 +292,46 @@ define("ace/keyboard/vim",
                   var r = !0;
                   this.idle = !1;
                   var u = this.waitingForParam;
-                  if (u)
+                  if (u) {
                     this.exec(e, u, t);
-                  else if (t === "0" && !this.currentCount.length ||
-                           !t.match(/^\d+$/) || !this.isAccepting(a))
-                    if (!this.operator && this.isAccepting(f) && s[t])
+                  } else if (t === "0" && !this.currentCount.length 
+                      || !t.match(/^\d+$/) || !this.isAccepting(a)
+                  )
+                    if (!this.operator && this.isAccepting(f) && s[t]) {
                       this.operator = {ch : t, count : this.getCount()},
                       this.currentCmd = f, this.accepting = [ a, l, c ],
                       this.exec(e, {operator : this.operator});
-                    else if (i[t] && this.isAccepting(l)) {
+                    } else if (i[t] && this.isAccepting(l)) {
                       this.currentCmd = l;
                       var h = {
                         operator : this.operator,
                         motion : {ch : t, count : this.getCount()}
                       };
                       i[t].param ? this.waitForParam(h) : this.exec(e, h)
-                    } else if (o[t] && this.isAccepting(l))
+                    } else if (o[t] && this.isAccepting(l)) {
                       o[t].operator.count = this.getCount(), this.exec(e, o[t]);
-                    else if (v[t] && this.isAccepting(c)) {
+                    } else if (v[t] && this.isAccepting(c)) {
                       var p = {
                         action : {fn : v[t].fn, count : this.getCount()}
                       };
                       v[t].param ? this.waitForParam(p) : this.exec(e, p),
                           v[t].acceptsMotion && (this.idle = !1)
-                    } else
+                    } else {
                       this.operator
                           ? this.exec(e, {operator : this.operator}, t)
                           : (r = t.length == 1, this.reset());
-                  else
+                  } else {
                     this.currentCount += t, this.currentCmd = a,
                                             this.accepting = [ a, f, l, c ];
-                  if (this.waitingForParam || this.motion || this.operator)
+                  }
+                  if (this.waitingForParam || this.motion || this.operator) {
                     this.status += t;
-                  else if (this.currentCount)
+                  } else if (this.currentCount) {
                     this.status = this.currentCount;
-                  else {
-                    if (!this.status)
+                  } else {
+                    if (!this.status) {
                       return r;
+                    }
                     this.status = ""
                   }
                   return e._emit("changeStatus"), r
@@ -341,9 +351,9 @@ define("ace/keyboard/vim",
                          this.reset());
                     return
                   }
-                  if (!o && !a && u && n)
+                  if (!o && !a && u && n) {
                     s[u.ch].fn(e, null, u.count, n), this.reset();
-                  else if (o) {
+                  } else if (o) {
                     var f = function(t) {
                       t && typeof t == "function" &&
                           (o.count && !l.handlesCount
@@ -360,9 +370,10 @@ define("ace/keyboard/vim",
                       : (r.onVisualMode || r.onVisualLineMode) && c ? f(l.sel)
                                                                     : f(l.nav),
                         this.reset()
-                  } else
+                  } else {
                     a && (a.fn(e, e.getSelectionRange(), a.count, n),
                           this.reset());
+                  }
                   y(e)
                 },
                 isAccepting : function(
@@ -399,8 +410,9 @@ define("ace/keyboard/vim",
             }
           };
           var y = t.onCursorMove = function(e, t) {
-            if (r.currentMode === "insert" || y.running)
+            if (r.currentMode === "insert" || y.running) {
               return;
+            }
             if (!e.selection.isEmpty()) {
               y.running = !0;
               if (r.onVisualLineMode) {
@@ -528,17 +540,20 @@ define("ace/keyboard/vim",
             if (typeof e == "function") {
               var t = e;
               e = this
-            } else
+            } else {
               var t = e.getPos;
+            }
             return e.nav = function(e, n, r, i) {
               var s = t(e, n, r, i, !1);
-              if (!s)
+              if (!s) {
                 return;
+              }
               e.clearSelection(), e.moveCursorTo(s.row, s.column)
             }, e.sel = function(e, n, r, i) {
               var s = t(e, n, r, i, !0);
-              if (!s)
+              if (!s) {
                 return;
+              }
               e.selection.selectTo(s.row, s.column)
             }, e
           }
@@ -579,7 +594,7 @@ define("ace/keyboard/vim",
                                        : e.session.getLine(this.row + 1)[0] ||
                                              "\n"
                 }, this.handleNewLine = function(t) {
-                  if (t == 1)
+                  if (t == 1) {
                     return this.col == r.length
                                ? "\n"
                                : this.row == i - 1
@@ -587,13 +602,15 @@ define("ace/keyboard/vim",
                                      : (this.col = 0, this.row++,
                                         r = e.session.getLine(this.row),
                                         this.skippedLines++, r[0] || "\n");
-                  if (t == -1)
+                  }
+                  if (t == -1) {
                     return this.row === 0
                                ? ""
                                : (this.row--, r = e.session.getLine(this.row),
                                   this.col = r.length, this.skippedLines--,
                                   "\n")
-                }, this.debug = function() {
+                }
+                  }, this.debug = function() {
                   console.log(r.substring(0, this.col) + "|" + this.ch + "'" +
                               this.col + "'" + r.substr(this.col + 1))
                 }
@@ -603,14 +620,17 @@ define("ace/keyboard/vim",
           n.exports = {
             w : new s(function(e) {
               var t = new f(e);
-              if (t.ch && u.test(t.ch))
-                while (t.ch && u.test(t.ch))
+              if (t.ch && u.test(t.ch)) {
+                while (t.ch && u.test(t.ch)) {
                   t.next();
-              else
-                while (t.ch && !o.test(t.ch))
+              } } else {
+                while (t.ch && !o.test(t.ch)) {
                   t.next();
-              while (t.ch && a.test(t.ch) && t.skippedLines < 2)
+                }
+              }
+              while (t.ch && a.test(t.ch) && t.skippedLines < 2) {
                 t.next();
+              }
               return t.skippedLines == 2 && t.prev(), {
                 column: t.col, row: t.row
               }
@@ -618,8 +638,9 @@ define("ace/keyboard/vim",
             W : new s(function(e) {
               var t = new f(e);
               while (t.ch && (!a.test(t.ch) || !!a.test(t.peek(1))) &&
-                     t.skippedLines < 2)
+                     t.skippedLines < 2) {
                 t.next();
+              }
               return t.skippedLines == 2 ? t.prev() : t.next(), {
                 column: t.col, row: t.row
               }
@@ -627,22 +648,26 @@ define("ace/keyboard/vim",
             b : new s(function(e) {
               var t = new f(e);
               t.prev();
-              while (t.ch && a.test(t.ch) && t.skippedLines > -2)
+              while (t.ch && a.test(t.ch) && t.skippedLines > -2) {
                 t.prev();
-              if (t.ch && u.test(t.ch))
-                while (t.ch && u.test(t.ch))
+              }
+              if (t.ch && u.test(t.ch)) {
+                while (t.ch && u.test(t.ch)) {
                   t.prev();
-              else
-                while (t.ch && !o.test(t.ch))
+              } } else {
+                while (t.ch && !o.test(t.ch)) {
                   t.prev();
+                }
+              }
               return t.ch && t.next(), { column: t.col, row: t.row }
             }),
             B : new s(function(e) {
               var t = new f(e);
               t.prev();
               while (t.ch && (!!a.test(t.ch) || !a.test(t.peek(-1))) &&
-                     t.skippedLines > -2)
+                     t.skippedLines > -2) {
                 t.prev();
+              }
               return t.skippedLines == -2 && t.next(), {
                 column: t.col, row: t.row
               }
@@ -650,21 +675,25 @@ define("ace/keyboard/vim",
             e : new s(function(e) {
               var t = new f(e);
               t.next();
-              while (t.ch && a.test(t.ch))
+              while (t.ch && a.test(t.ch)) {
                 t.next();
-              if (t.ch && u.test(t.ch))
-                while (t.ch && u.test(t.ch))
+              }
+              if (t.ch && u.test(t.ch)) {
+                while (t.ch && u.test(t.ch)) {
                   t.next();
-              else
-                while (t.ch && !o.test(t.ch))
+              } } else {
+                while (t.ch && !o.test(t.ch)) {
                   t.next();
+                }
+              }
               return t.ch && t.prev(), { column: t.col, row: t.row }
             }),
             E : new s(function(e) {
               var t = new f(e);
               t.next();
-              while (t.ch && (!!a.test(t.ch) || !a.test(t.peek(1))))
+              while (t.ch && (!!a.test(t.ch) || !a.test(t.peek(1)))) {
                 t.next();
+              }
               return { column: t.col, row: t.row }
             }),
             l : {
@@ -744,23 +773,27 @@ define("ace/keyboard/vim",
                 case "[":
                   var i = e.getCursorPosition(),
                       s = e.session.$findClosingBracket(r, i, /paren/);
-                  if (!s)
+                  if (!s) {
                     return;
+                  }
                   var o = e.session.$findOpeningBracket(e.session.$brackets[r],
                                                         i, /paren/);
-                  if (!o)
+                  if (!o) {
                     return;
+                  }
                   o.column++, e.selection.setSelectionRange(p.fromPoints(o, s));
                   break;
                 case "'":
                 case '"':
                 case "/":
                   var s = h(e, r, 1);
-                  if (!s)
+                  if (!s) {
                     return;
+                  }
                   var o = h(e, r, -1);
-                  if (!o)
+                  if (!o) {
                     return;
+                  }
                   e.selection.setSelectionRange(p.fromPoints(o.end, s.start))
                 }
               }
@@ -780,23 +813,27 @@ define("ace/keyboard/vim",
                 case "[":
                   var i = e.getCursorPosition(),
                       s = e.session.$findClosingBracket(r, i, /paren/);
-                  if (!s)
+                  if (!s) {
                     return;
+                  }
                   var o = e.session.$findOpeningBracket(e.session.$brackets[r],
                                                         i, /paren/);
-                  if (!o)
+                  if (!o) {
                     return;
+                  }
                   s.column++, e.selection.setSelectionRange(p.fromPoints(o, s));
                   break;
                 case "'":
                 case '"':
                 case "/":
                   var s = h(e, r, 1);
-                  if (!s)
+                  if (!s) {
                     return;
+                  }
                   var o = h(e, r, -1);
-                  if (!o)
+                  if (!o) {
                     return;
+                  }
                   s.column++, e.selection.setSelectionRange(
                                   p.fromPoints(o.start, s.end))
                 }
@@ -808,9 +845,10 @@ define("ace/keyboard/vim",
               getPos : function(e, t, n, i, s) {
                 var o = e.getCursorPosition(),
                     u = r.getRightNthChar(e, o, i, n || 1);
-                if (typeof u == "number")
+                if (typeof u == "number") {
                   return o.column += u + (s ? 2 : 1), o
               }
+                }
             }),
             F : new s({
               param : !0,
@@ -818,9 +856,10 @@ define("ace/keyboard/vim",
               getPos : function(e, t, n, i, s) {
                 var o = e.getCursorPosition(),
                     u = r.getLeftNthChar(e, o, i, n || 1);
-                if (typeof u == "number")
+                if (typeof u == "number") {
                   return o.column -= u + 1, o
               }
+                }
             }),
             t : new s({
               param : !0,
@@ -828,9 +867,10 @@ define("ace/keyboard/vim",
               getPos : function(e, t, n, i, s) {
                 var o = e.getCursorPosition(),
                     u = r.getRightNthChar(e, o, i, n || 1);
-                if (typeof u == "number")
+                if (typeof u == "number") {
                   return o.column += u + (s ? 1 : 0), o
               }
+                }
             }),
             T : new s({
               param : !0,
@@ -838,9 +878,10 @@ define("ace/keyboard/vim",
               getPos : function(e, t, n, i, s) {
                 var o = e.getCursorPosition(),
                     u = r.getLeftNthChar(e, o, i, n || 1);
-                if (typeof u == "number")
+                if (typeof u == "number") {
                   return o.column -= u, o
               }
+                }
             }),
             "^" : {
               nav : function(e) { e.navigateLineStart() },
@@ -897,8 +938,9 @@ define("ace/keyboard/vim",
               nav : function(e, t, n, i) {
                 n = n || 1;
                 var s = "";
-                while (0 < n--)
+                while (0 < n--) {
                   s += "\n";
+                }
                 s.length && (e.navigateLineEnd(), e.insert(s), r.insertMode(e))
               }
             },
@@ -907,8 +949,9 @@ define("ace/keyboard/vim",
                 var s = e.getCursorPosition().row;
                 n = n || 1;
                 var o = "";
-                while (0 < n--)
+                while (0 < n--) {
                   o += "\n";
+                }
                 o.length &&
                     (s > 0 ? (e.navigateUp(), e.navigateLineEnd(), e.insert(o))
                            : (e.session.insert({row : 0, column : 0}, o),
@@ -921,8 +964,9 @@ define("ace/keyboard/vim",
                   r = e.session.getLine(n.row)[n.column];
               if (!t.test(r)) {
                 var i = h(e, t);
-                if (!i)
+                if (!i) {
                   return;
+                }
                 n = i.start
               }
               var s = e.session.findMatchingBracket(
@@ -931,18 +975,22 @@ define("ace/keyboard/vim",
             }),
             "{" : new s(function(e) {
               var t = e.session, n = t.selection.lead.row;
-              while (n > 0 && !/\S/.test(t.getLine(n)))
+              while (n > 0 && !/\S/.test(t.getLine(n))) {
                 n--;
-              while (/\S/.test(t.getLine(n)))
+              }
+              while (/\S/.test(t.getLine(n))) {
                 n--;
+              }
               return { column: 0, row: n }
             }),
             "}" : new s(function(e) {
               var t = e.session, n = t.getLength(), r = t.selection.lead.row;
-              while (r < n && !/\S/.test(t.getLine(r)))
+              while (r < n && !/\S/.test(t.getLine(r))) {
                 r++;
-              while (/\S/.test(t.getLine(r)))
+              }
+              while (/\S/.test(t.getLine(r))) {
                 r++;
+              }
               return { column: 0, row: r }
             }),
             "ctrl-d" : {
@@ -962,9 +1010,10 @@ define("ace/keyboard/vim",
               handlesCount : !0,
               getPos : function(e, t, n, r, i) {
                 var s = e.session, o = s.vimMarkers && s.vimMarkers[r];
-                if (o)
+                if (o) {
                   return o.getPosition()
               }
+                }
             }),
             "'" : new s({
               param : !0,
@@ -1037,8 +1086,9 @@ define("ace/keyboard/vim",
                    n = n || 1;
                    switch (i) {
                    case "c":
-                     for (var s = 0; s < n; s++)
+                     for (var s = 0; s < n; s++) {
                        e.removeLines(), r.insertMode(e);
+                     }
                      break;
                    default:
                      t && (e.session.remove(t), r.insertMode(e))
@@ -1057,8 +1107,9 @@ define("ace/keyboard/vim",
                    case "y":
                      var s = e.getCursorPosition();
                      e.selection.selectLine();
-                     for (var o = 0; o < n - 1; o++)
+                     for (var o = 0; o < n - 1; o++) {
                        e.selection.moveCursorDown();
+                     }
                      i._default.text = e.getCopyText().replace(/\n$/, ""),
                      e.selection.clearSelection(), i._default.isLine = !0,
                      e.moveCursorToPosition(s);
@@ -1077,8 +1128,9 @@ define("ace/keyboard/vim",
                ">" : {
                  selFn : function(e, t, n, i) {
                    n = n || 1;
-                   for (var s = 0; s < n; s++)
+                   for (var s = 0; s < n; s++) {
                      e.indent();
+                   }
                    r.normalMode(e)
                  },
                  fn : function(e, t, n, r) {
@@ -1087,8 +1139,9 @@ define("ace/keyboard/vim",
                    case ">":
                      var i = e.getCursorPosition();
                      e.selection.selectLine();
-                     for (var s = 0; s < n - 1; s++)
+                     for (var s = 0; s < n - 1; s++) {
                        e.selection.moveCursorDown();
+                     }
                      e.indent(), e.selection.clearSelection(),
                          e.moveCursorToPosition(i), e.navigateLineEnd(),
                          e.navigateLineStart()
@@ -1098,8 +1151,9 @@ define("ace/keyboard/vim",
                "<" : {
                  selFn : function(e, t, n, i) {
                    n = n || 1;
-                   for (var s = 0; s < n; s++)
+                   for (var s = 0; s < n; s++) {
                      e.blockOutdent();
+                   }
                    r.normalMode(e)
                  },
                  fn : function(e, t, n, r) {
@@ -1108,8 +1162,9 @@ define("ace/keyboard/vim",
                    case "<":
                      var i = e.getCursorPosition();
                      e.selection.selectLine();
-                     for (var s = 0; s < n - 1; s++)
+                     for (var s = 0; s < n - 1; s++) {
                        e.selection.moveCursorDown();
+                     }
                      e.blockOutdent(), e.selection.clearSelection(),
                          e.moveCursorToPosition(i), e.navigateLineEnd(),
                          e.navigateLineStart()

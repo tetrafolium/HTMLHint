@@ -37,8 +37,9 @@ var HTMLHint = function(e) {
                             ""
                    });
            var r, i = new HTMLParser, s = new a.Reporter(t, n), o = a.rules;
-           for (var l in n)
+           for (var l in n) {
              r = o[l], r !== e && n[l] !== !1 && r.init(i, s, n[l]);
+           }
            return i.parse(t), s.messages
          }, a.format = function(e, a) {
            a = a || {};
@@ -82,8 +83,9 @@ var HTMLHint = function(e) {
         report : function(e, t, a, n, r, i) {
           for (var s, o, l = this, u = l.lines, d = l.brLen, c = a - 1,
                          f = u.length;
-               f > c && (s = u[c], o = s.length, n > o && f > a); c++)
+               f > c && (s = u[c], o = s.length, n > o && f > a); c++) {
             a++, n -= o, 1 !== n && (n -= d);
+          }
           l.messages.push({
             type : e,
             message : t,
@@ -113,8 +115,9 @@ var HTMLParser = function(e) {
       e._arrBlocks = [], e.lastEvent = null
     },
     makeMap : function(e) {
-      for (var t = {}, a = e.split(","), n = 0; a.length > n; n++)
+      for (var t = {}, a = e.split(","), n = 0; a.length > n; n++) {
         t[a[n]] = !0;
+      }
       return t
     },
     parse : function(t) {
@@ -122,26 +125,22 @@ var HTMLParser = function(e) {
         var i = n - b + 1;
         r === e && (r = {}), r.raw = a, r.pos = n, r.line = w, r.col = i,
                              L.push(r), c.fire(t, r);
-        for (var s; s = m.exec(a);)
+        for (var s; s = m.exec(a);) {
           w++, b = n + m.lastIndex
       }
+        }
       var n, r, i, s, o, l, u, d,
           c = this, f = c._mapCdataTags,
           g = /<(?:\/([^\s>]+)\s*|!--([\s\S]*?)--|!([^>]*?)|([\w\-:]+)((?:\s+[^\s"'>\/=\x00-\x0F\x7F\x80-\x9F]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'>]*))?)*?)\s*(\/?))>/g,
           h = /\s*([^\s"'>\/=\x00-\x0F\x7F\x80-\x9F]+)(?:\s*=\s*(?:(")([^"]*)"|(')([^']*)'|([^\s"'>]*)))?/g,
           m = /\r?\n/g, p = 0, v = 0, b = 0, w = 1, L = c._arrBlocks;
       for (c.fire("start", {pos : 0, line : 1, col : 1}); n = g.exec(t);)
-        if (r = n.index,
-            r > p && (d = t.substring(p, r), o ? u.push(d) : a("text", d, p)),
-            p = g.lastIndex,
-            !(i = n[1]) || (o && i === o &&
-                                (d = u.join(""),
-                                 a("cdata", d, v, {tagName : o, attrs : l}),
-                                 o = null, l = null, u = null),
-                            o))
-          if (o)
+        if (r = n.index,r > p && (d = t.substring(p, r), o ? u.push(d) : a("text", d, p)),p = g.lastIndex,!(i = n[1]) || (o && i === o 
+            && (d = u.join(""),            a("cdata", d, v, {tagName : o, attrs : l}),            o = null, l = null, u = null),            o)
+        )
+          if (o) {
             u.push(n[0]);
-          else if (i = n[4]) {
+          } else if (i = n[4]) {
             s = [];
             for (var y, T = n[5], H = 0; y = h.exec(T);) {
               var x = y[1], M = y[2] ? y[2] : y[4] ? y[4] : "",
@@ -159,38 +158,43 @@ var HTMLParser = function(e) {
                                 {tagName : i, attrs : s, close : n[6]}),
                               f[i] && (o = i, l = s.concat(), u = [], v = p))
                            : a("text", n[0], r)
-          } else
+          } else {
             (n[2] || n[3]) &&
                 a("comment", n[0], r,
                   {content : n[2] || n[3], "long" : n[2] ? !0 : !1});
-        else
+        } else {
           a("tagend", n[0], r, {tagName : i});
+        }
       t.length > p && (d = t.substring(p, t.length), a("text", d, p)),
           c.fire("end", {pos : p, line : w, col : t.length - b + 1})
     },
     addListener : function(t, a) {
       for (var n, r = this._listeners, i = t.split(/[,\s]/), s = 0,
                   o = i.length;
-           o > s; s++)
+           o > s; s++) {
         n = i[s], r[n] === e && (r[n] = []), r[n].push(a)
-    },
+    }
+      },
     fire : function(t, a) {
       a === e && (a = {}), a.type = t;
       var n = this, r = [], i = n._listeners[t], s = n._listeners.all;
       i !== e && (r = r.concat(i)), s !== e && (r = r.concat(s));
       var o = n.lastEvent;
       null !== o && (delete o.lastEvent, a.lastEvent = o), n.lastEvent = a;
-      for (var l = 0, u = r.length; u > l; l++)
+      for (var l = 0, u = r.length; u > l; l++) {
         r[l].call(n, a)
-    },
+    }
+      },
     removeListener : function(t, a) {
       var n = this._listeners[t];
-      if (n !== e)
-        for (var r = 0, i = n.length; i > r; r++)
+      if (n !== e) {
+        for (var r = 0, i = n.length; i > r; r++) {
           if (n[r] === a) {
             n.splice(r, 1);
             break
           }
+        }
+      }
     },
     fixPos : function(e, t) {
       var a, n = e.raw.substr(0, t), r = n.split(/\r?\n/), i = r.length - 1,
@@ -200,8 +204,9 @@ var HTMLParser = function(e) {
       }
     },
     getMapAttrs : function(e) {
-      for (var t, a = {}, n = 0, r = e.length; r > n; n++)
+      for (var t, a = {}, n = 0, r = e.length; r > n; n++) {
         t = e[n], a[t.name] = t.value;
+      }
       return a
     }
   },
@@ -257,13 +262,14 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var n, r, i = e.attrs, s = e.col + e.tagName.length + 1, o = {},
                          l = 0, u = i.length;
-               u > l; l++)
+               u > l; l++) {
             n = i[l], r = n.name,
             o[r] === !0 && t.error("Duplicate of attribute name [ " + n.name +
                                        " ] was found.",
                                    e.line, s + n.index, a, n.raw),
             o[r] = !0
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -277,13 +283,14 @@ var HTMLParser = function(e) {
               i = e.attrs, s = e.col + e.tagName.length + 1,
               o = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/,
               l = 0, u = i.length;
-              u > l; l++)
+              u > l; l++) {
             if (n = i[l], r = n.value.match(o), null !== r) {
               var d = escape(r[0]).replace(/%u/, "\\u").replace(/%/, "\\x");
               t.warn("The value of attribute [ " + n.name +
                          " ] cannot contain an unsafe char [ " + d + " ].",
                      e.line, s + n.index, a, n.raw)
             }
+          }
         })
       }
     }),
@@ -295,13 +302,14 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var n, r = e.attrs, i = e.col + e.tagName.length + 1, s = 0,
                       o = r.length;
-               o > s; s++)
+               o > s; s++) {
             n = r[s], ("" !== n.value && '"' !== n.quote ||
                        "" === n.value && "'" === n.quote) &&
                           t.error("The value of attribute [ " + n.name +
                                       " ] must be in double quotes.",
                                   e.line, i + n.index, a, n.raw)
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -312,12 +320,13 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var n, r = e.attrs, i = e.col + e.tagName.length + 1, s = 0,
                       o = r.length;
-               o > s; s++)
+               o > s; s++) {
             n = r[s],
             "" === n.quote && "" === n.value &&
                 t.warn("The attribute [ " + n.name + " ] must have a value.",
                        e.line, i + n.index, a, n.raw)
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -328,10 +337,8 @@ var HTMLParser = function(e) {
         e.addListener("cdata", function(e) {
           if ("style" === e.tagName.toLowerCase()) {
             var r;
-            if (r = "object" == typeof exports && require
-                        ? require("csslint").CSSLint.verify
-                        : CSSLint.verify,
-                void 0 !== a) {
+            if (r = "object" == typeof exports && require                ? require("csslint").CSSLint.verify                : CSSLint.verify,void 0 !== a
+            ) {
               var i = e.line - 1, s = e.col - 1;
               try {
                 var o = r(e.raw, a).messages;
@@ -408,7 +415,7 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var a, i = e.attrs, s = e.col + e.tagName.length + 1, o = 0,
                       l = i.length;
-               l > o; o++)
+               l > o; o++) {
             if (a = i[o], "href" === a.name) {
               ("absolute" === r && /^\w+?:/.test(a.value) === !1 ||
                "relative" === r && /^https?:\/\//.test(a.value) === !0) &&
@@ -417,6 +424,7 @@ var HTMLParser = function(e) {
                          e.line, s + a.index, n, a.raw);
               break
             }
+          }
         })
       }
     }),
@@ -429,13 +437,14 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var n, r, i = e.attrs, s = e.col + e.tagName.length + 1, o = 0,
                          l = i.length;
-               l > o; o++)
+               l > o; o++) {
             n = i[o], r = n.name,
             /^(id|class)$/i.test(r) && /(^|[-\_])ad([-\_]|$)/i.test(n.value) &&
                 t.warn("The value of attribute " + r +
                            " cannot use the ad keyword.",
                        e.line, s + n.index, a, n.raw)
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -465,16 +474,18 @@ var HTMLParser = function(e) {
           e.addListener("tagstart", function(e) {
             for (var a, n = e.attrs, i = e.col + e.tagName.length + 1, l = 0,
                         u = n.length;
-                 u > l; l++)
-              if (a = n[l],
-                  "id" === a.name.toLowerCase() && s.test(a.value) === !1 &&
-                      t.warn(o, e.line, i + a.index, r, a.raw),
-                  "class" === a.name.toLowerCase())
+                 u > l; l++) {
+              if (a = n[l],"id" === a.name.toLowerCase() && s.test(a.value) === !1 
+                  && t.warn(o, e.line, i + a.index, r, a.raw),"class" === a.name.toLowerCase()
+              ) {
                 for (var d, c = a.value.split(/\s+/g), f = 0, g = c.length;
-                     g > f; f++)
+                     g > f; f++) {
                   d = c[f],
                   d && s.test(d) === !1 && t.warn(o, e.line, i + a.index, r, d)
-          })
+          }
+              }
+            }
+                })
         }
       }
     }),
@@ -486,7 +497,7 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var r, i, s = e.attrs, o = e.col + e.tagName.length + 1, l = 0,
                          u = s.length;
-               u > l; l++)
+               u > l; l++) {
             if (r = s[l], "id" === r.name.toLowerCase()) {
               i = r.value,
               i && (void 0 === n[i] ? n[i] = 1 : n[i]++,
@@ -495,6 +506,7 @@ var HTMLParser = function(e) {
                                 e.line, o + r.index, a, r.raw));
               break
             }
+          }
         })
       }
     }),
@@ -509,7 +521,7 @@ var HTMLParser = function(e) {
               i = e.attrs, s = e.col + e.tagName.length + 1,
               o = /^on(unload|message|submit|select|scroll|resize|mouseover|mouseout|mousemove|mouseleave|mouseenter|mousedown|load|keyup|keypress|keydown|focus|dblclick|click|change|blur|error)$/i,
               l = 0, u = i.length;
-              u > l; l++)
+              u > l; l++) {
             n = i[l], r = n.name.toLowerCase(),
             o.test(r) === !0
                 ? t.warn("Inline script [ " + n.raw + " ] cannot be use.",
@@ -518,7 +530,8 @@ var HTMLParser = function(e) {
                       /^\s*javascript:/i.test(n.value) &&
                       t.warn("Inline script [ " + n.raw + " ] cannot be use.",
                              e.line, s + n.index, a, n.raw)
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -529,12 +542,13 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var n, r = e.attrs, i = e.col + e.tagName.length + 1, s = 0,
                       o = r.length;
-               o > s; s++)
+               o > s; s++) {
             n = r[s],
             "style" === n.name.toLowerCase() &&
                 t.warn("Inline style [ " + n.raw + " ] cannot be use.", e.line,
                        i + n.index, a, n.raw)
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -545,13 +559,12 @@ var HTMLParser = function(e) {
         e.addListener("cdata", function(r) {
           if ("script" === r.tagName.toLowerCase()) {
             var i = e.getMapAttrs(r.attrs), s = i.type;
-            if (void 0 !== i.src || s && /^(text\/javascript)$/i.test(s) === !1)
+            if (void 0 !== i.src || s && /^(text\/javascript)$/i.test(s) === !1) {
               return;
+            }
             var o;
-            if (o = "object" == typeof exports && require
-                        ? require("jshint").JSHINT
-                        : JSHINT,
-                void 0 !== a) {
+            if (o = "object" == typeof exports && require                ? require("jshint").JSHINT                : JSHINT,void 0 !== a
+            ) {
               var l = r.line - 1, u = r.col - 1, d = r.raw.replace(/\t/g, " ");
               try {
                 var c = o(d, a);
@@ -625,7 +638,7 @@ var HTMLParser = function(e) {
         e.addListener("tagstart", function(e) {
           for (var n, r = e.tagName, i = e.attrs, s = e.col + r.length + 1,
                       o = 0, l = i.length;
-               l > o; o++)
+               l > o; o++) {
             n = i[o],
             (/^(img|script|embed|bgsound|iframe)$/.test(r) === !0 &&
                  "src" === n.name ||
@@ -635,7 +648,8 @@ var HTMLParser = function(e) {
                 t.error("The attribute [ " + n.name + " ] of the tag [ " + r +
                             " ] must have a value.",
                         e.line, s + n.index, a, n.raw)
-        })
+        }
+          })
       }
     }),
     HTMLHint.addRule({
@@ -665,8 +679,9 @@ var HTMLParser = function(e) {
                i >= 0 && n[i].tagName !== r; i--)
             ;
           if (i >= 0) {
-            for (var s = [], o = n.length - 1; o > i; o--)
+            for (var s = [], o = n.length - 1; o > i; o--) {
               s.push("</" + n[o].tagName + ">");
+            }
             if (s.length > 0) {
               var l = n[n.length - 1];
               t.error("Tag must be paired, missing: [ " + s.join("") +
@@ -675,12 +690,14 @@ var HTMLParser = function(e) {
                       e.line, e.col, a, e.raw)
             }
             n.length = i
-          } else
+          } else {
             t.error("Tag must be paired, no start tag: [ " + e.raw + " ]",
                     e.line, e.col, a, e.raw)
-        }), e.addListener("end", function(e) {
-          for (var r = [], i = n.length - 1; i >= 0; i--)
+        }
+          }), e.addListener("end", function(e) {
+          for (var r = [], i = n.length - 1; i >= 0; i--) {
             r.push("</" + n[i].tagName + ">");
+          }
           if (r.length > 0) {
             var s = n[n.length - 1];
             t.error("Tag must be paired, missing: [ " + r.join("") +
@@ -735,12 +752,13 @@ var HTMLParser = function(e) {
              "text" === l.type && /^\s*$/.test(l.raw) === !0) &&
                 t.error("<title></title> must not be empty.", i.line, i.col, r,
                         i.raw)
-          } else
+          } else {
             "head" === o &&
                 (s === !1 && t.error("<title> must be present in <head> tag.",
                                      i.line, i.col, r, i.raw),
                  e.removeListener("tagstart", a), e.removeListener("tagend", n))
         }
+          }
         var r = this, i = !1, s = !1;
         e.addListener("tagstart", a), e.addListener("tagend", n)
       }

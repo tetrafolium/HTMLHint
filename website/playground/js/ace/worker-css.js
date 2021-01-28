@@ -1,7 +1,8 @@
 "no use strict";
 (function(e) {
-if (typeof e.window != "undefined" && e.document)
+if (typeof e.window != "undefined" && e.document) {
   return;
+}
 e.console = {
   log : function() {
     var e = Array.prototype.slice.call(arguments, 0);
@@ -27,15 +28,17 @@ e.console = {
       }
       return t
     }, e.require = function(e, t) {
-      if (!t.charAt)
+      if (!t.charAt) {
         throw new Error(
             "worker.js require() accepts only (parentId, id) as arguments");
+      }
       t = normalizeModule(e, t);
       var n = require.modules[t];
-      if (n)
+      if (n) {
         return n.initialized ||
                    (n.initialized = !0, n.exports = n.factory().exports),
                n.exports;
+      }
       var r = t.split("/");
       r[0] = require.tlns[r[0]] || r[0];
       var i = r.join("/") + ".js";
@@ -44,8 +47,9 @@ e.console = {
       arguments.length == 2
           ? (n = t, typeof e != "string" && (t = e, e = require.id))
           : arguments.length == 1 && (n = e, e = require.id);
-      if (e.indexOf("text!") === 0)
+      if (e.indexOf("text!") === 0) {
         return;
+      }
       var r = function(t, n) { return require(e, t, n) };
       require.modules[e] = {
         factory : function() {
@@ -69,17 +73,19 @@ e.console = {
     }, e.main = null, e.sender = null, e.onmessage = function(e) {
       var t = e.data;
       if (t.command) {
-        if (!main[t.command])
+        if (!main[t.command]) {
           throw new Error("Unknown command:" + t.command);
+        }
         main[t.command].apply(main, t.args)
       } else if (t.init) {
         initBaseUrls(t.tlns), require(null, "ace/lib/fixoldbrowsers"),
             sender = initSender();
         var n = require(null, t.module)[t.classname];
         main = new n(sender)
-      } else
+      } else {
         t.event && sender && sender._emit(t.event, t.data)
     }
+      }
 })(this),
     define(
         "ace/lib/fixoldbrowsers",
@@ -95,11 +101,14 @@ function r(e) {
          (e.sticky ? "y" : "")
 }
 function i(e, t, n) {
-  if (Array.prototype.indexOf)
+  if (Array.prototype.indexOf) {
     return e.indexOf(t, n);
-  for (var r = n || 0; r < e.length; r++)
-    if (e[r] === t)
+  }
+  for (var r = n || 0; r < e.length; r++) {
+    if (e[r] === t) {
       return r;
+    }
+  }
   return -1
 }
 var s = {
@@ -113,20 +122,24 @@ var s = {
       var e = /^/g;
       return s.test.call(e, ""), !e.lastIndex
     }();
-if (u && o)
+if (u && o) {
   return;
+}
 RegExp.prototype.exec = function(e) {
   var t = s.exec.apply(this, arguments), n, a;
   if (typeof e == "string" && t) {
     !o && t.length > 1 && i(t, "") > -1 &&
         (a = RegExp(this.source, s.replace.call(r(this), "g", "")),
          s.replace.call(e.slice(t.index), a, function() {
-           for (var e = 1; e < arguments.length - 2; e++)
+           for (var e = 1; e < arguments.length - 2; e++) {
              arguments[e] === undefined && (t[e] = undefined)
-         }));
-    if (this._xregexp && this._xregexp.captureNames)
-      for (var f = 1; f < t.length; f++)
+         }
+           }));
+    if (this._xregexp && this._xregexp.captureNames) {
+      for (var f = 1; f < t.length; f++) {
         n = this._xregexp.captureNames[f - 1], n && (t[n] = t[f]);
+      }
+    }
     !u && this.global && !t[0].length && this.lastIndex > t.index &&
         this.lastIndex--
   }
@@ -161,26 +174,30 @@ function o(e) {
 }
 function u(e) {
   var t, n, r;
-  if (o(e))
+  if (o(e)) {
     return e;
+  }
   n = e.valueOf;
   if (typeof n == "function") {
     t = n.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   r = e.toString;
   if (typeof r == "function") {
     t = r.call(e);
-    if (o(t))
+    if (o(t)) {
       return t
   }
+    }
   throw new TypeError
 }
 Function.prototype.bind || (Function.prototype.bind = function(e) {
   var t = this;
-  if (typeof t != "function")
+  if (typeof t != "function") {
     throw new TypeError("Function.prototype.bind called on incompatible " + t);
+  }
   var n = c.call(arguments, 1), i = function() {
     if (this instanceof i) {
       var r = t.apply(this, n.concat(c.call(arguments)));
@@ -195,49 +212,44 @@ Function.prototype.bind || (Function.prototype.bind = function(e) {
 var a = Function.prototype.call, f = Array.prototype, l = Object.prototype,
     c = f.slice, h = a.bind(l.toString), p = a.bind(l.hasOwnProperty), d, v, m,
     g, y;
-if (y = p(l, "__defineGetter__"))
+if (y = p(l, "__defineGetter__")) {
   d = a.bind(l.__defineGetter__), v = a.bind(l.__defineSetter__),
   m = a.bind(l.__lookupGetter__), g = a.bind(l.__lookupSetter__);
-if ([ 1, 2 ].splice(0).length != 2)
-  if (!function() {
-        function e(e) {
-          var t = new Array(e + 2);
-          return t[0] = t[1] = 0, t
-        }
-        var t = [], n;
-        t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),
-            n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;
-        if (n + 1 == t.length)
-          return !0
-      }())
+}
+if ([ 1, 2 ].splice(0).length != 2) {
+  if (!function() {      function e(e) {      var t = new Array(e + 2);      return t[0] = t[1] = 0, t      }      var t = [], n;      t.splice.apply(t, e(20)), t.splice.apply(t, e(26)),      n = t.length, t.splice(5, 0, "XXX"), n + 1 == t.length;      if (n + 1 == t.length) {      return !0}      }()
+  ) {
     Array.prototype.splice = function(e, t) {
       var n = this.length;
       e > 0 ? e > n && (e = n)
             : e == void 0 ? e = 0 : e < 0 && (e = Math.max(n + e, 0)),
                             e + t < n || (t = n - e);
       var r = this.slice(e, e + t), i = c.call(arguments, 2), s = i.length;
-      if (e === n)
+      if (e === n) {
         s && this.push.apply(this, i);
-      else {
+      } else {
         var o = Math.min(t, n - e), u = e + o, a = u + s - o, f = n - u,
             l = n - o;
-        if (a < u)
-          for (var h = 0; h < f; ++h)
+        if (a < u) {
+          for (var h = 0; h < f; ++h) {
             this[a + h] = this[u + h];
-        else if (a > u)
-          for (h = f; h--;)
+        } } else if (a > u) {
+          for (h = f; h--;) {
             this[a + h] = this[u + h];
-        if (s && e === l)
+          }
+        }
+        if (s && e === l) {
           this.length = l, this.push.apply(this, i);
-        else {
+        } else {
           this.length = l + s;
-          for (h = 0; h < s; ++h)
+          for (h = 0; h < s; ++h) {
             this[e + h] = i[h]
         }
+          }
       }
       return r
     };
-  else {
+  } else {
     var b = Array.prototype.splice;
     Array.prototype.splice = function(e, t) {
       return arguments.length ? b.apply(this,
@@ -248,6 +260,7 @@ if ([ 1, 2 ].splice(0).length != 2)
                               : []
     }
   }
+}
 Array.isArray ||
     (Array.isArray = function(e) { return h(e) == "[object Array]" });
 var w = Object("a"), E = w[0] != "a" || !(0 in w);
@@ -257,21 +270,25 @@ Array.prototype.forEach ||
            var t = F(this),
                n = E && h(this) == "[object String]" ? this.split("") : t,
                r = arguments[1], i = -1, s = n.length >>> 0;
-           if (h(e) != "[object Function]")
+           if (h(e) != "[object Function]") {
              throw new TypeError;
-           while (++i < s)
+           }
+           while (++i < s) {
              i in n && e.call(r, n[i], i, t)
-         }),
+         }
+           }),
     Array.prototype.map ||
         (Array.prototype.map =
              function(e) {
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = Array(r), s = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var o = 0; o < r; o++)
+               }
+               for (var o = 0; o < r; o++) {
                  o in n && (i[o] = e.call(s, n[o], o, t));
+               }
                return i
              }),
     Array.prototype.filter ||
@@ -280,10 +297,12 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = [], s, o = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var u = 0; u < r; u++)
+               }
+               for (var u = 0; u < r; u++) {
                  u in n && (s = n[u], e.call(o, s, u, t) && i.push(s));
+               }
                return i
              }),
     Array.prototype.every ||
@@ -292,11 +311,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && !e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && !e.call(i, n[s], s, t)) {
                    return !1;
+                 }
+               }
                return !0
              }),
     Array.prototype.some ||
@@ -305,11 +327,14 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0, i = arguments[1];
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               for (var s = 0; s < r; s++)
-                 if (s in n && e.call(i, n[s], s, t))
+               }
+               for (var s = 0; s < r; s++) {
+                 if (s in n && e.call(i, n[s], s, t)) {
                    return !0;
+                 }
+               }
                return !1
              }),
     Array.prototype.reduce ||
@@ -318,92 +343,112 @@ Array.prototype.forEach ||
                var t = F(this),
                    n = E && h(this) == "[object String]" ? this.split("") : t,
                    r = n.length >>> 0;
-               if (h(e) != "[object Function]")
+               if (h(e) != "[object Function]") {
                  throw new TypeError(e + " is not a function");
-               if (!r && arguments.length == 1)
+               }
+               if (!r && arguments.length == 1) {
                  throw new TypeError(
                      "reduce of empty array with no initial value");
+               }
                var i = 0, s;
-               if (arguments.length >= 2)
+               if (arguments.length >= 2) {
                  s = arguments[1];
-               else
+               } else {
                  do {
                    if (i in n) {
                      s = n[i++];
                      break
                    }
-                   if (++i >= r)
+                   if (++i >= r) {
                      throw new TypeError(
                          "reduce of empty array with no initial value")
-                 } while (!0);
-               for (; i < r; i++)
+                 }
+                   } while (!0);
+               }
+               for (; i < r; i++) {
                  i in n && (s = e.call(void 0, s, n[i], i, t));
+               }
                return s
              }),
     Array.prototype.reduceRight || (Array.prototype.reduceRight = function(e) {
       var t = F(this),
           n = E && h(this) == "[object String]" ? this.split("") : t,
           r = n.length >>> 0;
-      if (h(e) != "[object Function]")
+      if (h(e) != "[object Function]") {
         throw new TypeError(e + " is not a function");
-      if (!r && arguments.length == 1)
+      }
+      if (!r && arguments.length == 1) {
         throw new TypeError("reduceRight of empty array with no initial value");
+      }
       var i, s = r - 1;
-      if (arguments.length >= 2)
+      if (arguments.length >= 2) {
         i = arguments[1];
-      else
+      } else {
         do {
           if (s in n) {
             i = n[s--];
             break
           }
-          if (--s < 0)
+          if (--s < 0) {
             throw new TypeError(
                 "reduceRight of empty array with no initial value")
-        } while (!0);
-      do
+        }
+          } while (!0);
+      }
+      do {
         s in this && (i = e.call(void 0, i, n[s], s, t));
+      }
       while (s--);
       return i
     });
-if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1)
+if (!Array.prototype.indexOf || [ 0, 1 ].indexOf(1, 2) != -1) {
   Array.prototype.indexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = 0;
     arguments.length > 1 && (r = s(arguments[1])),
         r = r >= 0 ? r : Math.max(0, n + r);
-    for (; r < n; r++)
-      if (r in t && t[r] === e)
+    for (; r < n; r++) {
+      if (r in t && t[r] === e) {
         return r;
+      }
+    }
     return -1
   };
-if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1)
+}
+if (!Array.prototype.lastIndexOf || [ 0, 1 ].lastIndexOf(0, -3) != -1) {
   Array.prototype.lastIndexOf = function(e) {
     var t = E && h(this) == "[object String]" ? this.split("") : F(this),
         n = t.length >>> 0;
-    if (!n)
+    if (!n) {
       return -1;
+    }
     var r = n - 1;
     arguments.length > 1 && (r = Math.min(r, s(arguments[1]))),
         r = r >= 0 ? r : n - Math.abs(r);
-    for (; r >= 0; r--)
-      if (r in t && e === t[r])
+    for (; r >= 0; r--) {
+      if (r in t && e === t[r]) {
         return r;
+      }
+    }
     return -1
   };
+}
 Object.getPrototypeOf || (Object.getPrototypeOf = function(e) {
   return e.__proto__ || (e.constructor ? e.constructor.prototype : l)
 });
 if (!Object.getOwnPropertyDescriptor) {
   var S = "Object.getOwnPropertyDescriptor called on a non-object: ";
   Object.getOwnPropertyDescriptor = function(e, t) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(S + e);
-    if (!p(e, t))
+    }
+    if (!p(e, t)) {
       return;
+    }
     var n, r, i;
     n = {enumerable : !0, configurable : !0};
     if (y) {
@@ -411,9 +456,10 @@ if (!Object.getOwnPropertyDescriptor) {
       e.__proto__ = l;
       var r = m(e, t), i = g(e, t);
       e.__proto__ = s;
-      if (r || i)
+      if (r || i) {
         return r && (n.get = r), i && (n.set = i), n
     }
+      }
     return n.value = e[t], n
   }
 }
@@ -425,19 +471,21 @@ if (!Object.create) {
     return { __proto__: null }
   } : x = function() {
     var e = {};
-    for (var t in e)
+    for (var t in e) {
       e[t] = null;
+    }
     return e.constructor = e.hasOwnProperty = e.propertyIsEnumerable =
                e.isPrototypeOf = e.toLocaleString = e.toString = e.valueOf =
                    e.__proto__ = null,
            e
   }, Object.create = function(e, t) {
     var n;
-    if (e === null)
+    if (e === null) {
       n = x();
-    else {
-      if (typeof e != "object")
+    } else {
+      if (typeof e != "object") {
         throw new TypeError("typeof prototype[" + typeof e + "] != 'object'");
+      }
       var r = function() {};
       r.prototype = e, n = new r, n.__proto__ = e
     }
@@ -447,32 +495,37 @@ if (!Object.create) {
 if (Object.defineProperty) {
   var T = i({}),
       N = typeof document == "undefined" || i(document.createElement("div"));
-  if (!T || !N)
+  if (!T || !N) {
     var C = Object.defineProperty
 }
+  }
 if (!Object.defineProperty || C) {
   var k = "Property description must be an object: ",
       L = "Object.defineProperty called on non-object: ",
       A = "getters & setters can not be defined on this javascript engine";
   Object.defineProperty = function(e, t, n) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError(L + e);
-    if (typeof n != "object" && typeof n != "function" || n === null)
+    }
+    if (typeof n != "object" && typeof n != "function" || n === null) {
       throw new TypeError(k + n);
-    if (C)
+    }
+    if (C) {
       try {
         return C.call(Object, e, t, n)
       } catch (r) {
       }
-    if (p(n, "value"))
+    }
+    if (p(n, "value")) {
       if (y && (m(e, t) || g(e, t))) {
         var i = e.__proto__;
         e.__proto__ = l, delete e[t], e[t] = n.value, e.__proto__ = i
-      } else
+      } else {
         e[t] = n.value;
-    else {
-      if (!y)
+    } } else {
+      if (!y) {
         throw new TypeError(A);
+      }
       p(n, "get") && d(e, t, n.get), p(n, "set") && v(e, t, n.set)
     }
     return e
@@ -481,8 +534,9 @@ if (!Object.defineProperty || C) {
 Object.defineProperties ||
     (Object.defineProperties =
          function(e, t) {
-           for (var n in t)
+           for (var n in t) {
              p(t, n) && Object.defineProperty(e, n, t[n]);
+           }
            return e
          }),
     Object.seal || (Object.seal = function(e) { return e }),
@@ -499,11 +553,13 @@ Object.preventExtensions ||
     Object.isSealed || (Object.isSealed = function(e) { return !1 }),
     Object.isFrozen || (Object.isFrozen = function(e) { return !1 }),
     Object.isExtensible || (Object.isExtensible = function(e) {
-      if (Object(e) === e)
+      if (Object(e) === e) {
         throw new TypeError;
+      }
       var t = "";
-      while (p(e, t))
+      while (p(e, t)) {
         t += "?";
+      }
       e[t] = !0;
       var n = p(e, t);
       return delete e[t], n
@@ -516,19 +572,23 @@ if (!Object.keys) {
             "isPrototypeOf", "propertyIsEnumerable", "constructor"
           ],
       D = _.length;
-  for (var P in {toString : null})
+  for (var P in {toString : null}) {
     M = !1;
+  }
   Object.keys = function I(e) {
-    if (typeof e != "object" && typeof e != "function" || e === null)
+    if (typeof e != "object" && typeof e != "function" || e === null) {
       throw new TypeError("Object.keys called on a non-object");
+    }
     var I = [];
-    for (var t in e)
+    for (var t in e) {
       p(e, t) && I.push(t);
-    if (M)
+    }
+    if (M) {
       for (var n = 0, r = D; n < r; n++) {
         var i = _[n];
         p(e, i) && I.push(i)
       }
+    }
     return I
   }
 }
@@ -542,8 +602,9 @@ if (!String.prototype.trim || H.trim()) {
       function() { return String(this).replace(B, "").replace(j, "") }
 }
 var F = function(e) {
-  if (e == null)
+  if (e == null) {
     throw new TypeError("can't convert " + e + " to object");
+  }
   return Object(e)
 }
            }),
@@ -555,34 +616,41 @@ r._emit = r._dispatchEvent = function(e, t) {
   this._eventRegistry || (this._eventRegistry = {}),
       this._defaultHandlers || (this._defaultHandlers = {});
   var n = this._eventRegistry[e] || [], r = this._defaultHandlers[e];
-  if (!n.length && !r)
+  if (!n.length && !r) {
     return;
-  if (typeof t != "object" || !t)
+  }
+  if (typeof t != "object" || !t) {
     t = {};
+  }
   t.type || (t.type = e), t.stopPropagation || (t.stopPropagation = i),
       t.preventDefault || (t.preventDefault = s), t.target || (t.target = this);
   for (var o = 0; o < n.length; o++) {
     n[o](t);
-    if (t.propagationStopped)
+    if (t.propagationStopped) {
       break
   }
-  if (r && !t.defaultPrevented)
+    }
+  if (r && !t.defaultPrevented) {
     return r(t)
-}, r._signal = function(e, t) {
+}
+  }, r._signal = function(e, t) {
   var n = (this._eventRegistry || {})[e];
-  if (!n)
+  if (!n) {
     return;
-  for (var r = 0; r < n.length; r++)
+  }
+  for (var r = 0; r < n.length; r++) {
     n[r](t)
-}, r.once = function(e, t) {
+}
+  }, r.once = function(e, t) {
   var n = this, r = function() {
     fun && fun.apply(null, arguments), n.removeEventListener(event, r)
   };
   this.addEventListener(event, r)
 }, r.setDefaultHandler = function(e, t) {
   this._defaultHandlers = this._defaultHandlers || {};
-  if (this._defaultHandlers[e])
+  if (this._defaultHandlers[e]) {
     throw new Error("The default handler for '" + e + "' is already set");
+  }
   this._defaultHandlers[e] = t
 }, r.on = r.addEventListener = function(e, t, n) {
   this._eventRegistry = this._eventRegistry || {};
@@ -592,8 +660,9 @@ r._emit = r._dispatchEvent = function(e, t) {
 }, r.removeListener = r.removeEventListener = function(e, t) {
   this._eventRegistry = this._eventRegistry || {};
   var n = this._eventRegistry[e];
-  if (!n)
+  if (!n) {
     return;
+  }
   var r = n.indexOf(t);
   r !== -1 && n.splice(r, 1)
 }, r.removeAllListeners = function(e) {
@@ -609,9 +678,10 @@ t.inherits = function() {
     t.prototype.constructor = t
   }
 }(), t.mixin = function(e, t) {
-  for (var n in t)
+  for (var n in t) {
     e[n] = t[n]
-}, t.implement = function(e, n) { t.mixin(e, n) }
+}
+  }, t.implement = function(e, n) { t.mixin(e, n) }
            }),
     define("ace/mode/css_worker",
            [
@@ -632,9 +702,9 @@ r.inherits(u, s), function() {
         this.infoRules = i.arrayToMap(e),
         this.doc.getValue() && this.deferredUpdate.schedule(100)
   }, this.setDisabledRules = function(e) {
-    if (!e)
+    if (!e) {
       this.ruleset = null;
-    else {
+    } else {
       typeof e == "string" && (e = e.split("|"));
       var t = {};
       o.getRules().forEach(function(e) { t[e.id] = !0 }),
@@ -660,9 +730,10 @@ t.stringReverse = function(e) { return e.split("").reverse().join("") },
       var n = "";
       while (t > 0) {
         t&1 && (n += e);
-        if (t >>= 1)
+        if (t >>= 1) {
           e += e
       }
+        }
       return n
     };
 var r = /^\s\s*/, i = /\s\s*$/;
@@ -670,36 +741,43 @@ t.stringTrimLeft = function(e) { return e.replace(r, "") },
     t.stringTrimRight = function(e) { return e.replace(i, "") },
     t.copyObject = function(e) {
       var t = {};
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.copyArray = function(e) {
       var t = [];
-      for (var n = 0, r = e.length; n < r; n++)
+      for (var n = 0, r = e.length; n < r; n++) {
         e[n] && typeof e[n] == "object" ? t[n] = this.copyObject(e[n])
                                         : t[n] = e[n];
+      }
       return t
     }, t.deepCopy = function(e) {
-      if (typeof e != "object")
+      if (typeof e != "object") {
         return e;
+      }
       var t = e.constructor();
-      for (var n in e)
+      for (var n in e) {
         typeof e[n] == "object" ? t[n] = this.deepCopy(e[n]) : t[n] = e[n];
+      }
       return t
     }, t.arrayToMap = function(e) {
       var t = {};
-      for (var n = 0; n < e.length; n++)
+      for (var n = 0; n < e.length; n++) {
         t[e[n]] = 1;
+      }
       return t
     }, t.createMap = function(e) {
       var t = Object.create(null);
-      for (var n in e)
+      for (var n in e) {
         t[n] = e[n];
+      }
       return t
     }, t.arrayRemove = function(e, t) {
-      for (var n = 0; n <= e.length; n++)
+      for (var n = 0; n <= e.length; n++) {
         t === e[n] && e.splice(n, 1)
-    }, t.escapeRegExp = function(e) {
+    }
+      }, t.escapeRegExp = function(e) {
       return e.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1")
     }, t.escapeHTML = function(e) {
       return e.replace(/&/g, "&#38;")
@@ -801,8 +879,9 @@ r.implement(this, i),
     this.$autoNewLine = "\n", this.$newLineMode = "auto",
     this.setNewLineMode =
         function(e) {
-      if (this.$newLineMode === e)
+      if (this.$newLineMode === e) {
         return;
+      }
       this.$newLineMode = e
     },
     this.getNewLineMode = function() { return this.$newLineMode },
@@ -813,8 +892,9 @@ r.implement(this, i),
     this.getAllLines = function() { return this.getLines(0, this.getLength()) },
     this.getLength = function() { return this.$lines.length },
     this.getTextRange = function(e) {
-      if (e.start.row == e.end.row)
+      if (e.start.row == e.end.row) {
         return this.$lines[e.start.row].substring(e.start.column, e.end.column);
+      }
       var t = this.getLines(e.start.row + 1, e.end.row - 1);
       return t.unshift(
                  (this.$lines[e.start.row] || "").substring(e.start.column)),
@@ -826,8 +906,9 @@ r.implement(this, i),
                             e.column = this.getLine(t - 1).length),
              e
     }, this.insert = function(e, t) {
-      if (!t || t.length === 0)
+      if (!t || t.length === 0) {
         return e;
+      }
       e = this.$clipPosition(e),
       this.getLength() <= 1 && this.$detectNewLine(t);
       var n = this.$split(t), r = n.splice(0, 1)[0],
@@ -861,8 +942,9 @@ r.implement(this, i),
       };
       return this._emit("change", {data : r}), n
     }, this.insertInLine = function(e, t) {
-      if (t.length == 0)
+      if (t.length == 0) {
         return e;
+      }
       var n = this.$lines[e.row] || "";
       this.$lines[e.row] = n.substring(0, e.column) + t + n.substring(e.column);
       var r = {row : e.row, column : e.column + t.length},
@@ -870,8 +952,9 @@ r.implement(this, i),
       return this._emit("change", {data : i}), r
     }, this.remove = function(e) {
       e.start = this.$clipPosition(e.start), e.end = this.$clipPosition(e.end);
-      if (e.isEmpty())
+      if (e.isEmpty()) {
         return e.start;
+      }
       var t = e.start.row, n = e.end.row;
       if (e.isMultiLine()) {
         var r = e.start.column == 0 ? t : t + 1, i = n - 1;
@@ -880,12 +963,14 @@ r.implement(this, i),
             r != t &&
                 (this.removeInLine(t, e.start.column, this.getLine(t).length),
                  this.removeNewLine(e.start.row))
-      } else
+      } else {
         this.removeInLine(t, e.start.column, e.end.column);
+      }
       return e.start
     }, this.removeInLine = function(e, t, n) {
-      if (t == n)
+      if (t == n) {
         return;
+      }
       var r = new s(e, t, e, n), i = this.getLine(e), o = i.substring(t, n),
           u = i.substring(0, t) + i.substring(n, i.length);
       this.$lines.splice(e, 1, u);
@@ -910,15 +995,18 @@ r.implement(this, i),
       };
       this._emit("change", {data : o})
     }, this.replace = function(e, t) {
-      if (t.length == 0 && e.isEmpty())
+      if (t.length == 0 && e.isEmpty()) {
         return e.start;
-      if (t == this.getTextRange(e))
+      }
+      if (t == this.getTextRange(e)) {
         return e.end;
+      }
       this.remove(e);
-      if (t)
+      if (t) {
         var n = this.insert(e.start, t);
-      else
+      } else {
         n = e.start;
+      }
       return n
     }, this.applyDeltas = function(e) {
       for (var t = 0; t < e.length; t++) {
@@ -956,8 +1044,9 @@ r.implement(this, i),
       var n = this.$lines || this.getAllLines(),
           r = this.getNewLineCharacter().length, i = 0,
           s = Math.min(e.row, n.length);
-      for (var o = t || 0; o < s; ++o)
+      for (var o = t || 0; o < s; ++o) {
         i += n[o].length;
+      }
       return i + r * o + e.column
     }
 }).call(u.prototype),
@@ -1034,23 +1123,27 @@ this.isEqual = function(e) {
                    ? -1
                    : this.compare(e, t)
 }, this.clipRows = function(e, t) {
-  if (this.end.row > t)
+  if (this.end.row > t) {
     var n = {row : t + 1, column : 0};
-  else if (this.end.row < e)
+  } else if (this.end.row < e) {
     var n = {row : e, column : 0};
-  if (this.start.row > t)
+  }
+  if (this.start.row > t) {
     var r = {row : t + 1, column : 0};
-  else if (this.start.row < e)
+  } else if (this.start.row < e) {
     var r = {row : e, column : 0};
+  }
   return i.fromPoints(r || this.start, n || this.end)
 }, this.extend = function(e, t) {
   var n = this.compare(e, t);
-  if (n == 0)
+  if (n == 0) {
     return this;
-  if (n == -1)
+  }
+  if (n == -1) {
     var r = {row : e, column : t};
-  else
+  } else {
     var s = {row : e, column : t};
+  }
   return i.fromPoints(r || this.start, s || this.end)
 }, this.isEmpty = function() {
   return this.start.row === this.end.row &&
@@ -1099,12 +1192,15 @@ r.implement(this, i),
     this.getDocument = function() { return this.document },
     this.onChange = function(e) {
       var t = e.data, n = t.range;
-      if (n.start.row == n.end.row && n.start.row != this.row)
+      if (n.start.row == n.end.row && n.start.row != this.row) {
         return;
-      if (n.start.row > this.row)
+      }
+      if (n.start.row > this.row) {
         return;
-      if (n.start.row == this.row && n.start.column > this.column)
+      }
+      if (n.start.row == this.row && n.start.column > this.column) {
         return;
+      }
       var r = this.row, i = this.column;
       t.action === "insertText"
           ? n.start.row === r &&n.start.column <= i
@@ -1137,8 +1233,9 @@ r.implement(this, i),
     }, this.setPosition = function(e, t, n) {
       var r;
       n ? r = {row : e, column : t} : r = this.$clipPositionToDocument(e, t);
-      if (this.row == r.row && this.column == r.column)
+      if (this.row == r.row && this.column == r.column) {
         return;
+      }
       var i = {row : this.row, column : this.column};
       this.row = r.row, this.column = r.column,
       this._emit("change", {old : i, value : r})
@@ -1188,22 +1285,25 @@ e
   fire : function(e) {
     typeof e == "string" && (e = {type : e}),
         typeof e.target != "undefined" && (e.target = this);
-    if (typeof e.type == "undefined")
+    if (typeof e.type == "undefined") {
       throw new Error("Event object missing 'type' property.");
+    }
     if (this._listeners[e.type]) {
       var t = this._listeners[e.type].concat();
-      for (var n = 0, r = t.length; n < r; n++)
+      for (var n = 0, r = t.length; n < r; n++) {
         t[n].call(this, e)
     }
+      }
   },
   removeListener : function(e, t) {
     if (this._listeners[e]) {
       var n = this._listeners[e];
-      for (var r = 0, i = n.length; r < i; r++)
+      for (var r = 0, i = n.length; r < i; r++) {
         if (n[r] === t) {
           n.splice(r, 1);
           break
         }
+      }
     }
   }
 },
@@ -1244,17 +1344,19 @@ e
        var t = "", n;
        while (t.length < e.length || t.lastIndexOf(e) != t.length - e.length) {
          n = this.read();
-         if (!n)
+         if (!n) {
            throw new Error('Expected "' + e + '" at line ' + this._line +
                            ", col " + this._col + ".");
+         }
          t += n
        }
        return t
      },
      readWhile : function(e) {
        var t = "", n = this.read();
-       while (n !== null && e(n))
+       while (n !== null && e(n)) {
          t += n, n = this.read();
+       }
        return t
      },
      readMatch : function(e) {
@@ -1267,8 +1369,9 @@ e
      },
      readCount : function(e) {
        var t = "";
-       while (e--)
+       while (e--) {
          t += this.read();
+       }
        return t
      }
    },
@@ -1283,8 +1386,9 @@ e
        function(e) {
      var t = [], n = {}, r = e.concat([]), i = 0, s = r.length + 1;
      r.UNKNOWN = -1, r.unshift({name : "EOF"});
-     for (; i < s; i++)
+     for (; i < s; i++) {
        t.push(r[i].name), r[r[i].name] = i, r[i].text && (n[r[i].text] = i);
+     }
      return r.name = function(e) { return t[e] },
             r.type = function(e) { return n[e] }, r
    },
@@ -1293,39 +1397,47 @@ e
      match : function(e, t) {
        e instanceof Array || (e = [ e ]);
        var n = this.get(t), r = 0, i = e.length;
-       while (r < i)
-         if (n == e[r++])
+       while (r < i) {
+         if (n == e[r++]) {
            return !0;
+         }
+       }
        return this.unget(), !1
      },
      mustMatch : function(e, t) {
        var r;
        e instanceof Array || (e = [ e ]);
-       if (!this.match.apply(this, arguments))
+       if (!this.match.apply(this, arguments)) {
          throw r = this.LT(1),
                new n("Expected " + this._tokenData[e[0]].name + " at line " +
                          r.startLine + ", col " + r.startCol + ".",
                      r.startLine, r.startCol)
-     },
+     }
+       },
      advance : function(e, t) {
-       while (this.LA(0) !== 0 && !this.match(e, t))
+       while (this.LA(0) !== 0 && !this.match(e, t)) {
          this.get();
+       }
        return this.LA(0)
      },
      get : function(e) {
        var t = this._tokenData, n = this._reader, r, i = 0, s = t.length,
            o = !1, u, a;
-       if (this._lt.length && this._ltIndex >= 0 &&
-           this._ltIndex < this._lt.length) {
+       if (this._lt.length && this._ltIndex >= 0 
+           && this._ltIndex < this._lt.length
+       ) {
          i++, this._token = this._lt[this._ltIndex++], a = t[this._token.type];
          while (a.channel !== undefined && e !== a.channel &&
-                this._ltIndex < this._lt.length)
+                this._ltIndex < this._lt.length) {
            this._token = this._lt[this._ltIndex++], a = t[this._token.type],
            i++;
-         if ((a.channel === undefined || e === a.channel) &&
-             this._ltIndex <= this._lt.length)
+         }
+         if ((a.channel === undefined || e === a.channel) 
+             && this._ltIndex <= this._lt.length
+         ) {
            return this._ltIndexCache.push(i), this._token.type
        }
+         }
        return u = this._getToken(),
               u.type > -1 && !t[u.type].hide &&
                   (u.channel = t[u.type].channel, this._token = u,
@@ -1342,18 +1454,22 @@ e
      LA : function(e) {
        var t = e, n;
        if (e > 0) {
-         if (e > 5)
+         if (e > 5) {
            throw new Error("Too much lookahead.");
-         while (t)
+         }
+         while (t) {
            n = this.get(), t--;
-         while (t < e)
+         }
+         while (t < e) {
            this.unget(), t++
-       } else if (e < 0) {
-         if (!this._lt[this._ltIndex + e])
+       } } else if (e < 0) {
+         if (!this._lt[this._ltIndex + e]) {
            throw new Error("Too much lookbehind.");
+         }
          n = this._lt[this._ltIndex + e].type
-       } else
+       } else {
          n = this._token.type;
+       }
        return n
      },
      LT : function(e) { return this.LA(e), this._lt[this._ltIndex + e - 1] },
@@ -1365,8 +1481,9 @@ e
      },
      tokenType : function(e) { return this._tokenData[e] || -1 },
      unget : function() {
-       if (!this._ltIndexCache.length)
+       if (!this._ltIndexCache.length) {
          throw new Error("Too much lookahead.");
+       }
        this._ltIndex -= this._ltIndexCache.pop(),
            this._token = this._lt[this._ltIndex - 1]
      }
@@ -1449,7 +1566,7 @@ function PropertyValuePart(text, line, col) {
     case "dpcm":
       this.type = "resolution"
     }
-  } else
+  } else {
     /^([+\-]?[\d\.]+)%$/i.test(text)
         ? (this.type = "percentage", this.value = +RegExp.$1)
         : /^([+\-]?[\d\.]+)%$/i.test(text) ? (this.type = "percentage",
@@ -1633,6 +1750,7 @@ function PropertyValuePart(text, line, col) {
                                                                                                                                                                   this.value =
                                                                                                                                                                       text)
 }
+  }
 function Selector(e, t, n) {
   SyntaxUnit.call(this, e.join(" "), t, n, Parser.SELECTOR_TYPE),
       this.parts = e, this.specificity = Specificity.calculate(this)
@@ -1662,8 +1780,9 @@ function isIdentStart(e) {
   return e !== null && (isNameStart(e) || /\-\\/.test(e))
 }
 function mix(e, t) {
-  for (var n in t)
+  for (var n in t) {
     t.hasOwnProperty(n) && (e[n] = t[n]);
+  }
   return e
 }
 function TokenStream(e) { TokenStreamBase.call(this, e, Tokens) }
@@ -1842,10 +1961,12 @@ Combinator.prototype = new SyntaxUnit,
         _stylesheet : function() {
           var e = this._tokenStream, t = null, n, r, i;
           this.fire("startstylesheet"), this._charset(), this._skipCruft();
-          while (e.peek() == Tokens.IMPORT_SYM)
+          while (e.peek() == Tokens.IMPORT_SYM) {
             this._import(), this._skipCruft();
-          while (e.peek() == Tokens.NAMESPACE_SYM)
+          }
+          while (e.peek() == Tokens.NAMESPACE_SYM) {
             this._namespace(), this._skipCruft();
+          }
           i = e.peek();
           while (i > Tokens.EOF) {
             try {
@@ -1864,9 +1985,10 @@ Combinator.prototype = new SyntaxUnit,
                 break;
               case Tokens.UNKNOWN_SYM:
                 e.get();
-                if (!!this.options.strict)
+                if (!!this.options.strict) {
                   throw new SyntaxError("Unknown @ rule.", e.LT(0).startLine,
                                         e.LT(0).startCol);
+                }
                 this.fire({
                   type : "error",
                   error : null,
@@ -1876,16 +1998,18 @@ Combinator.prototype = new SyntaxUnit,
                 }),
                     n = 0;
                 while (e.advance([ Tokens.LBRACE, Tokens.RBRACE ]) ==
-                       Tokens.LBRACE)
+                       Tokens.LBRACE) {
                   n++;
-                while (n)
+                }
+                while (n) {
                   e.advance([ Tokens.RBRACE ]), n--;
+                }
                 break;
               case Tokens.S:
                 this._readWhitespace();
                 break;
               default:
-                if (!this._ruleset())
+                if (!this._ruleset()) {
                   switch (i) {
                   case Tokens.CHARSET_SYM:
                     throw r = e.LT(1), this._charset(!1),
@@ -1902,10 +2026,12 @@ Combinator.prototype = new SyntaxUnit,
                   default:
                     e.get(), this._unexpectedToken(e.token())
                   }
+                }
               }
             } catch (s) {
-              if (!(s instanceof SyntaxError && !this.options.strict))
+              if (!(s instanceof SyntaxError && !this.options.strict)) {
                 throw s;
+              }
               this.fire({
                 type : "error",
                 error : s,
@@ -1974,10 +2100,11 @@ Combinator.prototype = new SyntaxUnit,
               e.mustMatch(Tokens.LBRACE), this._readWhitespace(),
               this.fire({type : "startmedia", media : r, line : t, col : n});
           for (;;)
-            if (e.peek() == Tokens.PAGE_SYM)
+            if (e.peek() == Tokens.PAGE_SYM) {
               this._page();
-            else if (!this._ruleset())
+            } else if (!this._ruleset()) {
               break;
+            }
           e.mustMatch(Tokens.RBRACE), this._readWhitespace(),
               this.fire({type : "endmedia", media : r, line : t, col : n})
         },
@@ -1986,8 +2113,9 @@ Combinator.prototype = new SyntaxUnit,
           this._readWhitespace(),
               (e.peek() == Tokens.IDENT || e.peek() == Tokens.LPAREN) &&
                   t.push(this._media_query());
-          while (e.match(Tokens.COMMA))
+          while (e.match(Tokens.COMMA)) {
             this._readWhitespace(), t.push(this._media_query());
+          }
           return t
         },
         _media_query : function() {
@@ -2002,13 +2130,15 @@ Combinator.prototype = new SyntaxUnit,
                   : e.peek() == Tokens.LPAREN &&
                         (r === null && (r = e.LT(1)),
                          i.push(this._media_expression()));
-          if (t === null && i.length === 0)
+          if (t === null && i.length === 0) {
             return null;
+          }
           this._readWhitespace();
-          while (e.match(Tokens.IDENT))
+          while (e.match(Tokens.IDENT)) {
             e.token().value.toLowerCase() != "and" &&
                 this._unexpectedToken(e.token()),
                 this._readWhitespace(), i.push(this._media_expression());
+          }
           return new MediaQuery(n, t, i, r.startLine, r.startCol)
         },
         _media_type : function() { return this._media_feature() },
@@ -2134,8 +2264,9 @@ Combinator.prototype = new SyntaxUnit,
                 col : r.col
               }),
                   t = e.advance([ Tokens.RBRACE ]);
-              if (t != Tokens.RBRACE)
+              if (t != Tokens.RBRACE) {
                 throw r;
+              }
               return !0
             }
             throw r
@@ -2159,28 +2290,31 @@ Combinator.prototype = new SyntaxUnit,
           n = this._selector();
           if (n !== null) {
             t.push(n);
-            while (e.match(Tokens.COMMA))
+            while (e.match(Tokens.COMMA)) {
               this._readWhitespace(),
                   n = this._selector(),
                   n !== null ? t.push(n) : this._unexpectedToken(e.LT(1))
           }
+            }
           return t.length ? t : null
         },
         _selector : function() {
           var e = this._tokenStream, t = [], n = null, r = null, i = null;
           n = this._simple_selector_sequence();
-          if (n === null)
+          if (n === null) {
             return null;
+          }
           t.push(n);
           do {
             r = this._combinator();
-            if (r !== null)
+            if (r !== null) {
               t.push(r),
                   n = this._simple_selector_sequence(),
                   n === null ? this._unexpectedToken(e.LT(1)) : t.push(n);
-            else {
-              if (!this._readWhitespace())
+            } else {
+              if (!this._readWhitespace()) {
                 break;
+              }
               i = new Combinator(e.token().value, e.token().startLine,
                                  e.token().startCol),
               r = this._combinator(), n = this._simple_selector_sequence(),
@@ -2208,13 +2342,16 @@ Combinator.prototype = new SyntaxUnit,
           t = this._type_selector(), t || (t = this._universal()),
           t !== null && (r += t);
           for (;;) {
-            if (e.peek() === Tokens.S)
+            if (e.peek() === Tokens.S) {
               break;
-            while (s < o && u === null)
+            }
+            while (s < o && u === null) {
               u = i[s++].call(this);
+            }
             if (u === null) {
-              if (r === "")
+              if (r === "") {
                 return null;
+              }
               break
             }
             s = 0, n.push(u), r += u.toString(), u = null
@@ -2245,9 +2382,10 @@ Combinator.prototype = new SyntaxUnit,
         },
         _namespace_prefix : function() {
           var e = this._tokenStream, t = "";
-          if (e.LA(1) === Tokens.PIPE || e.LA(2) === Tokens.PIPE)
+          if (e.LA(1) === Tokens.PIPE || e.LA(2) === Tokens.PIPE) {
             e.match([ Tokens.IDENT, Tokens.STAR ]) && (t += e.token().value),
                 e.mustMatch(Tokens.PIPE), t += "|";
+          }
           return t.length ? t : null
         },
         _universal : function() {
@@ -2303,8 +2441,9 @@ Combinator.prototype = new SyntaxUnit,
             Tokens.PLUS, Tokens.MINUS, Tokens.DIMENSION, Tokens.NUMBER,
             Tokens.STRING, Tokens.IDENT, Tokens.LENGTH, Tokens.FREQ,
             Tokens.ANGLE, Tokens.TIME, Tokens.RESOLUTION
-          ]))
+          ])) {
             t += e.token().value, t += this._readWhitespace();
+          }
           return t.length ? t : null
         },
         _negation : function() {
@@ -2334,8 +2473,9 @@ Combinator.prototype = new SyntaxUnit,
                   ],
               n = null, r = 0, i = t.length, s, o, u, a;
           o = e.LT(1).startLine, u = e.LT(1).startCol;
-          while (r < i && n === null)
+          while (r < i && n === null) {
             n = t[r].call(this), r++;
+          }
           return n === null && this._unexpectedToken(e.LT(1)),
                  n.type == "elementName"
                      ? a = new SelectorPart(n, [], n.toString(), o, u)
@@ -2351,9 +2491,11 @@ Combinator.prototype = new SyntaxUnit,
                 n = this._expr(),
                 (!n || n.length === 0) && this._unexpectedToken(e.LT(1)),
                 r = this._prio(), o = t.toString();
-            if (this.options.starHack && t.hack == "*" ||
-                this.options.underscoreHack && t.hack == "_")
+            if (this.options.starHack && t.hack == "*" 
+                || this.options.underscoreHack && t.hack == "_"
+            ) {
               o = t.text;
+            }
             try {
               this._validateProperty(o, n)
             } catch (u) {
@@ -2383,10 +2525,11 @@ Combinator.prototype = new SyntaxUnit,
             t.push(n);
             do {
               r = this._operator(), r && t.push(r), n = this._term();
-              if (n === null)
+              if (n === null) {
                 break;
+              }
               t.push(n)
-            } while (!0)
+            } while (!0) {
           }
           return t.length > 0 ? new PropertyValue(t, t[0].line, t[0].col) : null
         },
@@ -2429,7 +2572,7 @@ Combinator.prototype = new SyntaxUnit,
           if (e.match(Tokens.FUNCTION)) {
             t = e.token().value, this._readWhitespace(), n = this._expr(),
             t += n;
-            if (this.options.ieFilters && e.peek() == Tokens.EQUALS)
+            if (this.options.ieFilters && e.peek() == Tokens.EQUALS) {
               do {
                 this._readWhitespace() && (t += e.token().value),
                     e.LA(0) == Tokens.COMMA && (t += e.token().value),
@@ -2438,6 +2581,7 @@ Combinator.prototype = new SyntaxUnit,
                 while (r != Tokens.COMMA && r != Tokens.S && r != Tokens.RPAREN)
                   e.get(), t += e.token().value, r = e.peek()
               } while (e.match([ Tokens.COMMA, Tokens.S ]));
+            }
             e.match(Tokens.RPAREN), t += ")", this._readWhitespace()
           }
           return t
@@ -2462,11 +2606,12 @@ Combinator.prototype = new SyntaxUnit,
           var e = this._tokenStream, t = null, n;
           if (e.match(Tokens.HASH)) {
             t = e.token(), n = t.value;
-            if (!/#[a-f0-9]{3,6}/i.test(n))
+            if (!/#[a-f0-9]{3,6}/i.test(n)) {
               throw new SyntaxError("Expected a hex color but found '" + n +
                                         "' at line " + t.startLine + ", col " +
                                         t.startCol + ".",
                                     t.startLine, t.startCol);
+            }
             this._readWhitespace()
           }
           return t
@@ -2484,8 +2629,9 @@ Combinator.prototype = new SyntaxUnit,
                 col : t.startCol
               }),
               this._readWhitespace(), n = e.peek();
-          while (n == Tokens.IDENT || n == Tokens.PERCENTAGE)
+          while (n == Tokens.IDENT || n == Tokens.PERCENTAGE) {
             this._keyframe_rule(), this._readWhitespace(), n = e.peek();
+          }
           this.fire({
             type : "endkeyframes",
             name : r,
@@ -2518,18 +2664,21 @@ Combinator.prototype = new SyntaxUnit,
         _key_list : function() {
           var e = this._tokenStream, t, n, r = [];
           r.push(this._key()), this._readWhitespace();
-          while (e.match(Tokens.COMMA))
+          while (e.match(Tokens.COMMA)) {
             this._readWhitespace(), r.push(this._key()), this._readWhitespace();
+          }
           return r
         },
         _key : function() {
           var e = this._tokenStream, t;
-          if (e.match(Tokens.PERCENTAGE))
+          if (e.match(Tokens.PERCENTAGE)) {
             return SyntaxUnit.fromToken(e.token());
+          }
           if (e.match(Tokens.IDENT)) {
             t = e.token();
-            if (/from|to/i.test(t.value))
+            if (/from|to/i.test(t.value)) {
               return SyntaxUnit.fromToken(t);
+            }
             e.unget()
           }
           this._unexpectedToken(e.LT(1))
@@ -2545,17 +2694,20 @@ Combinator.prototype = new SyntaxUnit,
           try {
             for (;;) {
               if (!(n.match(Tokens.SEMICOLON) || t && this._margin())) {
-                if (!this._declaration())
+                if (!this._declaration()) {
                   break;
-                if (!n.match(Tokens.SEMICOLON))
+                }
+                if (!n.match(Tokens.SEMICOLON)) {
                   break
               }
+                }
               this._readWhitespace()
             }
             n.mustMatch(Tokens.RBRACE), this._readWhitespace()
           } catch (i) {
-            if (!(i instanceof SyntaxError && !this.options.strict))
+            if (!(i instanceof SyntaxError && !this.options.strict)) {
               throw i;
+            }
             this.fire({
               type : "error",
               error : i,
@@ -2564,16 +2716,18 @@ Combinator.prototype = new SyntaxUnit,
               col : i.col
             }),
                 r = n.advance([ Tokens.SEMICOLON, Tokens.RBRACE ]);
-            if (r == Tokens.SEMICOLON)
+            if (r == Tokens.SEMICOLON) {
               this._readDeclarations(!1, t);
-            else if (r != Tokens.RBRACE)
+            } else if (r != Tokens.RBRACE) {
               throw i
           }
+            }
         },
         _readWhitespace : function() {
           var e = this._tokenStream, t = "";
-          while (e.match(Tokens.S))
+          while (e.match(Tokens.S)) {
             t += e.token().value;
+          }
           return t
         },
         _unexpectedToken : function(e) {
@@ -2618,8 +2772,9 @@ Combinator.prototype = new SyntaxUnit,
                     this._readDeclarations()
         }
       };
-      for (t in n)
+      for (t in n) {
         n.hasOwnProperty(t) && (e[t] = n[t]);
+      }
       return e
     }();
 var Properties = {
@@ -2671,7 +2826,7 @@ var Properties = {
         (ValidationTypes.isAny(e, "behind") && (r = !0, i = !0),
          ValidationTypes.isAny(e, n) &&
              (i = !0, r || ValidationTypes.isAny(e, "behind")));
-    if (e.hasNext())
+    if (e.hasNext()) {
       throw s = e.next(),
             i ? new ValidationError("Expected end of value but found '" + s +
                                         "'.",
@@ -2679,7 +2834,8 @@ var Properties = {
               : new ValidationError("Expected (<'azimuth'>) but found '" + s +
                                         "'.",
                                     s.line, s.col)
-  },
+  }
+    },
   "backface-visibility" : "visible | hidden",
   background : 1,
   "background-attachment" : {multi : "<attachment>", comma : !0},
@@ -2715,12 +2871,13 @@ var Properties = {
     ValidationTypes.isAny(e, "fill") && (r = !0, t = !0);
     while (e.hasNext() && i < s) {
       t = ValidationTypes.isAny(e, n);
-      if (!t)
+      if (!t) {
         break;
+      }
       i++
     }
     r ? t = !0 : ValidationTypes.isAny(e, "fill");
-    if (e.hasNext())
+    if (e.hasNext()) {
       throw o = e.next(),
             t ? new ValidationError("Expected end of value but found '" + o +
                                         "'.",
@@ -2729,7 +2886,8 @@ var Properties = {
                     "Expected ([<number> | <percentage>]{1,4} && fill?) but found '" +
                         o + "'.",
                     o.line, o.col)
-  },
+  }
+    },
   "border-image-source" : "<image> | none",
   "border-image-width" :
       {multi : "<length> | <percentage> | <number> | auto", max : 4},
@@ -2742,13 +2900,14 @@ var Properties = {
     while (e.hasNext() && s < o) {
       t = ValidationTypes.isAny(e, n);
       if (!t) {
-        if (!(e.peek() == "/" && s > 1 && !r))
+        if (!(e.peek() == "/" && s > 1 && !r)) {
           break;
+        }
         r = !0, o = s + 5, e.next()
       }
       s++
     }
-    if (e.hasNext())
+    if (e.hasNext()) {
       throw u = e.next(),
             t ? new ValidationError("Expected end of value but found '" + u +
                                         "'.",
@@ -2756,7 +2915,8 @@ var Properties = {
               : new ValidationError("Expected (<'border-radius'>) but found '" +
                                         u + "'.",
                                     u.line, u.col)
-  },
+  }
+    },
   "border-right" : "<border-width> || <border-style> || <color>",
   "border-right-color" : "<color> | inherit",
   "border-right-style" : "<border-style>",
@@ -2782,13 +2942,14 @@ var Properties = {
   "box-pack" : "start | end | center | justify",
   "box-shadow" : function(e) {
     var t = !1, n;
-    if (!ValidationTypes.isAny(e, "none"))
+    if (!ValidationTypes.isAny(e, "none")) {
       Validation.multiProperty("<shadow>", e, !0, Infinity);
-    else if (e.hasNext())
+    } else if (e.hasNext()) {
       throw n = e.next(),
             new ValidationError("Expected end of value but found '" + n + "'.",
                                 n.line, n.col)
-  },
+  }
+    },
   "box-sizing" : "content-box | border-box | inherit",
   "break-after" :
       "auto | always | avoid | left | right | page | column | avoid-page | avoid-column",
@@ -3071,11 +3232,13 @@ Pseudos.ELEMENT = 1,
    compare : function(e) {
      var t = [ "a", "b", "c", "d" ], n, r;
      for (n = 0, r = t.length; n < r; n++) {
-       if (this[t[n]] < e[t[n]])
+       if (this[t[n]] < e[t[n]]) {
          return -1;
-       if (this[t[n]] > e[t[n]])
+       }
+       if (this[t[n]] > e[t[n]]) {
          return 1
      }
+       }
      return 0
    },
    valueOf :
@@ -3101,14 +3264,16 @@ Pseudos.ELEMENT = 1,
          Pseudos.isElement(l.text) ? u++ : o++;
          break;
        case "not":
-         for (r = 0, a = l.args.length; r < a; r++)
+         for (r = 0, a = l.args.length; r < a; r++) {
            t(l.args[r])
        }
+         }
      }
    }
    var n, r, i, s = 0, o = 0, u = 0;
-   for (n = 0, r = e.parts.length; n < r; n++)
+   for (n = 0, r = e.parts.length; n < r; n++) {
      i = e.parts[n], i instanceof SelectorPart && t(i);
+   }
    return new Specificity(0, s, o, u)
  };
 var h = /^[0-9a-fA-F]$/, nonascii = /^[\u0080-\uFFFF]$/, nl = /\n|\r\n|\r|\f/;
@@ -3188,9 +3353,10 @@ TokenStream.prototype = mix(new TokenStreamBase, {
   atRuleToken : function(e, t, n) {
     var r = e, i = this._reader, s = Tokens.CHAR, o = !1, u, a;
     i.mark(), u = this.readName(), r = e + u, s = Tokens.type(r.toLowerCase());
-    if (s == Tokens.CHAR || s == Tokens.UNKNOWN)
+    if (s == Tokens.CHAR || s == Tokens.UNKNOWN) {
       r.length > 1 ? s = Tokens.UNKNOWN_SYM
                    : (s = Tokens.CHAR, r = e, i.reset());
+    }
     return this.createToken(s, r, t, n)
   },
   charToken : function(e, t, n) {
@@ -3238,12 +3404,13 @@ TokenStream.prototype = mix(new TokenStreamBase, {
     r.mark(), u = r.read();
     while (u) {
       if (u == "/") {
-        if (r.peek() != "*")
+        if (r.peek() != "*") {
           break;
+        }
         o = this.readComment(u);
-        if (o === "")
+        if (o === "") {
           break
-      } else {
+      } } else {
         if (!isWhitespace(u)) {
           if (/i/i.test(u)) {
             o = r.readCount(8),
@@ -3289,8 +3456,9 @@ TokenStream.prototype = mix(new TokenStreamBase, {
     var r = e, i = e, s = this._reader, o = e, u = Tokens.STRING, a = s.read();
     while (a) {
       i += a;
-      if (a == r && o != "\\")
+      if (a == r && o != "\\") {
         break;
+      }
       if (isNewLine(s.peek()) && a != "\\") {
         u = Tokens.INVALID;
         break
@@ -3317,29 +3485,35 @@ TokenStream.prototype = mix(new TokenStreamBase, {
   },
   readUnicodeRangePart : function(e) {
     var t = this._reader, n = "", r = t.peek();
-    while (isHexDigit(r) && n.length < 6)
+    while (isHexDigit(r) && n.length < 6) {
       t.read(), n += r, r = t.peek();
-    if (e)
-      while (r == "?" && n.length < 6)
+    }
+    if (e) {
+      while (r == "?" && n.length < 6) {
         t.read(), n += r, r = t.peek();
+      }
+    }
     return n
   },
   readWhitespace : function() {
     var e = this._reader, t = "", n = e.peek();
-    while (isWhitespace(n))
+    while (isWhitespace(n)) {
       e.read(), t += n, n = e.peek();
+    }
     return t
   },
   readNumber : function(e) {
     var t = this._reader, n = e, r = e == ".", i = t.peek();
     while (i) {
-      if (isDigit(i))
+      if (isDigit(i)) {
         n += t.read();
-      else {
-        if (i != ".")
+      } else {
+        if (i != ".") {
           break;
-        if (r)
+        }
+        if (r) {
           break;
+        }
         r = !0, n += t.read()
       }
       i = t.peek()
@@ -3350,8 +3524,9 @@ TokenStream.prototype = mix(new TokenStreamBase, {
     var e = this._reader, t = e.read(), n = t, r = t, i = e.peek();
     while (i) {
       i = e.read(), n += i;
-      if (i == t && r != "\\")
+      if (i == t && r != "\\") {
         break;
+      }
       if (isNewLine(e.peek()) && i != "\\") {
         n = "";
         break
@@ -3363,38 +3538,45 @@ TokenStream.prototype = mix(new TokenStreamBase, {
   readURI : function(e) {
     var t = this._reader, n = e, r = "", i = t.peek();
     t.mark();
-    while (i && isWhitespace(i))
+    while (i && isWhitespace(i)) {
       t.read(), i = t.peek();
+    }
     i == "'" || i == '"' ? r = this.readString() : r = this.readURL(),
                            i = t.peek();
-    while (i && isWhitespace(i))
+    while (i && isWhitespace(i)) {
       t.read(), i = t.peek();
+    }
     return r === "" || i != ")" ? (n = e, t.reset()) : n += r + t.read(), n
   },
   readURL : function() {
     var e = this._reader, t = "", n = e.peek();
-    while (/^[!#$%&\\*-~]$/.test(n))
+    while (/^[!#$%&\\*-~]$/.test(n)) {
       t += e.read(), n = e.peek();
+    }
     return t
   },
   readName : function(e) {
     var t = this._reader, n = e || "", r = t.peek();
-    for (;;)
-      if (r == "\\")
+    for (;;) {
+      if (r == "\\") {
         n += this.readEscape(t.read()), r = t.peek();
-      else {
-        if (!r || !isNameChar(r))
+      } else {
+        if (!r || !isNameChar(r)) {
           break;
+        }
         n += t.read(), r = t.peek()
       }
+    }
     return n
   },
   readEscape : function(e) {
     var t = this._reader, n = e || "", r = 0, i = t.peek();
-    if (isHexDigit(i))
-      do
+    if (isHexDigit(i)) {
+      do {
         n += t.read(), i = t.peek();
+      }
       while (i && isHexDigit(i) && ++r < 6);
+    }
     return n.length == 3 && /\s/.test(i) || n.length == 7 || n.length == 1
                ? t.read()
                : i = "",
@@ -3498,13 +3680,15 @@ var e = [], t = {};
 Tokens.UNKNOWN = -1, Tokens.unshift({name : "EOF"});
 for (var n = 0, r = Tokens.length; n < r; n++) {
   e.push(Tokens[n].name), Tokens[Tokens[n].name] = n;
-  if (Tokens[n].text)
-    if (Tokens[n].text instanceof Array)
-      for (var i = 0; i < Tokens[n].text.length; i++)
+  if (Tokens[n].text) {
+    if (Tokens[n].text instanceof Array) {
+      for (var i = 0; i < Tokens[n].text.length; i++) {
         t[Tokens[n].text[i]] = n;
-    else
+    } } else {
       t[Tokens[n].text] = n
 }
+  }
+    }
 Tokens.name = function(t) { return e[t] },
     Tokens.type = function(e) { return t[e] || -1 }
 })();
@@ -3514,10 +3698,10 @@ var Validation = {
         i = new PropertyValueIterator(t), s = Properties[n], o, u, a, f, l, c,
         h, p, d, v, m;
     if (!s) {
-      if (n.indexOf("-") !== 0)
+      if (n.indexOf("-") !== 0) {
         throw new ValidationError("Unknown property '" + e + "'.", e.line,
                                   e.col)
-    } else
+    } } else {
       typeof s != "number" &&
           (typeof s == "string"
                ? s.indexOf("||") > -1 ? this.groupProperty(s, i)
@@ -3525,42 +3709,48 @@ var Validation = {
                : s.multi ? this.multiProperty(s.multi, i, s.comma,
                                               s.max || Infinity)
                          : typeof s == "function" && s(i))
-  },
+  }
+    },
   singleProperty : function(e, t, n, r) {
     var i = !1, s = t.value, o = 0, u;
     while (t.hasNext() && o < n) {
       i = ValidationTypes.isAny(t, e);
-      if (!i)
+      if (!i) {
         break;
+      }
       o++
     }
-    if (!i)
+    if (!i) {
       throw t.hasNext() && !t.isFirst()
           ? (u = t.peek(),
              new ValidationError("Expected end of value but found '" + u + "'.",
                                  u.line, u.col))
           : new ValidationError("Expected (" + e + ") but found '" + s + "'.",
                                 s.line, s.col);
-    if (t.hasNext())
+    }
+    if (t.hasNext()) {
       throw u = t.next(),
             new ValidationError("Expected end of value but found '" + u + "'.",
                                 u.line, u.col)
-  },
+  }
+    },
   multiProperty : function(e, t, n, r) {
     var i = !1, s = t.value, o = 0, u = !1, a;
     while (t.hasNext() && !i && o < r) {
-      if (!ValidationTypes.isAny(t, e))
+      if (!ValidationTypes.isAny(t, e)) {
         break;
+      }
       o++;
-      if (!t.hasNext())
+      if (!t.hasNext()) {
         i = !0;
-      else if (n) {
-        if (t.peek() != ",")
+      } else if (n) {
+        if (t.peek() != ",") {
           break;
+        }
         a = t.next()
       }
     }
-    if (!i)
+    if (!i) {
       throw t.hasNext() && !t.isFirst()
           ? (a = t.peek(),
              new ValidationError("Expected end of value but found '" + a + "'.",
@@ -3572,57 +3762,67 @@ var Validation = {
                            : new ValidationError("Expected (" + e +
                                                      ") but found '" + s + "'.",
                                                  s.line, s.col));
-    if (t.hasNext())
+    }
+    if (t.hasNext()) {
       throw a = t.next(),
             new ValidationError("Expected end of value but found '" + a + "'.",
                                 a.line, a.col)
-  },
+  }
+    },
   groupProperty : function(e, t, n) {
     var r = !1, i = t.value, s = e.split("||").length, o = {count : 0}, u = !1,
         a, f;
     while (t.hasNext() && !r) {
       a = ValidationTypes.isAnyOfGroup(t, e);
-      if (!a)
+      if (!a) {
         break;
-      if (o[a])
+      }
+      if (o[a]) {
         break;
+      }
       o[a] = 1, o.count++, u = !0;
-      if (o.count == s || !t.hasNext())
+      if (o.count == s || !t.hasNext()) {
         r = !0
     }
-    if (!r)
+      }
+    if (!r) {
       throw u && t.hasNext()
           ? (f = t.peek(),
              new ValidationError("Expected end of value but found '" + f + "'.",
                                  f.line, f.col))
           : new ValidationError("Expected (" + e + ") but found '" + i + "'.",
                                 i.line, i.col);
-    if (t.hasNext())
+    }
+    if (t.hasNext()) {
       throw f = t.next(),
             new ValidationError("Expected end of value but found '" + f + "'.",
                                 f.line, f.col)
   }
+    }
 };
 ValidationError.prototype = new Error;
 var ValidationTypes = {
   isLiteral : function(e, t) {
     var n = e.text.toString().toLowerCase(), r = t.split(" | "), i, s, o = !1;
-    for (i = 0, s = r.length; i < s && !o; i++)
+    for (i = 0, s = r.length; i < s && !o; i++) {
       n == r[i].toLowerCase() && (o = !0);
+    }
     return o
   },
   isSimple : function(e) { return !!this.simple[e] },
   isComplex : function(e) { return !!this.complex[e] },
   isAny : function(e, t) {
     var n = t.split(" | "), r, i, s = !1;
-    for (r = 0, i = n.length; r < i && !s && e.hasNext(); r++)
+    for (r = 0, i = n.length; r < i && !s && e.hasNext(); r++) {
       s = this.isType(e, n[r]);
+    }
     return s
   },
   isAnyOfGroup : function(e, t) {
     var n = t.split(" || "), r, i, s = !1;
-    for (r = 0, i = n.length; r < i && !s; r++)
+    for (r = 0, i = n.length; r < i && !s; r++) {
       s = this.isType(e, n[r]);
+    }
     return s ? n[r - 1] : !1
   },
   isType : function(e, t) {
@@ -3735,8 +3935,9 @@ var ValidationTypes = {
       if (e.hasNext()) {
         ValidationTypes.isAny(e, "inset") && (r = !0),
             ValidationTypes.isAny(e, "<color>") && (i = !0);
-        while (ValidationTypes.isAny(e, "<length>") && n < 4)
+        while (ValidationTypes.isAny(e, "<length>") && n < 4) {
           n++;
+        }
         e.hasNext() && (i || ValidationTypes.isAny(e, "<color>"),
                         r || ValidationTypes.isAny(e, "inset")),
             t = n >= 2 && n <= 4
@@ -3782,8 +3983,9 @@ var CSSLint = function() {
          n.getRuleset =
              function() {
            var t = {}, n = 0, r = e.length;
-           while (n < r)
+           while (n < r) {
              t[e[n++].id] = 1;
+           }
            return t
          },
          n.addFormatter = function(e) { t[e.id] = e },
@@ -3806,8 +4008,9 @@ var CSSLint = function() {
            });
            o = t.replace(/\n\r?/g, "$split$").split("$split$"),
            n || (n = this.getRuleset()), s = new Reporter(o, n), n.errors = 2;
-           for (r in n)
+           for (r in n) {
              n.hasOwnProperty(r) && e[r] && e[r].init(a, s);
+           }
            try {
              a.parse(t)
            } catch (f) {
@@ -3869,24 +4072,30 @@ Reporter.prototype = {
  CSSLint.Util = {
    mix : function(e, t) {
      var n;
-     for (n in t)
+     for (n in t) {
        t.hasOwnProperty(n) && (e[n] = t[n]);
+     }
      return n
    },
    indexOf : function(e, t) {
-     if (e.indexOf)
+     if (e.indexOf) {
        return e.indexOf(t);
-     for (var n = 0, r = e.length; n < r; n++)
-       if (e[n] === t)
+     }
+     for (var n = 0, r = e.length; n < r; n++) {
+       if (e[n] === t) {
          return n;
+       }
+     }
      return -1
    },
    forEach : function(e, t) {
-     if (e.forEach)
+     if (e.forEach) {
        return e.forEach(t);
-     for (var n = 0, r = e.length; n < r; n++)
+     }
+     for (var n = 0, r = e.length; n < r; n++) {
        t(e[n], n, e)
    }
+     }
  },
  CSSLint.addRule({
    id : "adjoining-classes",
@@ -3903,11 +4112,12 @@ Reporter.prototype = {
            o = s.parts[l];
            if (o.type == e.SELECTOR_PART_TYPE) {
              a = 0;
-             for (c = 0; c < o.modifiers.length; c++)
+             for (c = 0; c < o.modifiers.length; c++) {
                u = o.modifiers[c], u.type == "class" && a++,
                a > 1 &&
                    t.report("Don't use adjoining classes.", o.line, o.col, n)
            }
+             }
          }
        }
      })
@@ -3923,8 +4133,8 @@ Reporter.prototype = {
      function r() {
        var e, n;
        if (!a) {
-         if (u.height)
-           for (e in o)
+         if (u.height) {
+           for (e in o) {
              o.hasOwnProperty(e) && u[e] &&
                  (n = u[e].value,
                   (e != "padding" || n.parts.length !== 2 ||
@@ -3933,8 +4143,10 @@ Reporter.prototype = {
                           "Using height with " + e +
                               " can sometimes make elements larger than you expect.",
                           u[e].line, u[e].col, i));
-         if (u.width)
-           for (e in s)
+           }
+         }
+         if (u.width) {
+           for (e in s) {
              s.hasOwnProperty(e) && u[e] &&
                  (n = u[e].value,
                   (e != "padding" || n.parts.length !== 2 ||
@@ -3944,6 +4156,8 @@ Reporter.prototype = {
                               " can sometimes make elements larger than you expect.",
                           u[e].line, u[e].col, i))
        }
+         }
+           }
      }
      var i = this, s = {
        border : 1,
@@ -4070,13 +4284,15 @@ Reporter.prototype = {
        "word-break" : "epub ms",
        "writing-mode" : "epub ms"
      };
-     for (s in r)
+     for (s in r) {
        if (r.hasOwnProperty(s)) {
          o = [], u = r[s].split(" ");
-         for (a = 0, f = u.length; a < f; a++)
+         for (a = 0, f = u.length; a < f; a++) {
            o.push("-" + u[a] + "-" + s);
+         }
          r[s] = o, c.apply(h, o)
        }
+     }
      e.addListener("startrule", function() { i = [] }),
          e.addListener("startkeyframes", function(e) { l = e.prefix || !0 }),
          e.addListener("endkeyframes", function(e) { l = !1 }),
@@ -4087,12 +4303,13 @@ Reporter.prototype = {
                 t.text.indexOf("-" + l + "-") !== 0) &&
                i.push(t)
          }), e.addListener("endrule", function(e) {
-           if (!i.length)
+           if (!i.length) {
              return;
+           }
            var s = {}, o, u, a, f, l, c, h, p, d, v;
            for (o = 0, u = i.length; o < u; o++) {
              a = i[o];
-             for (f in r)
+             for (f in r) {
                r.hasOwnProperty(f) &&
                    (l = r[f],
                     CSSLint.Util.indexOf(l, a.text) > -1 &&
@@ -4105,11 +4322,12 @@ Reporter.prototype = {
                              (s[f].actual.push(a.text),
                               s[f].actualNodes.push(a))))
            }
-           for (f in s)
+             }
+           for (f in s) {
              if (s.hasOwnProperty(f)) {
                c = s[f], h = c.full, p = c.actual;
-               if (h.length > p.length)
-                 for (o = 0, u = h.length; o < u; o++)
+               if (h.length > p.length) {
+                 for (o = 0, u = h.length; o < u; o++) {
                    d = h[o],
                    CSSLint.Util.indexOf(p, d) === -1 &&
                        (v = p.length === 1 ? p[0]
@@ -4120,6 +4338,9 @@ Reporter.prototype = {
                                  c.actualNodes[0].line, c.actualNodes[0].col,
                                  n))
              }
+               }
+                 }
+           }
          })
    }
  }),
@@ -4140,7 +4361,7 @@ Reporter.prototype = {
      }
      function i() {
        var e = u.display ? u.display.value : null;
-       if (e)
+       if (e) {
          switch (e) {
          case "inline":
            n("height", e), n("width", e), n("margin", e), n("margin-top", e),
@@ -4159,6 +4380,7 @@ Reporter.prototype = {
                (n("margin", e), n("margin-left", e), n("margin-right", e),
                 n("margin-top", e), n("margin-bottom", e), n("float", e))
          }
+       }
      }
      var s = this, o = {
        display : 1,
@@ -4205,8 +4427,8 @@ Reporter.prototype = {
      var n = this, r = {};
      e.addListener("property", function(e) {
        var i = e.property.text, s = e.value, o, u;
-       if (i.match(/background/i))
-         for (o = 0, u = s.parts.length; o < u; o++)
+       if (i.match(/background/i)) {
+         for (o = 0, u = s.parts.length; o < u; o++) {
            s.parts[o].type == "uri" &&
                (typeof r[s.parts[o].uri] == "undefined"
                     ? r[s.parts[o].uri] = e
@@ -4216,7 +4438,9 @@ Reporter.prototype = {
                               r[s.parts[o].uri].line + ", col " +
                               r[s.parts[o].uri].col + ".",
                           e.line, e.col, n))
-     })
+     }
+       }
+         })
    }
  }),
  CSSLint.addRule({
@@ -4283,8 +4507,8 @@ Reporter.prototype = {
          e.addListener("property", function(e) {
            var n = e.property, o = n.text.toLowerCase(), u = e.value.parts,
                a = 0, f = "", l = u.length;
-           if (s[o])
-             while (a < l)
+           if (s[o]) {
+             while (a < l) {
                u[a].type == "color" &&
                    ("alpha" in u[a] || "hue" in u[a]
                         ? (/([^\)]+)\(/.test(u[a]) &&
@@ -4297,6 +4521,8 @@ Reporter.prototype = {
                                         e.line, e.col, r))
                         : e.colorType = "compat"),
                    a++;
+             }
+           }
            i = e
          })
    }
@@ -4392,10 +4618,12 @@ Reporter.prototype = {
          s = i[f], a = 0;
          for (l = 0; l < s.parts.length; l++) {
            o = s.parts[l];
-           if (o.type == e.SELECTOR_PART_TYPE)
-             for (c = 0; c < o.modifiers.length; c++)
+           if (o.type == e.SELECTOR_PART_TYPE) {
+             for (c = 0; c < o.modifiers.length; c++) {
                u = o.modifiers[c], u.type == "id" && a++
          }
+           }
+             }
          a == 1 ? t.report("Don't use IDs in selectors.", s.line, s.col, n)
                 : a > 1 && t.report(a + " IDs in the selector, really?", s.line,
                                     s.col, n)
@@ -4507,8 +4735,8 @@ Reporter.prototype = {
          o = s[f];
          for (l = 0; l < o.parts.length; l++) {
            u = o.parts[l];
-           if (u.type == e.SELECTOR_PART_TYPE)
-             for (c = 0; c < u.modifiers.length; c++)
+           if (u.type == e.SELECTOR_PART_TYPE) {
+             for (c = 0; c < u.modifiers.length; c++) {
                a = u.modifiers[c],
                u.elementName && a.type == "id"
                    ? t.report("Element (" + u +
@@ -4518,16 +4746,19 @@ Reporter.prototype = {
                    : a.type == "class" && (r[a] || (r[a] = []),
                                            r[a].push({modifier : a, part : u}))
          }
+           }
+             }
        }
      }), e.addListener("endstylesheet", function() {
        var e;
-       for (e in r)
+       for (e in r) {
          r.hasOwnProperty(e) && r[e].length == 1 && r[e][0].part.elementName &&
              t.report("Element (" + r[e][0].part +
                           ") is overqualified, just use " + r[e][0].modifier +
                           " without element name.",
                       r[e][0].part.line, r[e][0].part.col, n)
-     })
+     }
+       })
    }
  }),
  CSSLint.addRule({
@@ -4541,7 +4772,7 @@ Reporter.prototype = {
        var i = r.selectors, s, o, u, a;
        for (u = 0; u < i.length; u++) {
          s = i[u];
-         for (a = 0; a < s.parts.length; a++)
+         for (a = 0; a < s.parts.length; a++) {
            o = s.parts[a], o.type == e.SELECTOR_PART_TYPE && o.elementName &&
                                /h[1-6]/.test(o.elementName.toString()) &&
                                a > 0 &&
@@ -4549,6 +4780,7 @@ Reporter.prototype = {
                                             ") should not be qualified.",
                                         o.line, o.col, n)
        }
+         }
      })
    }
  }),
@@ -4566,14 +4798,16 @@ Reporter.prototype = {
          s = i[a];
          for (f = 0; f < s.parts.length; f++) {
            o = s.parts[f];
-           if (o.type == e.SELECTOR_PART_TYPE)
-             for (l = 0; l < o.modifiers.length; l++)
+           if (o.type == e.SELECTOR_PART_TYPE) {
+             for (l = 0; l < o.modifiers.length; l++) {
                u = o.modifiers[l], u.type == "attribute" &&
                                        /([\~\|\^\$\*]=)/.test(u) &&
                                        t.report("Attribute selectors with " +
                                                     RegExp.$1 + " are slow!",
                                                 u.line, u.col, n)
          }
+           }
+             }
        }
      })
    }
@@ -4600,15 +4834,17 @@ Reporter.prototype = {
      }
      function r(e) {
        var n, r, s, o;
-       for (n in l)
+       for (n in l) {
          if (l.hasOwnProperty(n)) {
            o = 0;
-           for (r = 0, s = l[n].length; r < s; r++)
+           for (r = 0, s = l[n].length; r < s; r++) {
              o += f[l[n][r]] ? 1 : 0;
+           }
            o == l[n].length && t.report("The properties " + l[n].join(", ") +
                                             " can be replaced by " + n + ".",
                                         e.line, e.col, i)
          }
+       }
      }
      var i = this, s, o, u, a = {}, f, l = {
        margin :
@@ -4616,10 +4852,13 @@ Reporter.prototype = {
        padding :
            [ "padding-top", "padding-bottom", "padding-left", "padding-right" ]
      };
-     for (s in l)
-       if (l.hasOwnProperty(s))
-         for (o = 0, u = l[s].length; o < u; o++)
+     for (s in l) {
+       if (l.hasOwnProperty(s)) {
+         for (o = 0, u = l[s].length; o < u; o++) {
            a[l[s][o]] = s;
+         }
+       }
+     }
      e.addListener("startrule", n), e.addListener("startfontface", n),
          e.addListener("property", function(e) {
            var t = e.property.toString().toLowerCase(),
@@ -4691,11 +4930,12 @@ Reporter.prototype = {
        for (a = 0; a < i.length; a++) {
          s = i[a], o = s.parts[s.parts.length - 1];
          if (o.elementName && /(h[1-6])/i.test(o.elementName.toString())) {
-           for (f = 0; f < o.modifiers.length; f++)
+           for (f = 0; f < o.modifiers.length; f++) {
              if (o.modifiers[f].type == "pseudo") {
                u = !0;
                break
              }
+           }
            u || (r[RegExp.$1]++,
                  r[RegExp.$1] > 1 && t.report("Heading (" + o.elementName +
                                                   ") has already been defined.",
@@ -4704,8 +4944,9 @@ Reporter.prototype = {
        }
      }), e.addListener("endstylesheet", function(e) {
        var i, s = [];
-       for (i in r)
+       for (i in r) {
          r.hasOwnProperty(i) && r[i] > 1 && s.push(r[i] + " " + i + "s");
+       }
        s.length &&
            t.rollupWarn(
                "You have " + s.join(", ") + " defined in this stylesheet.", n)
@@ -4721,10 +4962,11 @@ Reporter.prototype = {
      var n = this;
      e.addListener("startrule", function(e) {
        var r = e.selectors, i, s, o, u, a, f;
-       for (u = 0; u < r.length; u++)
+       for (u = 0; u < r.length; u++) {
          i = r[u], s = i.parts[i.parts.length - 1],
          s.elementName == "*" && t.report(n.desc, s.line, s.col, n)
-     })
+     }
+       })
    }
  }),
  CSSLint.addRule({
@@ -4738,12 +4980,14 @@ Reporter.prototype = {
        var i = r.selectors, s, o, u, a, f, l;
        for (a = 0; a < i.length; a++) {
          s = i[a], o = s.parts[s.parts.length - 1];
-         if (o.type == e.SELECTOR_PART_TYPE)
-           for (l = 0; l < o.modifiers.length; l++)
+         if (o.type == e.SELECTOR_PART_TYPE) {
+           for (l = 0; l < o.modifiers.length; l++) {
              u = o.modifiers[l], u.type == "attribute" &&
                                      (!o.elementName || o.elementName == "*") &&
                                      t.report(n.desc, o.line, o.col, n)
        }
+         }
+           }
      })
    }
  }),
@@ -4757,9 +5001,10 @@ Reporter.prototype = {
      function n() { s = {}, o = 1 }
      function r(e) {
        var n, r, o, a, f, l, c = [];
-       for (n in s)
+       for (n in s) {
          u[n] && c.push({actual : n, needed : u[n]});
-       for (r = 0, o = c.length; r < o; r++)
+       }
+       for (r = 0, o = c.length; r < o; r++) {
          f = c[r].needed, l = c[r].actual,
          s[f] ? s[f][0].pos < s[l][0].pos &&
                     t.report(
@@ -4771,6 +5016,7 @@ Reporter.prototype = {
                              "' to go along with '" + l + "'.",
                          s[l][0].name.line, s[l][0].name.col, i)
      }
+       }
      var i = this, s, o, u = {
        "-webkit-border-radius" : "border-radius",
        "-webkit-border-top-left-radius" : "border-top-left-radius",
@@ -4843,13 +5089,14 @@ Reporter.prototype = {
      var n = this;
      e.addListener("property", function(e) {
        var r = e.value.parts, i = 0, s = r.length;
-       while (i < s)
+       while (i < s) {
          (r[i].units || r[i].type == "percentage") && r[i].value === 0 &&
              r[i].type != "time" &&
              t.report("Values of 0 shouldn't have units specified.", r[i].line,
                       r[i].col, n),
              i++
-     })
+     }
+       })
    }
  }),
  exports.CSSLint = CSSLint
